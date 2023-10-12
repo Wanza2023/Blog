@@ -3,10 +3,11 @@
     align-items: center;
     justify-content: center;
     background-color: lightgray;
-    height: 10rem; 
+    height: 5rem;
 }
 
 .personal_profile img {
-    margin-right: 0.5rem;
+    margin-right: 1rem;
+    max-width: 5rem;
     object-fit: contain;
 }

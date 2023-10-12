@@ -38,32 +38,38 @@ const Navbar = () => {
             <div className="navbar-logo">
                 <Link to="/"><img src={travelog_logo} alt="Travelog Logo"/></Link>
             </div>
-            <div className="navbar-search">
-                <div className="profile-icon">
-                    <button onClick={()=> setModalIsOpen(true)}><img src={navigation_icon} alt="검색버튼"/></button>
-                    <Modal className="modal-wrapper" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                        <input className="search-input" type="text" placeholder="검색창" value={searchTerm} onChange={handleSearchInputChange} />
-                        <button className="search-button" onClick={handleSearchSubmit}><img src={navigation_icon} alt="검색"/></button>
-                        <div>
-                            <button onClick={()=> setModalIsOpen(false)}>Modal Close</button>
+            <ul>
+                <li>
+                    <div className="navbar-search">
+                        <div className="profile-icon">
+                            <button onClick={()=> setModalIsOpen(true)}><img src={navigation_icon} alt="검색버튼"/></button>
+                            <Modal className="modal-wrapper" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+                                <input className="search-input" type="text" placeholder="검색창" value={searchTerm} onChange={handleSearchInputChange} />
+                                <button className="search-button" onClick={handleSearchSubmit}><img src={navigation_icon} alt="검색"/></button>
+                                <div>
+                                    <button onClick={()=> setModalIsOpen(false)}>검색창 닫기</button>
+                                </div>
+                            </Modal>
                         </div>
-                    </Modal>
-                </div>
-            </div>
-            <div className="navbar-profile">
-                <div className="profile-icon" onClick={handleProfileClick}>
-                    <img src={profile_icon} alt="Profile Icon" />
-                </div>
-                {isLoggedIn && isProfileOpen && (
-                    <div className="profile-items">
-                        <Link to="/account">계정관리</Link>
-                        <Link to="/my-blog-home">나의 블로그홈</Link>
-                        <Link to="/blog-management">블로그관리</Link>
-                        <Link to="/"><button onClick={handleLogout}>로그아웃</button></Link>
                     </div>
-                )}
-                {!isLoggedIn && <Link to="/login"></Link>}
-            </div>
+                </li>
+                <li>
+                    <div className="navbar-profile">
+                        <div className="profile-icon" onClick={handleProfileClick}>
+                            <img src={profile_icon} alt="Profile Icon" />
+                        </div>
+                        {isLoggedIn && isProfileOpen && (
+                            <div className="profile-items">
+                                <Link to="/account">계정관리</Link>
+                                <Link to="/my-blog-home">나의 블로그홈</Link>
+                                <Link to="/blog-management">블로그관리</Link>
+                                <Link to="/"><button onClick={handleLogout}>로그아웃</button></Link>
+                            </div>
+                        )}
+                        {!isLoggedIn && <Link to="/login"></Link>}
+                    </div>
+                </li>
+            </ul>
         </nav>
     );
 }
