@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { HiOutlineMapPin } from "react-icons/hi2";
 import { BiUserCircle } from "react-icons/bi";
