@@ -12,7 +12,7 @@ function SignIn(props){
     return(
         <div className="background">
             <div className="logo-wrap">
-                <a href="#"><img className="logo" src={Logo} alt=""/></a>
+                <button onClick={()=> {navigate("/")}}><img className="logo" src={Logo} alt=""/></button>
             </div>
             <div className="login">
                 <div className="login-form">

@@ -1,21 +1,23 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./styles/App.css";
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Main from "./pages/Main";
+import PostWrite from "./pages/PostWrite";
+import PostList from "./pages/PostList";
 
 function App() {
   return (
-      <BrowserRouter>
-            <Routes>
-                <Route index element={<SignIn/>}/>
-                {/* <Route path="login" element={<SignIn/>}/> */}
-                <Route path="signup" element={<SignUp/>}/>
-            </Routes>
-        </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Main />} />
+        <Route path="/:land" element={<Main />} />
+        <Route path="write" element={<PostWrite />} />
+        <Route path="post-list" element={<PostList />} />
+        <Route path="login" element={<SignIn/>}/>
+        <Route path="signup" element={<SignUp/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

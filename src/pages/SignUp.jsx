@@ -1,8 +1,11 @@
 import React, { useState} from "react";
 import "../styles/SignUp.css";
 import Logo from "../assets/images/logo.png";
+import { useNavigate } from "react-router-dom";
 
 function SignUp(props){
+    const navigate = useNavigate();
+
     const [useCheck, setUseCheck] = useState(false);
     const [infoCheck, setInfoCheck] = useState(false);
     
@@ -103,7 +106,7 @@ function SignUp(props){
     return(
         <div className="background">
             <div className="logo-wrap">
-                <button><img className="logo" src={Logo} alt=""/></button>
+                <button onClick={()=> {navigate("/")}}><img className="logo" src={Logo} alt=""/></button>
             </div>
             <div className="signUp">
                 <div className="signUp-form">

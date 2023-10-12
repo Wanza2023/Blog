@@ -8,10 +8,15 @@
     margin-bottom: 2rem;
     background-color: white;
 }
+.logo-wrap button{
+    padding: 8px 28px;
+    background: none;
+    width: 200px;
+    border: 0;
+    cursor: pointer;
+}
 .logo{
-    width: 8rem;
-    height: 2.5rem;
-    margin: 1rem 2rem;
+    object-fit: contain;
 } 
 
 .login{
