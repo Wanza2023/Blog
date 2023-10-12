@@ -39,7 +39,9 @@ export default function PopularList(props) {
         arrow: true,
         speed: 500,
         slidesToShow: 5,
-        SlidesToScroll: 5,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        SlidesToScroll: 1,
 
         responsive: [
             {

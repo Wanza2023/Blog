@@ -123,7 +123,7 @@ export default function MainPage() {
                     />
                 </svg>
             </div>
-            <Button onClick={() => { alert("안녕하세요") }}></Button>
+            <Button onClick={() => { navigate("/write") }}></Button>
         </>
     )
 }
