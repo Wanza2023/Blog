@@ -72,8 +72,9 @@ function PostWrite() {
         <button>요약글 추가</button>
         <button>해시태그 추가</button>
       </div>
-      <IntroduceContent dangerouslySetInnerHTML={{ __html: editorToHtml }} />
 
+      {/* 성한 본문 내용 미리보기 -> editorToHtml 사용, 한글은 .이나 엔터를 입력해야 반영됨 */}
+      {/* <IntroduceContent dangerouslySetInnerHTML={{ __html: editorToHtml }} /> */}
     </>
   );
 }
