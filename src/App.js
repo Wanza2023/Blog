@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp";
 import Main from "./pages/Main";
 import PostWrite from "./pages/PostWrite";
 import PostList from "./pages/PostList";
+import PostView from "./pages/PostView";
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
         <Route path="/:land" element={<Main />} />
         <Route path="write" element={<PostWrite />} />
         <Route path="post-list" element={<PostList />} />
-        <Route path="login" element={<SignIn/>}/>
-        <Route path="signup" element={<SignUp/>}/>
+        <Route path="post-view" element={<PostView />} />
+        <Route path="login" element={<SignIn />} />
+        <Route path="signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );
