@@ -10,7 +10,7 @@ export default function MainPage() {
 
     return (
         <>
-            <PopularList PopularPosts={data} onClickItem={(item) => { alert("안녕하세요") }} />
+            <PopularList PopularPosts={data} onClickItem={(item) => { navigate("post-view") }} />
             <div className="container">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
