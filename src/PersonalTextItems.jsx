@@ -7,7 +7,7 @@ function PersonalTextitems(props) {
             <Link to={props.path} className="card">
                 <img src={props.img} alt={props.alt} className="cardimg"/>
                     <div className="cardbody">
-                        <h1 className="cardtitle">{props.title}</h1>
+                        <h2 className="cardtitle">{props.title}</h2>
                         <p className="cardcontent">{props.content}</p>
                     </div>
             </Link>

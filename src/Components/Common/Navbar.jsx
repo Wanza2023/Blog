@@ -1,31 +1,41 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Modal from "react-modal";
 import '../../styles/Navbar.css';
 import travelog_logo from '../../assets/images/travelog_logo.png'
 import profile_icon from '../../assets/images/profile_icon.png'
 import navigation_icon from '../../assets/images/navigation_icon.png'
 
-//navbar modal 사용해서 검색창 popup으로 띄워서 사용하게 변경하기
 const Navbar = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
-    const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true); //로그인 상태
+    const [isProfileOpen, setIsProfileOpen] = useState(false);  //프로필버튼 토글
     const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태를 관리하는 상태 변수
+    const [isSearchOpen,setIsSearchOpen] = useState(false); //검색버튼 토글
 
+    //프로필 클릭했을 때 토글
     const handleProfileClick = () => {
         setIsProfileOpen(!isProfileOpen);
     };
 
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-
+    // 검색 버튼 클릭했을 때 토글
+    const handleSearchClick = () => {
+        setIsSearchOpen(!isSearchOpen);
+    }
+    // 검색창 입력 value 
     const handleSearchInputChange = (e) => {
         setSearchTerm(e.target.value);
     };
-
+    // 검색어 검색시 이벤트
     const handleSearchSubmit = () => {
         alert(searchTerm+" 검색하여 목록가기")
         console.log("검색어:", searchTerm);
         //검색어가 콘솔창에 찍힘
+    };
+
+    // 검색창에서 enter 키 눌렀을 때 이벤트 처리
+    const handleOnKeyPress = e => {
+        if (e.key === 'Enter') {
+          handleSearchSubmit(); // Enter 입력이 되면 클릭 이벤트 실행
+        }
     };
 
     const handleLogout = () => {
@@ -40,16 +50,16 @@ const Navbar = () => {
             </div>
             <ul>
                 <li>
-                    <div className="navbar-search">
-                        <div className="profile-icon">
-                            <button onClick={()=> setModalIsOpen(true)}><img src={navigation_icon} alt="검색버튼"/></button>
-                            <Modal className="modal-wrapper" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                                <input className="search-input" type="text" placeholder="검색창" value={searchTerm} onChange={handleSearchInputChange} />
-                                <button className="search-button" onClick={handleSearchSubmit}><img src={navigation_icon} alt="검색"/></button>
-                                <div>
-                                    <button onClick={()=> setModalIsOpen(false)}>검색창 닫기</button>
-                                </div>
-                            </Modal>
+                    <div className="navbar-search-bar">
+                        {isSearchOpen &&
+                            <input className="search-input" type="text" placeholder="검색" value={searchTerm} onChange={handleSearchInputChange} onKeyPress={handleOnKeyPress}/>
+                        }
+                    </div>
+                </li>
+                <li>
+                    <div className="navbar-search-icon">
+                        <div className="profile-icon" onClick={handleSearchClick}>
+                            <img src={navigation_icon} alt="검색버튼"/>
                         </div>
                     </div>
                 </li>
