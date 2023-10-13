@@ -1,20 +1,30 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./styles/App.css";
-import Navbar from './Components/Common/Navbar';
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Main from "./pages/Main";
+import PostWrite from "./pages/PostWrite";
+import PostList from "./pages/PostList";
+import PostView from "./pages/PostView";
+import Navbar from './components/common/Navbar';
 import PersonalHome from './PersonalHome';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Navbar/>
-      <div className='body'>
-        <Routes>
-          <Route path="/personalhome/" element={<PersonalHome/>}/>
-        </Routes>
-      </div>
-    </Router>
-  )
+      <Routes>
+        <Route index element={<Main />} />
+        <Route path="/:land" element={<Main />} />
+        <Route path="write" element={<PostWrite />} />
+        <Route path="post-list" element={<PostList />} />
+        <Route path="post-view" element={<PostView />} />
+        <Route path="login" element={<SignIn />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="personalhome" element={<PersonalHome/>} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
