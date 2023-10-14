@@ -1,0 +1,28 @@
+.toggle {
+    display: flex;
+    gap: 7rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.toggle button {
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* 버튼 사이의 구분선 */
+.toggle button:not(:last-child)::after {
+    content: "|";
+    margin-left:7rem;
+    /* 위에 toggle gap이랑 맞춰야됨 */
+    color: #000;
+}
+
+.map_styles{
+    display: flex;
+    justify-content: center;
+}

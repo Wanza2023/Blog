@@ -1,0 +1,226 @@
+.title {
+    margin-top: 8vh;
+    font-size: 2rem;
+    font-weight: bold;
+}
+.button-container {
+    height: 7vh;
+}
+.edit {
+    float: right;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.edit > svg {
+    width: 4vw;
+    height: 4vh;
+    fill: gray;
+    margin-top: 2vh;
+}
+.menu {
+    float: right;
+}
+.menu button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #DCDCDC;
+    height: 4vh;
+    color: gray;
+}
+.nickname {
+    clear: both;
+    float: left;
+    margin-top: 3vh;
+    margin-left: 5vw;
+    font-weight: bold;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.date {
+    float: left;
+    margin-top: 2.6vh;
+    margin-left: 2vh;
+    color: gray;
+}
+.location {
+    clear: both;
+    float: right;
+    margin-right: 5vw;
+}
+.location > svg {
+    width: 4vw;
+    height: 4vh;
+}
+.location-name {
+    clear: both;
+    float: right;
+    margin-top: 0.4vh;
+    margin-left: -1vw;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.border1 {
+    clear: both;
+    border-top: 2px solid black;
+    margin-top: 12vh;
+}
+.schedule {
+    margin-top: 3.5vh;
+    clear: both;
+    border-radius: 20px;
+    background: #F5F5F5;
+    height: 29vh;
+}
+.schedule-item {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.schedule-item-day{
+    margin: 10px 20px;
+}
+.schedule-item-date{
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #DCDCDC;
+    text-align: center;
+    background: #FFFFFF;
+    padding: 5px;
+    width: 130px;
+    margin: 10px 20px;
+}
+.schedule-item-location{
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #DCDCDC;
+    text-align: center;
+    background: #FFFFFF;
+    padding: 5px;
+    width: 230px;
+    margin: 10px 20px;
+}
+.schedule-item-transportation{
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #DCDCDC;
+    text-align: center;
+    background: #FFFFFF;
+    padding: 5px;
+    width: 120px;
+    margin: 10px 20px;
+}
+.border2 {
+    clear: both;
+    border-top: 3.5px solid rgba(0, 0, 0, 0.09);
+    margin: 5vh auto 0;
+    width: 250px;
+
+}
+.post {
+    text-align: left;
+    padding: 1.5vh;
+}
+.post-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.summary {
+    float: left;
+    font-size: 0.8rem;
+    color: gray;
+    margin-left: 2vw;
+    margin-bottom: 0.2vh;
+}
+.summary-box {
+    clear: both;
+    border-radius: 20px;
+    background: #F5F5F5;
+    height: 15vh;
+}
+.summary-contents {
+    text-align: left;
+    padding: 2vw 5vh;
+}
+.hashtag {
+    text-align: left;
+    margin-top: 3vh;
+}
+.hashtag button {
+    border: 3px solid #e8e7e7;
+    border-radius: 10px;
+    background: white;
+    width: 120px;
+    font-weight: bold;
+    padding: 1vh;
+    margin-right: 1.5vw;
+    cursor: pointer;
+}
+.comments-num {
+    clear: both;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 5px;
+    background: #F5F5F5;
+    width: 70px;
+    height: 20px;
+}
+.border3 {
+    clear: both;
+    border-top: 3.5px solid rgba(0, 0, 0, 0.09);
+    margin: 1vh auto 0;
+    padding-top: 2vh;
+    width: 100%;
+}
+.info {
+    clear: both;
+    float: left;
+}
+.info > svg {
+    width: 4vw;
+    height: 4vh;
+    fill: gray;
+}
+.comments-nickname {
+    clear: both;
+    float: right;
+    margin-top: 1vh;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.comments-input {
+    clear: both;
+    float: left;
+    width: 100%;
+}
+.comments-input textarea {
+    float: left;
+    border: 4px solid #e8e7e7;
+    border-radius: 10px;
+    background: white;
+    width: 95%;
+    height: 75px;
+    padding: 10px;
+    margin-top: 1vh;
+}
+.comments-input button {
+    float: right;
+    border: none;
+    border-radius: 5px;
+    background: #007BFF;
+    width: 90px;
+    color: white;
+    font-weight: bold;
+    padding: 1vh 2vw;
+    margin: 2vh;
+    margin-right: 2vw;
+    cursor: pointer;
+}
+.border4 {
+    clear: both;
+    border-top: 2px solid rgba(0, 0, 0, 0.09);
+    width: 100%;
+}
