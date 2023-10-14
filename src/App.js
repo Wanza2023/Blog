@@ -6,8 +6,8 @@ import Main from "./pages/Main";
 import PostWrite from "./pages/PostWrite";
 import PostList from "./pages/PostList";
 import PostView from "./pages/PostView";
-import Navbar from './components/common/Navbar';
-import PersonalHome from './PersonalHome';
+import PersonalHome from './pages/PersonalHome';
+import Navbar from "./components/common/Navbar";
 
 function App() {
   return (

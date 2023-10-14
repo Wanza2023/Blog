@@ -1,6 +1,7 @@
 import React from "react";
-import './styles/PersonalProfile.css'
-import personal_profile_icon from './assets/images/personal_profile_icon.png'
+import '../../styles/PersonalProfile.css';
+
+import personal_profile_icon from '../../assets/images/personal_profile_icon.png'
 
 // img랑 h2에는 각 사용자마다의 설정된 data와 닉네임을 불러올수있게해야함
 function PersonalProfile() {

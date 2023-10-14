@@ -1,14 +1,13 @@
 import React from "react";
 import PersonalTextitems from "./PersonalTextItems";
-import './styles/PersonalTextComponent.css';
-import ex01 from './assets/images/personalhome_ex01.png'
-import ex02 from './assets/images/personalhome_ex02.png'
-import ex03 from './assets/images/personalhome_ex03.png'
+import '../../styles/PersonalTextComponent.css';
+import ex01 from '../../assets/images/personalhome_ex01.png'
+import ex02 from '../../assets/images/personalhome_ex02.png'
+import ex03 from '../../assets/images/personalhome_ex03.png'
 
-//이미지 옆으로 정렬되게 css해야됨
 function PersonalTextComponent() {
     
-    const array = [{id:1,
+    const post_list_array = [{id:1,
                     img:ex01, 
                     alt:"ex01",
                     title:"[부산] 해운대 마린시티",
@@ -32,7 +31,7 @@ function PersonalTextComponent() {
                 ]
     return (
         <div className="wrapper">
-            {array.map((index)=>(<PersonalTextitems key={index.id} {...index}/>))}
+            {post_list_array.map((index)=>(<PersonalTextitems key={index.id} {...index}/>))}
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React,{useEffect} from "react";
-import './styles/MapComponent.css';
+import '../../styles/MapComponent.css';
 const {kakao} = window;
 
 function MapComponent() {

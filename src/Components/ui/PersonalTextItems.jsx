@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './styles/PersonalTextComponent.css';
+import '../../styles/PersonalTextComponent.css';
 
 function PersonalTextitems(props) {
     return (

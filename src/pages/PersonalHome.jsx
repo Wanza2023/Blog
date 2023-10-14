@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import MapComponent from './MapComponent';
-import './styles/PersonalHome.css'
-import PersonalTextComponent from './PersonalTextComponent';
-import PersonalProfile from './PersonalProfile';
+import MapComponent from '../components/ui/MapComponent';
+import '../styles/PersonalHome.css'
+import PersonalTextComponent from '../components/ui/PersonalTextComponent';
+import PersonalProfile from '../components/ui/PersonalProfile';
 
 
 const PersonalHome = () => {
