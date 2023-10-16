@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import '../../styles/Navbar.css';
 import travelog_logo from '../../assets/images/travelog_logo.png'
 import profile_icon from '../../assets/images/profile_icon.png'
 import navigation_icon from '../../assets/images/navigation_icon.png'
 
-// default로 login상태인데 로그아웃 버튼 누르고 다시 profile 눌렀을때 link 제대로 안됨 수정 해야됨
 // profile 버튼 열린상태에서 다른 page로 넘어가도 변하지 않음 수정 해야됨
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(true); //로그인 상태
     const [isProfileOpen, setIsProfileOpen] = useState(false);  //프로필버튼 토글
     const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태를 관리하는 상태 변수
@@ -16,7 +16,12 @@ const Navbar = () => {
 
     //프로필 클릭했을 때 토글
     const handleProfileClick = () => {
-        setIsProfileOpen(!isProfileOpen);
+        if (isLoggedIn) {
+            setIsProfileOpen(!isProfileOpen);
+        } else {
+            // If not logged in, redirect to the login page
+            navigate("/login");
+        }
     };
 
     // 검색 버튼 클릭했을 때 토글

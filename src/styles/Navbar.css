@@ -85,18 +85,3 @@
     text-decoration: none;
     margin-bottom: 10px;
 }
-
-.modal-wrapper {
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
-    top:1rem;
-    text-align: center;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: transparent;
-    left: 50%;
-    border: none;
-}
-
-.ReactModalPortal .ReactModal__Overlay.ReactModal__Overlay--after-open {
-    position: static !important;
-}
