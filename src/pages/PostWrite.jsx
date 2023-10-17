@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import PostWriteComponent from '../components/ui/PostWriteComponent';
+import PostWriteComponent from '../component/ui/PostWriteComponent';
 import styled from "styled-components";
 import "../styles/PostWrite.css";
 

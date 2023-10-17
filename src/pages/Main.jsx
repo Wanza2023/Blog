@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import Button from "../components/ui/Button";
-import PopularList from "../components/ui/PopularList";
+import Button from "../component/ui/Button";
+import PopularList from "../component/ui/PopularList";
 import data from "../PopularData.json";
 import "../styles/Main.css";
 
@@ -49,6 +49,7 @@ export default function MainPage() {
                     aria-label="Map of South Korea"
                 >
                     <path
+                        onClick={()=>navigate('/post-list')}
                         className="land"
                         id="busan"
                         name="Busan"

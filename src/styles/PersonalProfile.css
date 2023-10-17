@@ -1,0 +1,21 @@
+.personal_profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F8F8F8;
+    height: 8rem;
+}
+
+.personal_profile img {
+    margin-right: 1rem;
+    max-width: 6rem;
+    object-fit: contain;
+}
+
+.personal_profile h2 {
+    font-size: 2rem;
+}
+
+.personal_profile p {
+    font-size: 1.5rem;
+}

@@ -1,0 +1,21 @@
+.toggle {
+    display: flex;
+    gap: 7rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.toggle button {
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+
+}
+
+.map_styles{
+    display: flex;
+    justify-content: center;
+}

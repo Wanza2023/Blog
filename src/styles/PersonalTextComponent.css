@@ -1,0 +1,40 @@
+.wrapper {
+    margin: 2rem;
+    display: grid;
+    grid-template-rows: 1fr;
+    justify-content: center;
+}
+
+
+.card {
+    min-width: 18rem;
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid gray;
+}
+
+.cardimg {
+    width: 15rem;
+    height: 15rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+
+    object-fit: contain;
+}
+
+.cardbody {
+    margin: 1rem;
+    width: 50rem;
+}
+
+.cardtitle {
+    line-height: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.cardcontent1 {
+    line-height: 1.2rem;
+    margin-top:3rem;
+}

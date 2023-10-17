@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { HiOutlineMapPin } from "react-icons/hi2";
 import { BiUserCircle } from "react-icons/bi";
-import ScheduleList from '../components/ui/ScheduleList';
-import SummaryList from '../components/ui/SummaryList';
-import HashtagList from '../components/ui/HashtagList';
-import CommentList from '../components/ui/CommentList';
+import ScheduleList from '../component/ui/ScheduleList';
+import SummaryList from '../component/ui/SummaryList';
+import HashtagList from '../component/ui/HashtagList';
+import CommentList from '../component/ui/CommentList';
 import styled from 'styled-components';
 import "../styles/PostView.css";
 
