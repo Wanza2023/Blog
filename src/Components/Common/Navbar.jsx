@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
 import '../../styles/Navbar.css';
 import travelog_logo from '../../assets/images/travelog_logo.png'
 import profile_icon from '../../assets/images/profile_icon.png'
@@ -18,6 +18,7 @@ const Navbar = () => {
     const handleProfileClick = () => {
         if (isLoggedIn) {
             setIsProfileOpen(!isProfileOpen);
+            setIsSearchOpen(false);
         } else {
             // If not logged in, redirect to the login page
             navigate("/login");
@@ -27,6 +28,7 @@ const Navbar = () => {
     // 검색 버튼 클릭했을 때 토글
     const handleSearchClick = () => {
         setIsSearchOpen(!isSearchOpen);
+        setIsProfileOpen(false);
     }
     // 검색창 입력 value 
     const handleSearchInputChange = (e) => {
@@ -34,9 +36,16 @@ const Navbar = () => {
     };
     // 검색어 검색시 이벤트
     const handleSearchSubmit = () => {
-        alert(searchTerm+" 검색하여 목록가기")
-        console.log("검색어:", searchTerm);
-        //검색어가 콘솔창에 찍힘
+        if (searchTerm.trim() !== "") {
+            // 검색어가 비어있지 않은 경우에만 URL로 이동
+            const searchUrlTemp = `/post-list`;
+            const searchUrl = `/post-list/${searchTerm}`;
+            setSearchTerm("")
+            navigate(searchUrlTemp);
+        } else {
+            // 검색어가 비어있으면 예외 처리 또는 경고 메시지를 표시할 수 있습니다.
+            alert("검색어를 입력하세요.");
+        }
     };
 
     // 검색창에서 enter 키 눌렀을 때 이벤트 처리
@@ -74,7 +83,18 @@ const Navbar = () => {
                     </div>
                 </li>
                 <li>
-                    <div className="navbar-profile">
+                    <div class="navbar-profile">
+                        <div className="profile-icon" onClick={handleProfileClick}>
+                            <img src={profile_icon} alt="Profile Icon" />
+                        </div>
+                        <div class="optionList">
+                            <li class="optionListItem"><Link to="/account">계정관리</Link></li>
+                            <li class="optionListItem"><Link to="/personalhome">나의 블로그홈</Link></li>
+                            <li class="optionListItem"><Link to="/blog-management">블로그관리</Link></li>
+                            <li class="optionListItem"><button onClick={handleLogout}>로그아웃</button></li>
+                        </div>
+                    </div>
+                    {/* <div className="navbar-profile">
                         <div className="profile-icon" onClick={handleProfileClick}>
                             <img src={profile_icon} alt="Profile Icon" />
                         </div>
@@ -86,8 +106,8 @@ const Navbar = () => {
                                 <Link to="/"><button onClick={handleLogout}>로그아웃</button></Link>
                             </div>
                         )}
-                        {!isLoggedIn && <Link to="/login"></Link>}
-                    </div>
+                        {!isLoggedIn && <Link to="/login"/>}
+                    </div> */}
                 </li>
             </ul>
         </nav>

@@ -12,16 +12,21 @@
     flex-direction: row;
     text-decoration: none;
     color: black;
+    border-bottom: 1px solid gray;
 }
 
 .cardimg {
-    width: 20rem;
-    height: 20rem;
+    width: 15rem;
+    height: 15rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+
     object-fit: contain;
 }
 
 .cardbody {
     margin: 1rem;
+    width: 50rem;
 }
 
 .cardtitle {
@@ -29,7 +34,7 @@
     margin-bottom: 0.5rem;
 }
 
-.cardcontent {
+.cardcontent1 {
     line-height: 1.2rem;
-    margin-top:5rem;
+    margin-top:3rem;
 }

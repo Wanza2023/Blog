@@ -8,7 +8,10 @@ function PersonalTextitems(props) {
                 <img src={props.img} alt={props.alt} className="cardimg"/>
                     <div className="cardbody">
                         <h2 className="cardtitle">{props.title}</h2>
-                        <p className="cardcontent">{props.content}</p>
+                        <p className="cardcontent1">{props.content1}</p>
+                        <p className="cardcontent2">{props.content2}</p>
+
+
                     </div>
             </Link>
     );
