@@ -87,7 +87,7 @@
 }
 
 
-.navbar:hover .optionList {
+.navbar-profile:hover .optionList {
     opacity: 1;
     visibility: visible;
 }

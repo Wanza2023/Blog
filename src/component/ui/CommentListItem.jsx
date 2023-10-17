@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete, AiOutlineFlag } from "react-icons/ai";
 import { BiUserCircle } from "react-icons/bi";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
@@ -13,9 +14,10 @@ const CommentsInfo = styled.div`
     float: left;
 
     > svg {
-        width: 30px;
-        height: 30px;
+        width: 4vh;
+        height: 4vh;
         fill: gray;
+        cursor: pointer;
     }
 
     > button {
@@ -25,7 +27,7 @@ const CommentsInfo = styled.div`
         clear: both;
         float: right;
         margin-top: 1vh;
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         font-weight: bold;
     }
 `;
@@ -85,10 +87,11 @@ const CommentsList = styled.div`
     padding: 1vw;
     margin-bottom: 2vh;
     text-align: left;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
 `;
 
 const CommentListItem = ({ comment, onEdit, onDelete }) => {
+    const navigate = useNavigate();
     const [showMenu, setShowMenu] = useState(false);
     const [editingComment, setEditingComment] = useState(comment);
     const [isEditing, setIsEditing] = useState(false);
@@ -127,8 +130,8 @@ const CommentListItem = ({ comment, onEdit, onDelete }) => {
     return (
         <Comments>
             <CommentsInfo>
-                <BiUserCircle />
-                <button>책읽는토끼</button>
+                <BiUserCircle onClick={()=> {navigate("/")}} />
+                <button onClick={()=> {navigate("/")}}>책읽는토끼</button>
             </CommentsInfo>
             <ButtonContainer>
                 <CommentsHeart>

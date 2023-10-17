@@ -22,11 +22,6 @@ const Wrapper = styled.div`
     }
     
 `
-
-const Styledh3 = styled.h3`
-    width: 80%;
-    text-align: left;
-`
 const StyledSlider = styled(Slider)`
     width: 80%;
 `
@@ -66,7 +61,6 @@ export default function PopularList(props) {
     };
     return (
         <Wrapper>
-            <Styledh3>이번 주 인기글</Styledh3>
             <StyledSlider {...settings}>
                 {PopularPosts.map((post) => {
                     return (
