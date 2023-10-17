@@ -12,14 +12,19 @@ function MapComponent() {
         const map = new kakao.maps.Map(container,options);
         // 마커가 표시될 위치입니다 
         const markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+        const content = '<div class ="label"><span class="left"></span><span class="center">카카오!</span><span class="right"></span></div>';
 
+        const customOverlay = new kakao.maps.CustomOverlay({
+            position: markerPosition,
+            content: content   
+        });
         // 마커를 생성합니다
         const marker = new kakao.maps.Marker({
             position: markerPosition
         });
 
         // 마커가 지도 위에 표시되도록 설정합니다
-        marker.setMap(map);
+        customOverlay.setMap(map);
     }, [])
 
     return (

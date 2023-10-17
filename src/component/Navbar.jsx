@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "../styles/Navbar.css";
+
+import { Link,useNavigate} from "react-router-dom";
+import '../styles/Navbar.css';
 import travelog_logo from '../assets/images/travelog_logo.png'
 import profile_icon from '../assets/images/profile_icon.png'
 import navigation_icon from '../assets/images/navigation_icon.png'
 
-// default로 login상태인데 로그아웃 버튼 누르고 다시 profile 눌렀을때 link 제대로 안됨 수정 해야됨
-// profile 버튼 열린상태에서 다른 page로 넘어가도 변하지 않음 수정 해야됨
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(true); //로그인 상태
     const [isProfileOpen, setIsProfileOpen] = useState(false);  //프로필버튼 토글
     const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태를 관리하는 상태 변수
@@ -16,12 +16,19 @@ const Navbar = () => {
 
     //프로필 클릭했을 때 토글
     const handleProfileClick = () => {
-        setIsProfileOpen(!isProfileOpen);
+        if (isLoggedIn) {
+            setIsProfileOpen(!isProfileOpen);
+            setIsSearchOpen(false);
+        } else {
+            // If not logged in, redirect to the login page
+            navigate("/login");
+        }
     };
 
     // 검색 버튼 클릭했을 때 토글
     const handleSearchClick = () => {
         setIsSearchOpen(!isSearchOpen);
+        setIsProfileOpen(false);
     }
     // 검색창 입력 value 
     const handleSearchInputChange = (e) => {
@@ -29,9 +36,16 @@ const Navbar = () => {
     };
     // 검색어 검색시 이벤트
     const handleSearchSubmit = () => {
-        alert(searchTerm + " 검색하여 목록가기")
-        console.log("검색어:", searchTerm);
-        //검색어가 콘솔창에 찍힘
+        if (searchTerm.trim() !== "") {
+            // 검색어가 비어있지 않은 경우에만 URL로 이동
+            const searchUrlTemp = `/post-list`;
+            const searchUrl = `/post-list/${searchTerm}`;
+            setSearchTerm("")
+            navigate(searchUrlTemp);
+        } else {
+            // 검색어가 비어있으면 예외 처리 또는 경고 메시지를 표시할 수 있습니다.
+            alert("검색어를 입력하세요.");
+        }
     };
 
     // 검색창에서 enter 키 눌렀을 때 이벤트 처리
@@ -69,19 +83,16 @@ const Navbar = () => {
                     </div>
                 </li>
                 <li>
-                    <div className="navbar-profile">
+                    <div class="navbar-profile">
                         <div className="profile-icon" onClick={handleProfileClick}>
                             <img src={profile_icon} alt="Profile Icon" />
                         </div>
-                        {isLoggedIn && isProfileOpen && (
-                            <div className="profile-items">
-                                <Link to="/account">계정관리</Link>
-                                <Link to="/personalhome">나의 블로그홈</Link>
-                                <Link to="/blog-management">블로그관리</Link>
-                                <Link to="/"><button onClick={handleLogout}>로그아웃</button></Link>
-                            </div>
-                        )}
-                        {!isLoggedIn && <Link to="/login"></Link>}
+                        <div class="optionList">
+                            <li class="optionListItem"><Link to="/account">계정관리</Link></li>
+                            <li class="optionListItem"><Link to="/personalhome">나의 블로그홈</Link></li>
+                            <li class="optionListItem"><Link to="/blog-management">블로그관리</Link></li>
+                            <li class="optionListItem"><button onClick={handleLogout}>로그아웃</button></li>
+                        </div>
                     </div>
                 </li>
             </ul>

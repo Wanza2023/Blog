@@ -86,17 +86,41 @@
     margin-bottom: 10px;
 }
 
-.modal-wrapper {
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
-    top:1rem;
-    text-align: center;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: transparent;
-    left: 50%;
-    border: none;
+
+.navbar:hover .optionList {
+    opacity: 1;
+    visibility: visible;
 }
 
-.ReactModalPortal .ReactModal__Overlay.ReactModal__Overlay--after-open {
-    position: static !important;
+.option {
+
+    border-radius: 4px;
+    background-color: white;
 }
+
+
+.optionList {
+    width: 10rem;
+    top:100%;
+    right: 0;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-top: 1rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s linear, visibility 1s linear;
+}
+
+.optionListItem {
+    height: 2rem;
+    padding: 1rem 0 0 1rem;
+    overflow: hidden;
+    transition: all 0.8s;
+    cursor: pointer;
+}
+
+/* .optionListItem button {
+    border: none;
+    background-color: white;
+} */

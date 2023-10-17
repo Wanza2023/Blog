@@ -20,6 +20,7 @@ export default function MainPage() {
                     aria-label="Map of South Korea"
                 >
                     <path
+                        onClick={()=>navigate('/post-list')}
                         className="land"
                         id="busan"
                         name="Busan"

@@ -1,19 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/images/logo.png";
+import '../styles/SignIn.css'
 import KakaoLogo from "../assets/images/login_kakao.png";
 import NaverLogo from "../assets/images/login_naver.png";
 import GoogleLogo from "../assets/images/login_google.png";
-import "../styles/SignIn.css";
 
 function SignIn(props){
     const navigate = useNavigate();
 
     return(
         <div className="background">
-            <div className="logo-wrap">
-                <button onClick={()=> {navigate("/")}}><img className="logo" src={Logo} alt=""/></button>
-            </div>
             <div className="login">
                 <div className="login-form">
                     <div className="login-form-field" style={{marginTop:"1rem"}}>

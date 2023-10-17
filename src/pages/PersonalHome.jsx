@@ -28,6 +28,7 @@ const PersonalHome = () => {
             <PersonalProfile/>
             <div className='toggle'>
                 <button onClick={handleMapButtonClick}>지도</button>
+                <span>|</span>
                 <button onClick={handleTextButtonClick}>글</button>
             </div>
             {showMap && <div className='map_styles'><MapComponent/></div>}
