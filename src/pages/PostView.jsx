@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { HiOutlineMapPin } from "react-icons/hi2";
 import { BiUserCircle } from "react-icons/bi";
-import CommentList from '../components/ui/CommentList';
+import CommentList from '../component/ui/CommentList';
 import styled from 'styled-components';
 import "../styles/PostView.css";
 
