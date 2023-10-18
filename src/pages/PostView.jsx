@@ -9,6 +9,7 @@ import HashtagList from '../component/ui/HashtagList';
 import CommentList from '../component/ui/CommentList';
 import styled from 'styled-components';
 import "../styles/PostView.css";
+import Button from '../component/ui/Button';
 
 const Container = styled.div`
     display: flex;
@@ -162,6 +163,7 @@ function PostView() {
                 <div className='border4' />
                 <CommentList comments={comments} />
             </div>
+            <Button/>
         </Container>
     );
 }
