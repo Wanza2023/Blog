@@ -170,7 +170,7 @@ export default function MainPage() {
                     />
                 </svg>
             </div>
-            <Button onClick={() => { navigate("/write") }}></Button>
+            <Button></Button>
         </>
     )
 }

@@ -3,6 +3,7 @@ import ex01 from '../assets/images/personalhome_ex01.png'
 import ex02 from '../assets/images/personalhome_ex02.png'
 import ex03 from '../assets/images/personalhome_ex03.png'
 import PostCard from './PostCard';
+import Button from "../component/ui/Button";
 
 function PostList() {
     const post_list_array = [{id:1,
@@ -30,7 +31,9 @@ function PostList() {
             return (
                 <div className="wrapper">
                     {post_list_array.map((index)=>(<PostCard key={index.id} {...index}/>))}
+                    <Button/>
                 </div>
+                
             )
 }
 
