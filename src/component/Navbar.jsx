@@ -88,9 +88,9 @@ const Navbar = () => {
                             <img src={profile_icon} alt="Profile Icon" />
                         </div>
                         <div class="optionList">
-                            <li class="optionListItem"><Link to="/account">계정관리</Link></li>
+                            <li class="optionListItem"><Link to="/">계정관리</Link></li>
                             <li class="optionListItem"><Link to="/personalhome">나의 블로그홈</Link></li>
-                            <li class="optionListItem"><Link to="/blog-management">블로그관리</Link></li>
+                            <li class="optionListItem"><Link to="/">블로그관리</Link></li>
                             <li class="optionListItem"><button onClick={handleLogout}>로그아웃</button></li>
                         </div>
                     </div>
