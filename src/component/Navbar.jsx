@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { useRecoilState } from "recoil";
+import { isLoggedInState } from "./AuthState";
 import { Link,useNavigate} from "react-router-dom";
 import '../styles/Navbar.css';
 import travelog_logo from '../assets/images/travelog_logo.png'
@@ -9,26 +10,18 @@ import navigation_icon from '../assets/images/navigation_icon.png'
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(true); //로그인 상태
-    const [isProfileOpen, setIsProfileOpen] = useState(false);  //프로필버튼 토글
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState); //로그인 상태
     const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태를 관리하는 상태 변수
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
 
-    //프로필 클릭했을 때 토글
-    const handleProfileClick = () => {
-        if (isLoggedIn) {
-            setIsProfileOpen(!isProfileOpen);
-            setIsSearchOpen(false);
-        } else {
-            // If not logged in, redirect to the login page
-            navigate("/login");
+    const profileIconClick = () => {
+        if(isLoggedIn==false) {
+            navigate('/login');
         }
-    };
-
+    }
     // 검색 버튼 클릭했을 때 토글
     const handleSearchClick = () => {
         setIsSearchOpen(!isSearchOpen);
-        setIsProfileOpen(false);
     }
     // 검색창 입력 value 
     const handleSearchInputChange = (e) => {
@@ -57,7 +50,6 @@ const Navbar = () => {
 
     const handleLogout = () => {
         setIsLoggedIn(false);
-        setIsProfileOpen(false);
     };
 
 
@@ -84,15 +76,19 @@ const Navbar = () => {
                 </li>
                 <li>
                     <div class="navbar-profile">
-                        <div className="profile-icon" onClick={handleProfileClick}>
-                            <img src={profile_icon} alt="Profile Icon" />
+                        <div className="profile-icon">
+                            <img src={profile_icon} alt="Profile Icon" onClick={profileIconClick}/>
                         </div>
-                        <div class="optionList">
-                            <li class="optionListItem"><Link to="/">계정관리</Link></li>
-                            <li class="optionListItem"><Link to="/personalhome">나의 블로그홈</Link></li>
-                            <li class="optionListItem"><Link to="/">블로그관리</Link></li>
-                            <li class="optionListItem"><button onClick={handleLogout}>로그아웃</button></li>
-                        </div>
+                        {/* IsLoggedIn 이 True이면 div를 보이고 아니면 div 안보이기 */}
+                        {isLoggedIn && (
+                            <div className="optionList">
+                                <li className="optionListItem"><Link to="/account">계정관리</Link></li>
+                                <li className="optionListItem"><Link to="/personalhome">나의 블로그홈</Link></li>
+                                <li className="optionListItem"><Link to="/blog-management">블로그관리</Link></li>
+                                <li className="optionListItem"><button onClick={handleLogout}>로그아웃</button></li>
+                            </div>
+                            )
+                        }
                     </div>
                 </li>
             </ul>
