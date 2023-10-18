@@ -12,9 +12,20 @@
     stroke: white;
     stroke-opacity: 1;
     stroke-width: 0.5;
+    position: relative;
+    transition: transform 0.1s linear;
+    transform-origin: center;
 }
 
 .land:hover {
-    fill: #0911f6;
+    fill: #87cefa;
     cursor: pointer;
+    justify-content: center;
+}
+
+.region-name {
+    position: absolute;
+    top: 35vw;
+    left: 25vw;
+    font-size: 1.5rem;
 }

@@ -20,6 +20,7 @@
 }
 .menu {
     float: right;
+    margin-right: -1.3vw;
 }
 .menu button {
     cursor: pointer;
@@ -33,11 +34,12 @@
 .nickname {
     clear: both;
     float: left;
-    margin-top: 3vh;
+    margin-top: 2.4vh;
     margin-left: 5vw;
     font-weight: bold;
     border: none;
     background: none;
+    font-size: 1rem;
     cursor: pointer;
 }
 .date {

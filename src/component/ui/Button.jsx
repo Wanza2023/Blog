@@ -13,6 +13,7 @@ const StyledButton = styled.button`
     border-radius: 50%;
     border: 0px;
     background-color: black;
+    cursor: pointer;
 `
 
 export default function Button() {

@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { HiOutlineMapPin } from "react-icons/hi2";
 import { BiUserCircle } from "react-icons/bi";
+import ScheduleList from '../component/ui/ScheduleList';
+import SummaryList from '../component/ui/SummaryList';
+import HashtagList from '../component/ui/HashtagList';
 import CommentList from '../component/ui/CommentList';
 import styled from 'styled-components';
 import "../styles/PostView.css";
@@ -17,6 +21,7 @@ const Container = styled.div`
 `;
 
 function PostView() {
+    const navigate = useNavigate();
     const [showMenu, setShowMenu] = useState(false);
     const [comments, setComments] = useState([
         "반가워요~~",
@@ -63,22 +68,13 @@ function PostView() {
         },
     ];
 
-    const ScheduleItem = ({ day, date, location, transportation }) => {
-        return (
-            <div className='schedule-item'>
-                <div className='schedule-item-day'>{day}</div>
-                <div className='schedule-item-date'>{date}</div>
-                <div className='schedule-item-location'>{location}</div>
-                <div className='schedule-item-transportation'>{transportation}</div>
-            </div>
-        );
-    }
-
     const summaryData = [
         "제주도 3박 4일 여행 기록",
         "서귀포 방문, 거북이 한과가 맛있었다.",
         "협재 해변이 특히 예뻤다.",
     ];
+
+    const hashtagData = ["제주도", "서귀포", "협재해수욕장", "거북이한과"];
 
     const addComment = () => {
         if (newComment.trim() !== '') {
@@ -94,7 +90,7 @@ function PostView() {
                     또주도 3박 4일 여행기
                     <div className='button-container'>
                         <button className='edit' onClick={toggleMenu}>
-                            <AiOutlineMore />
+                            <AiOutlineMore className='edit' onClick={toggleMenu} />
                         </button>
                         {showMenu && (
                             <div className='menu'>
@@ -108,25 +104,15 @@ function PostView() {
                         )}
                     </div>
                 </div>
-                <button className='nickname'>방글방글</button>
+                <button onClick={()=> {navigate("/")}} className='nickname'>방글방글</button>
                 <div className='date'>2023.10.10</div>
                 <div className='location'>
                     <HiOutlineMapPin />
-                    <button className='location-name'>제주도</button>
+                    <button onClick={()=> {navigate("/")}} className='location-name'>제주도</button>
                 </div>
                 <div className='border1' />
                 <div className='schedule'>
-                    <div className='schedule-items'>
-                        {scheduleData.map((item, index) => (
-                            <ScheduleItem
-                                key={index}
-                                day={item.day}
-                                date={item.date}
-                                location={item.location}
-                                transportation={item.transportation}
-                            />
-                        ))}
-                    </div>
+                    <ScheduleList scheduleData={scheduleData} />
                 </div>
                 <div className='border2' />
                 <div className='post'>
@@ -156,23 +142,8 @@ function PostView() {
                         그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.</p>
                 </div>
                 <p className='summary'>요약 내용</p>
-                <div className='summary-box'>
-                    <div>
-                        <ul className='summary-contents'>
-                            {summaryData.map((content, index) => (
-                                <li key={index}>{content}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-                <div className='hashtag'>
-                    <div>
-                        <button>#제주도</button>
-                        <button>#서귀포</button>
-                        <button>#협재해수욕장</button>
-                        <button>#거북이한과</button>
-                    </div>
-                </div>
+                <SummaryList summaryData={summaryData} />
+                <HashtagList hashtags={hashtagData} onHashtagClick={navigate} />
                 <div className='comments-num'>
                     <p>댓글  {comments.length}</p>
                 </div>

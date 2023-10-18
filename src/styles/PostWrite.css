@@ -1,10 +1,85 @@
-.head {
-    text-align: right;
-    padding:0.5rem;
+.body1 {
+    text-align: center;
+    margin-right: 5.2vw;
 }
 
-.body {
+.body1 > select {
+    border: none;
     text-align: center;
+    font-weight: bold;
+    margin-left: 4.2vw;
+}
+
+#title {
+    height: 30px;
+    margin: 10px;
+    width: 753px;
+    border-radius: 2px;
+    text-align: left;
+    border: 1px solid #f1f1f1;
+}
+
+.body1 button {
+    border: none;
+    border-radius: 5px;
+    background-color: #5585FF;
+    color: white;
+    width: 3.5vw;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-right: 0.8vw;
+    cursor: pointer;
+}
+
+.body2 {
+    margin-bottom: 1.5vh;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.body2 > div {
+    text-align: left;
+    margin-left: 24.7vw;
+}
+
+.body2 > div > text {
+    margin-left: -5.5vw;
+    margin-right: 3.1vw;
+    font-size: 0.87rem;
+    font-weight: bold;
+}
+
+.body2 > div > input {
+    margin-right: 1vw;
+    margin-top: 1vh;
+    border: 1px solid #f1f1f1;
+    border-radius: 5px;
+    height: 4vh;
+}
+
+.body2 > div > button {
+    height: 4vh;
+    width: 2vw;
+    border: none;
+    border-radius: 5px;
+    background-color: #5585FF;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.body2 > button {
+    margin-left: 24.7vw;
+    margin-top: 1vh;
+    float: right;
+    height: 4vh;
+    width: 2vw;
+    border: none;
+    border-radius: 5px;
+    background-color: #5585FF;
+    color: white;
+    font-size: 1.1rem;
 }
 
 .foot {
@@ -15,11 +90,3 @@
 }
 
 
-#title {
-    height: 30px;
-    margin: 10px;
-    width: 49.5%;
-    border-radius: 2px;
-    text-align: left;
-    border: 1px solid #f1f1f1;
-}
