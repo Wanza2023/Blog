@@ -1,4 +1,5 @@
 import React, { useState} from "react";
+import axios from "axios";
 import "../styles/SignUp.css";
 import { useNavigate } from "react-router-dom";
 
@@ -50,7 +51,7 @@ function SignUp(props){
         setPwd(curPwd);
         const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
         if(!pwdRegExp.test(curPwd)){
-            setPwdMessage("숫자, 영문자, 특수문자(!@#$%^*+=-) 조합으로 8자리 이상 입력해주세요");
+            setPwdMessage("숫자, 영문자, 특수문자(!@#$%^*+=-) 조합으로 8자리 이상 20자리 이하 입력해주세요 ");
             totConfirm[2] = 0; setTotConfirm(()=>[...totConfirm]);
         }else{
             setPwdMessage("안전한 비밀번호입니다");
@@ -90,16 +91,49 @@ function SignUp(props){
         console.log(infoCheck);
     }
 
-    const handleSignUpSubmit = () => {
-        console.log(totConfirm);
-        if(totConfirm[0]===1 && totConfirm[1]===1 && totConfirm[2]===1 && totConfirm[3]===1){
-            if(useCheck===true && infoCheck===true) {
-                alert("회원가입이 완료되었습니다.");
+    // const handleSignUpSubmit = () => {
+    //     console.log(totConfirm);
+    //     if(totConfirm[0]===1 && totConfirm[1]===1 && totConfirm[2]===1 && totConfirm[3]===1){
+    //         if(useCheck===true && infoCheck===true) {
+    //             alert("회원가입이 완료되었습니다.");
                 
-            } else {alert("약관에 동의해주세요");}
-        }else{
-            alert("내용이 올바르게 입력되지 않았습니다.");
-        }
+    //         } else {alert("약관에 동의해주세요");}
+    //     }else{
+    //         alert("내용이 올바르게 입력되지 않았습니다.");
+    //     }
+    // }
+    const handleSignUpSubmit = () => {
+        console.log("click signup");
+        console.log(birth);
+        console.log(email);
+        console.log(gender);
+        console.log(name);
+        console.log(pwd);
+        axios
+            .post("http://172.16.237.183:8080/signup",{
+                birth: birth,
+                email: email,
+                gender: gender,
+                nickName: name,
+                password: pwd,
+            })
+            .then((res)=> {
+                console.log(res);
+                console.log("res.data.birth : ",res.data.birth);
+                console.log("res.data.email : ",res.data.email);
+                console.log("res.data.gender : ",res.data.gender);
+                console.log("res.data.nickName : ",res.data.name);
+                console.log("res.data.password : ",res.data.pwd);
+                if(res.data.success){
+                    console.log("회원가입 완료");
+                    navigate("/login");
+                } else {
+                    console.log("회원가입 실패");
+                }
+            })
+            .catch(function(error){
+                console.log(error);
+            })
     }
 
     return(
@@ -114,12 +148,12 @@ function SignUp(props){
                     </div>
                     <div className="signUp-field">
                         <label>비밀번호 *</label>
-                        <input type="password" name="pwd" id="pwd" value={pwd} onChange={onChangePwd} placeholder="비밀번호를 입력하세요"/>
+                        <input type="password" name="pwd" id="pwd" maxLength={20} value={pwd} onChange={onChangePwd} placeholder="비밀번호를 입력하세요"/>
                         <p className="signup-submit-message">{pwdMessage}</p>
                     </div>
                     <div className="signUp-field">
                         <label>비밀번호 확인 *</label>
-                        <input type="password" name="confPwd" id="confPwd" value={confirmPwd} onChange={onChangeConfirmPwd} placeholder="비밀번호를 입력하세요"/>
+                        <input type="password" name="confPwd" id="confPwd" maxLength={20} value={confirmPwd} onChange={onChangeConfirmPwd} placeholder="비밀번호를 입력하세요"/>
                         <p className="signup-submit-message">{confirmPwdMessage}</p>
                     </div>
                     <div className="signUp-field">
@@ -132,7 +166,7 @@ function SignUp(props){
                     </div>
                     <div className="signUp-field">
                         <label>생년월일 &nbsp;<small>8자리</small></label>
-                        <input type="text" name="bdate" id="bdate" value={birth} onChange={onChangeBirth} placeholder="생년월일을 입력하세요"/>
+                        <input type="text" name="bdate" maxLength={8} id="bdate" value={birth} onChange={onChangeBirth} placeholder="생년월일을 입력하세요"/>
                         <p className="signup-submit-message">{birthMessage}</p>
                     </div>
                     <div className="signUp-field">
@@ -160,7 +194,7 @@ function SignUp(props){
                     </div> 
                     </div>
                     <div className="signUp-submit">
-                        <input type="submit" value="회원가입" onClick={handleSignUpSubmit}></input>
+                        <button onClick={handleSignUpSubmit}>회원가입</button>
                     </div>
                 </div>
             </div>
