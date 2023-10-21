@@ -1,0 +1,20 @@
+[
+    {
+        "memberId":1,
+        "email":"aaa@gmial.com",
+        "password":"1234",
+        "nickname":"방글방글글"
+    },
+    {
+        "memberId":2,
+        "email":"bbb@gmial.com",
+        "password":"1234",
+        "nickname":"서울시민"
+    },
+    {
+        "memberId":3,
+        "email":"ccc@gmial.com",
+        "password":"1234",
+        "nickname":"광주인"
+    }
+]

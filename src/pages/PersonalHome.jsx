@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import '../styles/PersonalHome.css'
 import MapComponent from '../component/ui/MapComponent';
 import PersonalTextComponent from '../component/ui/PersonalTextComponent';
-import PersonalProfile from '../component/ui/PersonalProfile';
+import BoardData from '../BoardData.json';
+import MemberData from '../MemberData.json';
+import personal_profile_icon from '../assets/images/personal_profile_icon.png';
 
 
 const PersonalHome = () => {
@@ -22,17 +24,22 @@ const PersonalHome = () => {
         setShowMap(false);
         setShowText(true);
     };
+    const filterData = BoardData.filter(item => item.nickname === '방글방글글');
 
     return (
         <div>
-            <PersonalProfile/>
+            <div className='personal_profile'>
+                <img src={personal_profile_icon} alt="personal_profile_icon"/>
+                <h2>방글방글</h2>
+                <p>님의 여행기록</p>
+            </div>
             <div className='toggle'>
                 <button onClick={handleMapButtonClick}>지도</button>
                 <span>|</span>
                 <button onClick={handleTextButtonClick}>글</button>
             </div>
             {showMap && <div className='map_styles'><MapComponent/></div>}
-            {showText && <div><PersonalTextComponent/></div>}
+            {showText && <div><PersonalTextComponent BoardData={filterData}/></div>}
         </div>
         );
 };

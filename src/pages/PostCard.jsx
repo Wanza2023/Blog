@@ -7,7 +7,7 @@ function PostCard(props){
             <img src={props.img} alt={props.alt} className="cardimg"/>
                 <div className="cardbody">
                     <h2 className="cardtitle">{props.title}</h2>
-                    <p className="cardcontent">{props.content}</p>
+                    <p className="cardcontent">{props.contents}</p>
                 </div>
         </Link>
 );
