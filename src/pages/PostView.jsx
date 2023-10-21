@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useRecoilValue } from 'recoil';
+import { isLoggedInState } from '../component/AuthState';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { HiOutlineMapPin } from "react-icons/hi2";
-import { BiUserCircle } from "react-icons/bi";
 import ScheduleList from '../component/ui/ScheduleList';
 import SummaryList from '../component/ui/SummaryList';
 import HashtagList from '../component/ui/HashtagList';
@@ -10,6 +11,7 @@ import CommentList from '../component/ui/CommentList';
 import styled from 'styled-components';
 import "../styles/PostView.css";
 import Button from '../component/ui/Button';
+import data from "../BoardData.json";
 
 const Container = styled.div`
     display: flex;
@@ -22,11 +24,9 @@ const Container = styled.div`
 
 function PostView() {
     const navigate = useNavigate();
+    const isLoggedIn = useRecoilValue(isLoggedInState);
     const [showMenu, setShowMenu] = useState(false);
-    const [comments, setComments] = useState([
-        "반가워요~~",
-        "즐거운 여행을 하신 것 같아요 ㅎㅎ",
-    ]);
+    const [comments, setComments] = useState(['']);
     const [newComment, setNewComment] = useState('');
 
     const toggleMenu = () => {
@@ -40,6 +40,39 @@ function PostView() {
     const handleDeleteClick = () => {
         alert('삭제 버튼 클릭');
     };
+
+    const { nickname, boardId } = useParams();
+
+    const board = data.find((item) => {
+        return item.nickname == nickname && item.boardId == boardId 
+    });
+
+    const { createdAt, local, title, contents, summary } = board;
+
+    const createdDate = new Date(createdAt);
+    const formattedDate = createdDate.toISOString().split('T')[0];
+
+    const localToKorean = {
+        Busan: "부산",
+        Daegu: "대구",
+        Daejeon: "대전",
+        Gangwondo: "강원도",
+        Gwangju: "광주",
+        Gyeonggi: "경기도",
+        Incheon: "인천",
+        Jeju: "제주도",
+        Chungbuk: "충청북도",
+        Gyeongbuk: "경상북도",
+        Jeonbuk: "전라북도",
+        Sejong: "세종",
+        Seoul: "서울",
+        Chungnam: "충청남도",
+        Gyeongnam: "경상남도",
+        Jeonnam: "전라남도",
+        Ulsan: "울산"     
+    };
+
+    const localKorean = localToKorean[local] || local;
 
     const scheduleData = [
         {
@@ -68,47 +101,38 @@ function PostView() {
         },
     ];
 
-    const summaryData = [
-        "제주도 3박 4일 여행 기록",
-        "서귀포 방문, 거북이 한과가 맛있었다.",
-        "협재 해변이 특히 예뻤다.",
-    ];
-
     const hashtagData = ["제주도", "서귀포", "협재해수욕장", "거북이한과"];
-
-    const addComment = () => {
-        if (newComment.trim() !== '') {
-            setComments([...comments, newComment]);
-            setNewComment('');
-        }
-    };
-
+    
     return (
         <Container>
             <div className='container'>
                 <div className='title'>
-                    또주도 3박 4일 여행기
+                    {title}
                     <div className='button-container'>
                         <button className='edit' onClick={toggleMenu}>
                             <AiOutlineMore className='edit' onClick={toggleMenu} />
                         </button>
                         {showMenu && (
                             <div className='menu'>
-                                <button onClick={handleEditClick}>
-                                    <AiOutlineEdit /> 수정
-                                </button>
-                                <button onClick={handleDeleteClick}>
-                                    <AiOutlineDelete /> 삭제
-                                </button>
+                                {isLoggedIn && (
+                                    <button onClick={handleEditClick}>
+                                        <AiOutlineEdit /> 수정
+                                    </button>
+                                )}
+                                {isLoggedIn && (
+                                    <button onClick={handleDeleteClick}>
+                                        <AiOutlineDelete /> 삭제
+                                    </button>
+                                )}
                             </div>
                         )}
                     </div>
                 </div>
-                <button onClick={()=> {navigate("/")}} className='nickname'>방글방글</button>
-                <div className='date'>2023.10.10</div>
+                <button onClick={()=> {navigate("/personalhome")}} className='nickname'>{nickname}</button>
+                <div className='date'>{formattedDate}</div>
                 <div className='location'>
                     <HiOutlineMapPin />
-                    <button onClick={()=> {navigate("/")}} className='location-name'>제주도</button>
+                    <button onClick={()=> {navigate("/")}} className='location-name'>{localKorean}</button>
                 </div>
                 <div className='border1' />
                 <div className='schedule'>
@@ -116,52 +140,18 @@ function PostView() {
                 </div>
                 <div className='border2' />
                 <div className='post'>
-                    <p className='post-title'>제주도 1일차</p>
-                    <p>한참때 주구장창 제주도만 가다가 질려서 한동안 안갔었다.
-                        그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.
-                        한참때 주구장창 제주도만 가다가 질려서 한동안 안갔었다.
-                        그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.</p>
-                    <p className='post-title'>제주도 2일차</p>
-                    <p>한참때 주구장창 제주도만 가다가 질려서 한동안 안갔었다.
-                        그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.
-                        한참때 주구장창 제주도만 가다가 질려서 한동안 안갔었다.
-                        그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.</p>
-                    <p className='post-title'>제주도 3일차</p>
-                    <p>한참때 주구장창 제주도만 가다가 질려서 한동안 안갔었다.
-                        그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.
-                        한참때 주구장창 제주도만 가다가 질려서 한동안 안갔었다.
-                        그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.</p>
-                    <p className='post-title'>제주도 4일차</p>
-                    <p>한참때 주구장창 제주도만 가다가 질려서 한동안 안갔었다.
-                        그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.
-                        한참때 주구장창 제주도만 가다가 질려서 한동안 안갔었다.
-                        그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.</p>
-                    <p>한참때 주구장창 제주도만 가다가 질려서 한동안 안갔었다.
-                        그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.
-                        한참때 주구장창 제주도만 가다가 질려서 한동안 안갔었다.
-                        그러가 오랜만에 친구들과 국내여행이 가고싶어 제주도를 가게 되었다.</p>
+                    {contents}
                 </div>
                 <p className='summary'>요약 내용</p>
-                <SummaryList summaryData={summaryData} />
+                <SummaryList summaryData={[summary]} />
                 <HashtagList hashtags={hashtagData} onHashtagClick={navigate} />
-                <div className='comments-num'>
-                    <p>댓글  {comments.length}</p>
-                </div>
-                <div className='border3' />
-                <div className='info'>
-                    <BiUserCircle />
-                    <p className='comments-nickname'>코딩이싫어요</p>
-                </div>
-                <div className='comments-input'>
-                    <textarea
-                        placeholder="댓글을 입력하세요"
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                    />
-                    <button onClick={addComment}>등록</button>
-                </div>
-                <div className='border4' />
-                <CommentList comments={comments} />
+                <CommentList
+                    comments={comments}
+                    onEdit={handleEditClick}
+                    onDelete={handleDeleteClick}
+                    newComment={newComment}
+                    setNewComment={setNewComment}
+                />
             </div>
             <Button/>
         </Container>

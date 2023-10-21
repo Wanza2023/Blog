@@ -1,0 +1,50 @@
+[
+    {
+        "boardId": 8,
+        "nickname": "방글방글글",
+        "local": "Daejeon",
+        "title": "당일치기 빵투어어",
+        "contents": "성심당빵 최고",
+        "summary": "성심당빵 최고",
+        "createdAt": "2023-10-19T09:47:08.863623",
+        "updatedAt": "2023-10-19T09:50:24.937017",
+        "status": true,
+        "views": 2
+    },
+    {
+        "boardId": 9,
+        "nickname": "방글방글글",
+        "local": "Daegu",
+        "title": "라이온즈 파크 최고",
+        "contents": "라팍 최고",
+        "summary": "라팍 최고",
+        "createdAt": "2023-10-19T10:47:08.863623",
+        "updatedAt": "2023-10-19T10:50:24.937017",
+        "status": true,
+        "views": 5
+    },
+    {
+        "boardId": 11,
+        "nickname": "서울시민",
+        "local": "Seoul",
+        "title": "서울 최고",
+        "contents": "서울 최고",
+        "summary": "서울 최고",
+        "createdAt": "2023-10-19T10:49:08.863623",
+        "updatedAt": "2023-10-19T10:52:24.937017",
+        "status": true,
+        "views": 15
+    },
+    {
+        "boardId": 19,
+        "nickname": "광주인",
+        "local": "Gwangju",
+        "title": "무등산 등반",
+        "contents": "산악회 무등산 첫 등반",
+        "summary": "무등산 최고",
+        "createdAt": "2023-10-19T10:50:08.863623",
+        "updatedAt": "2023-10-19T10:53:24.937017",
+        "status": true,
+        "views": 19
+    }
+]
