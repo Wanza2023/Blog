@@ -1,7 +1,7 @@
 import React,{useState} from "react";
-import { useRecoilState } from "recoil";
-import { isLoggedInState,memberIdState } from "../component/AuthState";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { isLoggedInState } from "../component/AuthState";
 import { useNavigate } from "react-router-dom";
 import '../styles/SignIn.css'
 import KakaoLogo from "../assets/images/login_kakao.png";
@@ -10,6 +10,7 @@ import GoogleLogo from "../assets/images/login_google.png";
 
 function SignIn(props){
     const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
     const [inputId,setInputId] = useState("");
     const [inputPw,setInputPw] = useState("");
     const handleInputId = (e) => {
@@ -29,7 +30,7 @@ function SignIn(props){
         console.log("ID : ", inputId);
         console.log("PW : ", inputPw);
         axios
-            .post("http://172.16.237.183:8080/login", {
+            .post("http://172.16.210.64:8080/login", {
                 email: inputId,
                 password: inputPw,
             })
@@ -51,6 +52,7 @@ function SignIn(props){
                 } else if (res.data.email === inputId) {
                 // id, pw 모두 일치 userId = userId1, msg = undefined
                 console.log("======================", "로그인 성공");
+                setIsLoggedIn(true);
                 sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장
                 sessionStorage.setItem("name", res.data.name); // sessionStorage에 id를 user_id라는 key 값으로 저장
                 }

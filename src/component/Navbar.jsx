@@ -57,7 +57,7 @@ const Navbar = () => {
     const handleMemberInfo = () => {
         axios({
             method: 'get',
-            url: 'http://172.16.237.183:8080/members'
+            url: 'http://172.16.210.64:8080/members'
         })
         .then(function (response) {
             console.log(response.data);

@@ -8,7 +8,6 @@ function SignUp(props){
 
     const [useCheck, setUseCheck] = useState(false);
     const [infoCheck, setInfoCheck] = useState(false);
-    
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [pwd, setPwd] = useState("");
@@ -72,6 +71,9 @@ function SignUp(props){
     const onChangeBirth = (e) => {
         const curBirth = e.target.value;
         setBirth(curBirth);
+        // 숫자로 된 생년월일을 "yyyy-mm-dd" 형태로 변환
+        const formattedBirth = curBirth.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+
         const birthRegExp = /^[0-9]{8}$/;
         if(!birthRegExp.test(curBirth)){
             setBirthMessage("8자리 생년월일을 입력주세요");
@@ -80,6 +82,7 @@ function SignUp(props){
             setBirthMessage("완료");
             totConfirm[4] = 1; setTotConfirm(()=>[...totConfirm]);
         }
+        setBirth(formattedBirth);
     }
 
     const useCheckEvent = () => {
@@ -110,7 +113,7 @@ function SignUp(props){
         console.log(name);
         console.log(pwd);
         axios
-            .post("http://172.16.237.183:8080/signup",{
+            .post("http://172.16.210.64:8080/signup",{
                 birth: birth,
                 email: email,
                 gender: gender,

@@ -118,7 +118,7 @@ export default function MainPage() {
         const landElements = document.querySelectorAll(".land");
 
         function handleMouseEnter(e) {
-            const name = e.target.getAttribute("koreanname");
+            const name = e.target.getAttribute("data-name");
             displayRegionName(name);
         }
 
