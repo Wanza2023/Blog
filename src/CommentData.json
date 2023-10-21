@@ -1,0 +1,58 @@
+[
+    {
+        "commentId": 1,
+        "boardId": 8,
+        "nickname": "빵순이",
+        "contents": "저도 빵 좋아하는데!!",
+        "createdAt": "2023-10-20T09:47:08.863623",
+        "updatedAt": "2023-10-20T09:50:24.937017"
+    },
+    {
+        "commentId": 2,
+        "boardId": 8,
+        "nickname": "빵돌이",
+        "contents": "조만간 빵먹으러 가야지",
+        "createdAt": "2023-10-21T09:47:08.863623",
+        "updatedAt": "2023-10-21T09:50:24.937017"
+    },
+    {
+        "commentId": 3,
+        "boardId": 9,
+        "nickname": "엘지짱",
+        "contents": "야구는 엘지지",
+        "createdAt": "2023-10-22T09:47:08.863623",
+        "updatedAt": "2023-10-22T09:50:24.937017"
+    },
+    {
+        "commentId": 4,
+        "boardId": 9,
+        "nickname": "기아짱",
+        "contents": "ㄴㄴ 기아임",
+        "createdAt": "2023-10-22T10:47:08.863623",
+        "updatedAt": "2023-10-22T10:50:24.937017"
+    },
+    {
+        "commentId": 5,
+        "boardId": 9,
+        "nickname": "이정후홈런",
+        "contents": "야구는 이정후",
+        "createdAt": "2023-10-23T09:47:08.863623",
+        "updatedAt": "2023-10-23T09:50:24.937017"
+    },
+    {
+        "commentId": 6,
+        "boardId": 11,
+        "nickname": "부산시민",
+        "contents": "서울 살고 싶어요",
+        "createdAt": "2023-10-23T09:47:08.863623",
+        "updatedAt": "2023-10-23T09:50:24.937017"
+    },
+    {
+        "commentId": 7,
+        "boardId": 19,
+        "nickname": "무등산회원",
+        "contents": "다음에도 같이 등반해요 ^^",
+        "createdAt": "2023-10-25T09:47:08.863623",
+        "updatedAt": "2023-10-25T09:50:24.937017"
+    }
+]
