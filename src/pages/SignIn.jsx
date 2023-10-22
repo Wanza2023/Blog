@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { isLoggedInState } from "../component/AuthState";
+import { isLoggedInState,nicknameState,memberIdState } from "../component/AuthState";
 import { useNavigate } from "react-router-dom";
 import '../styles/SignIn.css'
 import KakaoLogo from "../assets/images/login_kakao.png";
@@ -13,6 +13,8 @@ function SignIn(props){
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
     const [inputId,setInputId] = useState("");
     const [inputPw,setInputPw] = useState("");
+    const [nickname, setNickname] = useRecoilState(nicknameState);
+    const [memberId, setMemberId] = useRecoilState(memberIdState);
     const handleInputId = (e) => {
         setInputId(e.target.value);
     }
@@ -34,32 +36,33 @@ function SignIn(props){
                 email: inputId,
                 password: inputPw,
             })
-            .then((res) => {
-                console.log(res);
-                console.log("res.data :: ", res.data);
-                console.log("res.data.msg :: ", res.data.msg);
-                if (res.data.email === undefined) {
-                // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
-                console.log("======================", res.data.msg);
-                alert("입력하신 id 가 일치하지 않습니다.");
-                } else if (res.data.email === null) {
-                // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
-                console.log(
-                    "======================",
-                    "입력하신 비밀번호 가 일치하지 않습니다."
-                );
-                alert("입력하신 비밀번호 가 일치하지 않습니다.");
-                } else if (res.data.email === inputId) {
-                // id, pw 모두 일치 userId = userId1, msg = undefined
-                console.log("======================", "로그인 성공");
+            .then(res =>{
                 setIsLoggedIn(true);
-                sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장
-                sessionStorage.setItem("name", res.data.name); // sessionStorage에 id를 user_id라는 key 값으로 저장
-                }
-                // 작업 완료 되면 페이지 이동(새로고침)
-                document.location.href = "/";
+                console.log("Response Data:", res.data);
+                const token = res.data.body.token;
+                console.log(token);
+                axios
+                    .get("http://172.16.210.64:8080/members", {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+                    .then(response => {
+                        // 서버에서 반환된 데이터를 response.data로 사용
+                        console.log("Member Data:", response.data);
+                    })
+                    .catch((err) => {
+                        console.error("Error fetching data:", err);
+                    })
+                    .finally(() => {
+                        // 작업 완료 되면 페이지 이동(새로고침)
+                        navigate("/");
+                    });
             })
-            .catch();
+            .catch(error => {
+                console.error("Login failed:", error);
+                alert("로그인 정보를 확인해주세요");
+            });
         };
 
     return(

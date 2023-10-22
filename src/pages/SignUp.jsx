@@ -93,25 +93,8 @@ function SignUp(props){
         setInfoCheck(()=> !infoCheck);
         console.log(infoCheck);
     }
-
-    // const handleSignUpSubmit = () => {
-    //     console.log(totConfirm);
-    //     if(totConfirm[0]===1 && totConfirm[1]===1 && totConfirm[2]===1 && totConfirm[3]===1){
-    //         if(useCheck===true && infoCheck===true) {
-    //             alert("회원가입이 완료되었습니다.");
-                
-    //         } else {alert("약관에 동의해주세요");}
-    //     }else{
-    //         alert("내용이 올바르게 입력되지 않았습니다.");
-    //     }
-    // }
     const handleSignUpSubmit = () => {
         console.log("click signup");
-        console.log(birth);
-        console.log(email);
-        console.log(gender);
-        console.log(name);
-        console.log(pwd);
         axios
             .post("http://172.16.210.64:8080/signup",{
                 birth: birth,
@@ -121,12 +104,6 @@ function SignUp(props){
                 password: pwd,
             })
             .then((res)=> {
-                console.log(res);
-                console.log("res.data.birth : ",res.data.birth);
-                console.log("res.data.email : ",res.data.email);
-                console.log("res.data.gender : ",res.data.gender);
-                console.log("res.data.nickName : ",res.data.name);
-                console.log("res.data.password : ",res.data.pwd);
                 if(res.data.success){
                     console.log("회원가입 완료");
                     navigate("/login");
