@@ -1,0 +1,30 @@
+.inputForm {
+    margin: 2rem;
+}
+#mymap {
+    width: 500px;
+    height: 500px;
+}
+.div {
+    clear: both;
+    float: left;
+}
+#result-list {
+    text-align: center;
+}
+  
+#pagination {
+    margin-top: 3rem;
+}
+  
+#pagination a {
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+    margin: 0 10px;
+}
+  
+#pagination a.on {
+    color: lightblue;
+    font-weight: bold;
+}

@@ -32,7 +32,7 @@ export default function PopularList(props) {
         dots: true,
         infinite: true,
         arrow: true,
-        speed: 500,
+        speed: 1000,
         slidesToShow: 5,
         autoplay: true,
         autoplaySpeed: 2000,
