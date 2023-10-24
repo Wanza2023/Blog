@@ -1,3 +1,126 @@
+// import React, { useEffect, useState } from 'react';
+// import "../../styles/SelectLocation.css";
+
+// const { kakao } = window;
+
+// const SelectLocation = ({ searchPlace }) => {
+//     const [places, setPlaces] = useState([]);
+//     const [selectedMarker, setSelectedMarker] = useState(null); // Store the selected marker
+
+//     useEffect(() => {
+//         const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+//         const container = document.getElementById('myMap');
+//         const options = {
+//             center: new kakao.maps.LatLng(33.450701, 126.570667),
+//             level: 3,
+//         };
+//         const map = new kakao.maps.Map(container, options);
+
+//         const ps = new kakao.maps.services.Places();
+
+//         ps.keywordSearch(searchPlace, placesSearchCB);
+
+//         function placesSearchCB(data, status, pagination) {
+//             if (status === kakao.maps.services.Status.OK) {
+//                 let bounds = new kakao.maps.LatLngBounds();
+
+//                 for (let i = 0; i < data.length; i++) {
+//                     displayMarker(data[i]);
+//                     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+//                 }
+
+//                 map.setBounds(bounds);
+//                 displayPagination(pagination);
+//                 setPlaces(data);
+//             }
+//         }
+
+//         function displayPagination(pagination) {
+//             const paginationEl = document.getElementById('pagination');
+//             const fragment = document.createDocumentFragment();
+
+//             while (paginationEl.hasChildNodes()) {
+//                 paginationEl.removeChild(paginationEl.lastChild);
+//             }
+
+//             for (let i = 1; i <= pagination.last; i++) {
+//                 const el = document.createElement('a');
+//                 el.href = '#';
+//                 el.innerHTML = i;
+
+//                 if (i === pagination.current) {
+//                     el.className = 'on';
+//                 } else {
+//                     el.onclick = (function (i) {
+//                         return function () {
+//                             pagination.gotoPage(i);
+//                         };
+//                     })(i);
+//                 }
+
+//                 fragment.appendChild(el);
+//             }
+//             paginationEl.appendChild(fragment);
+//         }
+
+//         function displayMarker(place) {
+//             const marker = new kakao.maps.Marker({
+//                 map: map,
+//                 position: new kakao.maps.LatLng(place.y, place.x),
+//             });
+        
+//             // Add a click event listener to the marker
+//             kakao.maps.event.addListener(marker, 'click', function () {
+//                 infowindow.setContent(
+//                     '<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>'
+//                 );
+//                 infowindow.open(map, marker);
+//                 const latitude = selectedMarker.getPosition().getLat();
+//                 const longitude = selectedMarker.getPosition().getLng();
+//                 alert(`위도: ${latitude}, 경도: ${longitude}`);
+//             });
+//         }
+//     }, [searchPlace, selectedMarker]);
+
+//     return (
+//         <div>
+//             <div
+//                 id="myMap"
+//                 style={{
+//                     width: '500px',
+//                     height: '500px',
+//                 }}
+//             ></div>
+//             <div id="result-list">
+//                 {places.length > 0 ? (
+//                     places.map((item, i) => (
+//                         <div key={i} style={{ marginTop: '20px' }}>
+//                             <span>{i + 1}</span>
+//                             <div>
+//                                 <h5>{item.place_name}</h5>
+//                                 {item.road_address_name ? (
+//                                     <div>
+//                                         <span>{item.road_address_name}</span>
+//                                         <span>{item.address_name}</span>
+//                                     </div>
+//                                 ) : (
+//                                     <span>{item.address_name}</span>
+//                                 )}
+//                                 <span>{item.phone}</span>
+//                             </div>
+//                         </div>
+//                     ))
+//                 ) : (
+//                     <p>Loading or no data available.</p>
+//                 )}
+//                 <div id="pagination"></div>
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default SelectLocation;
+
 import React, { useEffect, useState } from 'react';
 import "../../styles/SelectLocation.css";
 
@@ -6,6 +129,13 @@ const { kakao } = window;
 const SelectLocation = ({ searchPlace }) => {
     const [places, setPlaces] = useState([]);
 
+    const handleSelectLocation = (item) => {
+        console.log(`위치정보 - 경도: ${item.x}, 위도: ${item.y}`);
+        localStorage.setItem("x", item.x);
+        localStorage.setItem("y", item.y);
+        localStorage.setItem("title", item.place_name);
+        //누르면 입력되게 만들기
+    }
     useEffect(() => {
         const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
         const container = document.getElementById('myMap');
@@ -27,13 +157,12 @@ const SelectLocation = ({ searchPlace }) => {
             displayMarker(data[i]);
             bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
             }
-
             map.setBounds(bounds);
             displayPagination(pagination);
             setPlaces(data);
         }
         }
-
+        // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
         function displayPagination(pagination) {
         const paginationEl = document.getElementById('pagination');
         const fragment = document.createDocumentFragment();
@@ -89,7 +218,7 @@ const SelectLocation = ({ searchPlace }) => {
         <div id="result-list">
             {places.length > 0 ? (
             places.map((item, i) => (
-                <div key={i} style={{ marginTop: '20px' }}>
+                <div key={i} style={{ marginTop: '20px' }} onClick={()=>handleSelectLocation(item)}>
                 <span>{i + 1}</span>
                 <div>
                     <h5>{item.place_name}</h5>
