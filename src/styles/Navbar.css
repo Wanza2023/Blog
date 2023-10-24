@@ -37,13 +37,18 @@
     display: flex;
     align-items: center;
 }
+.navbar-search-icon:hover {
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+}
 
 
 .search-input[type="text"] {
-    margin-right: 1.5rem;
-    font-size: 1rem;
-    border: 1px solid black;
-    border-radius: 0.5rem;
+    margin-right: 1rem;
+    height: 3vh;
+    font-size: 0.8rem;
+    border: 1px solid gray;
+    border-radius: 1rem;
 }
 
 .search-button {
@@ -67,6 +72,10 @@
 .profile-icon {
     cursor: pointer;
     margin-right: 1.2rem;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1, 1.1);
 }
 
 .profile-items {

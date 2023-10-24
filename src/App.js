@@ -20,7 +20,7 @@ function App() {
           <Route index element={<Main />} />
           <Route path="/:land" element={<Main />} />
           <Route path="write" element={<PostWrite />} />
-          <Route path="post-list" element={<PostList />} />
+          <Route path="post-list/:regionName" element={<PostList />} />
           <Route path="post-view" element={<PostViewEx />} />
           <Route path="/:nickname/:boardId" element={<PostView />} />
           <Route path="login" element={<SignIn />} />
