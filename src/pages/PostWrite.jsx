@@ -85,7 +85,7 @@ function PostWrite() {
       <div className="body2">
         {scheduleItems.map((item, index) => (
           <div key={index}>
-            <text>{index + 1}일차</text>
+            <text>{index + 1}번째 여행지</text>
             <input type="text" placeholder="날짜" value={item.date} onChange={(e) => handleScheduleChange(index, 'date', e.target.value)} />
             <input type="text" placeholder="장소" value={item.location} onChange={(e) => handleScheduleChange(index, 'location', e.target.value)} />
             <input type="text" placeholder="이동수단" value={item.transportation} onChange={(e) => handleScheduleChange(index, 'transportation', e.target.value)} />

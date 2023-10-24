@@ -37,16 +37,17 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    text-align: center;
 }
 
 .body2 > div {
-    text-align: left;
-    margin-left: 24.7vw;
+    justify-content: center;
+    margin-left: 22.7vw;
 }
 
 .body2 > div > text {
     margin-left: -5.5vw;
-    margin-right: 3.1vw;
+    margin-right: 1vw;
     font-size: 0.87rem;
     font-weight: bold;
 }
@@ -70,7 +71,7 @@
 }
 
 .body2 > button {
-    margin-left: 24.7vw;
+    margin-left: 23.5vw;
     margin-top: 1vh;
     float: right;
     height: 4vh;
