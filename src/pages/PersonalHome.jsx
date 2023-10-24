@@ -30,7 +30,7 @@ const PersonalHome = () => {
         <div>
             <div className='personal_profile'>
                 <img src={personal_profile_icon} alt="personal_profile_icon"/>
-                <h2>방글방글</h2>
+                <h2>{filterData[0].nickname}</h2>
                 <p>님의 여행기록</p>
             </div>
             <div className='toggle'>

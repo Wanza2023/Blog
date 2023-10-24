@@ -170,16 +170,16 @@ export default function MainPage() {
                     viewBox="0 0 524 631"
                     aria-label="Map of South Korea"
                 >
-                    {region.map((region)=>(
-                        <path key={region.id}
-                        onClick={()=>navigate(`/post-list/${region.koreanname}`)}
+                {region.map((region)=>(
+                    <path key={region.id}
+                        onClick={() => navigate("/post-list/" + region.name)}
                         className='land'
                         id={region.id}
                         name={region.name}
                         d={region.d}
                         data-name={region.koreanname}
-                        />
-                    ))}
+                    />
+                ))}
                 </svg>
             </div>
             <Button></Button>
