@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { isLoggedInState } from '../component/AuthState';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { HiOutlineMapPin } from "react-icons/hi2";
@@ -25,7 +25,7 @@ const Container = styled.div`
 
 function PostView() {
     const navigate = useNavigate();
-    const isLoggedIn = useRecoilValue(isLoggedInState);
+    const isLoggedIn = useRecoilState(isLoggedInState);
     const [showMenu, setShowMenu] = useState(false);
     const [comments, setComments] = useState(['']);
     const [newComment, setNewComment] = useState('');

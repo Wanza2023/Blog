@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { isLoggedInState } from "./AuthState";
+import { isLoggedInState ,nicknameState,memberIdState, searchTermState} from "./AuthState";
 import { Link,useNavigate} from "react-router-dom";
 import axios from "axios";
 import '../styles/Navbar.css';
@@ -13,9 +13,8 @@ import PostList from "../pages/PostList";
 const Navbar = () => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState); //로그인 상태
-    const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태를 관리하는 상태 변수
+    const [searchTerm, setSearchTerm] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
-
     const profileIconClick = () => {
         if(isLoggedIn==false) {
             navigate('/login');
@@ -33,7 +32,6 @@ const Navbar = () => {
     const handleSearchSubmit = () => {
         if (searchTerm.trim() !== "") {
             // 검색어가 비어있지 않은 경우에만 URL로 이동
-            const searchUrlTemp = `/post-list`;
             const searchUrl = `/post-list/${searchTerm}`;
             setSearchTerm("")
             navigate(searchUrl);
@@ -53,20 +51,6 @@ const Navbar = () => {
     const handleLogout = () => {
         setIsLoggedIn(false);
     };
-
-    const handleMemberInfo = () => {
-        axios({
-            method: 'get',
-            url: 'http://172.16.210.64:8080/members'
-        })
-        .then(function (response) {
-            console.log(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
-
 
     return (
         <nav className="navbar">
@@ -100,7 +84,6 @@ const Navbar = () => {
                                 <li className="optionListItem"><Link to="/personalhome">나의 블로그홈</Link></li>
                                 <li className="optionListItem"><Link to="/">블로그관리</Link></li>
                                 <li className="optionListItem"><button onClick={handleLogout}>로그아웃</button></li>
-                                <li className="optionListItem"><button onClick={handleMemberInfo}>실험</button></li>
                             </div>
                             )
                         }

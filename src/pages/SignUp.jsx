@@ -8,13 +8,17 @@ function SignUp(props){
 
     const [useCheck, setUseCheck] = useState(false);
     const [infoCheck, setInfoCheck] = useState(false);
+    const [useCheckVisible, setUseCheckVisible] = useState(false);
+    const [useInfoVisible, setUseInfoVisible] = useState(false);
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [pwd, setPwd] = useState("");
     const [confirmPwd, setConfirmPwd] = useState("");
     const [birth, setBirth] = useState("");
     const [gender, setGender] = useState("");
-    const [totConfirm, setTotConfirm] = useState([0,0,0,0,0,0]);
+    const [totConfirm, setTotConfirm] = useState([0,0,0,0,0,0,0,0]);
+    const isFormValid = totConfirm.every(item => item === 1);
+
 
     const [emailMessage, setEmailMessage] = useState("");
     const [nameMessage, setNameMessage] = useState("");
@@ -29,22 +33,47 @@ function SignUp(props){
         if(!emailRegExp.test(curEmail)){
             setEmailMessage("이메일의 형식이 올바르지 않습니다.");
             totConfirm[0] = 0; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
         }else{
             setEmailMessage("사용 가능한 이메일 입니다.");//중복확인 해야함
             totConfirm[0] = 1; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
         }
     }
     const onChangeName = (e) => {
-        const curName = e.target.value;
+        const curName = e.target.value.trim();
         setName(curName);
-        if(curName.length < 2 || curName.length > 10){
-            setNameMessage("2글자 이상 10글자 이하로 입력해주세요");
-            totConfirm[1] = 0; setTotConfirm(()=>[...totConfirm]);
-        }else {
-            setNameMessage("사용가능한 닉네임입니다."); 
-            totConfirm[1] = 1; setTotConfirm(()=>[...totConfirm]);
+        if(curName.length < 2 || curName.length > 10 || curName.includes(" ")){
+            setNameMessage("2글자 이상 10글자 이하로 공백 없이 입력해주세요");
+        }
+        else {
+            setNameMessage("중복을 확인해주세요.");
         }
     }
+    
+    const handleDoubleCheck = () => {
+        axios
+            .get("http://172.16.210.64:8080/members")
+            .then(res=>{
+                const nickNames = res.data.body.map(item => item.nickName);
+                console.log("닉네임 가져오기: ", nickNames);
+                if (nickNames.includes(name)) {
+                    console.log(`"${name}"은 이미 사용 중인 닉네임입니다.`);
+                    totConfirm[1] = 0; setTotConfirm(()=>[...totConfirm]);
+                    setNameMessage("이미 사용중인 닉네임입니다.");
+                    console.log(totConfirm);
+                } else {
+                    console.log(`"${name}"은 사용 가능한 닉네임입니다.`);
+                    totConfirm[1] = 1; setTotConfirm(()=>[...totConfirm]);
+                    setNameMessage("사용가능한 닉네임입니다.");
+                    console.log(totConfirm);
+                }
+            })
+            .catch((err) => {
+                console.error("Error fetching data:", err);
+            })
+    }
+    
     const onChangePwd = (e) => {
         const curPwd = e.target.value;
         setPwd(curPwd);
@@ -52,9 +81,11 @@ function SignUp(props){
         if(!pwdRegExp.test(curPwd)){
             setPwdMessage("숫자, 영문자, 특수문자(!@#$%^*+=-) 조합으로 8자리 이상 20자리 이하 입력해주세요 ");
             totConfirm[2] = 0; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
         }else{
             setPwdMessage("안전한 비밀번호입니다");
             totConfirm[2] = 1; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
         }
     }
     const onChangeConfirmPwd = (e) => {
@@ -63,9 +94,11 @@ function SignUp(props){
         if(pwd !== curConfPwd){
             setConfirmPwdMessage("비밀번호가 일치하지 않습니다");
             totConfirm[3] = 0; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
         }else{
             setConfirmPwdMessage("확인되었습니다");
             totConfirm[3] = 1; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
         }
     }
     const onChangeBirth = (e) => {
@@ -78,40 +111,58 @@ function SignUp(props){
         if(!birthRegExp.test(curBirth)){
             setBirthMessage("8자리 생년월일을 입력주세요");
             totConfirm[4] = 0; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
         }else{
             setBirthMessage("완료");
             totConfirm[4] = 1; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
         }
         setBirth(formattedBirth);
     }
 
+    const onClickGender = (selectedGender) => {
+        setGender(selectedGender);
+    
+        if (selectedGender === 'M' || selectedGender === 'W') {
+            totConfirm[5] = 1; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
+        } else {
+            totConfirm[5] = 0; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
+        }
+    };
     const useCheckEvent = () => {
         setUseCheck(()=> !useCheck);
+        if(useCheck===true){
+            totConfirm[6] = 0; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
+        }   
+        else {
+            totConfirm[6] = 1; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
+        }
         console.log(useCheck);
+    }
+    const toggleuseCheckVisible = () => {
+        setUseCheckVisible(!useCheckVisible);
     }
     const infoCheckEvent = () => {
         setInfoCheck(()=> !infoCheck);
+        if(infoCheck===true){
+            totConfirm[7] = 0; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
+        }
+        else {
+            totConfirm[7] = 1; setTotConfirm(()=>[...totConfirm]);
+            console.log(totConfirm);
+        }
         console.log(infoCheck);
     }
-
-    // const handleSignUpSubmit = () => {
-    //     console.log(totConfirm);
-    //     if(totConfirm[0]===1 && totConfirm[1]===1 && totConfirm[2]===1 && totConfirm[3]===1){
-    //         if(useCheck===true && infoCheck===true) {
-    //             alert("회원가입이 완료되었습니다.");
-                
-    //         } else {alert("약관에 동의해주세요");}
-    //     }else{
-    //         alert("내용이 올바르게 입력되지 않았습니다.");
-    //     }
-    // }
+    const toggleInfoCheckVisible = () => {
+        setUseInfoVisible(!useInfoVisible)
+    }
     const handleSignUpSubmit = () => {
         console.log("click signup");
-        console.log(birth);
-        console.log(email);
-        console.log(gender);
-        console.log(name);
-        console.log(pwd);
         axios
             .post("http://172.16.210.64:8080/signup",{
                 birth: birth,
@@ -121,12 +172,6 @@ function SignUp(props){
                 password: pwd,
             })
             .then((res)=> {
-                console.log(res);
-                console.log("res.data.birth : ",res.data.birth);
-                console.log("res.data.email : ",res.data.email);
-                console.log("res.data.gender : ",res.data.gender);
-                console.log("res.data.nickName : ",res.data.name);
-                console.log("res.data.password : ",res.data.pwd);
                 if(res.data.success){
                     console.log("회원가입 완료");
                     navigate("/login");
@@ -163,7 +208,7 @@ function SignUp(props){
                         <label>닉네임 *</label>
                         <div className="nameConfirm">
                             <input type="text" name="name" id="name" value={name} onChange={onChangeName} placeholder="닉네임을 입력하세요"/>
-                            <button>중복확인</button>
+                            <button onClick={handleDoubleCheck}>중복확인</button>
                         </div>
                         <p className="signup-submit-message">{nameMessage}</p>
                     </div>
@@ -175,8 +220,8 @@ function SignUp(props){
                     <div className="signUp-field">
                         <label>성별</label>
                         <div className="gender">
-                            <button className="gender-btn" name="woman" onClick={()=>setGender("W")}>여성</button>
-                            <button className="gender-btn" name="man" onClick={()=>setGender("M")}>남성</button>
+                            <button className={`gender-btn ${gender === 'W' ? 'selected' : ''}`} name="woman" onClick={()=>onClickGender("W")}>여성</button>
+                            <button className={`gender-btn ${gender === 'M' ? 'selected' : ''}`} name="man" onClick={()=>onClickGender("M")}>남성</button>
                         </div>
                     </div>
                     <br/>
@@ -186,18 +231,28 @@ function SignUp(props){
                             <input type="checkbox" id="check1" checked={useCheck} onChange={useCheckEvent}/>
                             <label htmlFor="check1">이용약관 동의(필수)</label>
                         </div>
-                        <button>보기 &gt;</button>
+                        <button onClick={toggleuseCheckVisible}>{useCheckVisible ? '약관 숨기기' : '약관 보기'}</button>
                     </div>
+                    {useCheckVisible && (
+                            <div>
+                                <p>약관 내용을 여기에 추가할 수 있습니다.</p>
+                            </div>
+                        )}
                     <div className="agreement">
                         <div className="agreement-wrap">
                             <input type="checkbox" id="check2" checked={infoCheck} onChange={infoCheckEvent}/>
                             <label htmlFor="check2">개인정보 취급방침 동의(필수)</label>
                         </div>
-                        <button>보기 &gt;</button>
+                        <button onClick={toggleInfoCheckVisible}>{useInfoVisible ? '약관 숨기기' : '약관 보기'}</button>
                     </div> 
+                    {useInfoVisible && (
+                            <div>
+                                <p>약관 내용을 여기에 추가할 수 있습니다.</p>
+                            </div>
+                        )}
                     </div>
                     <div className="signUp-submit">
-                        <button onClick={handleSignUpSubmit}>회원가입</button>
+                        <button onClick={handleSignUpSubmit} disabled={!isFormValid}>회원가입</button>
                     </div>
                 </div>
             </div>

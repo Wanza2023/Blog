@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { isLoggedInState } from "../component/AuthState";
+import { isLoggedInState,nicknameState,memberIdState } from "../component/AuthState";
 import { useNavigate } from "react-router-dom";
 import '../styles/SignIn.css'
 import KakaoLogo from "../assets/images/login_kakao.png";
@@ -36,6 +36,26 @@ function SignIn(props){
             })
             .then(res =>{
                 setIsLoggedIn(true);
+                console.log("Response Data:", res.data);
+                const token = res.data.body.token;
+                console.log(token);
+                // axios
+                //     .get("http://172.16.210.64:8080/members", {
+                //         headers: {
+                //             Authorization: `Bearer ${token}`
+                //         }
+                //     })
+                //     .then(response => {
+                //         // 서버에서 반환된 데이터를 response.data로 사용
+                //         console.log("Member Data:", response.data.body);
+                //     })
+                //     .catch((err) => {
+                //         console.error("Error fetching data:", err);
+                //     })
+                //     .finally(() => {
+                //         // 작업 완료 되면 페이지 이동(새로고침)
+                //         navigate("/");
+                //     });
                 localStorage.setItem("email", res.data.body.email);
                 console.log(res.data.body.email);
                 navigate("/")
