@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PostWriteComponent from '../component/ui/PostWriteComponent';
 import styled from "styled-components";
 import "../styles/PostWrite.css";
+import SelectLocation from '../component/ui/SelectLocation';
 
 const Container = styled.div`
 `
@@ -20,6 +21,7 @@ function PostWrite() {
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
   const [scheduleItems, setScheduleItems] = useState([{ date: '', location: '', transportation: '' }]);
 
+  
   function onEditorChange(value) {
     setDesc(value);
   }

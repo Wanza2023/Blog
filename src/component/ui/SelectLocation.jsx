@@ -6,6 +6,10 @@ const { kakao } = window;
 const SelectLocation = ({ searchPlace }) => {
     const [places, setPlaces] = useState([]);
 
+    const handleSelectLocation = (item) => {
+        alert(`위치정보 - 경도: ${item.x}, 위도: ${item.y}`);
+        //누르면 입력되게 만들기
+    }
     useEffect(() => {
         const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
         const container = document.getElementById('myMap');
@@ -27,13 +31,12 @@ const SelectLocation = ({ searchPlace }) => {
             displayMarker(data[i]);
             bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
             }
-
             map.setBounds(bounds);
             displayPagination(pagination);
             setPlaces(data);
         }
         }
-
+        // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
         function displayPagination(pagination) {
         const paginationEl = document.getElementById('pagination');
         const fragment = document.createDocumentFragment();
@@ -78,38 +81,35 @@ const SelectLocation = ({ searchPlace }) => {
     }, [searchPlace]);
 
     return (
-        <div>
-        <div
-            id="myMap"
-            style={{
-            width: '500px',
-            height: '500px',
-            }}
-        ></div>
-        <div id="result-list">
-            {places.length > 0 ? (
-            places.map((item, i) => (
-                <div key={i} style={{ marginTop: '20px' }}>
-                <span>{i + 1}</span>
-                <div>
-                    <h5>{item.place_name}</h5>
-                    {item.road_address_name ? (
-                    <div>
-                        <span>{item.road_address_name}</span>
+        <div className='selectlocation_wrapper'>
+            <div
+                id="myMap"
+                style={{
+                width: '30rem',
+                height: '30rem',
+                }}
+            ></div>
+            <div className='result-list'>
+                {places.length > 0 ? (
+                places.map((item, i) => (
+                    <div key={i} style={{ marginTop: '20px' }} >
+                    <div className='list'>
+                        <button onClick={()=>handleSelectLocation(item)}>{item.place_name}</button>
+                        {item.road_address_name ? (
+                        <div>
+                            <span>{item.road_address_name}</span>
+                        </div>
+                        ) : (
                         <span>{item.address_name}</span>
+                        )}
                     </div>
-                    ) : (
-                    <span>{item.address_name}</span>
-                    )}
-                    <span>{item.phone}</span>
-                </div>
-                </div>
-            ))
-            ) : (
-            <p>Loading or no data available.</p>
-            )}
-            <div id="pagination"></div>
-        </div>
+                    </div>
+                ))
+                ) : (
+                <p>Loading or no data available.</p>
+                )}
+                <div id="pagination"></div>
+            </div>
         </div>
     );
 };
