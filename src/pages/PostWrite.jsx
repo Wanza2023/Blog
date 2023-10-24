@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import Modal from 'react-modal';
 import PostWriteComponent from '../component/ui/PostWriteComponent';
+import LandingPage from '../pages/LandingPage'
 import styled from "styled-components";
 import "../styles/PostWrite.css";
 
@@ -19,7 +21,9 @@ function PostWrite() {
   const [title, setTitle] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
   const [scheduleItems, setScheduleItems] = useState([{ date: '', location: '', transportation: '' }]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  
   function onEditorChange(value) {
     setDesc(value);
   }
@@ -55,6 +59,8 @@ function PostWrite() {
     setScheduleItems(newScheduleItems);
   };
 
+  const locationTitle = window.localStorage.getItem("title");
+
   return (
     <Container>
       <div className="body1">
@@ -84,11 +90,15 @@ function PostWrite() {
       <div className="body2">
         {scheduleItems.map((item, index) => (
           <div key={index}>
-            <text>{index + 1}번째 여행지</text>
+            <text className="index">{index + 1}번째 여행지</text>
             <input type="text" placeholder="날짜" value={item.date} onChange={(e) => handleScheduleChange(index, 'date', e.target.value)} />
-            <input type="text" placeholder="장소" value={item.location} onChange={(e) => handleScheduleChange(index, 'location', e.target.value)} />
+            <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
+            <><text className="locationTitle">{locationTitle}</text></>
+	          <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+      	      <LandingPage />
+            </Modal>
             <input type="text" placeholder="이동수단" value={item.transportation} onChange={(e) => handleScheduleChange(index, 'transportation', e.target.value)} />
-            <button onClick={() => removeScheduleItem(index)}>-</button>
+            <button className="minus" onClick={() => removeScheduleItem(index)}>-</button>
           </div>
         ))}
         <button onClick={addScheduleItem}>+</button>

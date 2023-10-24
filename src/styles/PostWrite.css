@@ -45,7 +45,7 @@
     margin-left: 22.7vw;
 }
 
-.body2 > div > text {
+.index {
     margin-left: -5.5vw;
     margin-right: 1vw;
     font-size: 0.87rem;
@@ -60,7 +60,24 @@
     height: 4vh;
 }
 
-.body2 > div > button {
+.selectLocation {
+    width: 3vw;
+    height: 4vh;
+    border: none;
+    border-radius: 5px;
+    background-color: #5076FF;
+    color: white;
+    cursor: pointer;
+    margin-right: 1vw;
+}
+
+.locationTitle {
+    font-size: 0.87rem;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.minus {
     height: 4vh;
     width: 2vw;
     border: none;
