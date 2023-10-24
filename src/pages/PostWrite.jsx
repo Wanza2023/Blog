@@ -2,10 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-modal';
 import PostWriteComponent from '../component/ui/PostWriteComponent';
-import LandingPage from '../pages/LandingPage'
+import SelectLocation from '../component/ui/SelectLocation';
 import styled from "styled-components";
 import "../styles/PostWrite.css";
-import SelectLocation from '../component/ui/SelectLocation';
 
 const Container = styled.div`
 `
@@ -97,7 +96,7 @@ function PostWrite() {
             <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
             <><text className="locationTitle">{locationTitle}</text></>
 	          <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-      	      <LandingPage />
+      	      <SelectLocation />
             </Modal>
             <input type="text" placeholder="이동수단" value={item.transportation} onChange={(e) => handleScheduleChange(index, 'transportation', e.target.value)} />
             <button className="minus" onClick={() => removeScheduleItem(index)}>-</button>

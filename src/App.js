@@ -10,7 +10,6 @@ import PostViewEx from "./pages/PostViewEx";
 import PersonalHome from './pages/PersonalHome';
 import Navbar from "./component/Navbar";
 import { RecoilRoot } from "recoil";
-import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
@@ -28,7 +27,6 @@ function App() {
             <Route path="login" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="personalhome" element={<PersonalHome/>} />
-            <Route path="place" element={<LandingPage/>} />
           </Routes>
         </div>
       </BrowserRouter>
