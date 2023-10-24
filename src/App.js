@@ -16,17 +16,19 @@ function App() {
     <RecoilRoot>
       <BrowserRouter>
         <Navbar/>
-        <Routes>
-          <Route index element={<Main />} />
-          <Route path="/:land" element={<Main />} />
-          <Route path="write" element={<PostWrite />} />
-          <Route path="post-list/:regionName" element={<PostList />} />
-          <Route path="post-view" element={<PostViewEx />} />
-          <Route path="/:nickname/:boardId" element={<PostView />} />
-          <Route path="login" element={<SignIn />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="personalhome" element={<PersonalHome/>} />
-        </Routes>
+          <div className="body">
+              <Routes>
+                <Route index element={<Main />} />
+                <Route path="/:land" element={<Main />} />
+                <Route path="write" element={<PostWrite />} />
+                <Route path="post-list/:regionName" element={<PostList />} />
+                <Route path="post-view" element={<PostViewEx />} />
+                <Route path="/:nickname/:boardId" element={<PostView />} />
+                <Route path="login" element={<SignIn />} />
+                <Route path="signup" element={<SignUp />} />
+                <Route path="personalhome" element={<PersonalHome/>} />
+              </Routes>
+            </div>
       </BrowserRouter>
     </RecoilRoot>
   );

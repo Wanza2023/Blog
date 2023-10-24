@@ -54,6 +54,7 @@ function PostWrite() {
     newScheduleItems.splice(index, 1);
     setScheduleItems(newScheduleItems);
   };
+  
 
   return (
     <Container>
