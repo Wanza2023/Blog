@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { isLoggedInState ,nicknameState,memberIdState} from "./AuthState";
+import { isLoggedInState ,nicknameState,memberIdState, searchTermState} from "./AuthState";
 import { Link,useNavigate} from "react-router-dom";
 import axios from "axios";
 import '../styles/Navbar.css';
@@ -13,7 +13,7 @@ import PostList from "../pages/PostList";
 const Navbar = () => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState); //로그인 상태
-    const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태를 관리하는 상태 변수
+    const [searchTerm, setSearchTerm] = useRecoilState(searchTermState);
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
     const [nickname, setNickname] = useRecoilState(nicknameState);
     const [memberId, setMemberId] = useRecoilState(memberIdState);
@@ -34,7 +34,6 @@ const Navbar = () => {
     const handleSearchSubmit = () => {
         if (searchTerm.trim() !== "") {
             // 검색어가 비어있지 않은 경우에만 URL로 이동
-            const searchUrlTemp = `/post-list`;
             const searchUrl = `/post-list/${searchTerm}`;
             setSearchTerm("")
             navigate(searchUrl);

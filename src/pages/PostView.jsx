@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { isLoggedInState } from '../component/AuthState';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { HiOutlineMapPin } from "react-icons/hi2";
@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import "../styles/PostView.css";
 import Button from '../component/ui/Button';
 import data from "../BoardData.json";
+import MemberData from "../MemberData.json"
 
 const Container = styled.div`
     display: flex;
@@ -24,7 +25,7 @@ const Container = styled.div`
 
 function PostView() {
     const navigate = useNavigate();
-    const isLoggedIn = useRecoilValue(isLoggedInState);
+    const isLoggedIn = useRecoilState(isLoggedInState);
     const [showMenu, setShowMenu] = useState(false);
     const [comments, setComments] = useState(['']);
     const [newComment, setNewComment] = useState('');
@@ -49,6 +50,10 @@ function PostView() {
 
     const { createdAt, local, title, contents, summary } = board;
 
+    const member = MemberData.find((item) => {
+        return item.memberId == board.memberId
+    });
+    
     const createdDate = new Date(createdAt);
     const formattedDate = createdDate.toISOString().split('T')[0];
 
@@ -102,7 +107,7 @@ function PostView() {
     ];
 
     const hashtagData = ["제주도", "서귀포", "협재해수욕장", "거북이한과"];
-    
+
     return (
         <Container>
             <div className='container'>
@@ -114,16 +119,16 @@ function PostView() {
                         </button>
                         {showMenu && (
                             <div className='menu'>
-                                {isLoggedIn && (
+                                {(localStorage.getItem("email") == member.email) ? (
                                     <button onClick={handleEditClick}>
                                         <AiOutlineEdit /> 수정
                                     </button>
-                                )}
-                                {isLoggedIn && (
+                                ) : null}
+                                {(localStorage.getItem("email") == member.email) ? (
                                     <button onClick={handleDeleteClick}>
                                         <AiOutlineDelete /> 삭제
                                     </button>
-                                )}
+                                ) : null}
                             </div>
                         )}
                     </div>
