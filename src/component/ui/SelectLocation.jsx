@@ -207,38 +207,35 @@ const SelectLocation = ({ searchPlace }) => {
     }, [searchPlace]);
 
     return (
-        <div>
-        <div
-            id="myMap"
-            style={{
-            width: '500px',
-            height: '500px',
-            }}
-        ></div>
-        <div id="result-list">
-            {places.length > 0 ? (
-            places.map((item, i) => (
-                <div key={i} style={{ marginTop: '20px' }} onClick={()=>handleSelectLocation(item)}>
-                <span>{i + 1}</span>
-                <div>
-                    <h5>{item.place_name}</h5>
-                    {item.road_address_name ? (
-                    <div>
-                        <span>{item.road_address_name}</span>
+        <div className='selectlocation_wrapper'>
+            <div
+                id="myMap"
+                style={{
+                width: '30rem',
+                height: '30rem',
+                }}
+            ></div>
+            <div className='result-list'>
+                {places.length > 0 ? (
+                places.map((item, i) => (
+                    <div key={i} style={{ marginTop: '20px' }} >
+                    <div className='list'>
+                        <button onClick={()=>handleSelectLocation(item)}>{item.place_name}</button>
+                        {item.road_address_name ? (
+                        <div>
+                            <span>{item.road_address_name}</span>
+                        </div>
+                        ) : (
                         <span>{item.address_name}</span>
+                        )}
                     </div>
-                    ) : (
-                    <span>{item.address_name}</span>
-                    )}
-                    <span>{item.phone}</span>
-                </div>
-                </div>
-            ))
-            ) : (
-            <p>Loading or no data available.</p>
-            )}
-            <div id="pagination"></div>
-        </div>
+                    </div>
+                ))
+                ) : (
+                <p>Loading or no data available.</p>
+                )}
+                <div id="pagination"></div>
+            </div>
         </div>
     );
 };

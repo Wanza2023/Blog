@@ -5,6 +5,7 @@ import PostWriteComponent from '../component/ui/PostWriteComponent';
 import LandingPage from '../pages/LandingPage'
 import styled from "styled-components";
 import "../styles/PostWrite.css";
+import SelectLocation from '../component/ui/SelectLocation';
 
 const Container = styled.div`
 `
@@ -58,6 +59,7 @@ function PostWrite() {
     newScheduleItems.splice(index, 1);
     setScheduleItems(newScheduleItems);
   };
+  
 
   const locationTitle = window.localStorage.getItem("title");
 
