@@ -13,10 +13,8 @@ import PostList from "../pages/PostList";
 const Navbar = () => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState); //로그인 상태
-    const [searchTerm, setSearchTerm] = useRecoilState(searchTermState);
+    const [searchTerm, setSearchTerm] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
-    const [nickname, setNickname] = useRecoilState(nicknameState);
-    const [memberId, setMemberId] = useRecoilState(memberIdState);
     const profileIconClick = () => {
         if(isLoggedIn==false) {
             navigate('/login');

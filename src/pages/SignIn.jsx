@@ -13,8 +13,6 @@ function SignIn(props){
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
     const [inputId,setInputId] = useState("");
     const [inputPw,setInputPw] = useState("");
-    const [nickname, setNickname] = useRecoilState(nicknameState);
-    const [memberId, setMemberId] = useRecoilState(memberIdState);
     const handleInputId = (e) => {
         setInputId(e.target.value);
     }
