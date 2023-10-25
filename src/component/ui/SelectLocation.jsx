@@ -17,9 +17,9 @@ function SelectLocation() {
         }
 
         locationList.push({
-        x: item.x,
-        y: item.y,
-        title: item.place_name
+            x: item.x,
+            y: item.y,
+            title: item.place_name
         });
 
         const updatedListJSON = JSON.stringify(locationList);
