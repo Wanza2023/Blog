@@ -11,7 +11,7 @@ function PostList() {
         <div className="wrapper">
             {filteredPosts.map((item)=><PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item}/>)}
             <Button/>
-        </div>      
+        </div>
     )
 }
 

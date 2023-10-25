@@ -3,13 +3,32 @@ import "../../styles/SelectLocation.css";
 
 const { kakao } = window;
 
-function SelectLocation() {
+const SelectLocation = (props) => {
     const [InputText, setInputText] = useState('');
     const [Place, setPlace] = useState('');
     const [places, setPlaces] = useState([]);
+    const [selectedLocations,setSelectedLocations] = useState([]);
+    const close = () => {
+        props.setModalIsOpen(false);
+        // 모달창 onclick일어날 때 모달창 닫기
+    }
+    const getLocation = (item) => {
+
+        const locationData = [{
+            x: item.x,
+            y: item.y,
+            title: item.place_name
+            }
+        ];
+        setSelectedLocations([...selectedLocations, locationData]);
+        console.log(locationData);
+
+        console.log(selectedLocations);
+    }
 
     const handleSelectLocation = (item) => {
         const existingListJSON = localStorage.getItem('locationList');
+        
         let locationList = [];
 
         if (existingListJSON) {
@@ -116,14 +135,15 @@ function SelectLocation() {
                     style={{
                         width: '30rem',
                         height: '30rem',
-                     }}
+                    }}
                 ></div>
                 <div className='result-list'>
                     {places.length > 0 ? (
                         places.map((item, i) => (
                             <div key={i} style={{ marginTop: '20px' }} >
                                 <div className='list'>
-                                    <button onClick={() => handleSelectLocation(item)}>{item.place_name}</button>
+                                    <button onClick={() => {getLocation(item); close();}} >{item.place_name}</button>
+                                    {/* <button onClick={() => {close(); handleSelectLocation(item); getLocation(item);}}>{item.place_name}</button> */}
                                     {item.road_address_name ? (
                                         <div>
                                             <span>{item.road_address_name}</span>
