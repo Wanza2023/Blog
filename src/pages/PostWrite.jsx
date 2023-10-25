@@ -20,7 +20,7 @@ function PostWrite() {
   const [desc, setDesc] = useState('');
   const [title, setTitle] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
-  const [scheduleItems, setScheduleItems] = useState([{ date: '', location: '', transportation: '' }]);
+  const [scheduleItems, setScheduleItems] = useState([{ date: '', location: '', transportation: ''}]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   
@@ -41,7 +41,6 @@ function PostWrite() {
       
     }
   };
-
   const addScheduleItem = () => {
     const newScheduleItems = [...scheduleItems, { date: '', location: '', transportation: '' }];
     setScheduleItems(newScheduleItems);
@@ -58,6 +57,10 @@ function PostWrite() {
     newScheduleItems.splice(index, 1);
     setScheduleItems(newScheduleItems);
   };
+
+  const consoleCheck = () =>{
+    console.log(scheduleItems);
+  }
   
 
   const locationTitle = window.localStorage.getItem("title");
@@ -96,7 +99,7 @@ function PostWrite() {
             <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
             <><text className="locationTitle">{locationTitle}</text></>
 	          <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-      	      <SelectLocation />
+      	      <SelectLocation setModalIsOpen={setModalIsOpen} setScheduleItems={setScheduleItems}/>
             </Modal>
             <input type="text" placeholder="이동수단" value={item.transportation} onChange={(e) => handleScheduleChange(index, 'transportation', e.target.value)} />
             <button className="minus" onClick={() => removeScheduleItem(index)}>-</button>
@@ -110,6 +113,7 @@ function PostWrite() {
       <div className="foot">
         <button>요약글 추가</button>
         <button>해시태그 추가</button>
+        <button onClick={consoleCheck}>데이터 확인</button>
       </div>
     </Container>
   )
