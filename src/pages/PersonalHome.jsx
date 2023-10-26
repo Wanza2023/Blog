@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/PersonalHome.css'
 import MapComponent from '../component/ui/MapComponent';
+import { useRecoilState } from "recoil";
+import { useParams } from 'react-router-dom';
+import { isLoggedInState,nickNameState,memberIdState } from "../component/AuthState";
 import PersonalTextComponent from '../component/ui/PersonalTextComponent';
 import BoardData from '../BoardData.json';
 import MemberData from '../MemberData.json';
@@ -25,12 +28,15 @@ const PersonalHome = () => {
         setShowText(true);
     };
     const filterData = BoardData.filter(item => item.nickname === '방글방글글');
+    const [nickName,setNickName] = useRecoilState(nickNameState);// 닉네임 전역관리
 
+    const {nick} = useParams();
+    
     return (
         <div>
             <div className='personal_profile'>
                 <img src={personal_profile_icon} alt="personal_profile_icon"/>
-                <h2>{filterData[0].nickname}</h2>
+                <h2>{nickName}</h2>
                 <p>님의 여행기록</p>
             </div>
             <div className='toggle'>

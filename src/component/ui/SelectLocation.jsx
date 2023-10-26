@@ -7,44 +7,42 @@ const SelectLocation = (props) => {
     const [InputText, setInputText] = useState('');
     const [Place, setPlace] = useState('');
     const [places, setPlaces] = useState([]);
-    const [selectedLocations,setSelectedLocations] = useState([]);
     const close = () => {
         props.setModalIsOpen(false);
         // 모달창 onclick일어날 때 모달창 닫기
     }
     const getLocation = (item) => {
 
-        const locationData = [{
+        const locationData = {
             x: item.x,
             y: item.y,
-            title: item.place_name
-            }
-        ];
-        setSelectedLocations([...selectedLocations, locationData]);
-        console.log(locationData);
-
-        console.log(selectedLocations);
-    }
-
-    const handleSelectLocation = (item) => {
-        const existingListJSON = localStorage.getItem('locationList');
+            title: item.place_name}
         
-        let locationList = [];
+        ;
 
-        if (existingListJSON) {
-        locationList = JSON.parse(existingListJSON);
-        }
-
-        locationList.push({
-            x: item.x,
-            y: item.y,
-            title: item.place_name
-        });
-
-        const updatedListJSON = JSON.stringify(locationList);
-
-        localStorage.setItem('locationList', updatedListJSON);
+        props.setLocationItems(locationData);
+        console.log("location data : ",locationData);
     }
+    // const handleSelectLocation = (item) => {
+    //     const existingListJSON = localStorage.getItem('locationList');
+        
+    //     let locationList = [];
+
+    //     if (existingListJSON) {
+    //     locationList = JSON.parse(existingListJSON);
+    //     }
+
+    //     locationList.push({
+    //     x: item.x,
+    //     y: item.y,
+    //     title: item.place_name
+        
+    //     });
+
+    //     const updatedListJSON = JSON.stringify(locationList);
+
+    //     localStorage.setItem('locationList', updatedListJSON);
+    // }
 
     const onChange = (e) => {
         setInputText(e.target.value);

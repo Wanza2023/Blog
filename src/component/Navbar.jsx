@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { isLoggedInState ,nicknameState,memberIdState, searchTermState} from "./AuthState";
-import { Link,useNavigate} from "react-router-dom";
+import { isLoggedInState ,nickNameState,memberIdState, searchTermState} from "./AuthState";
+import { Link,useNavigate,} from "react-router-dom";
 import axios from "axios";
 import '../styles/Navbar.css';
 import travelog_logo from '../assets/images/travelog_logo.png'
@@ -15,6 +15,8 @@ const Navbar = () => {
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState); //로그인 상태
     const [searchTerm, setSearchTerm] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
+    const [memberId,setMemberId] = useRecoilState(memberIdState);
+    const [nickName,setNickName] = useRecoilState(nickNameState);
     const profileIconClick = () => {
         if(isLoggedIn==false) {
             navigate('/login');
@@ -51,7 +53,6 @@ const Navbar = () => {
     const handleLogout = () => {
         setIsLoggedIn(false);
     };
-
     return (
         <nav className="navbar">
             <div className="navbar-logo">
@@ -81,7 +82,9 @@ const Navbar = () => {
                         {isLoggedIn && (
                             <div className="optionList">
                                 <li className="optionListItem"><Link to="/">계정관리</Link></li>
-                                <li className="optionListItem"><Link to="/personalhome">나의 블로그홈</Link></li>
+                                {/* <li className="optionListItem" ><Link to={`/${nickName}`}>나의 블로그홈</Link></li> */}
+                                {/* <li className="optionListItem" ><Link to="personalhome">나의 블로그홈</Link></li> */}
+                                {/* <li className="optionListItem" onClick={()=>navigate("/"+nickName)}>나의 블로그홈</li> */}
                                 <li className="optionListItem"><Link to="/">블로그관리</Link></li>
                                 <li className="optionListItem"><button onClick={handleLogout}>로그아웃</button></li>
                             </div>

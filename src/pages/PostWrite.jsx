@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import Modal from 'react-modal';
 import PostWriteComponent from '../component/ui/PostWriteComponent';
 import SelectLocation from '../component/ui/SelectLocation';
@@ -79,9 +80,36 @@ function PostWrite() {
   const [title, setTitle] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
   const [scheduleItems, setScheduleItems] = useState([{ date: '', location: '', transportation: ''}]);
+  const [locationItems,setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  
+  const handleSelectLocation = (selectedLocationData) => {
+    setLocationItems([...locationItems, selectedLocationData]);
+  };
+
+  const boardWrite = async() => {
+
+		const board = {
+      "nickname": "바다조아",
+      "local": selectedRegion,
+      "title": title,
+      "contents": desc,
+      "summary": "감자 맛있어요",
+      "status": true,
+      "schedules": [],
+      "hashtags": tagItem
+  }
+
+		await axios.post("http://172.16.210.130:8080/write", board)
+    .then((resp) => {
+			console.log(resp.data);
+			alert("새로운 게시글을 성공적으로 등록했습니다 :D");
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+  }
+
   function onEditorChange(value) {
     setDesc(value);
   }
@@ -90,10 +118,31 @@ function PostWrite() {
     setSelectedRegion(event.target.value);
   }
 
+  
+  const combinedSchedule = [...locationItems,...scheduleItems];
+
   const handlePublish = () => {
     const isPublic = window.confirm("이 게시물을 공개로 발행하시겠습니까?");
-
+    
     if (isPublic) {
+      axios
+        .post("http://172.16.210.130:8080/write",{
+          nickname: "방글방글글",
+          local: "Seoul",
+          title: title,
+          content: desc,
+          summary: "post실험요약글",
+          status: true,
+          schedules : [],
+          hashtags : null
+        })
+        .then(res => {
+          console.log("post성공");
+        })
+        .catch(error => {
+          console.log("error : ", error);
+          alert('잘못입력하였습니다.');
+      });
       navigate("/post-view");      
     } else {
       
@@ -118,6 +167,8 @@ function PostWrite() {
 
   const consoleCheck = () =>{
     console.log(scheduleItems);
+    console.log(locationItems);
+    console.log(combinedSchedule);
   }
   
 
@@ -172,7 +223,7 @@ function PostWrite() {
           <option value="제주도">제주도</option>
         </select>
         <input id="title" type="text" value={title} placeholder="제목을 입력해주세요." onChange={(e) => { setTitle(e.target.value); }} />
-        <button onClick={handlePublish}>발행</button>
+        <button onClick={boardWrite}>발행</button>
       </div>
       <div className="body2">
         {scheduleItems.map((item, index) => (
@@ -182,9 +233,8 @@ function PostWrite() {
             <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
             <><text className="locationTitle">{locationTitle}</text></>
 	          <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-      	      <SelectLocation setModalIsOpen={setModalIsOpen} setScheduleItems={setScheduleItems}/>
+      	      <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
             </Modal>
-            <><text className="locationTitle">{locationTitle}</text></>
             <input type="text" placeholder="이동수단" value={item.transportation} onChange={(e) => handleScheduleChange(index, 'transportation', e.target.value)} />
             <button className="minus" onClick={() => removeScheduleItem(index)}>-</button>
           </div>
