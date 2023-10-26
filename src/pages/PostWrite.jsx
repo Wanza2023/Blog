@@ -81,6 +81,7 @@ function PostWrite() {
   const [title, setTitle] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
   const [scheduleItems, setScheduleItems] = useState([{ date: '', location: '', transportation: ''}]);
+  const [locationItems,setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const boardWrite = async() => {
@@ -113,7 +114,10 @@ function PostWrite() {
 		});
   }
 
-  
+  const handleSelectLocation = (selectedLocationData) => {
+    setLocationItems([...locationItems, selectedLocationData]); //모달에서 지도 정보받아오기 경도,위도,위치이름
+  };
+
   function onEditorChange(value) {
     setDesc(value);
   }
@@ -122,9 +126,12 @@ function PostWrite() {
     setSelectedRegion(event.target.value);
   }
 
+  
+  const combinedSchedule = [...locationItems,...scheduleItems];
+
   const handlePublish = () => {
     const isPublic = window.confirm("이 게시물을 공개로 발행하시겠습니까?");
-
+    
     if (isPublic) {
       navigate("/post-view");      
     } else {
@@ -150,6 +157,8 @@ function PostWrite() {
 
   const consoleCheck = () =>{
     console.log(scheduleItems);
+    console.log(locationItems);
+    console.log(combinedSchedule);
   }
   
 
@@ -213,7 +222,7 @@ function PostWrite() {
             <input type="text" placeholder="날짜" value={item.date} onChange={(e) => handleScheduleChange(index, 'date', e.target.value)} />
             <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
 	          <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-      	      <SelectLocation setModalIsOpen={setModalIsOpen} setScheduleItems={setScheduleItems}/>
+      	      <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
             </Modal>
             <><text className="locationTitle">{locationTitle}</text></>
             <input type="text" placeholder="이동수단" value={item.transportation} onChange={(e) => handleScheduleChange(index, 'transportation', e.target.value)} />
