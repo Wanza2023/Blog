@@ -12,13 +12,23 @@ const SelectLocation = (props) => {
         props.setModalIsOpen(false);
         // 모달창 onclick일어날 때 모달창 닫기
     }
-    
-    useEffect(() => {
-        console.log("selected", selectedLocations);
-    }, [selectedLocations]);
+    const getLocation = (item) => {
+
+        const locationData = [{
+            x: item.x,
+            y: item.y,
+            title: item.place_name
+            }
+        ];
+        setSelectedLocations([...selectedLocations, locationData]);
+        console.log(locationData);
+
+        console.log(selectedLocations);
+    }
 
     const handleSelectLocation = (item) => {
         const existingListJSON = localStorage.getItem('locationList');
+        
         let locationList = [];
     
         if (existingListJSON) {
@@ -142,8 +152,7 @@ const SelectLocation = (props) => {
                         places.map((item, i) => (
                             <div key={i} style={{ marginTop: '20px' }} >
                                 <div className='list'>
-                                <button onClick={() => { handleSelectLocation(item); close(); }}>{item.place_name}</button>
-
+                                    <button onClick={() => {getLocation(item); close();}} >{item.place_name}</button>
                                     {/* <button onClick={() => {close(); handleSelectLocation(item); getLocation(item);}}>{item.place_name}</button> */}
                                     {item.road_address_name ? (
                                         <div>
