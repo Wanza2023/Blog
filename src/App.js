@@ -25,7 +25,7 @@ function App() {
             <Route path="/:nickname/:boardId" element={<PostView />} />
             <Route path="login" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
-            <Route path="/:nick" element={<PersonalHome/>} />
+            <Route path="user/:nickname" element={<PersonalHome/>} />
           </Routes>
         </div>
       </BrowserRouter>

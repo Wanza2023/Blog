@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import PostCard from './PostCard';
+import Button from "../component/ui/Button";
 import '../styles/PersonalHome.css'
 import MapComponent from '../component/ui/MapComponent';
 import { useRecoilState } from "recoil";
@@ -31,6 +34,24 @@ const PersonalHome = () => {
     const [nickName,setNickName] = useRecoilState(nickNameState);// 닉네임 전역관리
 
     const {nick} = useParams();
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://172.16.210.130:8080/${nickName}`);
+                if (response.data && response.data.body && Array.isArray(response.data.body)) {
+                setPosts(response.data.body);
+                } else {
+                console.error('Invalid response data format');
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Error: 데이터를 불러올 수 없습니다');
+            }
+            };
+            fetchData();
+        }, [nickName]);
     
     return (
         <div>
@@ -45,7 +66,13 @@ const PersonalHome = () => {
                 <button onClick={handleTextButtonClick}>글</button>
             </div>
             {showMap && <div className='map_styles'><MapComponent/></div>}
-            {showText && <div><PersonalTextComponent BoardData={filterData}/></div>}
+            {/* {showText && <div><PersonalTextComponent BoardData={filterData}/></div>} */}
+            {showText &&
+                <div className="wrapper">
+                    {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)}
+                    <Button />
+                </div>
+            }
         </div>
         );
 };
