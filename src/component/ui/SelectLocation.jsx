@@ -30,20 +30,30 @@ const SelectLocation = (props) => {
         const existingListJSON = localStorage.getItem('locationList');
         
         let locationList = [];
-
+    
         if (existingListJSON) {
-        locationList = JSON.parse(existingListJSON);
+            locationList = JSON.parse(existingListJSON);
         }
-
+    
         locationList.push({
             x: item.x,
             y: item.y,
             title: item.place_name
         });
-
+    
         const updatedListJSON = JSON.stringify(locationList);
-
         localStorage.setItem('locationList', updatedListJSON);
+    
+        // 갱신된 locationList를 state(selectedLocations)에 설정
+        setSelectedLocations(locationList);
+        setSelectedLocations(prevLocations => [...prevLocations, 'locationList']);
+    }
+
+    const handleDeleteData = () => {
+        // Clear data from local storage
+        localStorage.removeItem('locationList');
+        // Clear the selectedLocations state
+        setSelectedLocations([]);
     }
 
     const onChange = (e) => {

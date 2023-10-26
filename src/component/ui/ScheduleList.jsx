@@ -10,7 +10,7 @@ const ScheduleList = ({ scheduleData }) => {
             day={item.day}
             date={item.date}
             location={item.location}
-            transportation={item.transportation}
+            transportation={item.transport}
             />
         ))}
         </div>
