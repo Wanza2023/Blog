@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import Modal from 'react-modal';
 import PostWriteComponent from '../component/ui/PostWriteComponent';
 import SelectLocation from '../component/ui/SelectLocation';
@@ -28,6 +29,7 @@ const TagBox = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  width: 600px;
   min-height: 50px;
   margin: 10px;
   padding: 0 10px;
@@ -80,6 +82,36 @@ function PostWrite() {
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
   const [scheduleItems, setScheduleItems] = useState([{ date: '', location: '', transportation: ''}]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const boardWrite = async() => {
+
+		const board = {
+      "nickname": "홍길동",
+      "local": selectedRegion,
+      "title": title,
+      "contents": desc,
+      "summary": "여수에 갔으면 오동도는 필수 코스",
+      "status": true,
+      "schedules": [
+        {
+            "date": "2023-08-21",
+            "latitude" : 127.766287676838,
+            "longitude": 34.7445973535257,
+            "location": "오동도",
+            "transport": "자차"
+        }
+    ],
+      "hashtags": tagList
+  }
+
+		await axios.post("http://172.16.210.130:8080/write", board).then((resp) => {
+			console.log(resp.data);
+			alert("새로운 게시글을 성공적으로 등록했습니다 :D");
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+  }
 
   
   function onEditorChange(value) {
@@ -142,45 +174,44 @@ function PostWrite() {
     setTagItem('')
   }
 
-  const deleteTagItem = e => {
-    const deleteTagItem = e.target.parentElement.firstChild.innerText
-    const filteredTagList = tagList.filter(tagItem => tagItem !== deleteTagItem)
-    setTagList(filteredTagList)
-  }
+  const deleteTagItem = (e) => {
+    const deletedTag = e.target.parentElement.firstChild.innerText.substr(2);
+    const filteredTagList = tagList.filter(tagItem => tagItem !== deletedTag);
+    setTagList(filteredTagList);
+  };
 
   return (
     <Container>
       <div className="body1">
         <select value={selectedRegion} onChange={handleRegionChange}>
           <option value="지역 선택" disabled>지역 선택</option>
-          <option value="서울">서울</option>
-          <option value="경기도">경기도</option>
-          <option value="인천">인천</option>
-          <option value="강원도">강원도</option>
-          <option value="충청북도">충청북도</option>
-          <option value="충청남도">충청남도</option>
-          <option value="세종">세종</option>
-          <option value="대전">대전</option>
-          <option value="경상북도">경상북도</option>
-          <option value="경상남도">경상남도</option>
-          <option value="대구">대구</option>
-          <option value="울산">울산</option>
-          <option value="부산">부산</option>
-          <option value="전라북도">전라북도</option>
-          <option value="전라남도">전라남도</option>
-          <option value="광주">광주</option>
-          <option value="제주도">제주도</option>
+          <option value="Seoul">서울</option>
+          <option value="Gyeonggi">경기도</option>
+          <option value="Incheon">인천</option>
+          <option value="Gangwon">강원도</option>
+          <option value="Chungbuk">충청북도</option>
+          <option value="Chungnam">충청남도</option>
+          <option value="Sejong">세종</option>
+          <option value="Daejeon">대전</option>
+          <option value="Gyeongbuk">경상북도</option>
+          <option value="Gyeongnam">경상남도</option>
+          <option value="Daegu">대구</option>
+          <option value="Ulsan">울산</option>
+          <option value="Busan">부산</option>
+          <option value="Jeonbuk">전라북도</option>
+          <option value="Jeonnam">전라남도</option>
+          <option value="Gwangju">광주</option>
+          <option value="Jeju">제주도</option>
         </select>
         <input id="title" type="text" value={title} placeholder="제목을 입력해주세요." onChange={(e) => { setTitle(e.target.value); }} />
-        <button onClick={handlePublish}>발행</button>
+        <button onClick={boardWrite}>발행</button>
       </div>
       <div className="body2">
         {scheduleItems.map((item, index) => (
-          <div key={index}>
+          <div key={index} className="scheduleList">
             <text className="index">{index + 1}번째 여행지</text>
             <input type="text" placeholder="날짜" value={item.date} onChange={(e) => handleScheduleChange(index, 'date', e.target.value)} />
             <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
-            <><text className="locationTitle">{locationTitle}</text></>
 	          <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
       	      <SelectLocation setModalIsOpen={setModalIsOpen} setScheduleItems={setScheduleItems}/>
             </Modal>

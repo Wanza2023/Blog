@@ -12,38 +12,38 @@ const SelectLocation = (props) => {
         props.setModalIsOpen(false);
         // 모달창 onclick일어날 때 모달창 닫기
     }
-    const getLocation = (item) => {
-
-        const locationData = [{
-            x: item.x,
-            y: item.y,
-            title: item.place_name
-            }
-        ];
-        setSelectedLocations([...selectedLocations, locationData]);
-        console.log(locationData);
-
-        console.log(selectedLocations);
-    }
+    
+    useEffect(() => {
+        console.log("selected", selectedLocations);
+    }, [selectedLocations]);
 
     const handleSelectLocation = (item) => {
         const existingListJSON = localStorage.getItem('locationList');
-        
         let locationList = [];
-
+    
         if (existingListJSON) {
-        locationList = JSON.parse(existingListJSON);
+            locationList = JSON.parse(existingListJSON);
         }
-
+    
         locationList.push({
             x: item.x,
             y: item.y,
             title: item.place_name
         });
-
+    
         const updatedListJSON = JSON.stringify(locationList);
-
         localStorage.setItem('locationList', updatedListJSON);
+    
+        // 갱신된 locationList를 state(selectedLocations)에 설정
+        setSelectedLocations(locationList);
+        setSelectedLocations(prevLocations => [...prevLocations, 'locationList']);
+    }
+
+    const handleDeleteData = () => {
+        // Clear data from local storage
+        localStorage.removeItem('locationList');
+        // Clear the selectedLocations state
+        setSelectedLocations([]);
     }
 
     const onChange = (e) => {
@@ -142,7 +142,8 @@ const SelectLocation = (props) => {
                         places.map((item, i) => (
                             <div key={i} style={{ marginTop: '20px' }} >
                                 <div className='list'>
-                                    <button onClick={() => {getLocation(item); close();}} >{item.place_name}</button>
+                                <button onClick={() => { handleSelectLocation(item); close(); }}>{item.place_name}</button>
+
                                     {/* <button onClick={() => {close(); handleSelectLocation(item); getLocation(item);}}>{item.place_name}</button> */}
                                     {item.road_address_name ? (
                                         <div>

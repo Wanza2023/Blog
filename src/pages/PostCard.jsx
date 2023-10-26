@@ -3,19 +3,39 @@ import { Link } from "react-router-dom";
 import "../styles/PostCard.css";
 
 function PostCard(props){
+    // 날짜 뒤에 시간 제거
     const createdDate = new Date(props.createdAt);
     const formattedDate = createdDate.toISOString().split('T')[0];
+
+    // contents html안의 이미지 가져오기
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(props.contents, "text/html");
+    const imgElement = doc.querySelector("img");
+    const imgSrc = imgElement ? imgElement.getAttribute("src") : "default-image-url.jpg";
+
     return (
-        <Link to={props.path} className="card">
-            <img src={props.img} alt={props.alt} className="cardimg"/>
-                <div className="cardbody">
-                    <h2 className="cardtitle">{props.title}</h2>
-                    <p className="cardInfo">{props.nickname} {formattedDate}</p>
-                    <p className="cardcontent">{props.summary}</p>
-                    <p className="cardcontent">{props.hashtags}</p>
+        <Link to={props.path} className="cards">
+            <div>
+                {imgSrc !== "default-image-url.jpg" ? ( // 사진 없을 때 빈 박스
+                    <img src={imgSrc} alt={props.alt} className="cardimg" />
+                ) : (
+                    <div className="noImg"></div>
+                )}
+            </div>
+            <div className="cardContents">
+                <h2 className="cardtitle">{props.title}</h2>
+                <p className="cardInfo">{formattedDate} {props.nickname}</p>
+                <p className="cardcontent">{props.summary}</p>
+                <div>
+                    {props.hashtags.map((tag, index) => (
+                        <div key={index} className="hashtagBox">
+                            #{tag}
+                        </div>
+                    ))}
                 </div>
+            </div>
         </Link>
-);
+    );
 }
 
 export default PostCard;
