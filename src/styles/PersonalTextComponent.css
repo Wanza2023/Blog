@@ -27,16 +27,11 @@
 }
 
 .cardbody {
-    margin: 1rem;
+    margin: 2em;
     width: 50rem;
 }
 
 .cardtitle {
     line-height: 1.4rem;
     margin-bottom: 0.5rem;
-}
-
-.cardcontent1 {
-    line-height: 1.2rem;
-    margin-top:3rem;
 }

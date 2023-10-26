@@ -29,6 +29,7 @@ const TagBox = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  width: 600px;
   min-height: 50px;
   margin: 10px;
   padding: 0 10px;
@@ -83,25 +84,28 @@ function PostWrite() {
   const [locationItems,setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const handleSelectLocation = (selectedLocationData) => {
-    setLocationItems([...locationItems, selectedLocationData]);
-  };
-
   const boardWrite = async() => {
 
 		const board = {
-      "nickname": "바다조아",
+      "nickname": "홍길동",
       "local": selectedRegion,
       "title": title,
       "contents": desc,
-      "summary": "감자 맛있어요",
+      "summary": "여수에 갔으면 오동도는 필수 코스",
       "status": true,
-      "schedules": [],
-      "hashtags": tagItem
+      "schedules": [
+        {
+            "date": "2023-08-21",
+            "latitude" : 127.766287676838,
+            "longitude": 34.7445973535257,
+            "location": "오동도",
+            "transport": "자차"
+        }
+    ],
+      "hashtags": tagList
   }
 
-		await axios.post("http://172.16.210.130:8080/write", board)
-    .then((resp) => {
+		await axios.post("http://172.16.210.130:8080/write", board).then((resp) => {
 			console.log(resp.data);
 			alert("새로운 게시글을 성공적으로 등록했습니다 :D");
 		})
@@ -109,6 +113,10 @@ function PostWrite() {
 			console.log(err);
 		});
   }
+
+  const handleSelectLocation = (selectedLocationData) => {
+    setLocationItems([...locationItems, selectedLocationData]); //모달에서 지도 정보받아오기 경도,위도,위치이름
+  };
 
   function onEditorChange(value) {
     setDesc(value);
@@ -125,24 +133,6 @@ function PostWrite() {
     const isPublic = window.confirm("이 게시물을 공개로 발행하시겠습니까?");
     
     if (isPublic) {
-      axios
-        .post("http://172.16.210.130:8080/write",{
-          nickname: "방글방글글",
-          local: "Seoul",
-          title: title,
-          content: desc,
-          summary: "post실험요약글",
-          status: true,
-          schedules : [],
-          hashtags : null
-        })
-        .then(res => {
-          console.log("post성공");
-        })
-        .catch(error => {
-          console.log("error : ", error);
-          alert('잘못입력하였습니다.');
-      });
       navigate("/post-view");      
     } else {
       
@@ -193,48 +183,48 @@ function PostWrite() {
     setTagItem('')
   }
 
-  const deleteTagItem = e => {
-    const deleteTagItem = e.target.parentElement.firstChild.innerText
-    const filteredTagList = tagList.filter(tagItem => tagItem !== deleteTagItem)
-    setTagList(filteredTagList)
-  }
+  const deleteTagItem = (e) => {
+    const deletedTag = e.target.parentElement.firstChild.innerText.substr(2);
+    const filteredTagList = tagList.filter(tagItem => tagItem !== deletedTag);
+    setTagList(filteredTagList);
+  };
 
   return (
     <Container>
       <div className="body1">
         <select value={selectedRegion} onChange={handleRegionChange}>
           <option value="지역 선택" disabled>지역 선택</option>
-          <option value="서울">서울</option>
-          <option value="경기도">경기도</option>
-          <option value="인천">인천</option>
-          <option value="강원도">강원도</option>
-          <option value="충청북도">충청북도</option>
-          <option value="충청남도">충청남도</option>
-          <option value="세종">세종</option>
-          <option value="대전">대전</option>
-          <option value="경상북도">경상북도</option>
-          <option value="경상남도">경상남도</option>
-          <option value="대구">대구</option>
-          <option value="울산">울산</option>
-          <option value="부산">부산</option>
-          <option value="전라북도">전라북도</option>
-          <option value="전라남도">전라남도</option>
-          <option value="광주">광주</option>
-          <option value="제주도">제주도</option>
+          <option value="Seoul">서울</option>
+          <option value="Gyeonggi">경기도</option>
+          <option value="Incheon">인천</option>
+          <option value="Gangwon">강원도</option>
+          <option value="Chungbuk">충청북도</option>
+          <option value="Chungnam">충청남도</option>
+          <option value="Sejong">세종</option>
+          <option value="Daejeon">대전</option>
+          <option value="Gyeongbuk">경상북도</option>
+          <option value="Gyeongnam">경상남도</option>
+          <option value="Daegu">대구</option>
+          <option value="Ulsan">울산</option>
+          <option value="Busan">부산</option>
+          <option value="Jeonbuk">전라북도</option>
+          <option value="Jeonnam">전라남도</option>
+          <option value="Gwangju">광주</option>
+          <option value="Jeju">제주도</option>
         </select>
         <input id="title" type="text" value={title} placeholder="제목을 입력해주세요." onChange={(e) => { setTitle(e.target.value); }} />
         <button onClick={boardWrite}>발행</button>
       </div>
       <div className="body2">
         {scheduleItems.map((item, index) => (
-          <div key={index}>
+          <div key={index} className="scheduleList">
             <text className="index">{index + 1}번째 여행지</text>
             <input type="text" placeholder="날짜" value={item.date} onChange={(e) => handleScheduleChange(index, 'date', e.target.value)} />
             <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
-            <><text className="locationTitle">{locationTitle}</text></>
 	          <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
       	      <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
             </Modal>
+            <><text className="locationTitle">{locationTitle}</text></>
             <input type="text" placeholder="이동수단" value={item.transportation} onChange={(e) => handleScheduleChange(index, 'transportation', e.target.value)} />
             <button className="minus" onClick={() => removeScheduleItem(index)}>-</button>
           </div>

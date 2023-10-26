@@ -11,9 +11,9 @@
 }
 
 #title {
-    height: 30px;
+    height: 3vh;
     margin: 10px;
-    width: 753px;
+    width: 40vw;
     border-radius: 2px;
     text-align: left;
     border: 1px solid #f1f1f1;
@@ -35,21 +35,18 @@
 .body2 {
     margin-bottom: 1.5vh;
     display: flex;
-    align-items: flex-start;
     flex-direction: column;
     text-align: center;
 }
 
-.body2 > div {
-    justify-content: center;
-    margin-left: 22.7vw;
+.scheduleList {
+    margin-bottom: 1vh;
 }
 
 .index {
-    margin-left: -5.5vw;
-    margin-right: 1vw;
     font-size: 0.87rem;
     font-weight: bold;
+    margin-right: 1vw;
 }
 
 .body2 > div > input {
@@ -57,28 +54,31 @@
     margin-top: 1vh;
     border: 1px solid #f1f1f1;
     border-radius: 5px;
-    height: 4vh;
+    height: 3vh;
 }
 
 .selectLocation {
     width: 3vw;
-    height: 4vh;
+    height: 3vh;
     border: none;
     border-radius: 5px;
     background-color: #5076FF;
     color: white;
     cursor: pointer;
     margin-right: 1vw;
+    font-weight: bold;
 }
 
 .locationTitle {
-    font-size: 0.87rem;
-    font-weight: bold;
-    margin-right: 1rem;
+    margin-right: 1vw;
+    margin-top: 1vh;
+    border: 1px solid #f1f1f1;
+    border-radius: 5px;
+    height: 3vh;
 }
 
 .minus {
-    height: 4vh;
+    height: 3vh;
     width: 2vw;
     border: none;
     border-radius: 5px;
@@ -88,16 +88,14 @@
 }
 
 .body2 > button {
-    margin-left: 23.5vw;
-    margin-top: 1vh;
-    float: right;
-    height: 4vh;
+    height: 3vh;
     width: 2vw;
     border: none;
     border-radius: 5px;
     background-color: #5076FF;
     color: white;
     font-size: 1.1rem;
+    margin: auto;
 }
 
 .foot {

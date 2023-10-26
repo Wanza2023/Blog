@@ -82,7 +82,7 @@ const Navbar = () => {
                         {isLoggedIn && (
                             <div className="optionList">
                                 <li className="optionListItem"><Link to="/">계정관리</Link></li>
-                                {/* <li className="optionListItem" ><Link to={`/${nickName}`}>나의 블로그홈</Link></li> */}
+                                <li className="optionListItem" ><Link to={`/${nickName}`}>나의 블로그홈</Link></li>
                                 {/* <li className="optionListItem" ><Link to="personalhome">나의 블로그홈</Link></li> */}
                                 {/* <li className="optionListItem" onClick={()=>navigate("/"+nickName)}>나의 블로그홈</li> */}
                                 <li className="optionListItem"><Link to="/">블로그관리</Link></li>

@@ -1,4 +1,48 @@
 .cardInfo {
-    text-align: right;
-    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.hashtagBox {
+    float: left;
+    margin-right: 1vw;
+    border-radius: 5px;
+    background-color: #5076FF;
+    color: white;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0.3rem;
+}
+
+.cards {
+    min-width: 18rem;
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid gray;
+}
+
+.noImg {
+    width: 15rem;
+    height: 15rem;
+}
+
+.cardimg {
+    width: 12rem;
+    height: 12rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+
+    object-fit: contain;
+}
+
+.cardContents {
+    margin: 2em;
+    width: 50rem;
+    height: 2vh;
+}
+
+.cardtitle {
+    line-height: 1.4rem;
+    margin-bottom: 0.5rem;
 }
