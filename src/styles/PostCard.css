@@ -5,7 +5,7 @@
 .hashtagBox {
     float: left;
     margin-right: 1vw;
-    border-radius: 5px;
+    border-radius: 15px;
     background-color: #5076FF;
     color: white;
     font-size: 0.9rem;
@@ -28,8 +28,8 @@
 }
 
 .cardimg {
-    width: 12rem;
-    height: 12rem;
+    width: 15rem;
+    height: 15rem;
     padding-bottom: 1rem;
     padding-top: 1rem;
 

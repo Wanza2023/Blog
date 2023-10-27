@@ -13,6 +13,29 @@ function PostCard(props){
     const imgElement = doc.querySelector("img");
     const imgSrc = imgElement ? imgElement.getAttribute("src") : "default-image-url.jpg";
 
+    const local = (props.local);
+    const localToKorean = {
+        Busan: "부산",
+        Daegu: "대구",
+        Daejeon: "대전",
+        Gangwon: "강원도",
+        Gwangju: "광주",
+        Gyeonggi: "경기도",
+        Incheon: "인천",
+        Jeju: "제주도",
+        Chungbuk: "충청북도",
+        Gyeongbuk: "경상북도",
+        Jeonbuk: "전라북도",
+        Sejong: "세종",
+        Seoul: "서울",
+        Chungnam: "충청남도",
+        Gyeongnam: "경상남도",
+        Jeonnam: "전라남도",
+        Ulsan: "울산"     
+    };
+
+    const localKorean = localToKorean[local] || local;
+
     return (
         <Link to={props.path} className="cards">
             <div>
@@ -23,7 +46,7 @@ function PostCard(props){
                 )}
             </div>
             <div className="cardContents">
-                <h2 className="cardtitle">{props.title}</h2>
+                <h2 className="cardtitle">[{localKorean}] {props.title}</h2>
                 <p className="cardInfo">{formattedDate} {props.nickname}</p>
                 <p className="cardcontent">{props.summary}</p>
                 <div>

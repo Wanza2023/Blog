@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from 'recoil';
 import axios from 'axios';
 import Modal from 'react-modal';
+import { nickNameState } from "../component/AuthState";
 import PostWriteComponent from '../component/ui/PostWriteComponent';
 import SelectLocation from '../component/ui/SelectLocation';
 import styled from "styled-components";
@@ -77,31 +79,24 @@ const TagInput = styled.input`
 
 function PostWrite() {
   const navigate = useNavigate();
+  const [nickName,setNickName] = useRecoilState(nickNameState);// 닉네임 전역관리
   const [desc, setDesc] = useState('');
   const [title, setTitle] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
-  const [scheduleItems, setScheduleItems] = useState([{ date: '', location: '', transportation: ''}]);
+  const [scheduleItems, setScheduleItems] = useState([{ date: '', transportation: ''}]);
   const [locationItems,setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const boardWrite = async() => {
 
 		const board = {
-      "nickname": "홍길동",
+      "nickname": nickName,
       "local": selectedRegion,
       "title": title,
       "contents": desc,
-      "summary": "여수에 갔으면 오동도는 필수 코스",
+      "summary": "패러글라이딩 재밌다.",
       "status": true,
-      "schedules": [
-        {
-            "date": "2023-08-21",
-            "latitude" : 127.766287676838,
-            "longitude": 34.7445973535257,
-            "location": "오동도",
-            "transport": "자차"
-        }
-    ],
+      "schedules": schedules,
       "hashtags": tagList
   }
 
@@ -126,8 +121,11 @@ function PostWrite() {
     setSelectedRegion(event.target.value);
   }
 
+  const combinedSchedule = locationItems.map((locationItem, index) => {
+    return Object.assign({}, locationItem, scheduleItems[index]);
+  });
   
-  const combinedSchedule = [...locationItems,...scheduleItems];
+  const schedules = [...combinedSchedule];
 
   const handlePublish = () => {
     const isPublic = window.confirm("이 게시물을 공개로 발행하시겠습니까?");
@@ -139,7 +137,7 @@ function PostWrite() {
     }
   };
   const addScheduleItem = () => {
-    const newScheduleItems = [...scheduleItems, { date: '', location: '', transportation: '' }];
+    const newScheduleItems = [...scheduleItems, { date: '', transportation: '' }];
     setScheduleItems(newScheduleItems);
   };
 
@@ -159,6 +157,7 @@ function PostWrite() {
     console.log(scheduleItems);
     console.log(locationItems);
     console.log(combinedSchedule);
+    console.log(schedules);
   }
   
 
