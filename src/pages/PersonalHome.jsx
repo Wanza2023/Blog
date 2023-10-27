@@ -11,6 +11,7 @@ import PersonalTextComponent from '../component/ui/PersonalTextComponent';
 import BoardData from '../BoardData.json';
 import MemberData from '../MemberData.json';
 import personal_profile_icon from '../assets/images/personal_profile_icon.png';
+import Paging from '../component/ui/Paging';
 
 
 const PersonalHome = () => {
@@ -32,9 +33,19 @@ const PersonalHome = () => {
     };
     const filterData = BoardData.filter(item => item.nickname === '방글방글글');
     const [nickName,setNickName] = useRecoilState(nickNameState);// 닉네임 전역관리
+    const [count, setCount] = useState(0); // 아이템 총 개수
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
+    const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수 
+    const [indexOfLastPost, setIndexOfLastPost] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
+    const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
+    const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
 
     const {nick} = useParams();
     const [posts, setPosts] = useState([]);
+
+    const setPage = (error) => {
+        setCurrentPage(error);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -51,7 +62,11 @@ const PersonalHome = () => {
             }
             };
             fetchData();
-        }, [nickName]);
+            setCount(posts.length);
+            setIndexOfLastPost(currentPage * postPerPage);
+            setIndexOfFirstPost(indexOfLastPost - postPerPage);
+            setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost));
+        }, [nickName,currentPage, indexOfLastPost, indexOfFirstPost, posts, postPerPage]);
     
     return (
         <div>
@@ -65,11 +80,13 @@ const PersonalHome = () => {
                 <span>|</span>
                 <button onClick={handleTextButtonClick}>글</button>
             </div>
-            {showMap && <div className='map_styles'><MapComponent/></div>}
+            {showMap && <div className='map_styles'><MapComponent data={posts}/></div>}
             {/* {showText && <div><PersonalTextComponent BoardData={filterData}/></div>} */}
             {showText &&
                 <div className="wrapper">
-                    {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)}
+                    {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
+                    {currentPosts && posts.length > 0 ? (currentPosts.map((item)=>(<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div>no posts</div>)}
+                    <Paging page={currentPage} count={count} setPage={setPage}/>
                     <Button />
                 </div>
             }

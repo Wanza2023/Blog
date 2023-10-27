@@ -61,9 +61,6 @@ function SignIn(props){
                         // 작업 완료 되면 페이지 이동(새로고침)
                         navigate("/");
                     });
-                // localStorage.setItem("email", res.data.body.email);
-                // console.log(res.data.body.email);
-                navigate("/")
             })
             .catch(error => {
                 console.error("Login failed:", error);
