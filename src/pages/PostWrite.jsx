@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from 'recoil';
 import axios from 'axios';
 import Modal from 'react-modal';
+import { nickNameState } from "../component/AuthState";
 import PostWriteComponent from '../component/ui/PostWriteComponent';
 import SelectLocation from '../component/ui/SelectLocation';
 import styled from "styled-components";
@@ -77,10 +79,11 @@ const TagInput = styled.input`
 
 function PostWrite() {
   const navigate = useNavigate();
+  const [nickName,setNickName] = useRecoilState(nickNameState);// 닉네임 전역관리
   const [desc, setDesc] = useState('');
   const [title, setTitle] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
-  const [scheduleItems, setScheduleItems] = useState([{ date: '', location: '', transportation: ''}]);
+  const [scheduleItems, setScheduleItems] = useState([{ date: '', transportation: ''}]);
   const [locationItems,setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [totConfirm, setTotConfirm] = useState([0,0,0]);  // 필수입력정보 입력되면 1로바꾸기
@@ -89,21 +92,13 @@ function PostWrite() {
   const boardWrite = async() => {
 
 		const board = {
-      "nickname": "바다조아",
+      "nickname": nickName,
       "local": selectedRegion,
       "title": title,
       "contents": desc,
-      "summary": "부산은 광안리",
+      "summary": "패러글라이딩 재밌다.",
       "status": true,
-      "schedules": [
-        {
-            "date": "2023-08-24",
-            "latitude" : 129.116911501501,
-            "longitude": 35.1366914246094,
-            "location": "광안대교",
-            "transport": "도보"
-        }
-    ],
+      "schedules": schedules,
       "hashtags": tagList
   }
 
@@ -159,8 +154,12 @@ function PostWrite() {
     }
   }
 
-  const combinedSchedule = [...locationItems,...scheduleItems];
+  const combinedSchedule = locationItems.map((locationItem, index) => {
+    return Object.assign({}, locationItem, scheduleItems[index]);
+  });
   
+  const schedules = [...combinedSchedule];
+
   const handlePublish = () => {
     const isPublic = window.confirm("이 게시물을 공개로 발행하시겠습니까?");
     
@@ -171,7 +170,7 @@ function PostWrite() {
     }
   };
   const addScheduleItem = () => {
-    const newScheduleItems = [...scheduleItems, { date: '', location: '', transportation: '' }];
+    const newScheduleItems = [...scheduleItems, { date: '', transportation: '' }];
     setScheduleItems(newScheduleItems);
   };
 
@@ -186,15 +185,7 @@ function PostWrite() {
     newScheduleItems.splice(index, 1);
     setScheduleItems(newScheduleItems);
   };
-
-  const consoleCheck = () =>{
-    console.log("스케쥴 직접입력: ", scheduleItems);
-    console.log("modal창에서 가져온 정보: ", locationItems);
-    console.log("직접입력한 스케쥴 + modal창에서 가져온 정보: ", combinedSchedule);
-    console.log("정보 입력됐는지 확인하는 배열 0번 지역 1번 제목 2번 내용",totConfirm);
-  }
   
-
   const locationTitle = window.localStorage.getItem("title");
 
   const [inputHashTag, setInputHashTag] = useState('');
@@ -274,7 +265,6 @@ function PostWrite() {
       <div className="foot">
         <button>요약글 추가</button>
         <button>해시태그 추가</button>
-        <button onClick={consoleCheck}>데이터 확인</button>
       </div>
       <WholeBox>
       <Title text='Tag' />

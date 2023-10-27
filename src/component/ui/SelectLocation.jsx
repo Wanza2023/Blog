@@ -14,9 +14,9 @@ const SelectLocation = (props) => {
     const getLocation = (item) => {
 
         const locationData = {
-            x: item.x,
-            y: item.y,
-            title: item.place_name}
+            latitude: item.x,
+            longitude: item.y,
+            location: item.place_name}
         
         ;
 
