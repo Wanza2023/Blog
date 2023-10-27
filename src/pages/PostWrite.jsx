@@ -83,29 +83,32 @@ function PostWrite() {
   const [scheduleItems, setScheduleItems] = useState([{ date: '', location: '', transportation: ''}]);
   const [locationItems,setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [totConfirm, setTotConfirm] = useState([0,0,0]);  // 필수입력정보 입력되면 1로바꾸기
+  const isFormValid = totConfirm.every(item => item === 1); // 필수입력정보가 모두 입력되면 발행버튼이 눌리게하기
 
   const boardWrite = async() => {
 
 		const board = {
-      "nickname": "홍길동",
+      "nickname": "바다조아",
       "local": selectedRegion,
       "title": title,
       "contents": desc,
-      "summary": "여수에 갔으면 오동도는 필수 코스",
+      "summary": "부산은 광안리",
       "status": true,
       "schedules": [
         {
-            "date": "2023-08-21",
-            "latitude" : 127.766287676838,
-            "longitude": 34.7445973535257,
-            "location": "오동도",
-            "transport": "자차"
+            "date": "2023-08-24",
+            "latitude" : 129.116911501501,
+            "longitude": 35.1366914246094,
+            "location": "광안대교",
+            "transport": "도보"
         }
     ],
       "hashtags": tagList
   }
 
-		await axios.post("http://172.16.210.130:8080/write", board).then((resp) => {
+		await axios.post("http://172.16.210.130:8080/write", board)
+    .then((resp) => {
 			console.log(resp.data);
 			alert("새로운 게시글을 성공적으로 등록했습니다 :D");
 		})
@@ -119,16 +122,45 @@ function PostWrite() {
   };
 
   function onEditorChange(value) {
-    setDesc(value);
+    const content = value;
+    setDesc(content);
+    if(content === null) {
+      totConfirm[2] = 0;
+      setTotConfirm(()=>[...totConfirm]);
+    }
+    else{
+      totConfirm[2] = 1;
+      setTotConfirm(()=>[...totConfirm]);
+    }
   }
 
   function handleRegionChange(event) {
-    setSelectedRegion(event.target.value);
+    const region = event.target.value;
+    setSelectedRegion(region);
+    if(region === '지역선택'){
+      totConfirm[0] = 0;
+      setTotConfirm(()=>[...totConfirm]);
+    }
+    else{
+      totConfirm[0] = 1;
+      setTotConfirm(()=>[...totConfirm]);
+    }
+  }
+  const onChangeTitle = (e) => {
+    const changeTitle = e.target.value;
+    setTitle(changeTitle);
+    if(changeTitle === null) {
+      totConfirm[1] = 0;
+      setTotConfirm(()=>[...totConfirm]);
+    }
+    else{
+      totConfirm[1] = 1;
+      setTotConfirm(()=>[...totConfirm]);
+    }
   }
 
-  
   const combinedSchedule = [...locationItems,...scheduleItems];
-
+  
   const handlePublish = () => {
     const isPublic = window.confirm("이 게시물을 공개로 발행하시겠습니까?");
     
@@ -156,9 +188,10 @@ function PostWrite() {
   };
 
   const consoleCheck = () =>{
-    console.log(scheduleItems);
-    console.log(locationItems);
-    console.log(combinedSchedule);
+    console.log("스케쥴 직접입력: ", scheduleItems);
+    console.log("modal창에서 가져온 정보: ", locationItems);
+    console.log("직접입력한 스케쥴 + modal창에서 가져온 정보: ", combinedSchedule);
+    console.log("정보 입력됐는지 확인하는 배열 0번 지역 1번 제목 2번 내용",totConfirm);
   }
   
 
@@ -188,6 +221,10 @@ function PostWrite() {
     const filteredTagList = tagList.filter(tagItem => tagItem !== deletedTag);
     setTagList(filteredTagList);
   };
+  const handleError = () => {
+    //글 작성시 지역 선택,제목,내용 입력 안하면 alert창 띄우기
+    alert("지역 선택,제목,내용을 모두 입력해주세요");
+  }
 
   return (
     <Container>
@@ -212,8 +249,8 @@ function PostWrite() {
           <option value="Gwangju">광주</option>
           <option value="Jeju">제주도</option>
         </select>
-        <input id="title" type="text" value={title} placeholder="제목을 입력해주세요." onChange={(e) => { setTitle(e.target.value); }} />
-        <button onClick={boardWrite}>발행</button>
+        <input id="title" type="text" value={title} placeholder="제목을 입력해주세요." onChange={onChangeTitle} />
+        <button onClick={!isFormValid? handleError : boardWrite}>발행</button>
       </div>
       <div className="body2">
         {scheduleItems.map((item, index) => (
@@ -221,7 +258,7 @@ function PostWrite() {
             <text className="index">{index + 1}번째 여행지</text>
             <input type="text" placeholder="날짜" value={item.date} onChange={(e) => handleScheduleChange(index, 'date', e.target.value)} />
             <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
-	          <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+	          <Modal className="modal" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
       	      <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
             </Modal>
             <><text className="locationTitle">{locationTitle}</text></>

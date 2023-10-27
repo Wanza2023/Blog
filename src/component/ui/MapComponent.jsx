@@ -2,7 +2,10 @@ import React,{useEffect} from "react";
 import '../../styles/MapComponent.css';
 const {kakao} = window;
 
-function MapComponent() {
+const MapComponent= (props) => {
+    const {data} = props;
+    // props.data 로 PersonalHome에 있는 posts 배열에 접근가능
+    // 위치정보에 대한 정보를 저장하고 뿌려줄수있도록해야함
     useEffect(()=>{
         const mapContainer = document.getElementById('map'); // 지도를 표시할 div 
         const mapOptions = {

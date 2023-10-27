@@ -183,6 +183,10 @@ function SignUp(props){
                 console.log(error);
             })
     }
+    const handleError = () => {
+        //회원가입시 정보 모두 입력 안하면 alert창 띄우기
+        alert("정보를 전부 입력해주세요");
+    }
 
     return(
         <div className="background">
@@ -252,7 +256,8 @@ function SignUp(props){
                         )}
                     </div>
                     <div className="signUp-submit">
-                        <button onClick={handleSignUpSubmit} disabled={!isFormValid}>회원가입</button>
+                        {/* <button onClick={handleSignUpSubmit} disabled={!isFormValid}>회원가입</button> */}
+                        <button onClick={!isFormValid? handleError : handleSignUpSubmit}>회원가입</button>
                     </div>
                 </div>
             </div>
