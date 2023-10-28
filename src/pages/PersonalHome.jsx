@@ -16,10 +16,10 @@ import Paging from '../component/ui/Paging';
 
 const PersonalHome = () => {
     // 지도 화면 보이게 toggle 설정 true로 준건 default로 보이게하기위함
-    const [showMap, setShowMap] = useState(true);
+    const [showMap, setShowMap] = useState(false);
 
     // 글 목록보이게 toggle 설정
-    const [showText, setShowText] = useState(false);
+    const [showText, setShowText] = useState(true);
 
     //지도 눌렀을 때 이벤트
     const handleMapButtonClick = () => {
@@ -31,7 +31,6 @@ const PersonalHome = () => {
         setShowMap(false);
         setShowText(true);
     };
-    const filterData = BoardData.filter(item => item.nickname === '방글방글글');
     const [nickName,setNickName] = useRecoilState(nickNameState);// 닉네임 전역관리
     const [count, setCount] = useState(0); // 아이템 총 개수
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
@@ -50,9 +49,12 @@ const PersonalHome = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://172.16.210.130:8080/${nickName}`);
+                const response = await axios.get(`http://172.16.210.130:8082/board/${nickName}`);
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
-                setPosts(response.data.body);
+                    // const reversedData = response.data.body.reverse();
+                    // setPosts(reversedData);
+                    // console.log(reversedData);
+                    setPosts(response.data.body);
                 } else {
                 console.error('Invalid response data format');
                 }
@@ -90,6 +92,7 @@ const PersonalHome = () => {
                     <Button />
                 </div>
             }
+            <Button/>
         </div>
         );
 };

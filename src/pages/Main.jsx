@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { nickNameState} from "../component/AuthState";
 import axios from 'axios';
 import Button from "../component/ui/Button";
 import PopularList from "../component/ui/PopularList";
@@ -11,12 +9,11 @@ export default function MainPage() {
     const navigate = useNavigate();
 
     const [posts, setPosts] = useState([]);
-    const [nickName,setNickName] = useRecoilState(nickNameState);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://172.16.210.130:8080/');
+                const response = await axios.get('http://172.16.210.130:8082/board/');
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
                     setPosts(response.data.body);
                 } else {
@@ -184,7 +181,7 @@ export default function MainPage() {
 
     return (
         <>
-            <PopularList PopularPosts={posts} onClickItem={() => { navigate("/"+{nickName} + "/" /*보드아이디*/) }} />
+            <PopularList PopularPosts={posts} onClickItem={() => { navigate("/"+ /*닉네임*/ + "/" /*보드아이디*/) }} />
             <div className="container">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
