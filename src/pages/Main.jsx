@@ -13,20 +13,20 @@ export default function MainPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://172.16.210.130:8080/');
+                const response = await axios.get('http://172.16.210.130:8082/board/');
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
-                  setPosts(response.data.body);
+                    setPosts(response.data.body);
                 } else {
-                  console.error('Invalid response data format');
+                    console.error('Invalid response data format');
                 }
-              } catch (e) {
+            } catch (e) {
                 console.error(e);
                 alert('Error: 데이터를 불러올 수 없습니다');
-              }
+            }
             };
         
             fetchData();
-          }, []);  
+        }, []);  
 
     const region = [
         {
@@ -181,7 +181,7 @@ export default function MainPage() {
 
     return (
         <>
-            <PopularList PopularPosts={posts} onClickItem={() => { navigate("/" /*닉네임*/ + "/" /*보드아이디*/) }} />
+            <PopularList PopularPosts={posts} onClickItem={() => { navigate("/"+ /*닉네임*/ + "/" /*보드아이디*/) }} />
             <div className="container">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

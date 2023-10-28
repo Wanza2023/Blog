@@ -23,26 +23,6 @@ const SelectLocation = (props) => {
         props.setLocationItems(locationData);
         console.log("location data : ",locationData);
     }
-    // const handleSelectLocation = (item) => {
-    //     const existingListJSON = localStorage.getItem('locationList');
-        
-    //     let locationList = [];
-
-    //     if (existingListJSON) {
-    //     locationList = JSON.parse(existingListJSON);
-    //     }
-
-    //     locationList.push({
-    //     x: item.x,
-    //     y: item.y,
-    //     title: item.place_name
-        
-    //     });
-
-    //     const updatedListJSON = JSON.stringify(locationList);
-
-    //     localStorage.setItem('locationList', updatedListJSON);
-    // }
 
     const onChange = (e) => {
         setInputText(e.target.value);

@@ -37,7 +37,15 @@ function PostView() {
   };
 
   const handleDeleteClick = () => {
-    alert('삭제 버튼 클릭');
+    axios
+      .delete(`http://172.16.210.130:8082/board/${nickname}/${boardId}`)
+      .then(function(res){
+        console.log("삭제 성공");
+        navigate(`/user/${nickname}`);
+      })
+      .catch(function(err){
+        console.log("error: ", err);
+      })
   };
 
   const { nickname, boardId } = useParams();
@@ -46,7 +54,7 @@ function PostView() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://172.16.210.130:8080/${nickname}/${boardId}`);
+        const response = await axios.get(`http://172.16.210.130:8082/board/${nickname}/${boardId}`);
         if (response.data && response.data.body) {
             console.log('Data received from the server:', response.data.body);
             setPosts(response.data.body);
