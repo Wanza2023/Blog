@@ -58,7 +58,6 @@ function PostView() {
         if (response.data && response.data.body) {
             console.log('Data received from the server:', response.data.body);
             setPosts(response.data.body);
-            console.log(posts);
           } else {
             console.error('Invalid response data format');
           }
@@ -128,7 +127,7 @@ function PostView() {
                     )}
                   </div>
                 </div>
-                <button onClick={() => navigate('/personalhome')} className='nickname'>
+                <button onClick={() => navigate(`/user/${nickname}`)} className='nickname'>
                   {nickname}
                 </button>
                 <div className='date'>{formattedDate}</div>

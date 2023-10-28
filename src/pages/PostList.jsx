@@ -19,9 +19,9 @@ function PostList() {
         try {
             const response = await axios.get(`http://172.16.210.130:8082/board/local/${regionName}`);
             if (response.data && response.data.body && Array.isArray(response.data.body)) {
-              // const reversedData = response.data.body.reverse();
-              // setPosts(reversedData);
-              setPosts(response.data.body);
+              const reversedData = response.data.body.reverse();
+              setPosts(reversedData);
+              // setPosts(response.data.body);
             } else {
               console.error('Invalid response data format');
             }
@@ -30,6 +30,13 @@ function PostList() {
             alert('Error: 데이터를 불러올 수 없습니다');
           }
         };
+        // if (regionName && currentPage && indexOfLastPost && indexOfFirstPost && postPerPage) {
+        //   fetchData();
+        //   setCount(posts.length);
+        //   setIndexOfLastPost(currentPage * postPerPage);
+        //   setIndexOfFirstPost(indexOfLastPost - postPerPage);
+        //   setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost))
+        // };
         fetchData();
         setCount(posts.length);
         setIndexOfLastPost(currentPage * postPerPage);

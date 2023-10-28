@@ -16,6 +16,7 @@ export default function MainPage() {
                 const response = await axios.get('http://172.16.210.130:8082/board/');
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
                     setPosts(response.data.body);
+                    console.log(response.data.body);
                 } else {
                     console.error('Invalid response data format');
                 }
