@@ -58,8 +58,8 @@ function SignIn(props){
                         console.error("Error fetching data:", err);
                     })
                     .finally(() => {
-                        // 작업 완료 되면 페이지 이동(새로고침)
-                        navigate("/");
+                        // 작업 완료 되면 로그인창 전에 화면으로 이동
+                        navigate((-1));
                     });
             })
             .catch(error => {

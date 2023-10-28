@@ -137,10 +137,11 @@
 
 .modal {
     position: absolute;
-    top: 5rem;
-    left: 10rem;
-    width: 80%;
-    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 75%;
     background-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -188,4 +189,3 @@
     font-weight: bold;
     font-size: 0.8rem;
 }
-  

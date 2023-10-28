@@ -23,26 +23,6 @@ const SelectLocation = (props) => {
         props.setLocationItems(locationData);
         console.log("location data : ",locationData);
     }
-    // const handleSelectLocation = (item) => {
-    //     const existingListJSON = localStorage.getItem('locationList');
-        
-    //     let locationList = [];
-
-    //     if (existingListJSON) {
-    //     locationList = JSON.parse(existingListJSON);
-    //     }
-
-    //     locationList.push({
-    //     x: item.x,
-    //     y: item.y,
-    //     title: item.place_name
-        
-    //     });
-
-    //     const updatedListJSON = JSON.stringify(locationList);
-
-    //     localStorage.setItem('locationList', updatedListJSON);
-    // }
 
     const onChange = (e) => {
         setInputText(e.target.value);
@@ -64,7 +44,7 @@ const SelectLocation = (props) => {
         const map = new kakao.maps.Map(container, options);
         const ps = new kakao.maps.services.Places();
 
-        ps.keywordSearch(Place, placesSearchCB);
+        ps.keywordSearch(Place, placesSearchCB, {size:8});
 
         function placesSearchCB(data, status, pagination) {
             if (status === kakao.maps.services.Status.OK) {
@@ -124,8 +104,8 @@ const SelectLocation = (props) => {
     return (
         <>
             <form className="inputForm" onSubmit={handleSubmit}>
-                <input placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
-                <button type="submit">검색</button>
+                <input className="searchinput" placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
+                <button className="searchbtn" type="submit">검색</button>
             </form>
             <div className='selectlocation_wrapper'>
                 <div
@@ -140,14 +120,16 @@ const SelectLocation = (props) => {
                         places.map((item, i) => (
                             <div key={i} style={{ marginTop: '20px' }} >
                                 <div className='list'>
-                                    <button onClick={() => {getLocation(item); close();}} >{item.place_name}</button>
+                                    <button className="titlebtn" onClick={() => {getLocation(item); close();}} >{item.place_name}</button>
                                     {/* <button onClick={() => {close(); handleSelectLocation(item); getLocation(item);}}>{item.place_name}</button> */}
                                     {item.road_address_name ? (
-                                        <div>
+                                        <div className='addressname'>
                                             <span>{item.road_address_name}</span>
                                         </div>
                                     ) : (
-                                        <span>{item.address_name}</span>
+                                        <div className='addressname'>
+                                            <span>{item.address_name}</span>
+                                        </div>
                                     )}
                                 </div>
                             </div>

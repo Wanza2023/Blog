@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState} from 'recoil';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { nickNameState } from "../component/AuthState";
@@ -83,9 +83,10 @@ function PostWrite() {
   const [desc, setDesc] = useState('');
   const [title, setTitle] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
-  const [scheduleItems, setScheduleItems] = useState([{ date: '', transportation: ''}]);
+  const [scheduleItems, setScheduleItems] = useState([{ date: '', transport: ''}]);
   const [locationItems,setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [postStatus, setpostStatus] = useState(true);
   const [totConfirm, setTotConfirm] = useState([0,0,0]);  // 필수입력정보 입력되면 1로바꾸기
   const isFormValid = totConfirm.every(item => item === 1); // 필수입력정보가 모두 입력되면 발행버튼이 눌리게하기
   const [isPublic, setIsPublic] = useState(true); // 글 공개 비공개 설정
@@ -103,9 +104,12 @@ function PostWrite() {
       "hashtags": tagList
   }
 
-		await axios.post("http://172.16.210.130:8080/write", board)
+		await axios.post("http://172.16.210.130:8082/board/write", board)
     .then((resp) => {
 			console.log(resp.data);
+      const boardId = resp.data.body;
+      console.log(boardId);
+      navigate(`/${nickName}/${boardId}`);
 			alert("새로운 게시글을 성공적으로 등록했습니다 :D");
 		})
 		.catch((err) => {
@@ -171,7 +175,7 @@ function PostWrite() {
     }
   };
   const addScheduleItem = () => {
-    const newScheduleItems = [...scheduleItems, { date: '', transportation: '' }];
+    const newScheduleItems = [...scheduleItems, { date: '', transport: '' }];
     setScheduleItems(newScheduleItems);
   };
 
@@ -196,8 +200,6 @@ function PostWrite() {
     newScheduleItems.splice(index, 1);
     setScheduleItems(newScheduleItems);
   };
-  
-  const locationTitle = window.localStorage.getItem("title");
 
   const [inputHashTag, setInputHashTag] = useState('');
   const [hashTags, setHashTags] = useState([]);
@@ -227,6 +229,17 @@ function PostWrite() {
     //글 작성시 지역 선택,제목,내용 입력 안하면 alert창 띄우기
     alert("지역 선택,제목,내용을 모두 입력해주세요");
   }
+  const handlePublish = () => {
+    const isConfirmed = window.confirm("게시글을 발행하시겠습니까?");
+    if (isConfirmed) {
+      if (isFormValid) {
+        boardWrite();
+      } else {
+        handleError();
+      }
+    }
+  };
+  
 
   return (
     <Container>
