@@ -165,15 +165,6 @@ function PostWrite() {
   
   const schedules = [...combinedSchedule];
 
-  const handlePublish = () => {
-    const isPublic = window.confirm("이 게시물을 발행하시겠습니까?");
-    
-    if (isPublic) {
-      navigate("/post-view");      
-    } else {
-      
-    }
-  };
   const addScheduleItem = () => {
     const newScheduleItems = [...scheduleItems, { date: '', transport: '' }];
     setScheduleItems(newScheduleItems);
@@ -284,7 +275,7 @@ function PostWrite() {
               <Modal className="modal" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
                 <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
               </Modal>
-              <>{locationTitle}</>
+              {/* <>{locationTitle}</> */}
               <input type="text" placeholder="이동수단" value={item.transportation} onChange={(e) => handleScheduleChange(index, 'transportation', e.target.value)} />
               {index > 0 ? <button className="minus" onClick={() => removeScheduleItem(index)}>-</button> : null}
               <button className="plus" onClick={addScheduleItem}>+</button>
