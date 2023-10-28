@@ -89,6 +89,7 @@ function PostWrite() {
   const [postStatus, setpostStatus] = useState(true);
   const [totConfirm, setTotConfirm] = useState([0,0,0]);  // 필수입력정보 입력되면 1로바꾸기
   const isFormValid = totConfirm.every(item => item === 1); // 필수입력정보가 모두 입력되면 발행버튼이 눌리게하기
+  const [isPublic, setIsPublic] = useState(true); // 글 공개 비공개 설정
 
   const boardWrite = async() => {
 
@@ -98,7 +99,7 @@ function PostWrite() {
       "title": title,
       "contents": desc,
       "summary": "패러글라이딩 재밌다.",
-      "status": true,
+      "status": isPublic,
       "schedules": schedules,
       "hashtags": tagList
   }
@@ -170,9 +171,19 @@ function PostWrite() {
   };
 
   const handleScheduleChange = (index, field, value) => {
-    const newScheduleItems = [...scheduleItems];
-    newScheduleItems[index][field] = value;
-    setScheduleItems(newScheduleItems);
+    if (field === 'date') {
+      // 일정 날짜 "nnnn-nn-nn" 형식으로
+      const formattedDate = value
+        .replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')
+  
+      const newScheduleItems = [...scheduleItems];
+      newScheduleItems[index][field] = formattedDate;
+      setScheduleItems(newScheduleItems);
+    } else {
+      const newScheduleItems = [...scheduleItems];
+      newScheduleItems[index][field] = value;
+      setScheduleItems(newScheduleItems);
+    }
   };
 
   const removeScheduleItem = (index) => {
@@ -245,23 +256,32 @@ function PostWrite() {
           <option value="Jeju">제주도</option>
         </select>
         <input id="title" type="text" value={title} placeholder="제목을 입력해주세요." onChange={onChangeTitle} />
-        <button onClick={handlePublish}>발행</button>
+        <label className="toggleBtn">
+          <input type="checkbox" checked={isPublic} onChange={() => setIsPublic(!isPublic)} />
+          <span></span>
+          <div className="toggleInput">
+            {isPublic ? '공개' : '비공개'}
+          </div>
+        </label>
+        <button onClick={!isFormValid? handleError : boardWrite}>발행</button>
       </div>
       <div className="body2">
-        {scheduleItems.map((item, index) => (
-          <div key={index} className="scheduleList">
-            <text className="index">{index + 1}번째 여행지</text>
-            <input type="text" placeholder="날짜" value={item.date} onChange={(e) => handleScheduleChange(index, 'date', e.target.value)} />
-            <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
-	          <Modal className="modal" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-      	      <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
-            </Modal>
-            {/* <><text className="locationTitle">{item.title}</text></> */}
-            <input type="text" placeholder="이동수단" value={item.transport} onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)} />
-            <button className="minus" onClick={() => removeScheduleItem(index)}>-</button>
-          </div>
-        ))}
-        <button onClick={addScheduleItem}>+</button>
+        <div className="schedulecss">
+          {scheduleItems.map((item, index) => (
+            <div key={index} className="scheduleList">
+              <text className="index">{index + 1}번째 여행지</text>
+              <input type="text" placeholder="날짜" value={item.date} onChange={(e) => handleScheduleChange(index, 'date', e.target.value)} />
+              <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
+              <Modal className="modal" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+                <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
+              </Modal>
+              {/* <>{locationTitle}</> */}
+              <input type="text" placeholder="이동수단" value={item.transportation} onChange={(e) => handleScheduleChange(index, 'transportation', e.target.value)} />
+              {index > 0 ? <button className="minus" onClick={() => removeScheduleItem(index)}>-</button> : null}
+              <button className="plus" onClick={addScheduleItem}>+</button>
+            </div>
+          ))}
+        </div>
       </div>
       <MyBlock>
         <PostWriteComponent value={desc} onChange={onEditorChange} />

@@ -1,6 +1,7 @@
 .body1 {
     text-align: center;
     margin-right: 5.2vw;
+    margin: auto;
 }
 
 .body1 > select {
@@ -21,7 +22,7 @@
 
 .body1 button {
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     background-color: #5585FF;
     color: white;
     width: 3.5vw;
@@ -37,6 +38,18 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    width: 50vw;
+    margin: auto;
+}
+
+.schedulecss {
+    text-align: left;
+}
+
+.schedulecss input {
+    text-align: left;
+    border: 1px solid #f1f1f1;
+    border-radius: 5px;
 }
 
 .scheduleList {
@@ -62,7 +75,7 @@
     height: 3vh;
     border: none;
     border-radius: 5px;
-    background-color: #5076FF;
+    background-color: #5585FF;
     color: white;
     cursor: pointer;
     margin-right: 1vw;
@@ -75,6 +88,9 @@
     border: 1px solid #f1f1f1;
     border-radius: 5px;
     height: 3vh;
+    width: 2vw;
+    clear: both;
+    float: left;
 }
 
 .minus {
@@ -82,20 +98,22 @@
     width: 2vw;
     border: none;
     border-radius: 5px;
-    background-color: #5076FF;
+    background-color: #5585FF;
     color: white;
     font-size: 1.1rem;
+    margin-left: 3px;
 }
 
-.body2 > button {
+.plus {
     height: 3vh;
     width: 2vw;
     border: none;
     border-radius: 5px;
-    background-color: #5076FF;
+    background-color: #5585FF;
     color: white;
     font-size: 1.1rem;
     margin: auto;
+    margin-left: 3px;
 }
 
 .foot {
@@ -103,6 +121,18 @@
     text-align: left;
     margin: auto;
     margin-bottom: 0.8rem;
+}
+
+.foot button {
+    border: none;
+    border-radius: 5px;
+    background-color: #5585FF;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-right: 0.8vw;
+    cursor: pointer;
 }
 
 .modal {
@@ -113,9 +143,49 @@
     width: 75%;
     height: 75%;
     background-color: rgba(255, 255, 255, 0.4);
-    max-height: calc(100vh - 5rem);
-    /* 스크롤 줄거면 하면됨
-    overflow-y: auto;
-    max-width: 80%;
-    */
+}
+
+.toggleBtn {
+    width: 4vw;
+    height: 3.3vh;
+    border: 1px solid #5585FF;
+    border-radius: 20px;
+    background-color: white;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+  
+.toggleBtn input[type="checkbox"] {
+    display: none;
+}
+  
+.toggleBtn span {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #5585FF;
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    transition: left 0.3s;
+}
+  
+.toggleBtn input[type="checkbox"]:checked + span {
+    left: calc(100% - 23px);
+}
+
+.toggleInput {
+    font-size: 0.9rem;
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #5585FF;
+    font-weight: bold;
+    font-size: 0.8rem;
 }
