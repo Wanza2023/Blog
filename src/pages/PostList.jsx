@@ -14,35 +14,33 @@ function PostList() {
   const [indexOfLastPost, setIndexOfLastPost] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
   const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
+  
   useEffect(() => {
     const fetchData = async () => {
         try {
             const response = await axios.get(`http://172.16.210.130:8082/board/local/${regionName}`);
             if (response.data && response.data.body && Array.isArray(response.data.body)) {
-              const reversedData = response.data.body.reverse();
-              setPosts(reversedData);
-              // setPosts(response.data.body);
+                const reversedData = response.data.body.reverse();
+                setPosts(reversedData);
+                setCount(reversedData.length);
+                console.log(reversedData);
+                
+                // Calculate indexes based on currentPage and postPerPage
+                const indexOfLastPost = currentPage * postPerPage;
+                const indexOfFirstPost = indexOfLastPost - postPerPage;
+                
+                // Update currentPosts state with sliced data
+                setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
             } else {
-              console.error('Invalid response data format');
+                console.error('Invalid response data format');
             }
-          } catch (e) {
+        } catch (e) {
             console.error(e);
             alert('Error: 데이터를 불러올 수 없습니다');
-          }
-        };
-        // if (regionName && currentPage && indexOfLastPost && indexOfFirstPost && postPerPage) {
-        //   fetchData();
-        //   setCount(posts.length);
-        //   setIndexOfLastPost(currentPage * postPerPage);
-        //   setIndexOfFirstPost(indexOfLastPost - postPerPage);
-        //   setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost))
-        // };
-        fetchData();
-        setCount(posts.length);
-        setIndexOfLastPost(currentPage * postPerPage);
-        setIndexOfFirstPost(indexOfLastPost - postPerPage);
-        setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost));
-    }, [regionName,currentPage, indexOfLastPost, indexOfFirstPost, posts, postPerPage]);
+        }
+    };
+    fetchData();
+  }, [regionName, currentPage, postPerPage]);
 
     const setPage = (error) => {
       setCurrentPage(error);

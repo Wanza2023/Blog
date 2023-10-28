@@ -45,7 +45,29 @@ const PersonalHome = () => {
     const setPage = (error) => {
         setCurrentPage(error);
     };
-
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get(`http://172.16.210.130:8082/board/${nickName}`);
+    //             if (response.data && response.data.body && Array.isArray(response.data.body)) {
+    //                 const reversedData = response.data.body.reverse();
+    //                 setPosts(reversedData);
+    //                 // console.log(reversedData);
+    //                 // setPosts(response.data.body);
+    //             } else {
+    //             console.error('Invalid response data format');
+    //             }
+    //         } catch (e) {
+    //             console.error(e);
+    //             alert('Error: 데이터를 불러올 수 없습니다');
+    //         }
+    //         };
+    //         fetchData();
+    //         setCount(posts.length);
+    //         setIndexOfLastPost(currentPage * postPerPage);
+    //         setIndexOfFirstPost(indexOfLastPost - postPerPage);
+    //         setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost));
+    //     }, [nickName,currentPage, indexOfLastPost, indexOfFirstPost, posts, postPerPage]);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -53,22 +75,21 @@ const PersonalHome = () => {
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
                     const reversedData = response.data.body.reverse();
                     setPosts(reversedData);
-                    // console.log(reversedData);
-                    // setPosts(response.data.body);
+                    setCount(reversedData.length);
+                    const indexOfLastPost = currentPage * postPerPage;
+                    const indexOfFirstPost = indexOfLastPost - postPerPage;
+                    setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
                 } else {
-                console.error('Invalid response data format');
+                    console.error('Invalid response data format');
                 }
             } catch (e) {
                 console.error(e);
                 alert('Error: 데이터를 불러올 수 없습니다');
             }
-            };
-            fetchData();
-            setCount(posts.length);
-            setIndexOfLastPost(currentPage * postPerPage);
-            setIndexOfFirstPost(indexOfLastPost - postPerPage);
-            setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost));
-        }, [nickName,currentPage, indexOfLastPost, indexOfFirstPost, posts, postPerPage]);
+        };
+    
+        fetchData();
+    }, [nickName, currentPage, postPerPage]);
     
     return (
         <div>

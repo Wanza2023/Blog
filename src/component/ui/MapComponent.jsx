@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useState} from "react";
 import '../../styles/MapComponent.css';
 const {kakao} = window;
 
@@ -6,6 +6,13 @@ const MapComponent= (props) => {
     const {data} = props;
     // props.data 로 PersonalHome에 있는 posts 배열에 접근가능
     // 위치정보에 대한 정보를 저장하고 뿌려줄수있도록해야함
+    const schedules = data.schedules || []; // 기본값으로 빈 배열 설정
+    const [positions, setPositions] = useState(schedules);
+
+    const onClickCheck = () => {
+        console.log(positions)
+    }
+
     useEffect(()=>{
         const mapContainer = document.getElementById('map'); // 지도를 표시할 div 
         const mapOptions = {
@@ -39,7 +46,10 @@ const MapComponent= (props) => {
     }, [])
 
     return (
-        <div id="map" className="map"></div>
+        <>
+            <button onClick={onClickCheck}>데이터확인</button>
+            <div id="map" className="map"></div>
+        </>
     )
 }
 
