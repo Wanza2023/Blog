@@ -86,7 +86,7 @@ const PersonalHome = () => {
                 <span>|</span>
                 <button onClick={handleTextButtonClick}>글</button>
             </div>
-            {showMap && <div className='map_styles'><MapComponent posts={posts}/></div>}
+            {showMap && <div className='map_styles'><MapComponent posts={posts} nickName={nickName} /></div>}
             {/* {showText && <div><PersonalTextComponent BoardData={filterData}/></div>} */}
             {showText &&
                 <div className="wrapper">

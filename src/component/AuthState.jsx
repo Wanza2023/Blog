@@ -14,3 +14,8 @@ export const nickNameState = atom( {
     key: "nickNameState",
     default: null,
 })
+
+export const searchResultsState = atom({
+    key: 'searchResultsState',
+    default: [],
+  });

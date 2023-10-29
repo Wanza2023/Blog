@@ -97,7 +97,7 @@ function PostWrite() {
       "local": selectedRegion,
       "title": title,
       "contents": desc,
-      "summary": "제주도에 갔으면 숙성도는 필수",
+      "summary": summary,
       "status": isPublic,
       "schedules": schedules,
       "hashtags": tagList
@@ -233,6 +233,25 @@ function PostWrite() {
       }
     }
   };
+
+  const [summary, setSummary] = useState('');
+
+  const fetchSummary = async () => { // 본문 전송 후 요약글 받기
+    try {
+      const response = await axios.post('http://172.16.210.130:8000/summary', { content: desc });
+      if (response.data && response.data.content) {
+        setSummary(response.data.content);
+        console.log(summary);
+      } else {
+        console.error('Invalid response format');
+      }
+    } catch (error) {
+      console.error('Failed to fetch summary:', error);
+      if (error.response) {
+        console.error('Server Response:', error.response.data);
+      }
+    }
+  };  
   
 
   return (
@@ -290,8 +309,9 @@ function PostWrite() {
         <PostWriteComponent value={desc} onChange={onEditorChange} />
       </MyBlock>
       <div className="foot">
-        <button>요약글 추가</button>
-        <button>해시태그 추가</button>
+        <button onClick={fetchSummary}>요약글 추가</button>
+        {summary && <div className="summary-content">{summary}</div>}
+        {/* <button>해시태그 추가</button> */}
       </div>
       <WholeBox>
       <Title text='Tag' />

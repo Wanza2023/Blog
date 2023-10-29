@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { isLoggedInState ,nickNameState,memberIdState, searchTermState} from "./AuthState";
+import { isLoggedInState ,nickNameState,memberIdState, searchResultsState } from "./AuthState";
 import { Link,useNavigate,} from "react-router-dom";
 import axios from "axios";
 import '../styles/Navbar.css';
@@ -13,6 +13,7 @@ import PostList from "../pages/PostList";
 const Navbar = () => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState); //로그인 상태
+    const [searchResults, setSearchResults] = useRecoilState(searchResultsState);
     const [searchTerm, setSearchTerm] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
     const [memberId,setMemberId] = useRecoilState(memberIdState);
@@ -31,12 +32,17 @@ const Navbar = () => {
         setSearchTerm(e.target.value);
     };
     // 검색어 검색시 이벤트
-    const handleSearchSubmit = () => {
+    const handleSearchSubmit = async () => {
         if (searchTerm.trim() !== "") {
             // 검색어가 비어있지 않은 경우에만 URL로 이동
-            const searchUrl = `/post-list/${searchTerm}`;
-            setSearchTerm("")
-            navigate(searchUrl);
+            try {
+                const response = await axios.get(`http://172.16.210.130:8082/board/search/${searchTerm}`);
+                setSearchResults(response.data.body || []);
+                navigate(`/board/search/${searchTerm}`);
+                setSearchTerm("");
+              } catch (error) {
+                console.error("Failed to fetch search results:", error);
+              }
         } else {
             // 검색어가 비어있으면 예외 처리 또는 경고 메시지를 표시할 수 있습니다.
             alert("검색어를 입력하세요.");

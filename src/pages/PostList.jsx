@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { searchResultsState } from "../component/AuthState";
+import { useRecoilValue } from 'recoil';
 import PostCard from './PostCard';
 import Button from "../component/ui/Button";
 import axios from 'axios';
@@ -46,6 +48,21 @@ function PostList() {
     const setPage = (error) => {
       setCurrentPage(error);
     };
+
+    const searchResults = useRecoilValue(searchResultsState);
+
+    useEffect(() => {
+      if (searchResults.length > 0) {
+        setPosts(searchResults);
+        setCount(searchResults.length)
+        const indexOfLastPost = currentPage * postPerPage;
+        const indexOfFirstPost = indexOfLastPost - postPerPage;
+        setCurrentPosts(searchResults.slice(indexOfFirstPost,indexOfLastPost));
+
+        console.log(searchResults);
+      } else {
+      }
+    }, [regionName, currentPage, postPerPage, searchResults]);
 
   return (
     <div className="wrapper">

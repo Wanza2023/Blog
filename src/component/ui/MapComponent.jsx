@@ -3,6 +3,8 @@ import '../../styles/MapComponent.css';
 const {kakao} = window;
 
 const MapComponent= (props) => {
+    const {nickName, posts} = props;
+    
     // props.data 로 PersonalHome에 있는 posts 배열에 접근가능
     // 위치정보에 대한 정보를 저장하고 뿌려줄수있도록해야함
 
@@ -28,10 +30,11 @@ const MapComponent= (props) => {
         // schedule에서 필요한 데이터만 저장
         const positions = localArray.map(schedule => ({
             title: schedule.location, 
-            latlng: new kakao.maps.LatLng(schedule.longitude, schedule.latitude)
+            latlng: new kakao.maps.LatLng(schedule.longitude, schedule.latitude),
+            boardId: schedule.boardId
         }));
-    
-        console.log(positions);
+
+        console.log(localArray);
 
         for (var i = 0; i < positions.length; i++) {
             // 마커 이미지 크기
@@ -46,8 +49,11 @@ const MapComponent= (props) => {
                 title: positions[i].title,
                 image : markerImage
             });
-            console.log("Marker created for position:", positions[i]);
-            marker.setMap(map);
+            kakao.maps.event.addListener(marker, 'click', ((position) => {
+                return () => {
+                    window.location.href = `http://localhost:3000/${nickName}/${position.boardId}`;
+                }
+            })(positions[i]));
         }
     }, [localArray]);
 
