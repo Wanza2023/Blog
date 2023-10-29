@@ -56,6 +56,7 @@ const PersonalHome = () => {
                     const indexOfLastPost = currentPage * postPerPage;
                     const indexOfFirstPost = indexOfLastPost - postPerPage;
                     setCurrentPosts(Data.slice(indexOfFirstPost,indexOfLastPost));
+                    console.log(Data);
                     // const reversedData = response.data.body.reverse();
                     // setPosts(reversedData);
                     // setCount(reversedData.length);
@@ -86,7 +87,7 @@ const PersonalHome = () => {
                 <span>|</span>
                 <button onClick={handleTextButtonClick}>글</button>
             </div>
-            {showMap && <div className='map_styles'><MapComponent posts={posts} nickName={nickName} /></div>}
+            {showMap && <div className='map_styles'><MapComponent posts={posts} nickName={nickName}/></div>}
             {/* {showText && <div><PersonalTextComponent BoardData={filterData}/></div>} */}
             {showText &&
                 <div className="wrapper">
