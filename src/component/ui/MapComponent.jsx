@@ -15,9 +15,6 @@ const MapComponent= (props) => {
         }
     }, [props.posts]);
 
-    const onClickCheck = () => {
-        console.log(localArray);
-    }
 
     useEffect(() => {
         const mapContainer = document.getElementById('map');
@@ -32,11 +29,14 @@ const MapComponent= (props) => {
         // schedule에서 필요한 데이터만 저장
         const positions = localArray.map(schedule => ({
             title: schedule.location, 
-            latlng: new kakao.maps.LatLng(schedule.latitude, schedule.longitude)
+            latlng: new kakao.maps.LatLng(schedule.longitude, schedule.latitude)
         }));
-    
-        console.log(positions);
-
+        for (var i=0; i < positions.length; i++) {
+            var marker = new kakao.maps.Marker({
+                position: positions[i].latlng
+            })
+        }
+        marker.setMap(map)
         for (var i = 0; i < positions.length; i++) {
             // 마커 이미지 크기
             var imageSize = new kakao.maps.Size(24, 35); 
@@ -57,7 +57,6 @@ const MapComponent= (props) => {
 
     return (
         <>
-            <button onClick={onClickCheck}>데이터확인</button>
             <div id="map" className="map"></div>
         </>
     )
