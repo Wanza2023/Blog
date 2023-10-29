@@ -20,14 +20,18 @@ function PostList() {
         try {
             const response = await axios.get(`http://172.16.210.130:8082/board/local/${regionName}`);
             if (response.data && response.data.body && Array.isArray(response.data.body)) {
-                console.log("원래데이터: ",response.data.body);
-                const reversedData = response.data.body.reverse();
-                setPosts(reversedData);
-                setCount(reversedData.length);
-                console.log("변환한 데이터: ",reversedData);
+                const Data = response.data.body
+                setPosts(Data);
+                setCount(Data.length)
                 const indexOfLastPost = currentPage * postPerPage;
                 const indexOfFirstPost = indexOfLastPost - postPerPage;
-                setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
+                setCurrentPosts(Data.slice(indexOfFirstPost,indexOfLastPost));
+                // const reversedData = response.data.body.reverse();
+                // setPosts(reversedData);
+                // setCount(reversedData.length);
+                // const indexOfLastPost = currentPage * postPerPage;
+                // const indexOfFirstPost = indexOfLastPost - postPerPage;
+                // setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
             } else {
                 console.error('Invalid response data format');
             }

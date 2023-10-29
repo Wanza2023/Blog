@@ -12,6 +12,7 @@ import Navbar from "./component/Navbar";
 import { RecoilRoot } from "recoil";
 
 function App() {
+
   return (
     <RecoilRoot>
       <BrowserRouter>

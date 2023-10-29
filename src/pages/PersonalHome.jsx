@@ -52,15 +52,16 @@ const PersonalHome = () => {
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
                     const Data = response.data.body
                     setPosts(Data);
-                    // const reversedData = response.data.body.reverse();
-                    // console.log("변환된 데이터: ",reversedData);
-                    // setPosts(reversedData);
-                    // setCount(reversedData.length);
                     setCount(Data.length)
                     const indexOfLastPost = currentPage * postPerPage;
                     const indexOfFirstPost = indexOfLastPost - postPerPage;
-                    // setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
                     setCurrentPosts(Data.slice(indexOfFirstPost,indexOfLastPost));
+                    // const reversedData = response.data.body.reverse();
+                    // setPosts(reversedData);
+                    // setCount(reversedData.length);
+                    // const indexOfLastPost = currentPage * postPerPage;
+                    // const indexOfFirstPost = indexOfLastPost - postPerPage;
+                    // setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
                 } else {
                     console.error('Invalid response data format');
                 }

@@ -5,6 +5,7 @@ const {kakao} = window;
 const MapComponent= (props) => {
     // props.data 로 PersonalHome에 있는 posts 배열에 접근가능
     // 위치정보에 대한 정보를 저장하고 뿌려줄수있도록해야함
+
     const [localArray, setLocalArray] = useState([]);
     
     useEffect(() => {
@@ -13,10 +14,6 @@ const MapComponent= (props) => {
             setLocalArray(firstSchedules);
         }
     }, [props.posts]);
-
-    const onClickCheck = () => {
-        console.log(localArray);
-    }
 
     useEffect(() => {
         const mapContainer = document.getElementById('map');
@@ -31,7 +28,7 @@ const MapComponent= (props) => {
         // schedule에서 필요한 데이터만 저장
         const positions = localArray.map(schedule => ({
             title: schedule.location, 
-            latlng: new kakao.maps.LatLng(schedule.latitude, schedule.longitude)
+            latlng: new kakao.maps.LatLng(schedule.longitude, schedule.latitude)
         }));
     
         console.log(positions);
@@ -56,7 +53,6 @@ const MapComponent= (props) => {
 
     return (
         <>
-            <button onClick={onClickCheck}>데이터확인</button>
             <div id="map" className="map"></div>
         </>
     )
