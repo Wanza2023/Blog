@@ -144,7 +144,7 @@ function PostView() {
                     <ScheduleList scheduleData={schedules} />
                   ) : null}
                 </div>
-                <div className='border2' />
+                {/* <div className='border2' /> */}
                 <ReactQuill
                   value={contents}
                   readOnly={true}

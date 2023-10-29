@@ -83,7 +83,7 @@ function PostWrite() {
   const [desc, setDesc] = useState('');
   const [title, setTitle] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
-  const [scheduleItems, setScheduleItems] = useState([{ date: '', transport: ''}]);
+  const [scheduleItems, setScheduleItems] = useState([{ date: '', transport: '', locationName: ''}]);
   const [locationItems,setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [totConfirm, setTotConfirm] = useState([0,0,0]);  // 필수입력정보 입력되면 1로바꾸기
@@ -97,7 +97,7 @@ function PostWrite() {
       "local": selectedRegion,
       "title": title,
       "contents": desc,
-      "summary": "이월드 재미있다.",
+      "summary": "제주도에 갔으면 숙성도는 필수",
       "status": isPublic,
       "schedules": schedules,
       "hashtags": tagList
@@ -117,7 +117,11 @@ function PostWrite() {
   }
 
   const handleSelectLocation = (selectedLocationData) => {
-    setLocationItems([...locationItems, selectedLocationData]); //모달에서 지도 정보받아오기 경도,위도,위치이름
+    setLocationItems([...locationItems, selectedLocationData]); //모달에서 지도 정보받아오기 경도,위도,위치이름'
+
+    const newScheduleItems = [...scheduleItems];
+    newScheduleItems[newScheduleItems.length - 1].locationName = selectedLocationData.location;
+    setScheduleItems(newScheduleItems);
   };
 
   function onEditorChange(value) {
@@ -274,10 +278,10 @@ function PostWrite() {
               <Modal className="modal" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} >
                 <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
               </Modal>
-              {/* <>{locationTitle}</> */}
+              {item.locationName && <span className="locationName">{item.locationName}</span>}
               <input type="text" placeholder="이동수단" value={item.transport} onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)} />
-              {index > 0 ? <button className="minus" onClick={() => removeScheduleItem(index)}>-</button> : null}
               <button className="plus" onClick={addScheduleItem}>+</button>
+              {index > 0 ? <button className="minus" onClick={() => removeScheduleItem(index)}>-</button> : null}
             </div>
           ))}
         </div>
