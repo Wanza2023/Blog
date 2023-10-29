@@ -86,11 +86,10 @@ function PostWrite() {
   const [scheduleItems, setScheduleItems] = useState([{ date: '', transport: '', locationName: ''}]);
   const [locationItems,setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [postStatus, setpostStatus] = useState(true);
   const [totConfirm, setTotConfirm] = useState([0,0,0]);  // 필수입력정보 입력되면 1로바꾸기
   const isFormValid = totConfirm.every(item => item === 1); // 필수입력정보가 모두 입력되면 발행버튼이 눌리게하기
   const [isPublic, setIsPublic] = useState(true); // 글 공개 비공개 설정
-
+  
   const boardWrite = async() => {
 
 		const board = {

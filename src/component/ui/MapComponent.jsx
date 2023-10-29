@@ -3,14 +3,22 @@ import '../../styles/MapComponent.css';
 const {kakao} = window;
 
 const MapComponent= (props) => {
-    const {data} = props;
     // props.data 로 PersonalHome에 있는 posts 배열에 접근가능
     // 위치정보에 대한 정보를 저장하고 뿌려줄수있도록해야함
-    const schedules = data.schedules || []; // 기본값으로 빈 배열 설정
-    const [positions, setPositions] = useState(schedules);
+    const [localArray, setLocalArray] = useState([]);
+    useEffect(() => {
+        setLocalArray(props.posts);
+        }, [props.posts]);
+    const scheduleArr = Object.keys(localArray)
+        .filter(key => key === 'schedules')
+        .reduce((obj, key) => {
+            obj[key] = localArray[key];
+            return obj
+        },{})
 
     const onClickCheck = () => {
-        console.log(positions)
+        console.log(localArray);
+        console.log(scheduleArr);
     }
 
     useEffect(()=>{
@@ -24,14 +32,7 @@ const MapComponent= (props) => {
         const imageSrc = 'https://www.hotelrestaurant.co.kr/data/photos/20181252/art_15456112727329_344f19.bmp';
         const imageSize = new kakao.maps.Size(64, 69); // 마커이미지의 크기입니다
         const imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-        // 마커가 표시될 위치입니다 
-        // const markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
-        // const content = "<div>overlay표시</div>"
-
-        // const customOverlay = new kakao.maps.CustomOverlay({
-        //     position: markerPosition,
-        //     content: content   
-        // });
+        
         const markerImage = new kakao.maps.MarkerImage(imageSrc,imageSize,imageOption)
         const markerPosition = new kakao.maps.LatLng(35.15804987174618, 129.15991896087684);
         // 마커를 생성합니다
@@ -43,7 +44,7 @@ const MapComponent= (props) => {
 
         // 마커가 지도 위에 표시되도록 설정합니다
         marker.setMap(map);
-    }, [])
+    }, [localArray]);
 
     return (
         <>

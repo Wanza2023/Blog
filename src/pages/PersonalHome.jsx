@@ -45,40 +45,22 @@ const PersonalHome = () => {
     const setPage = (error) => {
         setCurrentPage(error);
     };
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get(`http://172.16.210.130:8082/board/${nickName}`);
-    //             if (response.data && response.data.body && Array.isArray(response.data.body)) {
-    //                 const reversedData = response.data.body.reverse();
-    //                 setPosts(reversedData);
-    //                 // console.log(reversedData);
-    //                 // setPosts(response.data.body);
-    //             } else {
-    //             console.error('Invalid response data format');
-    //             }
-    //         } catch (e) {
-    //             console.error(e);
-    //             alert('Error: 데이터를 불러올 수 없습니다');
-    //         }
-    //         };
-    //         fetchData();
-    //         setCount(posts.length);
-    //         setIndexOfLastPost(currentPage * postPerPage);
-    //         setIndexOfFirstPost(indexOfLastPost - postPerPage);
-    //         setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost));
-    //     }, [nickName,currentPage, indexOfLastPost, indexOfFirstPost, posts, postPerPage]);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://172.16.210.130:8082/board/${nickName}`);
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
-                    const reversedData = response.data.body.reverse();
-                    setPosts(reversedData);
-                    setCount(reversedData.length);
+                    const Data = response.data.body
+                    setPosts(Data);
+                    // const reversedData = response.data.body.reverse();
+                    // console.log("변환된 데이터: ",reversedData);
+                    // setPosts(reversedData);
+                    // setCount(reversedData.length);
+                    setCount(Data.length)
                     const indexOfLastPost = currentPage * postPerPage;
                     const indexOfFirstPost = indexOfLastPost - postPerPage;
-                    setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
+                    // setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
+                    setCurrentPosts(Data.slice(indexOfFirstPost,indexOfLastPost));
                 } else {
                     console.error('Invalid response data format');
                 }
@@ -103,7 +85,7 @@ const PersonalHome = () => {
                 <span>|</span>
                 <button onClick={handleTextButtonClick}>글</button>
             </div>
-            {showMap && <div className='map_styles'><MapComponent data={posts}/></div>}
+            {showMap && <div className='map_styles'><MapComponent posts={posts}/></div>}
             {/* {showText && <div><PersonalTextComponent BoardData={filterData}/></div>} */}
             {showText &&
                 <div className="wrapper">

@@ -20,16 +20,13 @@ function PostList() {
         try {
             const response = await axios.get(`http://172.16.210.130:8082/board/local/${regionName}`);
             if (response.data && response.data.body && Array.isArray(response.data.body)) {
+                console.log("원래데이터: ",response.data.body);
                 const reversedData = response.data.body.reverse();
                 setPosts(reversedData);
                 setCount(reversedData.length);
-                console.log(reversedData);
-                
-                // Calculate indexes based on currentPage and postPerPage
+                console.log("변환한 데이터: ",reversedData);
                 const indexOfLastPost = currentPage * postPerPage;
                 const indexOfFirstPost = indexOfLastPost - postPerPage;
-                
-                // Update currentPosts state with sliced data
                 setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
             } else {
                 console.error('Invalid response data format');
