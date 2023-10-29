@@ -83,7 +83,7 @@ function PostWrite() {
   const [desc, setDesc] = useState('');
   const [title, setTitle] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
-  const [scheduleItems, setScheduleItems] = useState([{ date: '', transport: ''}]);
+  const [scheduleItems, setScheduleItems] = useState([{ date: '', transport: '', locationName: ''}]);
   const [locationItems,setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [postStatus, setpostStatus] = useState(true);
@@ -98,7 +98,7 @@ function PostWrite() {
       "local": selectedRegion,
       "title": title,
       "contents": desc,
-      "summary": "패러글라이딩 재밌다.",
+      "summary": "제주도에 갔으면 숙성도는 필수",
       "status": isPublic,
       "schedules": schedules,
       "hashtags": tagList
@@ -118,7 +118,11 @@ function PostWrite() {
   }
 
   const handleSelectLocation = (selectedLocationData) => {
-    setLocationItems([...locationItems, selectedLocationData]); //모달에서 지도 정보받아오기 경도,위도,위치이름
+    setLocationItems([...locationItems, selectedLocationData]); //모달에서 지도 정보받아오기 경도,위도,위치이름'
+
+    const newScheduleItems = [...scheduleItems];
+    newScheduleItems[newScheduleItems.length - 1].locationName = selectedLocationData.location;
+    setScheduleItems(newScheduleItems);
   };
 
   function onEditorChange(value) {
@@ -275,10 +279,10 @@ function PostWrite() {
               <Modal className="modal" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
                 <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
               </Modal>
-              {/* <>{locationTitle}</> */}
-              <input type="text" placeholder="이동수단" value={item.transportation} onChange={(e) => handleScheduleChange(index, 'transportation', e.target.value)} />
-              {index > 0 ? <button className="minus" onClick={() => removeScheduleItem(index)}>-</button> : null}
+              {item.locationName && <span className="locationName">{item.locationName}</span>}
+              <input type="text" placeholder="이동수단" value={item.transport} onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)} />
               <button className="plus" onClick={addScheduleItem}>+</button>
+              {index > 0 ? <button className="minus" onClick={() => removeScheduleItem(index)}>-</button> : null}
             </div>
           ))}
         </div>

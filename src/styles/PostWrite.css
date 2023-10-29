@@ -50,6 +50,8 @@
     text-align: left;
     border: 1px solid #f1f1f1;
     border-radius: 5px;
+    width: 5vw;
+    margin-right: 2rem;
 }
 
 .scheduleList {
@@ -60,14 +62,6 @@
     font-size: 0.87rem;
     font-weight: bold;
     margin-right: 1vw;
-}
-
-.body2 > div > input {
-    margin-right: 1vw;
-    margin-top: 1vh;
-    border: 1px solid #f1f1f1;
-    border-radius: 5px;
-    height: 3vh;
 }
 
 .selectLocation {
@@ -91,6 +85,13 @@
     width: 2vw;
     clear: both;
     float: left;
+}
+
+.locationName {
+    margin-right: 1rem;
+    font-size: 0.9rem;
+    display: inline-block;
+    width: 7vw;
 }
 
 .minus {
@@ -181,7 +182,6 @@
 .toggleInput {
     font-size: 0.9rem;
     position: absolute;
-    z-index: 2;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
