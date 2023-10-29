@@ -15,7 +15,6 @@ const MapComponent= (props) => {
         }
     }, [props.posts]);
 
-
     useEffect(() => {
         const mapContainer = document.getElementById('map');
         const mapOptions = {
@@ -31,12 +30,9 @@ const MapComponent= (props) => {
             title: schedule.location, 
             latlng: new kakao.maps.LatLng(schedule.longitude, schedule.latitude)
         }));
-        for (var i=0; i < positions.length; i++) {
-            var marker = new kakao.maps.Marker({
-                position: positions[i].latlng
-            })
-        }
-        marker.setMap(map)
+    
+        console.log(positions);
+
         for (var i = 0; i < positions.length; i++) {
             // 마커 이미지 크기
             var imageSize = new kakao.maps.Size(24, 35); 

@@ -61,10 +61,13 @@
     color: white;
 }
 
+.btn {
+    display: inline-flex;
+    align-items: center;
+}
+
 .closebtn {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
+    margin-left: 1rem;
     font-size: 1.5rem;
     background: none;
     border: none;
