@@ -60,3 +60,13 @@
     height: 3.3vh;
     color: white;
 }
+
+.closebtn {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}

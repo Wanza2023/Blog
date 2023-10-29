@@ -107,6 +107,7 @@ const SelectLocation = (props) => {
                 <input className="searchinput" placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
                 <button className="searchbtn" type="submit">검색</button>
             </form>
+            <div className="closebtn" onClick={close}>×</div>
             <div className='selectlocation_wrapper'>
                 <div
                     id="myMap"
