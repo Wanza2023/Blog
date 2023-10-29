@@ -21,6 +21,7 @@ function App() {
           <Routes>
             <Route index element={<Main />} />
             <Route path="/:land" element={<Main />} />
+            <Route path="board/search/:searchTerm" element={<PostList />} />
             <Route path="write" element={<PostWrite />} />
             <Route path="post-list/:regionName" element={<PostList />} />
             <Route path="/:nickname/:boardId" element={<PostView />} />
