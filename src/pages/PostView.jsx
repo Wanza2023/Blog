@@ -40,6 +40,7 @@ function PostView() {
     axios
       .delete(`http://172.16.210.130:8082/board/${nickname}/${boardId}`)
       .then(function(res){
+        console.log(res.data);
         console.log("삭제 성공");
         navigate(`/user/${nickname}`);
       })

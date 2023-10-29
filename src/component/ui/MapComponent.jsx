@@ -5,6 +5,7 @@ const {kakao} = window;
 const MapComponent= (props) => {
     // props.data 로 PersonalHome에 있는 posts 배열에 접근가능
     // 위치정보에 대한 정보를 저장하고 뿌려줄수있도록해야함
+
     const [localArray, setLocalArray] = useState([]);
     useEffect(() => {
         setLocalArray(props.posts);

@@ -271,7 +271,7 @@ function PostWrite() {
               <text className="index">{index + 1}번째 여행지</text>
               <input type="text" placeholder="날짜" value={item.date} onChange={(e) => handleScheduleChange(index, 'date', e.target.value)} />
               <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
-              <Modal className="modal" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+              <Modal className="modal" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} >
                 <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
               </Modal>
               {/* <>{locationTitle}</> */}

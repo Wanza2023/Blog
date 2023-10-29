@@ -142,7 +142,7 @@
     transform: translate(-50%, -50%);
     width: 75%;
     height: 75%;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: (255,255,255,0);
 }
 
 .toggleBtn {
