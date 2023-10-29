@@ -105,9 +105,11 @@ const SelectLocation = (props) => {
         <>
             <form className="inputForm" onSubmit={handleSubmit}>
                 <input className="searchinput" placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
-                <button className="searchbtn" type="submit">검색</button>
+                <div className="btn">
+                    <button className="searchbtn" type="submit">검색</button>
+                    <button className="closebtn" onClick={close} aria-label="Close modal">×</button>
+                </div>
             </form>
-            <div className="closebtn" onClick={close}>×</div>
             <div className='selectlocation_wrapper'>
                 <div
                     id="myMap"
