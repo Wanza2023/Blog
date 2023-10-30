@@ -279,7 +279,7 @@ function PostWrite() {
       }
     }
   };
-  };  
+
   const onClickSelectLocation = () => {
     <SelectLocation setLocationItems={handleSelectLocation}/>
   }
@@ -341,9 +341,9 @@ function PostWrite() {
         <PostWriteComponent value={desc} onChange={onEditorChange} />
       </MyBlock>
       <div className="foot">
-        <button onClick={fetchSummary}>카카오</button>
-        {summary && <div className="summary-content">{summary}</div>}
-        <button onClick={fetchSummaryN}>클로바</button>
+        {/* <button onClick={fetchSummary}>카카오</button>
+        {summary && <div className="summary-content">{summary}</div>} */}
+        <button onClick={fetchSummaryN}>AI 요약</button>
         {summaryN  && <div className="summary-content">{summaryN}</div>}
         {/* <button>해시태그 추가</button> */}
       </div>
@@ -370,5 +370,6 @@ function PostWrite() {
     </WholeBox>
     </Container>
   );
+}
 
 export default PostWrite;
