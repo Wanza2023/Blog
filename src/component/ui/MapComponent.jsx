@@ -21,10 +21,11 @@ const MapComponent= (props) => {
                     const doc = parser.parseFromString(content, "text/html");
                     const imgElement = doc.querySelector("img");
                     const imgSrc = imgElement ? imgElement.getAttribute("src") : "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-                    
+                    const imgSrchover = imgElement ? imgElement.getAttribute("src") : "";
                     return {
                         schedule: schedule,
-                        imgSrc: imgSrc
+                        imgSrc: imgSrc,
+                        imgSrchover :imgSrchover
                     };
                 }
                 return null;
@@ -37,6 +38,7 @@ const MapComponent= (props) => {
     const [localArray, setLocalArray] = useState([]);
 
     useEffect(() => {
+        
         const mapContainer = document.getElementById('map');
         const mapOptions = {
             center: new kakao.maps.LatLng(35.771152381440724, 127.93716313603966),
@@ -47,12 +49,26 @@ const MapComponent= (props) => {
         const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
         
         // schedule에서 필요한 데이터만 저장
-        const positions = localArray.map(({schedule,imgSrc}) => ({
+        const positions = localArray.map(({schedule,imgSrc,imgSrchover}) => ({
             title: schedule.location, 
             latlng: new kakao.maps.LatLng(schedule.longitude, schedule.latitude),
             boardId: schedule.boardId,
-            imgSrc: imgSrc
+            imgSrc: imgSrc,
+            content: `<img src="${imgSrchover}" style="width:12rem; height:12rem; object-fit: cover;"/>`
         }));
+
+        function makeOverListener(map, marker, infowindow) {
+            return function() {
+                infowindow.open(map, marker);
+            };
+        }
+        
+        // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+        function makeOutListener(infowindow) {
+            return function() {
+                infowindow.close();
+            };
+        }
 
         console.log(localArray);
 
@@ -69,12 +85,21 @@ const MapComponent= (props) => {
                 title: positions[i].title,
                 image : markerImage
             });
+            // var marker = new kakao.maps.Marker({
+            //     map: map,
+            //     position: positions[i].latlng,
+            // });
+            var infowindow = new kakao.maps.InfoWindow({
+                content: positions[i].content // 인포윈도우에 표시할 내용
+            });
             kakao.maps.event.addListener(marker, 'click', ((position) => {
                 return () => {
                     // window.location.href = `http://localhost:3000/${nickName}/${position.boardId}`;
                     navigate(`/${nickName}/${position.boardId}`);
                 }
             })(positions[i]));
+            kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+            kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
         }
     }, [localArray]);
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { isLoggedInState } from '../component/AuthState';
+import { isLoggedInState,nickNameState } from '../component/AuthState';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { HiOutlineMapPin } from 'react-icons/hi2';
 import ScheduleList from '../component/ui/ScheduleList';
@@ -24,6 +24,7 @@ const Container = styled.div`
 function PostView() {
   const navigate = useNavigate();
   const isLoggedIn = useRecoilState(isLoggedInState);
+  const nickName = useRecoilState(nickNameState);
   const [showMenu, setShowMenu] = useState(false);
   const [comments, setComments] = useState(['']);
   const [newComment, setNewComment] = useState('');
@@ -42,7 +43,7 @@ function PostView() {
       .then(function(res){
         console.log(res.data);
         console.log("삭제 성공");
-        navigate(`/user/${nickname}`);
+        navigate(-1);
       })
       .catch(function(err){
         console.log("error: ", err);
