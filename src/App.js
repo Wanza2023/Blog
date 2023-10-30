@@ -10,6 +10,7 @@ import PostViewEx from "./pages/PostViewEx";
 import PersonalHome from './pages/PersonalHome';
 import Navbar from "./component/Navbar";
 import { RecoilRoot } from "recoil";
+import SelectLocation from "./component/ui/SelectLocation";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="login" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="user/:nickname" element={<PersonalHome/>} />
+            <Route path="selectlocation" element={<SelectLocation/>}/>
           </Routes>
         </div>
       </BrowserRouter>

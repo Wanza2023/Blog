@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../../styles/SelectLocation.css";
 
 const { kakao } = window;
 
 const SelectLocation = (props) => {
+    const navigate = useNavigate()
     const [InputText, setInputText] = useState('');
     const [Place, setPlace] = useState('');
     const [places, setPlaces] = useState([]);
@@ -23,7 +25,16 @@ const SelectLocation = (props) => {
         props.setLocationItems(locationData);
         console.log("location data : ",locationData);
     }
+    // const getLocation = (item) => {
 
+    //     const locationData = {
+    //         latitude: item.x,
+    //         longitude: item.y,
+    //         location: item.place_name};
+
+    //     navigate('/write',{state: {locationData}});
+    //     console.log("location data : ",locationData);
+    // }
     const onChange = (e) => {
         setInputText(e.target.value);
     }
@@ -35,7 +46,7 @@ const SelectLocation = (props) => {
     }
 
     useEffect(() => {
-        const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+        const infowindow = new kakao.maps.InfoWindow({ zIndex: 10 });
         const container = document.getElementById('myMap');
         const options = {
             center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -99,7 +110,7 @@ const SelectLocation = (props) => {
                 infowindow.open(map, marker);
             });
         }
-    }, [Place]);
+    }, [Place,places]);
 
     return (
         <>
@@ -107,6 +118,7 @@ const SelectLocation = (props) => {
                 <input className="searchinput" placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
                 <div className="btn">
                     <button className="searchbtn" type="submit">검색</button>
+                    {/* <button className="closebtn" onClick={()=>{navigate(-1)}} aria-label="Close modal">×</button> */}
                     <button className="closebtn" onClick={close} aria-label="Close modal">×</button>
                 </div>
             </form>
@@ -123,8 +135,8 @@ const SelectLocation = (props) => {
                         places.map((item, i) => (
                             <div key={i} style={{ marginTop: '20px' }} >
                                 <div className='list'>
+                                    {/* <button className="titlebtn" onClick={() => {getLocation(item);}} >{item.place_name}</button> */}
                                     <button className="titlebtn" onClick={() => {getLocation(item); close();}} >{item.place_name}</button>
-                                    {/* <button onClick={() => {close(); handleSelectLocation(item); getLocation(item);}}>{item.place_name}</button> */}
                                     {item.road_address_name ? (
                                         <div className='addressname'>
                                             <span>{item.road_address_name}</span>

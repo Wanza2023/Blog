@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useState,useEffect } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState} from 'recoil';
 import axios from 'axios';
 import Modal from 'react-modal';
@@ -89,6 +89,8 @@ function PostWrite() {
   const [totConfirm, setTotConfirm] = useState([0,0,0]);  // 필수입력정보 입력되면 1로바꾸기
   const isFormValid = totConfirm.every(item => item === 1); // 필수입력정보가 모두 입력되면 발행버튼이 눌리게하기
   const [isPublic, setIsPublic] = useState(true); // 글 공개 비공개 설정
+  const location = useLocation();
+
   
   const boardWrite = async() => {
 
@@ -162,7 +164,6 @@ function PostWrite() {
       setTotConfirm(()=>[...totConfirm]);
     }
   }
-
   const combinedSchedule = locationItems.map((locationItem, index) => {
     return Object.assign({}, locationItem, scheduleItems[index]);
   });
@@ -278,6 +279,10 @@ function PostWrite() {
       }
     }
   };
+  };  
+  const onClickSelectLocation = () => {
+    <SelectLocation setLocationItems={handleSelectLocation}/>
+  }
   
 
   return (
@@ -320,9 +325,10 @@ function PostWrite() {
               <text className="index">{index + 1}번째 여행지</text>
               <input type="text" placeholder="날짜" value={item.date} onChange={(e) => handleScheduleChange(index, 'date', e.target.value)} />
               <button className="selectLocation" onClick={()=> setModalIsOpen(true)}>장소</button>
-              <Modal className="modal" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} >
+              <Modal className="modal" isOpen={modalIsOpen} ariaHideApp={false} onRequestClose={() => setModalIsOpen(false)} >
                 <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
               </Modal>
+              {/* <button className="selectLocation" onClick={()=>navigate('/selectlocation')}>장소</button> */}
               {item.locationName && <span className="locationName">{item.locationName}</span>}
               <input type="text" placeholder="이동수단" value={item.transport} onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)} />
               <button className="plus" onClick={addScheduleItem}>+</button>
@@ -363,7 +369,6 @@ function PostWrite() {
       </TagBox>
     </WholeBox>
     </Container>
-  )
-};
+  );
 
 export default PostWrite;
