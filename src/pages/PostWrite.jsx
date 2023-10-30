@@ -99,7 +99,7 @@ function PostWrite() {
       "local": selectedRegion,
       "title": title,
       "contents": desc,
-      "summary": summary,
+      "summary": summaryN,
       "status": isPublic,
       "schedules": schedules,
       "hashtags": tagList
@@ -112,6 +112,7 @@ function PostWrite() {
       console.log(boardId);
       navigate(`/${nickName}/${boardId}`);
 			alert("새로운 게시글을 성공적으로 등록했습니다 :D");
+      console.log(board);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -252,6 +253,32 @@ function PostWrite() {
         console.error('Server Response:', error.response.data);
       }
     }
+  }; 
+
+  const [summaryN, setSummaryN] = useState('');
+
+  const fetchSummaryN = async () => {
+    try {
+      const requestBody = {
+        title: title ? title : null,
+        content: desc ? desc : null
+      };
+
+      const response = await axios.post('http://172.16.210.130:8001/summary', requestBody);
+      
+      if (response.data && 'summary' in response.data) {
+        setSummaryN(response.data.summary);
+        console.log(summaryN);
+      } else {
+        console.error('Invalid response format');
+      }
+    } catch (error) {
+      console.error('Failed to fetch summary:', error);
+      if (error.response) {
+        console.error('Server Response:', error.response.data);
+      }
+    }
+  };
   };  
   const onClickSelectLocation = () => {
     <SelectLocation setLocationItems={handleSelectLocation}/>
@@ -314,8 +341,10 @@ function PostWrite() {
         <PostWriteComponent value={desc} onChange={onEditorChange} />
       </MyBlock>
       <div className="foot">
-        <button onClick={fetchSummary}>요약글 추가</button>
+        <button onClick={fetchSummary}>카카오</button>
         {summary && <div className="summary-content">{summary}</div>}
+        <button onClick={fetchSummaryN}>클로바</button>
+        {summaryN  && <div className="summary-content">{summaryN}</div>}
         {/* <button>해시태그 추가</button> */}
       </div>
       <WholeBox>
@@ -340,7 +369,6 @@ function PostWrite() {
       </TagBox>
     </WholeBox>
     </Container>
-  )
-};
+  );
 
 export default PostWrite;
