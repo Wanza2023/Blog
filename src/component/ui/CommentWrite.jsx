@@ -6,7 +6,7 @@ const CommentWrite = ({ newComment, setNewComment, addComment }) => {
         <div>
             <div className='info'>
                 <BiUserCircle />
-                <p className='comments-nickname'>코딩이싫어요</p>
+                <p className='comments-nickname'>오댕</p>
             </div>
             <div className='comments-input'>
                 <textarea

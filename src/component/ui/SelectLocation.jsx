@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import "../../styles/SelectLocation.css";
-
 const { kakao } = window;
-
 const SelectLocation = (props) => {
-    const navigate = useNavigate()
     const [InputText, setInputText] = useState('');
     const [Place, setPlace] = useState('');
     const [places, setPlaces] = useState([]);
@@ -14,39 +10,25 @@ const SelectLocation = (props) => {
         // 모달창 onclick일어날 때 모달창 닫기
     }
     const getLocation = (item) => {
-
         const locationData = {
             latitude: item.x,
             longitude: item.y,
             location: item.place_name}
         
         ;
-
         props.setLocationItems(locationData);
         console.log("location data : ",locationData);
     }
-    // const getLocation = (item) => {
-
-    //     const locationData = {
-    //         latitude: item.x,
-    //         longitude: item.y,
-    //         location: item.place_name};
-
-    //     navigate('/write',{state: {locationData}});
-    //     console.log("location data : ",locationData);
-    // }
     const onChange = (e) => {
         setInputText(e.target.value);
     }
-
     const handleSubmit = (e) => {
         e.preventDefault();
         setPlace(InputText);
         setInputText('');
     }
-
     useEffect(() => {
-        const infowindow = new kakao.maps.InfoWindow({ zIndex: 10 });
+        const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
         const container = document.getElementById('myMap');
         const options = {
             center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -54,9 +36,7 @@ const SelectLocation = (props) => {
         };
         const map = new kakao.maps.Map(container, options);
         const ps = new kakao.maps.services.Places();
-
         ps.keywordSearch(Place, placesSearchCB, {size:8});
-
         function placesSearchCB(data, status, pagination) {
             if (status === kakao.maps.services.Status.OK) {
                 let bounds = new kakao.maps.LatLngBounds();
@@ -69,20 +49,16 @@ const SelectLocation = (props) => {
                 setPlaces(data);
             }
         }
-
         function displayPagination(pagination) {
             const paginationEl = document.getElementById('pagination');
             const fragment = document.createDocumentFragment();
-
             while (paginationEl.hasChildNodes()) {
                 paginationEl.removeChild(paginationEl.lastChild);
             }
-
             for (let i = 1; i <= pagination.last; i++) {
                 const el = document.createElement('a');
                 el.href = '#';
                 el.innerHTML = i;
-
                 if (i === pagination.current) {
                     el.className = 'on';
                 } else {
@@ -96,13 +72,11 @@ const SelectLocation = (props) => {
             }
             paginationEl.appendChild(fragment);
         }
-
         function displayMarker(place) {
             const marker = new kakao.maps.Marker({
                 map: map,
                 position: new kakao.maps.LatLng(place.y, place.x),
             });
-
             kakao.maps.event.addListener(marker, 'click', function () {
                 infowindow.setContent(
                     '<div style="padding:5px;font-size:12px;">' + place.place_name + '</div'
@@ -110,15 +84,13 @@ const SelectLocation = (props) => {
                 infowindow.open(map, marker);
             });
         }
-    }, [Place,places]);
-
+    }, [Place]);
     return (
         <>
             <form className="inputForm" onSubmit={handleSubmit}>
                 <input className="searchinput" placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
                 <div className="btn">
                     <button className="searchbtn" type="submit">검색</button>
-                    {/* <button className="closebtn" onClick={()=>{navigate(-1)}} aria-label="Close modal">×</button> */}
                     <button className="closebtn" onClick={close} aria-label="Close modal">×</button>
                 </div>
             </form>
@@ -126,8 +98,8 @@ const SelectLocation = (props) => {
                 <div
                     id="myMap"
                     style={{
-                        // width: '30rem'
-                        // height: '30rem',
+                        width: '30rem',
+                        height: '30rem',
                     }}
                 ></div>
                 <div className='result-list'>
@@ -135,8 +107,8 @@ const SelectLocation = (props) => {
                         places.map((item, i) => (
                             <div key={i} style={{ marginTop: '20px' }} >
                                 <div className='list'>
-                                    {/* <button className="titlebtn" onClick={() => {getLocation(item);}} >{item.place_name}</button> */}
                                     <button className="titlebtn" onClick={() => {getLocation(item); close();}} >{item.place_name}</button>
+                                    {/* <button onClick={() => {close(); handleSelectLocation(item); getLocation(item);}}>{item.place_name}</button> */}
                                     {item.road_address_name ? (
                                         <div className='addressname'>
                                             <span>{item.road_address_name}</span>
@@ -158,5 +130,4 @@ const SelectLocation = (props) => {
         </>
     );
 }
-
 export default SelectLocation;
