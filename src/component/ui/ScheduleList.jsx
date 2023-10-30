@@ -7,7 +7,6 @@ const ScheduleList = ({ scheduleData }) => {
         {scheduleData.map((item, index) => (
             <ScheduleListItem
             key={index}
-            day={item.day}
             date={item.date}
             location={item.location}
             transportation={item.transport}

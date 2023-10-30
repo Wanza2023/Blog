@@ -114,8 +114,8 @@ const SelectLocation = (props) => {
                 <div
                     id="myMap"
                     style={{
-                        width: '30rem',
-                        height: '30rem',
+                        // width: '30rem'
+                        // height: '30rem',
                     }}
                 ></div>
                 <div className='result-list'>

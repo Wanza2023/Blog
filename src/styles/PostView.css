@@ -74,15 +74,12 @@
     clear: both;
     border-radius: 20px;
     background: #F5F5F5;
-    height: 29vh;
+    min-height: 5vh;
 }
 .schedule-item {
     display: flex;
     justify-content: left;
     align-items: center;
-}
-.schedule-item-day{
-    margin: 10px 20px;
 }
 .schedule-item-date{
     border-radius: 5px;
@@ -91,6 +88,7 @@
     background: #FFFFFF;
     padding: 5px;
     width: 13vw;
+    margin-left: 1rem;
 }
 .schedule-item-location{
     border-radius: 5px;
@@ -129,43 +127,45 @@
     float: left;
     font-size: 0.8rem;
     color: gray;
-    margin-left: 2vw;
-    margin-bottom: 0.2vh;
+    margin-left: 1vw;
+    margin-bottom: 0.5vh;
 }
 .summary-box {
     clear: both;
     border-radius: 20px;
     background: #F5F5F5;
-    height: 10vh;
+    min-height: 5vh;
 }
 .summary-contents {
     text-align: left;
     padding: 2vw 5vh;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 .hashtag {
     text-align: left;
-    margin-top: 7vh;
+    margin-top: 3vh;
 }
 .hashtag button {
-    border: 3px solid #e8e7e7;
-    border-radius: 10px;
-    background: white;
-    width: 120px;
-    font-weight: bold;
-    padding: 1vh;
+    border: none;
+    border-radius: 20px;
+    background-color: #5076FF;
+    color: white;
+    min-width: 3.5vw;
+    font-size: 0.9rem;
+    padding: 0.7vh;
     margin-right: 1.5vw;
     cursor: pointer;
 }
 .comments-num {
     clear: both;
     text-align: center;
-    font-size: 0.8rem;
-    font-weight: bold;
     border-radius: 5px;
     background: #F5F5F5;
-    width: 70px;
-    height: 20px;
+    width: 3vw;
+    height: 1.5vh;
+    margin-top: 5vh;
+    font-size: 0.9rem;
+    padding: 1vh;
 }
 .border3 {
     clear: both;
@@ -209,11 +209,11 @@
     float: right;
     border: none;
     border-radius: 5px;
-    background: #007BFF;
-    width: 90px;
+    background: #5076FF;
+    width: 80px;
     color: white;
     font-weight: bold;
-    padding: 1vh 2vw;
+    padding: 1vh;
     margin: 2vh;
     margin-right: 2vw;
     cursor: pointer;
