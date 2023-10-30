@@ -13,3 +13,7 @@
 * {
   font-family: "Inter";
 }
+
+.ReactModal__Body--open body{
+  opacity: 0.3;
+}

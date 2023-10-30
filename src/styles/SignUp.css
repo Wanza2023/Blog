@@ -188,3 +188,21 @@ input[type="checkbox"]{
 *::placeholder{
     color: #d0d0d0;
 }
+
+.signup-submit-message-isok{
+    color: green;
+    font-size: 0.8rem;
+    margin: 0;
+    margin-top: 0.5rem;
+}
+
+.terms {
+    width: 90%;
+    padding: 1rem;
+    height: 30vh;
+    font-size: 0.8rem;
+    color: #98989f;
+    line-height: 1.6em;
+    overflow:auto;
+    background: #fff;
+}
