@@ -2,6 +2,10 @@
     font-size: 2rem;
     font-weight: bold;
 }
+.view-container{
+    max-width: 55%;
+    object-fit: contain;
+}
 .button-container {
     height: 7vh;
 }
@@ -222,4 +226,7 @@
     clear: both;
     border-top: 2px solid rgba(0, 0, 0, 0.09);
     width: 100%;
+}
+.quill img{
+    object-fit: cover;
 }

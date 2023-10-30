@@ -278,7 +278,6 @@ function PostWrite() {
         console.error('Server Response:', error.response.data);
       }
     }
-  };
   };  
   const onClickSelectLocation = () => {
     <SelectLocation setLocationItems={handleSelectLocation}/>
@@ -370,5 +369,5 @@ function PostWrite() {
     </WholeBox>
     </Container>
   );
-
+}
 export default PostWrite;
