@@ -122,7 +122,7 @@ const SelectLocation = (props) => {
                             </div>
                         ))
                     ) : (
-                        <p>Loading or no data available.</p>
+                        <p />
                     )}
                     <div id="pagination"></div>
                 </div>

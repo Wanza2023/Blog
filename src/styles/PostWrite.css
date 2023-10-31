@@ -141,8 +141,9 @@
     text-align: left;
     border: 1px solid #f1f1f1;
     border-radius: 2px;
-    min-width: 7vh;
+    min-width: 45vw;
     padding: 0.5rem;
+    min-height: 7vh;
 }
 
 .ReactModal__Overlay {
