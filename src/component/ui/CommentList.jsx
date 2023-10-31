@@ -6,7 +6,7 @@ import data from "../../CommentData.json";
 import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
 
-const CommentList = () => {
+const CommentList = (props) => {
     const navigate = useNavigate();
     const isLoggedIn = useRecoilValue(isLoggedInState);
     const { boardId } = useParams();
@@ -16,18 +16,6 @@ const CommentList = () => {
     const nickname = useRecoilState(nickNameState);
 
     const [comment, setComment] = useState([]);
-
-    useEffect(() => {
-        const comments = data.filter((item) => item.boardId == boardId);
-        setComment(comments);
-    }, [boardId]);
-
-    useEffect(() => {
-        const comments = data.filter((item) => item.boardId == boardId);
-        setComment(comments);
-        setEditingComment(new Array(comments.length).fill(''));
-        setIsLikedStates(new Array(comments.length).fill(false));
-    }, [boardId]);
 
     const addComment = () => {
         if (isLoggedIn && newComment.trim() !== '') {

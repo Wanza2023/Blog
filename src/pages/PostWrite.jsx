@@ -216,6 +216,9 @@ function PostWrite() {
     setTagItem('')
   }
 
+  const handleSetValue = (e) => {
+    setSummaryN(e.target.value);
+  }
   const deleteTagItem = (e) => {
     const deletedTag = e.target.parentElement.firstChild.innerText.substr(2);
     const filteredTagList = tagList.filter(tagItem => tagItem !== deletedTag);
@@ -328,7 +331,6 @@ function PostWrite() {
               <Modal className="modal" isOpen={modalIsOpen} ariaHideApp={false} onRequestClose={() => setModalIsOpen(false)} >
                 <SelectLocation setModalIsOpen={setModalIsOpen} setLocationItems={handleSelectLocation}/>
               </Modal>
-              {/* <button className="selectLocation" onClick={()=>navigate('/selectlocation')}>장소</button> */}
               {item.locationName && <span className="locationName">{item.locationName}</span>}
               <input type="text" placeholder="이동수단" value={item.transport} onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)} />
               <button className="plus" onClick={addScheduleItem}>+</button>
@@ -346,7 +348,7 @@ function PostWrite() {
         <div>
           <button onClick={fetchSummaryN}>AI 요약</button>
         </div>
-        {summaryN  && <textarea className="summary-content" value={summaryN}></textarea>}
+        {summaryN  && <textarea className="summary-content" value={summaryN} onChange={handleSetValue}></textarea>}
         {/* <button>해시태그 추가</button> */}
       </div>
       <WholeBox>

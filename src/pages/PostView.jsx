@@ -56,7 +56,7 @@ function PostView() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://172.16.210.130:8082/board/${nickname}/${boardId}`);
+        const response = await axios.get(`http://172.16.210.131:8080/board/${nickname}/${boardId}`);
         if (response.data && response.data.body) {
             console.log('Data received from the server:', response.data.body);
             setPosts(response.data.body);
@@ -83,7 +83,6 @@ function PostView() {
             console.error('Error parsing date:', error);
             createdDate = new Date();
         }
-
         const formattedDate = createdDate.toISOString().split('T')[0];
 
         const localToKorean = {
@@ -172,7 +171,7 @@ function PostView() {
                   onEdit={handleEditClick}
                   onDelete={handleDeleteClick}
                   newComment={newComment}
-                  setNewComment={setNewComment}
+                  posts={posts}
                 />
               </div>
               <Button />

@@ -149,10 +149,6 @@
 .ReactModal__Overlay {
     background-color: transparent !important;
 }
-.ReactModal__Overlay--after-open {
-    z-index: 100;
-}
-
 .modal {
     position: absolute;
     top: 50%;
