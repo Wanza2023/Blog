@@ -16,10 +16,10 @@ import Paging from '../component/ui/Paging';
 
 const PersonalHome = () => {
     // 지도 화면 보이게 toggle 설정 true로 준건 default로 보이게하기위함
-    const [showMap, setShowMap] = useState(false);
+    const [showMap, setShowMap] = useState(true);
 
     // 글 목록보이게 toggle 설정
-    const [showText, setShowText] = useState(true);
+    const [showText, setShowText] = useState(false);
 
     //지도 눌렀을 때 이벤트
     const handleMapButtonClick = () => {
@@ -92,7 +92,7 @@ const PersonalHome = () => {
             {showText &&
                 <div className="wrapper">
                     {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
-                    {currentPosts && posts.length > 0 ? (currentPosts.map((item)=>(<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div>no posts</div>)}
+                    {currentPosts && posts.length > 0 ? (currentPosts.map((item)=>(<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
                     <Paging page={currentPage} count={count} setPage={setPage}/>
                     <Button />
                 </div>

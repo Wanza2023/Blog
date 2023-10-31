@@ -1,12 +1,16 @@
 import React from 'react';
 import { BiUserCircle } from "react-icons/bi";
+import { useRecoilState } from 'recoil';
+import { nickNameState } from '../AuthState';
 
 const CommentWrite = ({ newComment, setNewComment, addComment }) => {
+    const nickname = useRecoilState(nickNameState);
+
     return (
         <div>
             <div className='info'>
                 <BiUserCircle />
-                <p className='comments-nickname'>오댕</p>
+                <p className='comments-nickname'>{nickname}</p>
             </div>
             <div className='comments-input'>
                 <textarea

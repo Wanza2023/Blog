@@ -66,7 +66,7 @@ function PostList() {
 
   return (
     <div className="wrapper">
-      {currentPosts && posts.length > 0 ? (currentPosts.map((item)=>(<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div>no posts</div>)}
+      {currentPosts && posts.length > 0 ? (currentPosts.map((item)=>(<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
       <Paging page={currentPage} count={count} setPage={setPage}/>
       <Button />
