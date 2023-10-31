@@ -28,7 +28,7 @@ const CommentList = ({comments}) => {
         if (isLoggedIn && newComment.trim() !== '') {
             const newCommentObject = {
                 nickname: nickname,
-                contents: newComment,
+                content: newComment,
                 createdAt: new Date().toISOString(),
             };
             
@@ -90,7 +90,7 @@ const CommentList = ({comments}) => {
     return (
         <div>
             <div className='comments-num'>
-                <>댓글  {comment.length}</>
+                <>댓글  {comments.length}</>
             </div>
             <div className='border3' />
             <CommentWrite
@@ -99,6 +99,20 @@ const CommentList = ({comments}) => {
                 addComment={addComment} 
             />
             <div className='border4' />
+            <CommentListItem
+                comment={comment}
+                editingComment={editingComment}
+                setEditingComment={setEditingComment}
+                handleCommentEditClick={handleCommentEditClick}
+                handleCommentSaveClick={handleCommentSaveClick}
+                handleCommentCancelClick={handleCommentCancelClick}
+                handleCommentChange={handleCommentChange}
+                handleCommentReportClick={handleCommentReportClick}
+                handleCommentLikeClick={handleCommentLikeClick}
+                isLikedStates={isLikedStates}
+                onDelete={onDelete}
+                isLoggedIn={isLoggedIn}
+            />
             <CommentListItem
                 comment={comments}
                 editingComment={editingComment}
