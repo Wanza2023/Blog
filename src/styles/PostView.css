@@ -3,8 +3,7 @@
     font-weight: bold;
 }
 .view-container{
-    max-width: 55%;
-    object-fit: contain;
+    width: 55%;
 }
 .button-container {
     height: 7vh;
@@ -229,4 +228,5 @@
 }
 .quill img{
     object-fit: cover;
+    max-width: 49.5rem;
 }
