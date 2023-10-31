@@ -343,8 +343,10 @@ function PostWrite() {
       <div className="foot">
         {/* <button onClick={fetchSummary}>카카오</button>
         {summary && <div className="summary-content">{summary}</div>} */}
-        <button onClick={fetchSummaryN}>AI 요약</button>
-        {summaryN  && <div className="summary-content">{summaryN}</div>}
+        <div>
+          <button onClick={fetchSummaryN}>AI 요약</button>
+        </div>
+        {summaryN  && <textarea className="summary-content" value={summaryN}></textarea>}
         {/* <button>해시태그 추가</button> */}
       </div>
       <WholeBox>

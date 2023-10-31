@@ -1,6 +1,9 @@
 import React, { Component, useRef, useEffect } from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from "react-quill";
+import ImageResize from "quill-image-resize-module-react";
 import 'react-quill/dist/quill.snow.css';
+
+Quill.register("modules/imageResize", ImageResize);
 
 class PostWriteComponent extends Component {
     constructor(props) {
@@ -45,6 +48,10 @@ class PostWriteComponent extends Component {
             [{ 'align': [] }, { 'color': [] }, { 'background': [] }],
             ['clean']
         ],
+        imageResize: {
+            parchment: Quill.import("parchment"),
+            modules: ["Resize", "DisplaySize", "Toolbar"],
+          },
     }
 
     formats = [

@@ -10,11 +10,17 @@ const CommentList = () => {
     const navigate = useNavigate();
     const isLoggedIn = useRecoilValue(isLoggedInState);
     const { boardId } = useParams();
-    const [comment, setComment] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [editingComment, setEditingComment] = useState([]);
     const [isLikedStates, setIsLikedStates] = useState([]);
     const nickname = useRecoilState(nickNameState);
+
+    const [comment, setComment] = useState([]);
+
+    useEffect(() => {
+        const comments = data.filter((item) => item.boardId == boardId);
+        setComment(comments);
+    }, [boardId]);
 
     useEffect(() => {
         const comments = data.filter((item) => item.boardId == boardId);
