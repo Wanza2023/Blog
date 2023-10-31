@@ -110,7 +110,7 @@ function PostView() {
 
         return (
             <Container>
-              <div className='container'>
+              <div className='view-container'>
                 <div className='title'>
                   {title}
                   <div className='button-container'>

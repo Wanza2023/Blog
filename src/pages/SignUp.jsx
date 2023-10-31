@@ -176,7 +176,7 @@ function SignUp(props){
             .then((res)=> {
                 if(res.data.success){
                     console.log("회원가입 완료");
-                    navigate("/login", {replace: true});
+                    navigate("/login",{replace : true});
                 } else {
                     console.log("회원가입 실패");
                 }

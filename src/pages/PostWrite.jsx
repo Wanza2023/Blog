@@ -110,7 +110,7 @@ function PostWrite() {
 			console.log(resp.data);
       const boardId = resp.data.body;
       console.log(boardId);
-      navigate(`/${nickName}/${boardId}`);
+      navigate(`/${nickName}/${boardId}`,{replace : true});
 			alert("새로운 게시글을 성공적으로 등록했습니다 :D");
       console.log(board);
 		})
@@ -373,5 +373,4 @@ function PostWrite() {
     </Container>
   );
 }
-
 export default PostWrite;
