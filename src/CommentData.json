@@ -17,27 +17,27 @@
     },
     {
         "commentId": 3,
-        "boardId": 116,
-        "nickname": "엘지짱",
-        "contents": "야구는 엘지지",
-        "createdAt": "2023-10-22T09:47:08.863623",
-        "updatedAt": "2023-10-22T09:50:24.937017"
+        "boardId": 117,
+        "nickname": "서면펀치킹",
+        "contents": "부산에왔으면 서면에도 놀러가보세요~",
+        "createdAt": "2023-10-30T09:47:08.863623",
+        "updatedAt": "2023-10-30T09:50:24.937017"
     },
     {
         "commentId": 4,
-        "boardId": 116,
-        "nickname": "기아짱",
-        "contents": "ㄴㄴ 기아임",
-        "createdAt": "2023-10-22T10:47:08.863623",
-        "updatedAt": "2023-10-22T10:50:24.937017"
+        "boardId": 117,
+        "nickname": "기장홍보대사",
+        "contents": "기장 롯데월드 좋죠 저도 자주갑니다 ^^",
+        "createdAt": "2023-10-31T10:47:08.863623",
+        "updatedAt": "2023-10-31T10:50:24.937017"
     },
     {
         "commentId": 5,
-        "boardId": 116,
-        "nickname": "이정후홈런",
-        "contents": "야구는 이정후",
-        "createdAt": "2023-10-23T09:47:08.863623",
-        "updatedAt": "2023-10-23T09:50:24.937017"
+        "boardId": 117,
+        "nickname": "이대호",
+        "contents": "부산에 왔으면 야구를 보러가야지 에휴 부산 본거 맞냐?",
+        "createdAt": "2023-10-31T09:47:08.863623",
+        "updatedAt": "2023-10-31T09:50:24.937017"
     },
     {
         "commentId": 6,

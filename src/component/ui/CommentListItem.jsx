@@ -115,6 +115,13 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
         setShowMenu(updatedShowMenu);
     };
 
+    function convertTime(date) {
+        date = new Date(date);
+        let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
+        let dateOffset = new Date(date.getTime() - offset);
+        return dateOffset.toISOString();
+    }
+
     return (
         <div>
             {comment.map((commentItem, index) => (
@@ -149,7 +156,7 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                             </CommentsMenu>
                         )}
                     </ButtonContainer>
-                    {editingComment[index] === '' ? (
+                    {/* {editingComment[index] === '' ? (
                         <CommentsList>
                             {commentItem.contents}
                             <div><br />{commentItem.createdAt.toString().split('T')[0]}</div>
@@ -158,7 +165,11 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                         <Editing>
                             <input type="text" value={editingComment[index]} onChange={(event) => handleCommentChange(event, index)} />
                         </Editing>
-                    )}
+                    )} */}
+                    <CommentsList>
+                            {commentItem.content}
+                            <div><br />{convertTime(commentItem.createdAt).split("T")[0]}</div>
+                    </CommentsList>
                 </Comments>
             ))}
         </div>
