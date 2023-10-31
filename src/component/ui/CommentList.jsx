@@ -6,7 +6,7 @@ import data from "../../CommentData.json";
 import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
 
-const CommentList = () => {
+const CommentList = ({comments}) => {
     const navigate = useNavigate();
     const isLoggedIn = useRecoilValue(isLoggedInState);
     const { boardId } = useParams();
@@ -16,11 +16,6 @@ const CommentList = () => {
     const nickname = useRecoilState(nickNameState);
 
     const [comment, setComment] = useState([]);
-
-    useEffect(() => {
-        const comments = data.filter((item) => item.boardId == boardId);
-        setComment(comments);
-    }, [boardId]);
 
     useEffect(() => {
         const comments = data.filter((item) => item.boardId == boardId);
@@ -105,7 +100,7 @@ const CommentList = () => {
             />
             <div className='border4' />
             <CommentListItem
-                comment={comment}
+                comment={comments}
                 editingComment={editingComment}
                 setEditingComment={setEditingComment}
                 handleCommentEditClick={handleCommentEditClick}

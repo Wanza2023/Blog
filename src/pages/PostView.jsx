@@ -26,7 +26,6 @@ function PostView() {
   const isLoggedIn = useRecoilState(isLoggedInState);
   const nickName = useRecoilState(nickNameState);
   const [showMenu, setShowMenu] = useState(false);
-  const [comments, setComments] = useState(['']);
   const [newComment, setNewComment] = useState('');
 
   const toggleMenu = () => {
@@ -56,7 +55,7 @@ function PostView() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://172.16.210.130:8082/board/${nickname}/${boardId}`);
+        const response = await axios.get(`http://172.16.210.131:8080/board/${nickname}/${boardId}`);
         if (response.data && response.data.body) {
             console.log('Data received from the server:', response.data.body);
             setPosts(response.data.body);
@@ -71,8 +70,15 @@ function PostView() {
       fetchData();
   }, [nickname, boardId]);
 
+  function convertTime(date) {
+    date = new Date(date);
+    let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
+    let dateOffset = new Date(date.getTime() - offset);
+    return dateOffset.toISOString();
+  }
+
     if (posts) {
-        const { title, createdAt, local, contents, summary, schedules, hashtags } = posts;
+        const { title, createdAt, local, contents, summary, schedules, hashtags, comments } = posts;
         let createdDate;
         try {
             createdDate = new Date(createdAt);
@@ -84,7 +90,7 @@ function PostView() {
             createdDate = new Date();
         }
 
-        const formattedDate = createdDate.toISOString().split('T')[0];
+        const formattedDate = convertTime(createdDate).split("T")[0];
 
         const localToKorean = {
             Busan: "부산",
@@ -167,13 +173,18 @@ function PostView() {
                         <p>null</p>
                     )}
                 </div>
-                <CommentList
+                {/* <CommentList
                   comments={comments}
                   onEdit={handleEditClick}
                   onDelete={handleDeleteClick}
                   newComment={newComment}
                   setNewComment={setNewComment}
-                />
+                /> */}
+                {Array.isArray(comments) ? (
+                        <CommentList comments={comments} />
+                    ) : (
+                        <p>null</p>
+                    )}
               </div>
               <Button />
             </Container>
