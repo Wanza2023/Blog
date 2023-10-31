@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilValue } from 'recoil';
-import { isLoggedInState } from '../../component/AuthState';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { isLoggedInState, nickNameState } from '../../component/AuthState';
 import data from "../../CommentData.json";
 import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
@@ -14,6 +14,7 @@ const CommentList = () => {
     const [newComment, setNewComment] = useState('');
     const [editingComment, setEditingComment] = useState([]);
     const [isLikedStates, setIsLikedStates] = useState([]);
+    const nickname = useRecoilState(nickNameState);
 
     useEffect(() => {
         const comments = data.filter((item) => item.boardId == boardId);
@@ -25,7 +26,7 @@ const CommentList = () => {
     const addComment = () => {
         if (isLoggedIn && newComment.trim() !== '') {
             const newCommentObject = {
-                nickname: '코딩이싫어요',
+                nickname: nickname,
                 contents: newComment,
                 createdAt: new Date().toISOString(),
             };
