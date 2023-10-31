@@ -32,7 +32,7 @@ function SignIn(props){
         console.log("ID : ", inputId);
         console.log("PW : ", inputPw);
         axios
-            .post("http://172.16.210.64:8080/login", {
+            .post("http://172.16.210.130:8081/members/login", {
                 email: inputId,
                 password: inputPw,
             })
@@ -42,7 +42,7 @@ function SignIn(props){
                 const token = res.data.body.token;
                 console.log(token);
                 axios
-                    .get(`http://172.16.210.64:8080/members/authorize/${token}`, {
+                    .get(`http://172.16.210.130:8081/members/authorize`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }

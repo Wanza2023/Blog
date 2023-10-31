@@ -42,7 +42,7 @@ const CommentList = ({comments}) => {
             alert('로그인이 필요한 기능입니다.');
             navigate('/login');
         }
-    };    
+    };
 
     const handleCommentEditClick = (index) => {
         const updatedEditingComment = [...editingComment];

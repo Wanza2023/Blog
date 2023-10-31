@@ -53,7 +53,7 @@ function SignUp(props){
     
     const handleDoubleCheck = () => {
         axios
-            .get("http://172.16.210.64:8080/members")
+            .get("http://172.16.210.130:8081/members")
             .then(res=>{
                 const nickNames = res.data.body.map(item => item.nickName);
                 console.log("닉네임 가져오기: ", nickNames);
@@ -166,7 +166,7 @@ function SignUp(props){
     const handleSignUpSubmit = () => {
         console.log("click signup");
         axios
-            .post("http://172.16.210.64:8080/signup",{
+            .post("http://172.16.210.130:8081/members/signup",{
                 birth: birth,
                 email: email,
                 gender: gender,
