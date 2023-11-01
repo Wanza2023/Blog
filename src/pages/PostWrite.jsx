@@ -105,7 +105,7 @@ function PostWrite() {
       "hashtags": tagList
   }
 
-		await axios.post("http://172.16.210.130:8082/board/write", board)
+		await axios.post("http://172.16.210.131:8082/board/write", board)
     .then((resp) => {
 			console.log(resp.data);
       const boardId = resp.data.body;
@@ -243,7 +243,7 @@ function PostWrite() {
 
   const fetchSummary = async () => { // 본문 전송 후 요약글 받기
     try {
-      const response = await axios.post('http://172.16.210.130:8000/summary', { content: desc });
+      const response = await axios.post('http://172.16.210.130:8001/summary', { content: desc });
       if (response.data && response.data.content) {
         setSummary(response.data.content);
         console.log(summary);

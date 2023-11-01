@@ -20,7 +20,7 @@ function PostList() {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://172.16.210.130:8082/board/local/${regionName}`);
+            const response = await axios.get(`http://172.16.210.131:8082/board/local/${regionName}`);
             if (response.data && response.data.body && Array.isArray(response.data.body)) {
                 const Data = response.data.body
                 setPosts(Data);

@@ -38,7 +38,7 @@ function PostView() {
 
   const handleDeleteClick = () => {
     axios
-      .delete(`http://172.16.210.130:8082/board/${nickname}/${boardId}`)
+      .delete(`http://172.16.210.131:8082/board/${nickname}/${boardId}`)
       .then(function(res){
         console.log(res.data);
         console.log("삭제 성공");
@@ -55,7 +55,7 @@ function PostView() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://172.16.210.131:8080/board/${nickname}/${boardId}`);
+        const response = await axios.get(`http://172.16.210.131:8082/board/${nickname}/${boardId}`);
         if (response.data && response.data.body) {
             console.log('Data received from the server:', response.data.body);
             setPosts(response.data.body);

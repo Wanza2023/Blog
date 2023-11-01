@@ -36,7 +36,7 @@ const Navbar = () => {
         if (searchTerm.trim() !== "") {
             // 검색어가 비어있지 않은 경우에만 URL로 이동
             try {
-                const response = await axios.get(`http://172.16.210.130:8082/board/search/${searchTerm}`);
+                const response = await axios.get(`http://172.16.210.131:8082/board/search/${searchTerm}`);
                 setSearchResults(response.data.body || []);
                 navigate(`/board/search/${searchTerm}`);
                 setSearchTerm("");
