@@ -89,7 +89,7 @@ const Navbar = () => {
                             <div className="optionList">
                                 <li className="optionListItem"><Link to="/">계정관리</Link></li>
                                 <li className="optionListItem" ><Link to={`/user/${nickName}`}>나의 블로그홈</Link></li>
-                                <li className="optionListItem"><Link to="/">블로그관리</Link></li>
+                                <li className="optionListItem"><Link to="/personaledit">블로그관리</Link></li>
                                 <li className="optionListItem"><button onClick={handleLogout}>로그아웃</button></li>
                             </div>
                             )
