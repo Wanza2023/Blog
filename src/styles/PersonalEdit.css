@@ -1,0 +1,34 @@
+.menuContainer {
+    display: flex;
+}
+  
+.menu {
+    padding-top: 10rem;
+}
+  
+.menuitemE {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background-color 0.3s, border-left 0.3s;
+    margin-top: 5rem;
+    margin-left: 10rem;
+}
+  
+.menuitemE:hover,
+.menuitemE.active {
+    border-left: 2px solid #333;
+}
+  
+.menuicon {
+    margin-right: 10px;
+    width: 2rem;
+}
+
+.contentE {
+    flex-grow: 1;
+    padding: 20px;
+}
+  

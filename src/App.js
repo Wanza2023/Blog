@@ -6,11 +6,11 @@ import Main from "./pages/Main";
 import PostWrite from "./pages/PostWrite";
 import PostList from "./pages/PostList";
 import PostView from "./pages/PostView";
-import PostViewEx from "./pages/PostViewEx";
 import PersonalHome from './pages/PersonalHome';
 import Navbar from "./component/Navbar";
 import { RecoilRoot } from "recoil";
 import SelectLocation from "./component/ui/SelectLocation";
+import PersonalEdit from "./pages/PersonalEdit";
 
 function App() {
 
@@ -30,6 +30,7 @@ function App() {
             <Route path="signup" element={<SignUp />} />
             <Route path="user/:nickname" element={<PersonalHome/>} />
             <Route path="selectlocation" element={<SelectLocation/>}/>
+            <Route path="personaledit" element={<PersonalEdit />}/>
           </Routes>
         </div>
       </BrowserRouter>

@@ -27,7 +27,7 @@ const StyledSlider = styled(Slider)`
 `
 
 export default function PopularList(props) {
-    const { PopularPosts, onClickItem } = props;
+    const { PopularPosts, onClickItem } = props; // props에서 PopularPosts와 onClickItem 추출
     const settings = {
         dots: true,
         infinite: true,
@@ -38,7 +38,7 @@ export default function PopularList(props) {
         autoplaySpeed: 2000,
         SlidesToScroll: 1,
 
-        responsive: [
+        responsive: [ // 해상도마다 보여질 개수 설정
             {
                 breakpoint: 1200,
                 settings: {

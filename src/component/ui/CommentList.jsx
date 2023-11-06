@@ -14,7 +14,6 @@ const CommentList = ({comments}) => {
     const [editingComment, setEditingComment] = useState([]);
     const [isLikedStates, setIsLikedStates] = useState([]);
     const nickname = useRecoilState(nickNameState);
-
     const [comment, setComment] = useState([]);
 
     useEffect(() => {

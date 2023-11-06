@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PostCard from './PostCard';
+import PostCard from '../component/ui/PostCard';
 import Button from "../component/ui/Button";
 import '../styles/PersonalHome.css'
 import MapComponent from '../component/ui/MapComponent';
 import { useRecoilState } from "recoil";
-import { useParams } from 'react-router-dom';
-import { isLoggedInState,nickNameState,memberIdState } from "../component/AuthState";
-import PersonalTextComponent from '../component/ui/PersonalTextComponent';
-import BoardData from '../BoardData.json';
-import MemberData from '../MemberData.json';
+import { nickNameState } from "../component/AuthState";
 import personal_profile_icon from '../assets/images/personal_profile_icon.png';
 import Paging from '../component/ui/Paging';
 
@@ -39,14 +35,15 @@ const PersonalHome = () => {
     const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
     const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
 
-    const {nick} = useParams();
-    const [posts, setPosts] = useState([]);
+    // const {nick} = useParams();
+    const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
 
-    const setPage = (error) => {
+    const setPage = (error) => { // 현재 페이지 번호
         setCurrentPage(error);
     };
+
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = async () => { // api에 데이터 요청 후 응답 response에 저장
             try {
                 const response = await axios.get(`http://172.16.210.131:8082/board/${nickName}`);
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
@@ -64,7 +61,6 @@ const PersonalHome = () => {
                     // const indexOfFirstPost = indexOfLastPost - postPerPage;
                     // setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
                 } else {
-                    console.error('Invalid response data format');
                 }
             } catch (e) {
                 console.error(e);
@@ -87,6 +83,7 @@ const PersonalHome = () => {
                 <span>|</span>
                 <button onClick={handleTextButtonClick}>글</button>
             </div>
+            {/* showmap true 일 때 */}
             {showMap && <div className='map_styles'><MapComponent posts={posts} nickName={nickName}/></div>}
             {/* {showText && <div><PersonalTextComponent BoardData={filterData}/></div>} */}
             {showText &&
@@ -99,7 +96,7 @@ const PersonalHome = () => {
             }
             <Button/>
         </div>
-        );
+    );
 };
 
 export default PersonalHome;

@@ -7,9 +7,9 @@ const Paging = ({page,count,setPage}) => {
     return (
         <div>
         <Pagination
-            activePage={page}
-            itemsCountPerPage={5}
-            totalItemsCount={count}
+            activePage={page} // 현재 페이지 번호
+            itemsCountPerPage={5} // 한 페이지에 5개씩
+            totalItemsCount={count} // 전체
             pageRangeDisplayed={5}
             prevPageText={"<"}
             nextPageText={">"}

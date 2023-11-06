@@ -8,17 +8,15 @@ import "../styles/Main.css";
 export default function MainPage() {
     const navigate = useNavigate();
 
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
 
-    useEffect(() => {
+    useEffect(() => { // api에 데이터 요청 후 응답 response에 저장
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://172.16.210.131:8082/board');
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
                     setPosts(response.data.body);
-                    console.log(response.data.body);
                 } else {
-                    console.error('Invalid response data format');
                 }
             } catch (e) {
                 console.error(e);
@@ -135,30 +133,30 @@ export default function MainPage() {
     ]
     
 
-    useEffect(() => {
+    useEffect(() => { // class 이름이 land인 엘리먼트 할당
         const landElements = document.querySelectorAll(".land");
 
-        function handleMouseEnter(e) {
+        function handleMouseEnter(e) { // 마우스가 엘리먼트 위로 올라갔을 때
             const name = e.target.getAttribute("data-name");
-            displayRegionName(name);
+            displayRegionName(name); // 해당 지역 이름 표시
         }
 
-        function handleMouseLeave() {
-            hideRegionName();
+        function handleMouseLeave() { // 마우스가 벗어났을 때
+            hideRegionName(); // 이름 숨기기
         }
 
-        function handleClick() {
-            hideRegionName();
+        function handleClick() { // 마우스가 클릭했을 때
+            hideRegionName(); // 이름 숨기기
         }
 
-        landElements.forEach((element) => {
+        landElements.forEach((element) => { // 이벤트 실행
             element.addEventListener("mouseenter", handleMouseEnter);
             element.addEventListener("mouseleave", handleMouseLeave);
             element.addEventListener("click", handleClick);
         });
 
         return () => {
-            landElements.forEach((element) => {
+            landElements.forEach((element) => { // 이벤트 제거
                 element.removeEventListener("mouseenter", handleMouseEnter);
                 element.removeEventListener("mouseleave", handleMouseLeave);
                 element.removeEventListener("click", handleClick);
@@ -166,15 +164,15 @@ export default function MainPage() {
         };
     }, []);
 
-    function displayRegionName(name) {
-        const regionNameElement = document.createElement("div");
+    function displayRegionName(name) { // 이름 표시
+        const regionNameElement = document.createElement("div"); // 생성된 div 엘리먼트에 이름 설정 후 body에 추가
         regionNameElement.textContent = name;
         regionNameElement.className = "region-name";
         document.body.appendChild(regionNameElement);
     }
 
-    function hideRegionName() {
-        const regionNameElement = document.querySelector(".region-name");
+    function hideRegionName() { // 이름이 존재하면 제거
+        const regionNameElement = document.querySelector(".region-name"); 
         if (regionNameElement) {
             regionNameElement.remove();
         }
