@@ -5,23 +5,23 @@ const SelectLocation = (props) => {
     const [InputText, setInputText] = useState('');
     const [Place, setPlace] = useState('');
     const [places, setPlaces] = useState([]);
+    // 모달창 닫기
     const close = () => {
         props.setModalIsOpen(false);
-        // 모달창 onclick일어날 때 모달창 닫기
     }
+    // 위치정보 배열에 저장 경도,위도,위치이름
     const getLocation = (item) => {
         const locationData = {
             latitude: item.x,
             longitude: item.y,
-            location: item.place_name}
-        
-        ;
+            location: item.place_name};
         props.setLocationItems(locationData);
-        console.log("location data : ",locationData);
     }
+    // 검색창 onChange
     const onChange = (e) => {
         setInputText(e.target.value);
     }
+    // 검색 버튼
     const handleSubmit = (e) => {
         e.preventDefault();
         setPlace(InputText);
@@ -108,7 +108,6 @@ const SelectLocation = (props) => {
                             <div key={i} style={{ marginTop: '20px' }} >
                                 <div className='list'>
                                     <button className="titlebtn" onClick={() => {getLocation(item); close();}} >{item.place_name}</button>
-                                    {/* <button onClick={() => {close(); handleSelectLocation(item); getLocation(item);}}>{item.place_name}</button> */}
                                     {item.road_address_name ? (
                                         <div className='addressname'>
                                             <span>{item.road_address_name}</span>

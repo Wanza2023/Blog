@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { isLoggedInState,nickNameState } from '../component/AuthState';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { HiOutlineMapPin } from 'react-icons/hi2';
 import ScheduleList from '../component/ui/ScheduleList';
-import SummaryList from '../component/ui/SummaryList';
 import HashtagList from '../component/ui/HashtagList';
 import CommentList from '../component/ui/CommentList';
 import styled from 'styled-components';
@@ -23,39 +22,36 @@ const Container = styled.div`
 
 function PostView() {
   const navigate = useNavigate();
-  const isLoggedIn = useRecoilState(isLoggedInState);
-  const nickName = useRecoilState(nickNameState);
-  const [showMenu, setShowMenu] = useState(false);
-  const [newComment, setNewComment] = useState('');
+  const [showMenu, setShowMenu] = useState(false);  // 수정 삭제 toggle
+  const { nickname, boardId } = useParams();
+  const [posts, setPosts] = useState([]);
 
+  // 수정 삭제 toggle 메뉴
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
-
+  // 게시글 수정 onClick
   const handleEditClick = () => {
     alert('수정 버튼 클릭');
   };
-
+  // 게시글 삭제 onClick 
+  // 게시글 작성자와 일치한 사용자만 삭제 할 수 있도록 만들 것
   const handleDeleteClick = () => {
     axios
-      .delete(`http://172.16.210.131:8082/board/${nickname}/${boardId}`)
+      .delete(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`)
       .then(function(res){
         console.log(res.data);
-        console.log("삭제 성공");
         navigate(-1);
       })
       .catch(function(err){
         console.log("error: ", err);
       })
   };
-
-  const { nickname, boardId } = useParams();
-  const [posts, setPosts] = useState([]);
-
+  // 게시글 정보 axios get 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://172.16.210.131:8082/board/${nickname}/${boardId}`);
+        const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`);
         if (response.data && response.data.body) {
             console.log('Data received from the server:', response.data.body);
             setPosts(response.data.body);
@@ -70,10 +66,11 @@ function PostView() {
       fetchData();
   }, [nickname, boardId]);
 
+  // toISOString() 1일전 날짜 안뜨게 시간 변경
   function convertTime(date) {
     date = new Date(date);
     let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
-    let dateOffset = new Date(date.getTime() - offset);
+    let dateOffset = new Date(date.getTime() - offset); // UTC 타임존 해결을 위해 offset 적용
     return dateOffset.toISOString();
   }
 
@@ -151,7 +148,6 @@ function PostView() {
                     <ScheduleList scheduleData={schedules} />
                   ) : null}
                 </div>
-                {/* <div className='border2' /> */}
                 <ReactQuill
                   value={contents}
                   readOnly={true}
@@ -160,11 +156,6 @@ function PostView() {
                 <div className="summary-box">
                     <p className="summary">요약</p>
                     <p className="summary-contents">{summary}</p>
-                    {/* {Array.isArray(summary) ? (
-                        <SummaryList summaryData={summary} />
-                    ) : (
-                        <p>null</p>
-                    )} */}
                 </div>
                 <div className='hashtags'>
                     {Array.isArray(hashtags) ? (

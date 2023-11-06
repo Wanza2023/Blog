@@ -2,7 +2,7 @@ import React from 'react';
 import ScheduleListItem from './ScheduleListItem';
 
 const ScheduleList = ({ scheduleData }) => {
-     return (
+    return (
         <div className='schedule-items'>
         {scheduleData.map((item, index) => (
             <ScheduleListItem
