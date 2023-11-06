@@ -8,8 +8,6 @@ import { useRecoilState } from "recoil";
 import { useParams } from 'react-router-dom';
 import { isLoggedInState,nickNameState,memberIdState } from "../component/AuthState";
 import PersonalTextComponent from '../component/ui/PersonalTextComponent';
-import BoardData from '../BoardData.json';
-import MemberData from '../MemberData.json';
 import personal_profile_icon from '../assets/images/personal_profile_icon.png';
 import Paging from '../component/ui/Paging';
 

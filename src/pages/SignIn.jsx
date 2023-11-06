@@ -15,51 +15,46 @@ function SignIn(props){
     const [nickName,setNickName] = useRecoilState(nickNameState);  // 닉네임 전역관리
     const [inputId,setInputId] = useState("");
     const [inputPw,setInputPw] = useState("");
+
+    // Id input
     const handleInputId = (e) => {
         setInputId(e.target.value);
     }
+    // Password Input
     const handleInputPw = (e) => {
         setInputPw(e.target.value);
     }
+    // Enter 입력시 onClicklogin
     const handleOnKeyPress = e => {
         if (e.key === 'Enter') {
-            onClickLogin(); // Enter 입력이 되면 클릭 이벤트 실행
+            onClickLogin();
         }
     };
-
+    //  Login onClick
     const onClickLogin = () => {
-        console.log("click login");
-        console.log("ID : ", inputId);
-        console.log("PW : ", inputPw);
         axios
-            .post("http://172.16.210.130:8081/members/login", {
+            .post(`${process.env.REACT_APP_MEMBER_API_KEY}/login`, {
                 email: inputId,
                 password: inputPw,
             })
             .then(res =>{
-                setIsLoggedIn(true);
-                console.log("Response Data:", res.data);
+                setIsLoggedIn(true);    // 로그인 상태 전역관리 Login true
                 const token = res.data.body.token;
-                console.log(token);
                 axios
-                    .get(`http://172.16.210.130:8081/members/authorize`, {
+                    .get(`${process.env.REACT_APP_MEMBER_API_KEY}/authorize`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
                     })
                     .then(response => {
-                        // 서버에서 반환된 데이터를 response.data로 사용
-                        console.log("id: ",response.data.body.id);
-                        console.log("nickname: ",response.data.body.nickName);
-                        setMemberId(response.data.body.id);
-                        setNickName(response.data.body.nickName);
+                        setMemberId(response.data.body.id); // Token일치하는 사용자의 MemberId 전역변수로 저장
+                        setNickName(response.data.body.nickName);   // Token일치하는 사용자의 nickname 전역변수로 저장
                     })
                     .catch((err) => {
                         console.error("Error fetching data:", err);
                     })
                     .finally(() => {
-                        // 작업 완료 되면 로그인창 전에 화면으로 이동
-                        navigate((-1));
+                        navigate((-1)); // 작업 완료 되면 로그인창 전에 화면으로 이동
                     });
             })
             .catch(error => {

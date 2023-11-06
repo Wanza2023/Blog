@@ -18,4 +18,4 @@ export const nickNameState = atom( {
 export const searchResultsState = atom({
     key: 'searchResultsState',
     default: [],
-  });
+});

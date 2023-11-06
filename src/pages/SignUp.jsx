@@ -25,21 +25,21 @@ function SignUp(props){
     const [pwdMessage, setPwdMessage] = useState("");
     const [confirmPwdMessage, setConfirmPwdMessage] = useState("");
     const [birthMessage, setBirthMessage] = useState("");
-
+    
+    // email onChange
     const onChangeEmail = (e) => {
         const curEmail = e.target.value;
         setEmail(curEmail);
-        const emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+        const emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;     // email 형식 맞는지 확인 
         if(!emailRegExp.test(curEmail)){
             setEmailMessage("이메일의 형식이 올바르지 않습니다.");
             totConfirm[0] = 0; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }else{
-            setEmailMessage("사용 가능한 이메일 입니다.");//중복확인 해야함
+            setEmailMessage("사용 가능한 이메일 입니다.");  //중복확인 해야함
             totConfirm[0] = 1; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }
     }
+    // 닉네임 name onChange
     const onChangeName = (e) => {
         const curName = e.target.value.trim();
         setName(curName);
@@ -50,30 +50,25 @@ function SignUp(props){
             setNameMessage("중복을 확인해주세요.");
         }
     }
-    
+    // 닉네임 중복 확인
     const handleDoubleCheck = () => {
         axios
             .get("http://172.16.210.130:8081/members")
             .then(res=>{
                 const nickNames = res.data.body.map(item => item.nickName);
-                console.log("닉네임 가져오기: ", nickNames);
                 if (nickNames.includes(name)) {
-                    console.log(`"${name}"은 이미 사용 중인 닉네임입니다.`);
                     totConfirm[1] = 0; setTotConfirm(()=>[...totConfirm]);
                     setNameMessage("이미 사용중인 닉네임입니다.");
-                    console.log(totConfirm);
                 } else {
-                    console.log(`"${name}"은 사용 가능한 닉네임입니다.`);
                     totConfirm[1] = 1; setTotConfirm(()=>[...totConfirm]);
                     setNameMessage("사용가능한 닉네임입니다.");
-                    console.log(totConfirm);
                 }
             })
             .catch((err) => {
                 console.error("Error fetching data:", err);
             })
     }
-    
+    // 비밀번호 Password onChange
     const onChangePwd = (e) => {
         const curPwd = e.target.value;
         setPwd(curPwd);
@@ -81,92 +76,83 @@ function SignUp(props){
         if(!pwdRegExp.test(curPwd)){
             setPwdMessage("숫자, 영문자, 특수문자(!@#$%^*+=-) 조합으로 8자리 이상 20자리 이하 입력해주세요 ");
             totConfirm[2] = 0; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }else{
             setPwdMessage("안전한 비밀번호입니다");
             totConfirm[2] = 1; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }
     }
+    // 비밀번호 확인 Password confirm onChange
     const onChangeConfirmPwd = (e) => {
         const curConfPwd = e.target.value;
         setConfirmPwd(curConfPwd);
         if(pwd !== curConfPwd){
             setConfirmPwdMessage("비밀번호가 일치하지 않습니다");
             totConfirm[3] = 0; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }else{
             setConfirmPwdMessage("확인되었습니다");
             totConfirm[3] = 1; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }
     }
+    // 생일 Birth onChange
     const onChangeBirth = (e) => {
         const curBirth = e.target.value;
         setBirth(curBirth);
-        // 숫자로 된 생년월일을 "yyyy-mm-dd" 형태로 변환
-        const formattedBirth = curBirth.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
-
+        const formattedBirth = curBirth.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'); // 숫자로 된 생년월일을 "yyyy-mm-dd" 형태로 변환
         const birthRegExp = /^[0-9]{8}$/;
         if(!birthRegExp.test(curBirth)){
             setBirthMessage("8자리 생년월일을 입력주세요");
             totConfirm[4] = 0; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }else{
             setBirthMessage("완료");
             totConfirm[4] = 1; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }
         setBirth(formattedBirth);
     }
-
+    // 성별 선택 Gender onClick
     const onClickGender = (selectedGender) => {
         setGender(selectedGender);
     
         if (selectedGender === 'M' || selectedGender === 'W') {
             totConfirm[5] = 1; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         } else {
             totConfirm[5] = 0; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }
     };
+    // 이용약관 동의
     const useCheckEvent = () => {
         setUseCheck(()=> !useCheck);
         if(useCheck===true){
             totConfirm[6] = 0; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }   
         else {
             totConfirm[6] = 1; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
             setUseCheckVisible(false);
         }
-        console.log(useCheck);
     }
+    // 이용약관 펼치기 토글
     const toggleuseCheckVisible = () => {
         setUseCheckVisible(!useCheckVisible);
     }
+    // 개인정보 취급방침 동의
     const infoCheckEvent = () => {
         setInfoCheck(()=> !infoCheck);
         if(infoCheck===true){
             totConfirm[7] = 0; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
         }
         else {
             totConfirm[7] = 1; setTotConfirm(()=>[...totConfirm]);
-            console.log(totConfirm);
             setUseInfoVisible(false);
         }
-        console.log(infoCheck);
     }
+    // 개인정보 취급방침 약관 토글
     const toggleInfoCheckVisible = () => {
         setUseInfoVisible(!useInfoVisible)
     }
+    // 회원가입 버튼 SignUp onClick
     const handleSignUpSubmit = () => {
         console.log("click signup");
         axios
-            .post("http://172.16.210.130:8081/members/signup",{
+            .post(`${process.env.REACT_APP_MEMBER_API_KEY}/signup`,{
                 birth: birth,
                 email: email,
                 gender: gender,
@@ -175,16 +161,17 @@ function SignUp(props){
             })
             .then((res)=> {
                 if(res.data.success){
-                    console.log("회원가입 완료");
-                    navigate("/login",{replace : true});
+                    alert("회원가입에 성공했습니다!")
+                    navigate("/login",{replace : true});    // login으로 navigate 이후 뒤로가기 불가
                 } else {
-                    console.log("회원가입 실패");
+                    alert("회원가입에 실패했습니다!")
                 }
             })
             .catch(function(error){
                 console.log(error);
             })
     }
+    // 회원가입시 정보 모두 입력안할시 Error
     const handleError = () => {
         //회원가입시 정보 모두 입력 안하면 alert창 띄우기
         alert("정보를 전부 입력해주세요");
@@ -208,7 +195,6 @@ function SignUp(props){
                     <div className="signUp-field">
                         <label>비밀번호 확인 *</label>
                         <input type="password" name="confPwd" id="confPwd" maxLength={20} value={confirmPwd} onChange={onChangeConfirmPwd} placeholder="비밀번호를 입력하세요"/>
-                        {/* <p className="signup-submit-message">{confirmPwdMessage}</p> */}
                         <p className={`${totConfirm[3] ? 'signup-submit-message-isok':'signup-submit-message'}`}>{confirmPwdMessage}</p>
                     </div>
                     <div className="signUp-field">
@@ -494,7 +480,6 @@ function SignUp(props){
                         )}
                     </div>
                     <div className="signUp-submit">
-                        {/* <button onClick={handleSignUpSubmit} disabled={!isFormValid}>회원가입</button> */}
                         <button onClick={!isFormValid? handleError : handleSignUpSubmit}>회원가입</button>
                     </div>
                 </div>

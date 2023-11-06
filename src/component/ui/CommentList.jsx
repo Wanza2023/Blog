@@ -18,7 +18,7 @@ const CommentList = ({comments}) => {
     const [comment, setComment] = useState([]);
 
     useEffect(() => {
-        const comments = data.filter((item) => item.boardId == boardId);
+        const comments = data.filter((item) => item.boardId == boardId);    // boardid가 같은 것만 저장
         setComment(comments);
         setEditingComment(new Array(comments.length).fill(''));
         setIsLikedStates(new Array(comments.length).fill(false));
@@ -43,13 +43,13 @@ const CommentList = ({comments}) => {
             navigate('/login');
         }
     };
-
+    // 댓글 수정 onClick
     const handleCommentEditClick = (index) => {
         const updatedEditingComment = [...editingComment];
         updatedEditingComment[index] = comment[index].contents;
         setEditingComment(updatedEditingComment);
     };    
-
+    // 댓글 저장 onClick
     const handleCommentSaveClick = (index) => {
         const updatedComment = [...comment];
         updatedComment[index].contents = editingComment[index];
