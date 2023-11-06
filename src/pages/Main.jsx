@@ -13,7 +13,7 @@ export default function MainPage() {
     useEffect(() => { // api에 데이터 요청 후 응답 response에 저장
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://172.16.210.131:8082/board');
+                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}`);
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
                     setPosts(response.data.body);
                 } else {

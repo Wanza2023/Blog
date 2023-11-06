@@ -36,13 +36,13 @@ const Navbar = () => {
         if (searchTerm.trim() !== "") {
             // 검색어가 비어있지 않은 경우에만 URL로 이동
             try {
-                const response = await axios.get(`http://172.16.210.131:8082/board/search/${searchTerm}`);
+                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`);
                 setSearchResults(response.data.body || []);
                 navigate(`/board/search/${searchTerm}`);
                 setSearchTerm("");
-              } catch (error) {
+            } catch (error) {
                 console.error("Failed to fetch search results:", error);
-              }
+            }
         } else {
             // 검색어가 비어있으면 예외 처리 또는 경고 메시지를 표시할 수 있습니다.
             alert("검색어를 입력하세요.");

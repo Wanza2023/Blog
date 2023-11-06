@@ -19,7 +19,7 @@ function PostList() {
   useEffect(() => {
     const fetchData = async () => { // api에 데이터 요청 후 응답 response에 저장
         try {
-            const response = await axios.get(`http://172.16.210.131:8082/board/local/${regionName}`);
+            const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/local/${regionName}`);
             if (response.data && response.data.body && Array.isArray(response.data.body)) {
                 const Data = response.data.body
                 setPosts(Data);
