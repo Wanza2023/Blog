@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../styles/PopularListItem.css";
+import "../../../styles/component/PopularListItem.css";
 
 export default function PopularListItem(props) {
     const { post } = props; // // props에서 post 추출
