@@ -10,5 +10,5 @@ export const useAuth = () => {
         setIsLoggedIn(!!token);
     }, [setIsLoggedIn]);
 
-    return isLoggedIn;
+    return { isLoggedIn, setIsLoggedIn }; 
 };
