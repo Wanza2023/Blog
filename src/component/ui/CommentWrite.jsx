@@ -3,7 +3,7 @@ import { BiUserCircle } from "react-icons/bi";
 import { useRecoilState } from 'recoil';
 import { nickNameState } from '../AuthState';
 
-const CommentWrite = ({ newComment, setNewComment, addComment }) => {
+const CommentWrite = ({ newComment, setNewComment, addComments }) => {
     const nickname = useRecoilState(nickNameState);
 
     return (
@@ -18,7 +18,7 @@ const CommentWrite = ({ newComment, setNewComment, addComment }) => {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                 />
-                <button onClick={addComment}>등록</button>
+                <button onClick={addComments}>등록</button>
             </div>
         </div>
     );
