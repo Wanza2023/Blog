@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { isLoggedInState } from './AuthState';
+import { isLoggedInState, nickNameState } from './AuthState';
 
 export const useAuth = () => {
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+    const [nickname, setNickname] = useRecoilState(nickNameState);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        setIsLoggedIn(!!token);
-    }, [setIsLoggedIn]);
+        const token = localStorage.getItem('token'); // 로컬스토리지에서 토큰 받아오기
+        const storedNickname = localStorage.getItem('nickName'); // 닉네임 받아오기
 
-    return { isLoggedIn, setIsLoggedIn }; 
+        setIsLoggedIn(!!token); // 토큰있으면 true
+
+        if (storedNickname) { // 닉네임 있으면
+            setNickname(storedNickname);
+        }
+    }, [setIsLoggedIn, setNickname]);
+
+    return { isLoggedIn, setIsLoggedIn, nickname, setNickname };
 };
-
-무빙15화보고싶어요

@@ -6,12 +6,16 @@ import data from "../../../CommentData.json";
 import axios from 'axios';
 import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
+import { useAuth } from '../../common/useAuth';
 
 const CommentList = ({comments}) => {
     const reversedComments = comments.slice().reverse();
     const navigate = useNavigate();
-    const isLoggedIn = useRecoilValue(isLoggedInState);
-    const { boardId,nickname } = useParams();
+    // const isLoggedIn = useRecoilValue(isLoggedInState);
+    // const { isLoggedIn, setIsLoggedIn } = useAuth();
+    const { isLoggedIn, nickname } = useAuth();
+
+    const { boardId } = useParams();
     const [newComment, setNewComment] = useState('');
     const [editingComment, setEditingComment] = useState([]);
     const [isLikedStates, setIsLikedStates] = useState([]);
