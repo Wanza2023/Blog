@@ -57,7 +57,7 @@ const CommentList = ({comments}) => {
         }
     }
     
-    //delete comment /comments/댓글 id
+    //delete comment
     const deleteComment = async (index) => {
         const ids = comments.reverse().map(item=>item.id)
         const commentsId = ids[index];
@@ -71,8 +71,13 @@ const CommentList = ({comments}) => {
     };
 
     const handleCommentDeleteClick = (index) => {
-        if (window.confirm('정말로 삭제하시겠습니까?')) {
-            deleteComment(index);
+        if (commentNickname !== comments[index].nickname) {
+            if (window.confirm('정말로 삭제하시겠습니까?')) {
+                deleteComment(index);
+            }
+        }
+        else{
+            alert('댓글 작성자만 삭제할 수 있습니다.');
         }
     };
     // 댓글 수정 onClick
