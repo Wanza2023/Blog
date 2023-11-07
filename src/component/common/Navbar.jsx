@@ -57,9 +57,10 @@ const Navbar = () => {
         }
     };
 
-    const handleLogout = () => {
+    const handleLogout = () => { // 로그아웃 시 로컬스토리지 지우기
         setIsLoggedIn(false);
         localStorage.removeItem('token');
+        localStorage.removeItem('nickName');
     };
     return (
         <nav className="navbar">
