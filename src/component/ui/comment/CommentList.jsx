@@ -17,15 +17,14 @@ const CommentList = ({comments}) => {
     const [isLikedStates, setIsLikedStates] = useState([]);
     const [commentNickname,setCommentNickname] = useRecoilState(nickNameState);
     const [comment, setComment] = useState([]);
-    const [commentId,setCommentId] = useState('');
     const [reply, setReply] = useState([]);
 
-    useEffect(() => {
-        const comments = data.filter((item) => item.boardId == boardId); // boardid가 같은 것만 저장
-        setComment(comments);
-        setEditingComment(new Array(comments.length).fill(''));
-        setIsLikedStates(new Array(comments.length).fill(false));
-    }, [boardId]);
+    // useEffect(() => {
+    //     const comments = data.filter((item) => item.boardId == boardId); // boardid가 같은 것만 저장
+    //     setComment(comments);
+    //     setEditingComment(new Array(comments.length).fill(''));
+    //     setIsLikedStates(new Array(comments.length).fill(false));
+    // }, [boardId]);
 
     //post comment /comments/게시글 작성자 닉네임/boardId
     // nickname 댓글 작성자 닉네임 content 댓글 내용 status
@@ -57,14 +56,25 @@ const CommentList = ({comments}) => {
             console.log(error);
         }
     }
-    const deleteComments = () => {
-        axios
-            .get(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}`)
-            .then(res=>{
-                console.log(res.data);
-            })
-    }
     
+    //delete comment /comments/댓글 id
+    const deleteComment = async (index) => {
+        const ids = comments.reverse().map(item=>item.id)
+        const commentsId = ids[index];
+        try {
+            await axios.delete(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}/${commentsId}`);
+            alert('댓글을 삭제하였습니다.');
+            window.location.reload();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleCommentDeleteClick = (index) => {
+        if (window.confirm('정말로 삭제하시겠습니까?')) {
+            deleteComment(index);
+        }
+    };
     // 댓글 수정 onClick
     const handleCommentEditClick = (index) => {
         const updatedEditingComment = [...editingComment];
@@ -146,7 +156,7 @@ const CommentList = ({comments}) => {
                 handleCommentReportClick={handleCommentReportClick}
                 handleCommentLikeClick={handleCommentLikeClick}
                 isLikedStates={isLikedStates}
-                onDelete={deleteComments}
+                onDelete={handleCommentDeleteClick}
                 isLoggedIn={isLoggedIn}
             />
         </div>
