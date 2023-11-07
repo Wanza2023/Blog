@@ -55,6 +55,13 @@ const CommentList = ({comments}) => {
             console.log(error);
         }
     }
+    const deleteComments = () => {
+        axios
+            .get(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}`)
+            .then(res=>{
+                console.log(res.data);
+            })
+    }
     const addComment = () => {
         if (isLoggedIn && newComment.trim() !== '') {
             const newCommentObject = {
@@ -131,7 +138,7 @@ const CommentList = ({comments}) => {
             />
             <div className='border4' />
             <CommentListItem
-                comment={comments}
+                comment={reversedComments}
                 editingComment={editingComment}
                 setEditingComment={setEditingComment}
                 handleCommentEditClick={handleCommentEditClick}
@@ -141,7 +148,7 @@ const CommentList = ({comments}) => {
                 handleCommentReportClick={handleCommentReportClick}
                 handleCommentLikeClick={handleCommentLikeClick}
                 isLikedStates={isLikedStates}
-                onDelete={onDelete}
+                onDelete={deleteComments}
                 isLoggedIn={isLoggedIn}
             />
         </div>
