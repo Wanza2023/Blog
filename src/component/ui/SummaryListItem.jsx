@@ -1,7 +1,7 @@
-import React from 'react';
+// import React from 'react';
 
-const SummaryListItem = ({ content }) => {
-    return <li>{content}</li>;
-};
+// const SummaryListItem = ({ content }) => {
+//     return <li>{content}</li>;
+// };
 
-export default SummaryListItem;
+// export default SummaryListItem;
