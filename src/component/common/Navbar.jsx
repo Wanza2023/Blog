@@ -7,12 +7,13 @@ import '../../styles/component/Navbar.css';
 import travelog_logo from '../../assets/images/travelog_logo.png'
 import profile_icon from '../../assets/images/profile_icon.png'
 import navigation_icon from '../../assets/images/navigation_icon.png'
-import PostList from "../../pages/post/PostList";
+import { useAuth } from "./useAuth";
 
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState); //로그인 상태
+    // const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState); //로그인 상태
+    const { isLoggedIn, setIsLoggedIn } = useAuth();
     const [searchResults, setSearchResults] = useRecoilState(searchResultsState);
     const [searchTerm, setSearchTerm] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
@@ -56,8 +57,10 @@ const Navbar = () => {
         }
     };
 
-    const handleLogout = () => {
+    const handleLogout = () => { // 로그아웃 시 로컬스토리지 지우기
         setIsLoggedIn(false);
+        localStorage.removeItem('token');
+        localStorage.removeItem('nickName');
     };
     return (
         <nav className="navbar">
