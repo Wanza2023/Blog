@@ -40,6 +40,7 @@ function SignIn(props){
             .then(res =>{
                 setIsLoggedIn(true);    // 로그인 상태 전역관리 Login true
                 const token = res.data.body.token;
+                localStorage.setItem('token', token);
                 axios
                     .get(`${process.env.REACT_APP_MEMBER_API_KEY}/authorize`, {
                         headers: {
