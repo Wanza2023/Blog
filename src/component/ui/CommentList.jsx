@@ -7,6 +7,7 @@ import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
 
 const CommentList = ({comments}) => {
+    const reversedComments = comments.slice().reverse();
     const navigate = useNavigate();
     const isLoggedIn = useRecoilValue(isLoggedInState);
     const { boardId } = useParams();
@@ -17,7 +18,7 @@ const CommentList = ({comments}) => {
     const [comment, setComment] = useState([]);
 
     useEffect(() => {
-        const comments = data.filter((item) => item.boardId == boardId);    // boardid가 같은 것만 저장
+        const comments = data.filter((item) => item.boardId == boardId); // boardid가 같은 것만 저장
         setComment(comments);
         setEditingComment(new Array(comments.length).fill(''));
         setIsLikedStates(new Array(comments.length).fill(false));
@@ -113,7 +114,7 @@ const CommentList = ({comments}) => {
                 isLoggedIn={isLoggedIn}
             />
             <CommentListItem
-                comment={comments}
+                comment={reversedComments}
                 editingComment={editingComment}
                 setEditingComment={setEditingComment}
                 handleCommentEditClick={handleCommentEditClick}

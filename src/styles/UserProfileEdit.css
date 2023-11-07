@@ -1,0 +1,65 @@
+.userProfileEdit {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    margin: 15rem auto;
+    max-width: 50vw;
+}
+
+.userProfileEdit .profileImage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userIcon {
+    font-size: 500px; 
+}
+
+.imageEdit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.profileChange {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    width: 100%;
+}
+
+.profileChange input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.buttonContainer {
+    display: flex;
+    margin-top: 1vh;
+    justify-content: right;
+}
+  
+.saveButton {
+    border: none;
+    background-color: #5585FF;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 4vh;
+}
+  
+.unsubscribeButton {
+    border: 1px solid #f83434;
+    background-color: white;
+    color: #f83434;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 4vh;
+    margin-left: 1vw;
+}

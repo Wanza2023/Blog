@@ -37,7 +37,7 @@ const Navbar = () => {
             // 검색어가 비어있지 않은 경우에만 URL로 이동
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`);
-                setSearchResults(response.data.body || []);
+                setSearchResults(response.data.body.reverse() || []);
                 navigate(`/board/search/${searchTerm}`);
                 setSearchTerm("");
             } catch (error) {
