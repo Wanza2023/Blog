@@ -1,12 +1,12 @@
 import React,{useState} from "react";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { isLoggedInState,nickNameState,memberIdState } from "../component/AuthState";
+import { isLoggedInState,nickNameState,memberIdState } from "../../component/common/AuthState";
 import { useNavigate } from "react-router-dom";
-import '../styles/SignIn.css'
-import KakaoLogo from "../assets/images/login_kakao.png";
-import NaverLogo from "../assets/images/login_naver.png";
-import GoogleLogo from "../assets/images/login_google.png";
+import "../../styles/pages/SignIn.css"
+import KakaoLogo from "../../assets/images/login_kakao.png";
+import NaverLogo from "../../assets/images/login_naver.png";
+import GoogleLogo from "../../assets/images/login_google.png";
 
 function SignIn(props){
     const navigate = useNavigate();

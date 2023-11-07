@@ -3,11 +3,11 @@ import { useRecoilState } from "recoil";
 import { isLoggedInState ,nickNameState,memberIdState, searchResultsState } from "./AuthState";
 import { Link,useNavigate,} from "react-router-dom";
 import axios from "axios";
-import '../styles/Navbar.css';
-import travelog_logo from '../assets/images/travelog_logo.png'
-import profile_icon from '../assets/images/profile_icon.png'
-import navigation_icon from '../assets/images/navigation_icon.png'
-import PostList from "../pages/PostList";
+import '../../styles/component/Navbar.css';
+import travelog_logo from '../../assets/images/travelog_logo.png'
+import profile_icon from '../../assets/images/profile_icon.png'
+import navigation_icon from '../../assets/images/navigation_icon.png'
+import PostList from "../../pages/post/PostList";
 
 
 const Navbar = () => {

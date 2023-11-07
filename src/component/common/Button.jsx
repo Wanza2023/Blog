@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, } from "recoil";
 import styled from "styled-components";
-import { isLoggedInState } from "../AuthState";
+import { isLoggedInState } from "./AuthState";
 
 const StyledButton = styled.button`
     height: 48px;

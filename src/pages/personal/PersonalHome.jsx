@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PostCard from '../component/ui/PostCard';
-import Button from "../component/ui/Button";
-import '../styles/PersonalHome.css'
-import MapComponent from '../component/ui/MapComponent';
+import PostCard from '../../component/ui/list/PostCard';
+import Button from "../../component/common/Button";
+import '../../styles/pages/PersonalHome.css'
+import MapComponent from '../../component/ui/personal/MapComponent';
 import { useRecoilState } from "recoil";
-import { nickNameState } from "../component/AuthState";
-import personal_profile_icon from '../assets/images/personal_profile_icon.png';
-import Paging from '../component/ui/Paging';
+import { nickNameState } from "../../component/common/AuthState";
+import personal_profile_icon from '../../assets/images/personal_profile_icon.png';
+import Paging from '../../component/ui/list/Paging';
 
 
 const PersonalHome = () => {

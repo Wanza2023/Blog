@@ -4,7 +4,7 @@ import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete, AiOutlineFlag } from "re
 import { BiUserCircle } from "react-icons/bi";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import styled from 'styled-components';
-import data from "../../CommentData.json";
+import data from "../../../CommentData.json";
 
 const Comments = styled.div`
     margin-top: 2vh;
@@ -143,14 +143,14 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                             <CommentsMenu>
                                 {editingComment[index] === '' ? (
                                     <>
-                                        {isLoggedIn && (<button onClick={() => handleCommentEditClick(index)}><AiOutlineEdit />수정</button>)}
-                                        {isLoggedIn && (<button onClick={() => onDelete(commentItem)}><AiOutlineDelete />삭제</button>)}
-                                        <button onClick={() => handleCommentReportClick(index)}><AiOutlineFlag />신고</button>
+                                        <button onClick={() => handleCommentSaveClick(index)}>저장</button>
+                                        <button onClick={() => handleCommentCancelClick(index)}>취소</button>
                                     </>
                                 ) : (
                                     <>
-                                        <button onClick={() => handleCommentSaveClick(index)}>저장</button>
-                                        <button onClick={() => handleCommentCancelClick(index)}>취소</button>
+                                        {isLoggedIn && (<button onClick={() => handleCommentEditClick(index)}><AiOutlineEdit />수정</button>)}
+                                        {isLoggedIn && (<button onClick={() => onDelete(commentItem)}><AiOutlineDelete />삭제</button>)}
+                                        <button onClick={() => handleCommentReportClick(index)}><AiOutlineFlag />신고</button>
                                     </>
                                 )}
                             </CommentsMenu>

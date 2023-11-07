@@ -1,7 +1,7 @@
 import React from 'react';
 import { BiUserCircle } from "react-icons/bi";
 import { useRecoilState } from 'recoil';
-import { nickNameState } from '../AuthState';
+import { nickNameState } from '../../common/AuthState';
 
 const CommentWrite = ({ newComment, setNewComment, addComments }) => {
     const nickname = useRecoilState(nickNameState);
