@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from "react";
-import '../../styles/MapComponent.css';
+import '../../../styles/component/MapComponent.css';
 import { useNavigate } from "react-router";
 
 const {kakao} = window; // window에서 kakao 추출

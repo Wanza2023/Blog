@@ -1,16 +1,16 @@
 import { BrowserRouter, Route, Routes,} from "react-router-dom";
 import "./styles/App.css";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import Main from "./pages/Main";
-import PostWrite from "./pages/PostWrite";
-import PostList from "./pages/PostList";
-import PostView from "./pages/PostView";
-import PersonalHome from './pages/PersonalHome';
-import Navbar from "./component/Navbar";
+import SignIn from "./pages/sign/SignIn";
+import SignUp from "./pages/sign/SignUp";
+import Main from "./pages/main/Main";
+import PostWrite from "./pages/post/PostWrite";
+import PostList from "./pages/post/PostList";
+import PostView from "./pages/post/PostView";
+import PersonalHome from './pages/personal/PersonalHome';
+import Navbar from "./component/common/Navbar";
 import { RecoilRoot } from "recoil";
-import SelectLocation from "./component/ui/SelectLocation";
-import PersonalEdit from "./pages/PersonalEdit";
+import SelectLocation from "./component/ui/contents/schedule/SelectLocation";
+import PersonalEdit from "./pages/personal/PersonalEdit";
 
 function App() {
 

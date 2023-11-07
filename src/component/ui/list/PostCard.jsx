@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../styles/PostCard.css";
+import "../../../styles/component/PostCard.css";
 
 function PostCard(props){
     // 날짜 뒤에 시간 제거

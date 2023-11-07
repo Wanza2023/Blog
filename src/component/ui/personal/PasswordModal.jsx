@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import "../../styles/PasswordModal.css"
+import "../../../styles/component/PasswordModal.css"
 
 Modal.setAppElement('#root');
 

@@ -3,12 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { HiOutlineMapPin } from 'react-icons/hi2';
-import ScheduleList from '../component/ui/ScheduleList';
-import HashtagList from '../component/ui/HashtagList';
-import CommentList from '../component/ui/CommentList';
+import ScheduleList from '../../component/ui/contents/schedule/ScheduleList';
+import HashtagList from '../../component/ui/contents/hashtag/HashtagList';
+import CommentList from '../../component/ui/comment/CommentList';
 import styled from 'styled-components';
-import '../styles/PostView.css';
-import Button from '../component/ui/Button';
+import '../../styles/pages/PostView.css';
+import Button from '../../component/common/Button';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -52,6 +52,7 @@ function PostView() {
         const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`);
         if (response.data && response.data.body) {
             console.log('Data received from the server:', response.data.body);
+            console.log(response.data.body.comments);
             setPosts(response.data.body);
           } else {
             console.error('Invalid response data format');

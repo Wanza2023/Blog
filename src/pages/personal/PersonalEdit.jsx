@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { FaBookmark, FaChartBar, FaUserEdit } from 'react-icons/fa';
-import PasswordModal from '../component/ui/PasswordModal';
-import UserProfileEdit from '../component/ui/UserProfileEdit';
-import Button from '../component/ui/Button';
-import '../styles/PersonalEdit.css'
+import PasswordModal from '../../component/ui/personal/PasswordModal';
+import UserProfileEdit from '../../component/ui/personal/UserProfileEdit';
+import Button from '../../component/common/Button';
+import '../../styles/pages/PersonalEdit.css'
 
 const PersonalEdit = () => {
     const [Menu, setMenu] = useState('bookmark'); // 상태 변수 menu, 초기값 북마크 설정

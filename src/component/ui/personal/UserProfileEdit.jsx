@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaCog } from 'react-icons/fa';
 import { BiUserCircle } from "react-icons/bi";
-import '../../styles/UserProfileEdit.css';
+import '../../../styles/component/UserProfileEdit.css';
 
 const UserProfileEdit = ({ onSaveChanges }) => {
     const [nickname, setNickname] = useState(''); // 닉네임 상태 변수

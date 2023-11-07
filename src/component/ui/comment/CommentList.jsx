@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { isLoggedInState, nickNameState } from '../../component/AuthState';
-import data from "../../CommentData.json";
+import { isLoggedInState, nickNameState } from '../../common/AuthState';
+import data from "../../../CommentData.json";
 import axios from 'axios';
 import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
@@ -18,6 +18,7 @@ const CommentList = ({comments}) => {
     const [commentNickname,setCommentNickname] = useRecoilState(nickNameState);
     const [comment, setComment] = useState([]);
     const [commentId,setCommentId] = useState('');
+    const [reply, setReply] = useState([]);
 
     useEffect(() => {
         const comments = data.filter((item) => item.boardId == boardId); // boardid가 같은 것만 저장
@@ -41,6 +42,7 @@ const CommentList = ({comments}) => {
                     {
                         alert('댓글을 성공적으로 등록하였습니다! ^o^')
                         console.log(res);
+                        window.location.reload();
                     }
                 )
                 .catch(err=>{
@@ -62,25 +64,7 @@ const CommentList = ({comments}) => {
                 console.log(res.data);
             })
     }
-    const addComment = () => {
-        if (isLoggedIn && newComment.trim() !== '') {
-            const newCommentObject = {
-                nickname: nickname,
-                content: newComment,
-                createdAt: new Date().toISOString(),
-            };
-            
-            // 댓글을 추가할 때 editingComment 배열에 빈 문자열 추가
-            const updatedEditingComment = [...editingComment, ''];
     
-            setComment([...comment, newCommentObject]);
-            setEditingComment(updatedEditingComment);
-            setNewComment('');
-        } else {
-            alert('로그인이 필요한 기능입니다.');
-            navigate('/login');
-        }
-    };
     // 댓글 수정 onClick
     const handleCommentEditClick = (index) => {
         const updatedEditingComment = [...editingComment];
@@ -137,6 +121,20 @@ const CommentList = ({comments}) => {
                 addComments={addComments} 
             />
             <div className='border4' />
+            <CommentListItem
+                comment={reply}
+                editingComment={editingComment}
+                setEditingComment={setEditingComment}
+                handleCommentEditClick={handleCommentEditClick}
+                handleCommentSaveClick={handleCommentSaveClick}
+                handleCommentCancelClick={handleCommentCancelClick}
+                handleCommentChange={handleCommentChange}
+                handleCommentReportClick={handleCommentReportClick}
+                handleCommentLikeClick={handleCommentLikeClick}
+                isLikedStates={isLikedStates}
+                onDelete={onDelete}
+                isLoggedIn={isLoggedIn}
+            />
             <CommentListItem
                 comment={reversedComments}
                 editingComment={editingComment}

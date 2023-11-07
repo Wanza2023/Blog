@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import Button from "../component/ui/Button";
-import PopularList from "../component/ui/PopularList";
-import "../styles/Main.css";
+import Button from "../../component/common/Button";
+import PopularList from "../../component/ui/list/PopularList";
+import "../../styles/pages/Main.css";
 
 export default function MainPage() {
     const navigate = useNavigate();

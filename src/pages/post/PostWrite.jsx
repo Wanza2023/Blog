@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 import Modal from "react-modal";
-import { nickNameState } from "../component/AuthState";
-import PostWriteComponent from "../component/ui/PostWriteComponent";
-import SelectLocation from "../component/ui/SelectLocation";
+import { nickNameState } from "../../component/common/AuthState";
+import PostWriteComponent from "../../component/ui/write/PostWriteComponent";
+import SelectLocation from "../../component/ui/contents/schedule/SelectLocation";
 import styled from "styled-components";
-import "../styles/PostWrite.css";
+import "../../styles/pages/PostWrite.css";
 
 const Container = styled.div`
   padding: 2rem 3rem;

@@ -4,7 +4,7 @@ import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete, AiOutlineFlag } from "re
 import { BiUserCircle } from "react-icons/bi";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import styled from 'styled-components';
-import data from "../../CommentData.json";
+import data from "../../../CommentData.json";
 
 const Comments = styled.div`
     margin-top: 2vh;

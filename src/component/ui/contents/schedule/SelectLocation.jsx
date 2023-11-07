@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import "../../styles/SelectLocation.css";
+import "../../../../styles/component/SelectLocation.css";
 const { kakao } = window;
 const SelectLocation = (props) => {
     const [InputText, setInputText] = useState('');

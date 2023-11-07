@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { searchResultsState } from "../component/AuthState";
+import { searchResultsState } from "../../component/common/AuthState";
 import { useRecoilValue } from 'recoil';
-import PostCard from '../component/ui/PostCard';
-import Button from "../component/ui/Button";
+import PostCard from '../../component/ui/list/PostCard';
+import Button from "../../component/common/Button";
 import axios from 'axios';
-import Paging from "../component/ui/Paging";
-import '../styles/PostList.css';
+import Paging from "../../component/ui/list/Paging";
+import '../../styles/pages/PostList.css';
 
 function PostList() {
   const { regionName } = useParams(); // useParams로 url에서 파라미터 추출
