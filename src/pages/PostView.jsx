@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
-import { useRecoilState } from 'recoil';
-import { isLoggedInState,nickNameState } from '../component/AuthState';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { HiOutlineMapPin } from 'react-icons/hi2';
 import ScheduleList from '../component/ui/ScheduleList';
@@ -64,7 +62,7 @@ function PostView() {
         }
       };
       fetchData();
-  }, [nickname, boardId]);
+  }, [boardId,nickname]);
 
   // toISOString() 1일전 날짜 안뜨게 시간 변경
   function convertTime(date) {
