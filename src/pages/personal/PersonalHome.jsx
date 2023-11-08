@@ -85,7 +85,7 @@ const PersonalHome = () => {
         };
     
         fetchData();
-    }, [nickName, currentPage, postPerPage]);
+    }, [nickName, currentPage, postPerPage, nickname]);
     
     return (
         <div>

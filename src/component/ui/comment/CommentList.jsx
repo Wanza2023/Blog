@@ -8,7 +8,7 @@ import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
 import { useAuth } from '../../common/useAuth';
 
-const CommentList = ({comments}) => {
+const CommentList = ({comments, props}) => {
     const reversedComments = comments.slice().reverse();
     const navigate = useNavigate();
     // const isLoggedIn = useRecoilValue(isLoggedInState);
@@ -21,7 +21,7 @@ const CommentList = ({comments}) => {
     const [isLikedStates, setIsLikedStates] = useState([]);
     const [commentNickname,setCommentNickname] = useRecoilState(nickNameState);
     const [comment, setComment] = useState([]);
-    const [reply, setReply] = useState([]);
+    const [isPublic, setIsPublic] = useState(true); // 댓글 공개 비공개 설정
 
     // useEffect(() => {
     //     const comments = data.filter((item) => item.boardId == boardId); // boardid가 같은 것만 저장
@@ -39,7 +39,7 @@ const CommentList = ({comments}) => {
                 .post(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}`,{
                     nickname : commentNickname,
                     content : newComment,
-                    status : true
+                    status : isPublic
                 })
                 .then(res =>
                     {
@@ -68,7 +68,7 @@ const CommentList = ({comments}) => {
         try {
             await axios.delete(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}/${commentsId}`);
             alert('댓글을 삭제하였습니다.');
-            window.location.reload();
+            navigate(0);
         } catch (error) {
             console.log(error);
         }
@@ -138,22 +138,10 @@ const CommentList = ({comments}) => {
                 newComment={newComment} 
                 setNewComment={setNewComment} 
                 addComments={addComments} 
+                setIsPublic={setIsPublic}
+                isPublic={isPublic}
             />
             <div className='border4' />
-            <CommentListItem
-                comment={reply}
-                editingComment={editingComment}
-                setEditingComment={setEditingComment}
-                handleCommentEditClick={handleCommentEditClick}
-                handleCommentSaveClick={handleCommentSaveClick}
-                handleCommentCancelClick={handleCommentCancelClick}
-                handleCommentChange={handleCommentChange}
-                handleCommentReportClick={handleCommentReportClick}
-                handleCommentLikeClick={handleCommentLikeClick}
-                isLikedStates={isLikedStates}
-                onDelete={onDelete}
-                isLoggedIn={isLoggedIn}
-            />
             <CommentListItem
                 comment={reversedComments}
                 editingComment={editingComment}

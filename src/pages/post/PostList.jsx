@@ -7,6 +7,7 @@ import Button from "../../component/common/Button";
 import axios from 'axios';
 import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
+import Pagination from "react-js-pagination";
 
 function PostList() {
   const { regionName } = useParams(); // useParams로 url에서 파라미터 추출
@@ -15,6 +16,10 @@ function PostList() {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
   const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수 
   const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
+
+  const [limit, setLimit] = useState(10);
+  const [pages, setPages] = useState(1);
+  const offset = (pages - 1) * limit;
   
   useEffect(() => {
     const fetchData = async () => { // api에 데이터 요청 후 응답 response에 저장
@@ -66,6 +71,7 @@ function PostList() {
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
       <Paging page={currentPage} count={count} setPage={setPage}/>
+      <Pagination total={posts.length} limit={limit} page={pages} setPage={setPages}/>
       <Button />
     </div>
   )
