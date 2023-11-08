@@ -61,6 +61,7 @@ const Navbar = () => {
         setIsLoggedIn(false);
         localStorage.removeItem('token');
         localStorage.removeItem('nickName');
+        navigate('/');
     };
     return (
         <nav className="navbar">

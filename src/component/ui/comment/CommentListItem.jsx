@@ -127,8 +127,8 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
             {comment.map((commentItem, index) => (
                 <Comments key={index}>
                     <CommentsInfo>
-                        <BiUserCircle onClick={() => { navigate("/")}} />
-                        <button onClick={() => { navigate("/")}}>{commentItem.nickname}</button>
+                        <BiUserCircle onClick={() => { navigate(`/user/${commentItem.nickname}`)}} />
+                        <button onClick={() => { navigate(`/user/${commentItem.nickname}`)}}>{commentItem.nickname}</button>
                     </CommentsInfo>
                     <ButtonContainer>
                         <CommentsHeart>

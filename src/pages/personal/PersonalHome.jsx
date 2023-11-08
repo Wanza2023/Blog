@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import PostCard from '../../component/ui/list/PostCard';
 import Button from "../../component/common/Button";
@@ -35,7 +36,7 @@ const PersonalHome = () => {
     const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
     const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
 
-    // const {nick} = useParams();
+    const { nickname } = useParams(); // useParams로 url에서 파라미터 추출
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
 
     const setPage = (error) => { // 현재 페이지 번호
@@ -45,7 +46,7 @@ const PersonalHome = () => {
     useEffect(() => {
         const fetchData = async () => { // api에 데이터 요청 후 응답 response에 저장
             try {
-                const response = await axios.get(`http://172.16.210.131:8082/board/${nickName}`);
+                const response = await axios.get(`http://172.16.210.131:8082/board/${nickname}`);
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
                     const Data = response.data.body
                     setPosts(Data);
@@ -75,7 +76,7 @@ const PersonalHome = () => {
         <div>
             <div className='personal_profile'>
                 <img src={personal_profile_icon} alt="personal_profile_icon"/>
-                <h2>{nickName}</h2>
+                <h2>{nickname}</h2>
                 <p>님의 여행기록</p>
             </div>
             <div className='toggle'>
