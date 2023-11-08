@@ -14,7 +14,6 @@ import Paging from '../../component/ui/list/Paging';
 const PersonalHome = () => {
     // 지도 화면 보이게 toggle 설정 true로 준건 default로 보이게하기위함
     const [showMap, setShowMap] = useState(true);
-
     // 글 목록보이게 toggle 설정
     const [showText, setShowText] = useState(false);
 
@@ -22,6 +21,8 @@ const PersonalHome = () => {
     const handleMapButtonClick = () => {
         setShowMap(true);
         setShowText(false);
+        sessionStorage.setItem('showMap', 'true');
+        sessionStorage.setItem('showText', 'false');
         // window.sessionStorage.setItem('showMap',true);
         // window.sessionStorage.setItem('showText',false);
         // setShowMap(sessionStorage.getItem('showMap'));
@@ -34,6 +35,8 @@ const PersonalHome = () => {
     const handleTextButtonClick = () => {
         setShowMap(false);
         setShowText(true);
+        sessionStorage.setItem('showText', 'true');
+        sessionStorage.setItem('showMap', 'false');
         // window.sessionStorage.setItem('showText',true);
         // window.sessionStorage.setItem('showMap',false);
         // setShowMap(sessionStorage.getItem('showMap'));
@@ -42,7 +45,14 @@ const PersonalHome = () => {
         // console.log("글 버튼 showmap : "+showMap);
         // console.log("글 버튼 showtext : "+showText);
     };
-    
+
+    useEffect(() => {
+        const showMap = sessionStorage.getItem('showMap') == 'true'; // showMap true면 true
+        const showText = sessionStorage.getItem('showText') == 'true'; // showText true면 true
+        setShowMap(showMap);
+        setShowText(showText);
+    }, []);
+
     const [nickName,setNickName] = useRecoilState(nickNameState);// 닉네임 전역관리
     const [count, setCount] = useState(0); // 아이템 총 개수
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
