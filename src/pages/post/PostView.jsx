@@ -86,6 +86,8 @@ function PostView() {
             createdDate = new Date();
         }
 
+        console.log(nickname);
+
         const formattedDate = convertTime(createdDate).split("T")[0];
 
         const localToKorean = {

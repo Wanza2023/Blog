@@ -1,12 +1,13 @@
 import React,{useEffect,useState} from "react";
 import '../../../styles/component/MapComponent.css';
-import { useNavigate } from "react-router";
+import { useNavigate,useParams } from "react-router";
 
 const {kakao} = window; // window에서 kakao 추출
 
 const MapComponent= (props) => {
     const {nickName, posts} = props; // props에서 nickName과 posts 추출
     const navigate = useNavigate();
+    const { nickname } = useParams(); // useParams로 url에서 파라미터 추출ㄴㄴ
     
     useEffect(() => {
         if (props.posts && Array.isArray(props.posts)) { 
@@ -90,7 +91,7 @@ const MapComponent= (props) => {
             kakao.maps.event.addListener(marker, 'click', ((position) => { // 마커 클릭 이벤트
                 return () => {
                     // window.location.href = `http://localhost:3000/${nickName}/${position.boardId}`;
-                    navigate(`/${nickName}/${position.boardId}`);
+                    navigate(`/${nickname}/${position.boardId}`);
                 }
             })(positions[i]));
             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow)); // 마우스 올렸을 때
