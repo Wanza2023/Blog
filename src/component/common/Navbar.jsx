@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { isLoggedInState ,nickNameState,memberIdState, searchResultsState } from "./AuthState";
 import { Link,useNavigate,} from "react-router-dom";
@@ -19,6 +19,7 @@ const Navbar = () => {
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
     const [memberId,setMemberId] = useRecoilState(memberIdState);
     const [nickName,setNickName] = useRecoilState(nickNameState);
+
     const profileIconClick = () => {
         if(isLoggedIn==false) {
             navigate('/login');
@@ -57,7 +58,8 @@ const Navbar = () => {
         }
     };
 
-    const handleLogout = () => { // 로그아웃 시 로컬스토리지 지우기
+    const handleLogout = () => { // 로그아웃 시 세션스토리지 지우기
+        // removeCookie('token');
         setIsLoggedIn(false);
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('nickName');

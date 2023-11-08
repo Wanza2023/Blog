@@ -10,6 +10,8 @@ import styled from 'styled-components';
 import '../../styles/pages/PostView.css';
 import Button from '../../component/common/Button';
 import axios from 'axios';
+import { nickNameState } from '../../component/common/AuthState';
+import { useRecoilState } from 'recoil';
 
 const Container = styled.div`
   display: flex;
@@ -23,6 +25,7 @@ function PostView() {
   const [showMenu, setShowMenu] = useState(false);  // 수정 삭제 toggle
   const { nickname, boardId } = useParams();
   const [posts, setPosts] = useState([]);
+  const [boardNickname,setBoardNickname] = useRecoilState(nickNameState) // 게시글 작성자 닉네임
 
   // 수정 삭제 toggle 메뉴
   const toggleMenu = () => {
@@ -35,15 +38,25 @@ function PostView() {
   // 게시글 삭제 onClick 
   // 게시글 작성자와 일치한 사용자만 삭제 할 수 있도록 만들 것
   const handleDeleteClick = () => {
-    axios
-      .delete(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`)
-      .then(function(res){
-        console.log(res.data);
-        navigate(-1);
-      })
-      .catch(function(err){
-        console.log("error: ", err);
-      })
+    if(boardNickname !== nickname){
+      alert('게시글 작성자만 삭제할 수 있습니다.');
+    }
+    else{
+      if(window.confirm('게시글을 정말 삭제하시겠습니까?')){
+        axios
+        .delete(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`)
+        .then(function(res){
+          alert('게시글이 삭제되었습니다.');
+          navigate(-1);
+        })
+        .catch(function(err){
+          console.log("error: ", err);
+        })
+      }
+      else{
+        alert('게시글 삭제를 취소하였습니다.');
+      }
+    }
   };
   // 게시글 정보 axios get 
   useEffect(() => {
@@ -85,9 +98,6 @@ function PostView() {
             console.error('Error parsing date:', error);
             createdDate = new Date();
         }
-
-        console.log(nickname);
-
         const formattedDate = convertTime(createdDate).split("T")[0];
 
         const localToKorean = {
