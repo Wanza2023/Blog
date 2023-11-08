@@ -40,7 +40,8 @@ function SignIn(props){
             .then(res =>{
                 setIsLoggedIn(true);    // 로그인 상태 전역관리 Login true
                 const token = res.data.body.token;
-                sessionStorage.setItem('token', token); // 로컬스토리지에 토큰 저장
+                // setCookie('token',token,{path:'/'},{expires:1}); // 쿠키에 토큰 저장
+                sessionStorage.setItem('token', token); // 세션스토리지에 토큰 저장
                 axios
                     .get(`${process.env.REACT_APP_MEMBER_API_KEY}/authorize`, {
                         headers: {
@@ -50,7 +51,7 @@ function SignIn(props){
                     .then(response => {
                         setMemberId(response.data.body.id); // Token일치하는 사용자의 MemberId 전역변수로 저장
                         setNickName(response.data.body.nickName);   // Token일치하는 사용자의 nickname 전역변수로 저장
-                        sessionStorage.setItem('nickName', response.data.body.nickName); // 로컬스토리지에 닉네임 저장
+                        sessionStorage.setItem('nickName', response.data.body.nickName); // 세션스토리지에 닉네임 저장
                     })
                     .catch((err) => {
                         console.error("Error fetching data:", err);

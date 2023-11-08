@@ -177,10 +177,7 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                         </Editing>
                     )} */}
                     <CommentsList>
-                        {console.log("게시글 작성자 닉네임 : " + nickname)}
-                        {console.log("로그인한 회원 닉네임 :" + signInNickName)}
-                        {console.log(nickname===signInNickName)}
-                        {(nickname === signInNickName) ? commentItem.content : commentStatus[index] === true ? commentItem.content : commentNickName[index] === (signInNickName) ? commentItem.content :(<div>비밀댓글입니다.</div>)}
+                        {(nickname === signInNickName) ?  commentItem.content : commentStatus[index] === true ? commentItem.content : commentNickName[index] === (signInNickName) ? commentItem.content :(<div>비밀댓글입니다.</div>)}
                         {/* {commentItem.content} */}
                         <div><br />{convertTime(commentItem.createdAt).split("T")[0]}</div>
                     </CommentsList>
