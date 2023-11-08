@@ -63,7 +63,7 @@ const CommentList = ({comments}) => {
     
     //delete comment
     const deleteComment = async (index) => {
-        const ids = comments.reverse().map(item=>item.id)
+        const ids = comments.map(item=>item.id);
         const commentsId = ids[index];
         try {
             await axios.delete(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}/${commentsId}`);
@@ -75,8 +75,7 @@ const CommentList = ({comments}) => {
     };
 
     const handleCommentDeleteClick = (index) => {
-        if (commentNickname === comments[index].nickname) {
-            console.log(comments[index].nickname)
+        if (commentNickname === reversedComments[index].nickname) {
             if (window.confirm('정말로 삭제하시겠습니까?')) {
                 deleteComment(index);
             }

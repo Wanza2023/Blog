@@ -21,12 +21,27 @@ const PersonalHome = () => {
     const handleMapButtonClick = () => {
         setShowMap(true);
         setShowText(false);
+        // window.sessionStorage.setItem('showMap',true);
+        // window.sessionStorage.setItem('showText',false);
+        // setShowMap(sessionStorage.getItem('showMap'));
+        // setShowText(sessionStorage.getItem('showText'));
+        // console.log("지도 버튼 눌림");
+        // console.log("지도버튼 showmap : "+showMap);
+        // console.log("지도버튼 showtext : "+showText);
     };
     // 글 눌렀을 때 이벤트
     const handleTextButtonClick = () => {
         setShowMap(false);
         setShowText(true);
+        // window.sessionStorage.setItem('showText',true);
+        // window.sessionStorage.setItem('showMap',false);
+        // setShowMap(sessionStorage.getItem('showMap'));
+        // setShowText(sessionStorage.getItem('showText'));
+        // console.log("글 버튼 눌림");
+        // console.log("글 버튼 showmap : "+showMap);
+        // console.log("글 버튼 showtext : "+showText);
     };
+    
     const [nickName,setNickName] = useRecoilState(nickNameState);// 닉네임 전역관리
     const [count, setCount] = useState(0); // 아이템 총 개수
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
@@ -83,18 +98,23 @@ const PersonalHome = () => {
                 <span>|</span>
                 <button onClick={handleTextButtonClick}>글</button>
             </div>
-            {/* showmap true 일 때 */}
             {showMap && <div className='map_styles'><MapComponent posts={posts} nickName={nickName}/></div>}
-            {/* {showText && <div><PersonalTextComponent BoardData={filterData}/></div>} */}
             {showText &&
                 <div className="wrapper">
-                    {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
                     {currentPosts && posts.length > 0 ? (currentPosts.map((item)=>(<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
                     <Paging page={currentPage} count={count} setPage={setPage}/>
                     <Button />
                 </div>
             }
-            <Button/>
+            {/* {showMap === true ? 
+                <div className='map_styles'><MapComponent posts={posts} nickName={nickName}/></div> 
+                : 
+                <div className="wrapper">
+                    {currentPosts && posts.length > 0 ? (currentPosts.map((item)=>(<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
+                    <Paging page={currentPage} count={count} setPage={setPage}/>
+                    <Button/>
+                </div> 
+            } */}
         </div>
     );
 };
