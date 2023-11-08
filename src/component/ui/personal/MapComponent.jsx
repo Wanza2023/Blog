@@ -88,14 +88,25 @@ const MapComponent= (props) => {
             var infowindow = new kakao.maps.InfoWindow({
                 content: positions[i].content // 인포윈도우에 표시할 내용
             });
-            kakao.maps.event.addListener(marker, 'click', ((position) => { // 마커 클릭 이벤트
-                return () => {
-                    // window.location.href = `http://localhost:3000/${nickName}/${position.boardId}`;
-                    navigate(`/${nickname}/${position.boardId}`);
-                }
-            })(positions[i]));
-            kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow)); // 마우스 올렸을 때
-            kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow)); // 내렸을 때
+            
+            if (positions[i].imgSrc != "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png") {
+                kakao.maps.event.addListener(marker, 'click', ((position) => { // 마커 클릭 이벤트
+                    return () => {
+                        // window.location.href = `http://localhost:3000/${nickName}/${position.boardId}`;
+                        navigate(`/${nickname}/${position.boardId}`);
+                    }
+                })(positions[i]));
+                kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow)); // 마우스 올렸을 때
+                kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow)); // 내렸을 때
+            }
+            else {
+                kakao.maps.event.addListener(marker, 'click', ((position) => { // 마커 클릭 이벤트
+                    return () => {
+                        // window.location.href = `http://localhost:3000/${nickName}/${position.boardId}`;
+                        navigate(`/${nickname}/${position.boardId}`);
+                    }
+                })(positions[i]));
+            }
         }
     }, [localArray]);
 
