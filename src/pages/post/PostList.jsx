@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { searchResultsState } from "../../component/common/AuthState";
 import { useRecoilValue } from 'recoil';
 import PostCard from '../../component/ui/list/PostCard';
@@ -16,6 +16,21 @@ function PostList() {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
   const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수 
   const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // url에서 페이지 번호
+    const search = new URLSearchParams(location.search); // 현재 페이지 url에서 뒤에 page 번호 부분 객체로 변환
+    const page = parseInt(search.get('page')) || 1; // 객체에서 page 가져오기, 없으면 1
+    setCurrentPage(page);
+  }, [location]);
+
+  const setPage = (page) => {
+    setCurrentPage(page);
+    navigate(`?page=${page}`); // 해당 페이지로 이동
+  };
 
   const [limit, setLimit] = useState(10);
   const [pages, setPages] = useState(1);
@@ -48,10 +63,6 @@ function PostList() {
     fetchData();
   }, [regionName, currentPage, postPerPage]);
 
-    const setPage = (error) => { // 현재 페이지 번호
-      setCurrentPage(error);
-    };
-
     const searchResults = useRecoilValue(searchResultsState); // Recoil 상태 관리에서 검색 전역 관리
 
     useEffect(() => { // 검색 결과가 있을 때 posts와 count 업데이트
@@ -71,7 +82,7 @@ function PostList() {
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
       <Paging page={currentPage} count={count} setPage={setPage}/>
-      <Pagination total={posts.length} limit={limit} page={pages} setPage={setPages}/>
+      {/* <Pagination total={posts.length} limit={limit} page={pages} setPage={setPages}/> */}
       <Button />
     </div>
   )
