@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { isLoggedInState, nickNameState } from '../../common/AuthState';
-import data from "../../../CommentData.json";
 import axios from 'axios';
 import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import data from "../../../CommentData.json";
 import { useRecoilState } from 'recoil';
 import { nickNameState } from '../../common/AuthState';
+import '../../../styles/pages/PostView.css'
 
 const Comments = styled.div`
     margin-top: 2vh;
@@ -90,6 +91,10 @@ const CommentsList = styled.div`
     margin-bottom: 2vh;
     text-align: left;
     font-size: 0.9rem;
+
+    .secretComment {
+        font-size: 0.9rem;
+    }
 
     > div {
         font-size: 0.7rem;
@@ -177,7 +182,7 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                         </Editing>
                     )} */}
                     <CommentsList>
-                        {(nickname === signInNickName) ?  commentItem.content : commentStatus[index] === true ? commentItem.content : commentNickName[index] === (signInNickName) ? commentItem.content :(<div>비밀댓글입니다.</div>)}
+                        {(nickname === signInNickName) ? commentItem.content : commentStatus[index] === true ? commentItem.content : commentNickName[index] === (signInNickName) ? commentItem.content :(<div className='secretComment'>비밀댓글입니다.</div>)}
                         {/* {commentItem.content} */}
                         <div><br />{convertTime(commentItem.createdAt).split("T")[0]}</div>
                     </CommentsList>
