@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete, AiOutlineFlag } from "react-icons/ai";
 import { BiUserCircle } from "react-icons/bi";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import styled from 'styled-components';
 import data from "../../../CommentData.json";
+import { useRecoilState } from 'recoil';
+import { nickNameState } from '../../common/AuthState';
 
 const Comments = styled.div`
     margin-top: 2vh;
@@ -114,6 +116,13 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
         updatedShowMenu[commentIndex] = !updatedShowMenu[commentIndex];
         setShowMenu(updatedShowMenu);
     };
+    const [signInNickName,setSignInNickName] = useRecoilState(nickNameState); // 로그인한 사용자
+
+    const {nickname} = useParams(); // 게시글 작성자
+
+    const commentNickName = comment.map((commentItem) => commentItem.nickname); // 댓글 작성자
+
+    const commentStatus = comment.map((commentItem) => commentItem.status); // 댓글 공개여부
 
     function convertTime(date) {
         date = new Date(date);
@@ -168,8 +177,12 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                         </Editing>
                     )} */}
                     <CommentsList>
-                            {commentItem.content}
-                            <div><br />{convertTime(commentItem.createdAt).split("T")[0]}</div>
+                        {console.log("게시글 작성자 닉네임 : " + nickname)}
+                        {console.log("로그인한 회원 닉네임 :" + signInNickName)}
+                        {console.log(nickname===signInNickName)}
+                        {(nickname === signInNickName) ? commentItem.content : commentStatus[index] === true ? commentItem.content : commentNickName[index] === (signInNickName) ? commentItem.content :(<div>비밀댓글입니다.</div>)}
+                        {/* {commentItem.content} */}
+                        <div><br />{convertTime(commentItem.createdAt).split("T")[0]}</div>
                     </CommentsList>
                 </Comments>
             ))}
