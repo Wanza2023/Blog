@@ -69,7 +69,6 @@ const PersonalHome = () => {
                     const indexOfLastPost = currentPage * postPerPage;
                     const indexOfFirstPost = indexOfLastPost - postPerPage;
                     setCurrentPosts(Data.slice(indexOfFirstPost,indexOfLastPost));
-                    console.log(Data);
                     // const reversedData = response.data.body.reverse();
                     // setPosts(reversedData);
                     // setCount(reversedData.length);
