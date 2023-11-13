@@ -185,8 +185,14 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                         </Editing>
                     )} */}
                     <CommentsList>
-                        {(nickname === signInNickName) ? commentItem.content : commentStatus[index] === true ? commentItem.content : commentNickName[index] === (signInNickName) ? commentItem.content :(<div className='secretComment'>비밀댓글입니다.</div>)}
-                        {/* {commentItem.content} */}
+                        {
+                            commentStatus[index] === false ? 
+                            <>
+                                <div className='secretComment'>비밀 댓글입니다.</div>
+                                {(nickname === signInNickName || commentNickName[index] === signInNickName) && <>{commentItem.content}</>}
+                            </> :
+                            <>{commentItem.content}</>
+                        }
                         <div><br />{convertTime(commentItem.createdAt).split("T")[0]}</div>
                     </CommentsList>
                 </Comments>
