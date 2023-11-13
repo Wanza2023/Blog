@@ -162,10 +162,13 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                                     </>
                                 ) : (
                                     <>
-                                        {isLoggedIn && (<button onClick={() => handleCommentEditClick(index)}><AiOutlineEdit />수정</button>)}
-                                        {/* {isLoggedIn && (<button onClick={() => onDelete(commentItem)}><AiOutlineDelete />삭제</button>)} */}
-                                        {isLoggedIn && (<button onClick={() => onDelete(index)}><AiOutlineDelete />삭제</button>)}
-                                        <button onClick={() => handleCommentReportClick(index)}><AiOutlineFlag />신고</button>
+                                        {signInNickName === commentNickName[index] ? (
+                                        <>
+                                            <button onClick={() => handleCommentEditClick(index)}><AiOutlineEdit />수정</button>
+                                            <button onClick={() => onDelete(commentItem)}><AiOutlineDelete />삭제</button>
+                                        </>) : (
+                                            <button onClick={() => handleCommentReportClick(index)}><AiOutlineFlag />신고</button>
+                                        )}
                                     </>
                                 )}
                             </CommentsMenu>

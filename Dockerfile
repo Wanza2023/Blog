@@ -25,7 +25,10 @@ WORKDIR /app
 # 빌드된 React 애플리케이션을 Nginx의 정적 파일 디렉토리로 복사
 COPY --from=0 /app/build /usr/share/nginx/html
 
-# Nginx의 기본 설정 파일을 삭제
+# host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
+ADD ./build ./build
+
+# # nginx 의 default.conf 를 삭제
 RUN rm /etc/nginx/conf.d/default.conf
 
 # 커스텀 Nginx 설정 파일을 복사
