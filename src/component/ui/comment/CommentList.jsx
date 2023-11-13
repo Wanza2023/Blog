@@ -44,7 +44,7 @@ const CommentList = ({comments, props}) => {
                     {
                         alert('댓글을 성공적으로 등록하였습니다! ^o^')
                         console.log(res);
-                        // window.location.reload();
+                        window.location.reload();
                     }
                 )
                 .catch(err=>{
