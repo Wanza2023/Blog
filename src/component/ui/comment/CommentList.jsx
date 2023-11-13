@@ -62,7 +62,7 @@ const CommentList = ({comments, props}) => {
     
     //delete comment
     const deleteComment = async (index) => {
-        const ids = comments.map(item=>item.id);
+        const ids = comments.reverse().map(item=>item.id);
         const commentsId = ids[index];
         try {
             await axios.delete(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}/${commentsId}`);
