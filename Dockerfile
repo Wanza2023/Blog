@@ -1,3 +1,35 @@
+# FROM node:14
+# WORKDIR /app
+# COPY package.json .
+# RUN npm install
+# COPY . .
+# EXPOSE 3000
+# CMD ["npm", "start"]
+
+# # nginx 이미지를 사용합니다.
+# FROM nginx
+
+# # work dir 고정
+# WORKDIR /app
+
+# # work dir 에 build 폴더 생성 /app/build
+# RUN mkdir ./build
+
+# # host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
+# ADD ./build ./build
+
+# # # nginx 의 default.conf 를 삭제
+# RUN rm /etc/nginx/conf.d/default.conf
+
+# # host pc 의 nginx.conf 를 아래 경로에 복사
+# COPY ./nginx.conf /etc/nginx/conf.d
+
+# # 80 포트 오픈
+# EXPOSE 80
+
+# # container 실행 시 자동으로 실행할 command. nginx 시작함
+# CMD ["nginx", "-g", "daemon off;"]
+
 # 이미지의 기반은 Node.js를 포함한 이미지로 설정
 FROM node:14
 
@@ -25,10 +57,7 @@ WORKDIR /app
 # 빌드된 React 애플리케이션을 Nginx의 정적 파일 디렉토리로 복사
 COPY --from=0 /app/build /usr/share/nginx/html
 
-# host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
-ADD ./build ./build
-
-# # nginx 의 default.conf 를 삭제
+# Nginx의 기본 설정 파일을 삭제
 RUN rm /etc/nginx/conf.d/default.conf
 
 # 커스텀 Nginx 설정 파일을 복사
