@@ -140,7 +140,7 @@ const CommentList = ({comments, props}) => {
                 setIsPublic={setIsPublic}
                 isPublic={isPublic}
             />
-            <div className='border4' />
+            {/* <div className='border4' /> */}
             <CommentListItem
                 comment={reversedComments}
                 editingComment={editingComment}
