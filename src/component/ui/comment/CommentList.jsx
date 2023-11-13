@@ -44,7 +44,7 @@ const CommentList = ({comments, props}) => {
                     {
                         alert('댓글을 성공적으로 등록하였습니다! ^o^')
                         console.log(res);
-                        // window.location.reload();
+                        navigate(0);
                     }
                 )
                 .catch(err=>{
@@ -62,12 +62,12 @@ const CommentList = ({comments, props}) => {
     
     //delete comment
     const deleteComment = async (index) => {
-        const ids = comments.map(item=>item.id);
+        const ids = comments.reverse().map(item=>item.id);
         const commentsId = ids[index];
         try {
             await axios.delete(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}/${commentsId}`);
             alert('댓글을 삭제하였습니다.');
-            // navigate(0);
+            navigate(0);
         } catch (error) {
             console.log(error);
         }
