@@ -5,12 +5,12 @@
 .hashtagBox {
     float: left;
     margin-right: 1vw;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: #5076FF;
     color: white;
     font-size: 0.9rem;
     text-align: center;
-    padding: 0.3rem;
+    padding: 0.5rem;
 }
 
 .cards {
@@ -25,6 +25,8 @@
 .noImg {
     width: 15rem;
     height: 15rem;
+    background-color: gray;
+    opacity: 0.1;
 }
 
 .cardimg {

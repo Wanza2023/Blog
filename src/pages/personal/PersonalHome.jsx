@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import PostCard from '../../component/ui/list/PostCard';
 import Button from "../../component/common/Button";
@@ -64,8 +64,19 @@ const PersonalHome = () => {
     const { nickname } = useParams(); // useParams로 url에서 파라미터 추출
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
 
-    const setPage = (error) => { // 현재 페이지 번호
-        setCurrentPage(error);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        // url에서 페이지 번호
+        const search = new URLSearchParams(location.search); // 현재 페이지 url에서 뒤에 page 번호 부분 객체로 변환
+        const page = parseInt(search.get('page')) || 1; // 객체에서 page 가져오기, 없으면 1
+        setCurrentPage(page);
+    }, [location]);
+
+    const setPage = (page) => {
+        setCurrentPage(page);
+        navigate(`?page=${page}`); // 해당 페이지로 이동
     };
 
     useEffect(() => {

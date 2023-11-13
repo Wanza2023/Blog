@@ -22,8 +22,6 @@ const ButtonContainerr = styled.div`
         border-radius: 20px;
         background: #5076FF;
         color: white;
-        font-weight: bold;
-        padding: 1vh;
         cursor: pointer;
         width: 5vw;
         height: 3.3vh;

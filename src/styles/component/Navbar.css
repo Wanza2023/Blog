@@ -49,6 +49,7 @@
     font-size: 0.8rem;
     border: 1px solid gray;
     border-radius: 1rem;
+    padding-left: 1rem;
 }
 
 .search-button {

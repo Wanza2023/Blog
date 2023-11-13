@@ -18,8 +18,8 @@ const CommentsInfo = styled.div`
     float: left;
 
     > svg {
-        width: 4vh;
-        height: 4vh;
+        width: 3vh;
+        height: 3vh;
         fill: gray;
         cursor: pointer;
     }
@@ -40,7 +40,6 @@ const ButtonContainer = styled.div``;
 
 const CommentsHeart = styled.div`
     float: right;
-    margin-right: 10vw;
     > button {
         border: none;
         background: none;
@@ -58,7 +57,6 @@ const CommentsEdit = styled.button`
     background: none;
     border: none;
     cursor: pointer;
-    margin-right: -2vw;
 
     > svg {
         width: 4vw;
@@ -85,9 +83,9 @@ const CommentsList = styled.div`
     clear: both;
     float: left;
     border-bottom: 2px solid #e8e7e7;
-    width: 800px;
+    width: 54vw;
     height: 5vh;
-    padding: 1vw;
+    padding-bottom: 1vw;
     margin-bottom: 2vh;
     text-align: left;
     font-size: 0.9rem;
@@ -100,15 +98,6 @@ const CommentsList = styled.div`
         font-size: 0.7rem;
         color: gray;
     }
-`;
-
-const Editing = styled.div`
-    clear: both;
-    float: left;
-    padding: 1vw;
-    margin-bottom: 2vh;
-    text-align: left;
-    font-size: 0.7rem;
 `;
 
 const CommentListItem = ({ comment, editingComment, setEditingComment, handleCommentEditClick, handleCommentSaveClick, handleCommentCancelClick, handleCommentChange, handleCommentReportClick, handleCommentLikeClick, isLikedStates, onDelete, isLoggedIn }) => {

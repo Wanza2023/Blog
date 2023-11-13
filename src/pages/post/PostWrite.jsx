@@ -348,14 +348,17 @@ function PostWrite() {
               {item.locationName && (
                 <span className="locationName">{item.locationName}</span>
               )}
-              <input
-                type="text"
-                placeholder="이동수단"
-                value={item.transport}
-                onChange={(e) =>
-                  handleScheduleChange(index, "transport", e.target.value)
-                }
-              />
+              <select 
+                value={item.transport} 
+                onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)}>
+                <option value="" disabled>이동수단 선택</option>
+                <option value="고속버스">고속버스</option>
+                <option value="비행기">비행기</option>
+                <option value="기차">기차</option>
+                <option value="대중교통">대중교통</option>
+                <option value="자차">자차</option>
+                <option value="도보">도보</option>
+              </select>
               <button className="plus" onClick={addScheduleItem}>
                 +
               </button>
