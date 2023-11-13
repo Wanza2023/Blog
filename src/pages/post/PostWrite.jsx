@@ -6,6 +6,8 @@ import Modal from "react-modal";
 import { nickNameState } from "../../component/common/AuthState";
 import PostWriteComponent from "../../component/ui/write/PostWriteComponent";
 import SelectLocation from "../../component/ui/contents/schedule/SelectLocation";
+import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.css';
 import styled from "styled-components";
 import "../../styles/pages/PostWrite.css";
 
@@ -176,16 +178,15 @@ function PostWrite() {
     setScheduleItems(newScheduleItems);
   };
   // 스케쥴 Schedule onChange
-  const handleScheduleChange = (index, field, value) => {
+  const handleScheduleChange = (index, field, date) => {
     if (field === "date") {
-      const formattedDate = value.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"); // 날짜 20120512 -> 2012-05-12 형식으로 변경
-
+      const formattedDate = date.toISOString().split('T')[0];
       const newScheduleItems = [...scheduleItems];
-      newScheduleItems[index][field] = formattedDate;
+      newScheduleItems[index][field] = date;
       setScheduleItems(newScheduleItems);
     } else {
       const newScheduleItems = [...scheduleItems];
-      newScheduleItems[index][field] = value;
+      newScheduleItems[index][field] = date;
       setScheduleItems(newScheduleItems);
     }
   };
@@ -320,13 +321,14 @@ function PostWrite() {
           {scheduleItems.map((item, index) => (
             <div key={index} className="scheduleList">
               <text className="index">{index + 1}번째 여행지</text>
-              <input
-                type="text"
-                placeholder="날짜"
-                value={item.date}
-                onChange={(e) =>
-                  handleScheduleChange(index, "date", e.target.value)
-                }
+              <DatePicker
+                className="date"
+                selected={item.date}
+                onChange={(date) => handleScheduleChange(index, "date", date)}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="날짜"
+                showTimeSelect={false}
+                showTimeInput={false} 
               />
               <button
                 className="selectLocation"
