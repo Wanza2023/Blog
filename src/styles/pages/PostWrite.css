@@ -62,12 +62,20 @@
 
 .scheduleList {
     margin-bottom: 1vh;
+    display: flex;
+    align-items: center;
+
 }
 
 .index {
     font-size: 0.87rem;
     font-weight: bold;
     margin-right: 1vw;
+}
+
+.dateSelect {
+    float: left;
+    color: gray;
 }
 
 .selectLocation {
@@ -119,7 +127,6 @@
     background-color: #5585FF;
     color: white;
     font-size: 1.1rem;
-    margin: auto;
     margin-left: 3px;
 }
 

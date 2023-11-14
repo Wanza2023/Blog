@@ -63,7 +63,8 @@ const Navbar = () => {
         setIsLoggedIn(false);
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('nickName');
-        navigate(0);
+        // sessionStorage.clear();
+        navigate(0,{replace : true});
     };
     return (
         <nav className="navbar">
