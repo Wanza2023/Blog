@@ -7,7 +7,7 @@ import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
 import { useAuth } from '../../common/useAuth';
 
-const CommentList = ({comments, props}) => {
+const CommentList = ({comments, setComments}) => {
     const reversedComments = comments.slice().reverse();
     const navigate = useNavigate();
     // const isLoggedIn = useRecoilValue(isLoggedInState);
@@ -31,31 +31,57 @@ const CommentList = ({comments, props}) => {
 
     //post comment /comments/게시글 작성자 닉네임/boardId
     // nickname 댓글 작성자 닉네임 content 댓글 내용 status
+    // const addComments = async () => {
+    //     try {
+    //         if(isLoggedIn===true){
+    //             await axios
+    //             .post(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}`,{
+    //                 nickname : commentNickname,
+    //                 content : newComment,
+    //                 status : isPublic
+    //             })
+    //             .then(res =>
+    //                 {
+    //                     alert('댓글을 성공적으로 등록하였습니다! ^o^')
+    //                     console.log(res);
+    //                     navigate(0);
+    //                 }
+    //             )
+    //             .catch(err=>{
+    //                 console.log(err);
+    //             })}
+    //             else{
+    //                 alert('로그인이 필요한 기능입니다!');
+    //                 navigate('/login');
+    //             }
+    //         }
+    //         catch (error) {
+    //         console.log(error);
+    //     }
+    // }
     const addComments = async () => {
         try {
-            if(isLoggedIn===true){
-                await axios
-                .post(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}`,{
+            if(isLoggedIn) {
+                const postResponse = await axios.post(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}`, {
                     nickname : commentNickname,
                     content : newComment,
                     status : isPublic
-                })
-                .then(res =>
-                    {
-                        alert('댓글을 성공적으로 등록하였습니다! ^o^')
-                        console.log(res);
-                        navigate(0);
+                });
+
+                if (postResponse.status === 200) {
+                    alert('댓글을 성공적으로 등록하였습니다! ^o^');
+
+                    const getResponse = await axios.get(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}`);
+                    if (getResponse.data) {
+                        setComments(getResponse.data);
                     }
-                )
-                .catch(err=>{
-                    console.log(err);
-                })}
-                else{
-                    alert('로그인이 필요한 기능입니다!');
-                    navigate('/login');
                 }
+            } else {
+                alert('로그인이 필요한 기능입니다!');
+                navigate('/login');
             }
-            catch (error) {
+        }
+        catch (error) {
             console.log(error);
         }
     }
@@ -140,7 +166,7 @@ const CommentList = ({comments, props}) => {
                 setIsPublic={setIsPublic}
                 isPublic={isPublic}
             />
-            {/* <div className='border4' /> */}
+            {/* <div className='border4' /> 댓글 있을 때만 뜨게 바꾸기 */}
             <CommentListItem
                 comment={reversedComments}
                 editingComment={editingComment}

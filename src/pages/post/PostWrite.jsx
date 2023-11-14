@@ -352,7 +352,8 @@ function PostWrite() {
               )}
               <select 
                 value={item.transport} 
-                onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)}>
+                onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)}
+                className="selectTransport">
                 <option value="" disabled>이동수단 선택</option>
                 <option value="고속버스">고속버스</option>
                 <option value="비행기">비행기</option>
