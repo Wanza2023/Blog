@@ -7,7 +7,7 @@ import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
 import { useAuth } from '../../common/useAuth';
 
-const CommentList = ({comments, props}) => {
+const CommentList = ({comments, props, changeCountFunction}) => {
     const reversedComments = comments.slice().reverse();
     const navigate = useNavigate();
     // const isLoggedIn = useRecoilValue(isLoggedInState);
@@ -20,8 +20,11 @@ const CommentList = ({comments, props}) => {
     const [isLikedStates, setIsLikedStates] = useState([]);
     const [commentNickname,setCommentNickname] = useRecoilState(nickNameState);
     const [comment, setComment] = useState([]);
-    const [isPublic, setIsPublic] = useState(true); // 댓글 공개 비공개 설정
-
+    const [isPublic, setIsPublic] = useState(true); // 댓글 공개 비공개 설정   
+    
+    // useEffect(()=>{
+    //     console.log(count);
+    // },[count])
     // useEffect(() => {
     //     const comments = data.filter((item) => item.boardId == boardId); // boardid가 같은 것만 저장
     //     setComment(comments);
@@ -72,7 +75,7 @@ const CommentList = ({comments, props}) => {
             console.log(error);
         }
     };
-
+    
     const handleCommentDeleteClick = (index) => {
         if (commentNickname === reversedComments[index].nickname) {
             if (window.confirm('정말로 삭제하시겠습니까?')) {
