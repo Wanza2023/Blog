@@ -7,6 +7,7 @@ import { nickNameState } from "../../component/common/AuthState";
 import PostWriteComponent from "../../component/ui/write/PostWriteComponent";
 import SelectLocation from "../../component/ui/contents/schedule/SelectLocation";
 import DatePicker from "react-datepicker";
+import { ko } from "date-fns/locale";
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from "styled-components";
 import "../../styles/pages/PostWrite.css";
@@ -322,7 +323,8 @@ function PostWrite() {
             <div key={index} className="scheduleList">
               <text className="index">{index + 1}번째 여행지</text>
               <DatePicker
-                className="date"
+                className="dateSelect"
+                locale={ko}
                 selected={item.date}
                 onChange={(date) => handleScheduleChange(index, "date", date)}
                 dateFormat="yyyy-MM-dd"
