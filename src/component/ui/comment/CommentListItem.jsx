@@ -83,7 +83,7 @@ const CommentsList = styled.div`
     clear: both;
     float: left;
     border-bottom: 2px solid #e8e7e7;
-    width: 54vw;
+    width: 100%;
     height: 5vh;
     padding-bottom: 1vw;
     margin-bottom: 2vh;

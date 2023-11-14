@@ -34,8 +34,12 @@ const ButtonContainerr = styled.div`
 const CommentWrite = ({ newComment, setNewComment, addComments, setIsPublic,isPublic }) => {
     // const nickname = useRecoilState(nickNameState);
     const { nickname } = useAuth();
-    
 
+    const handleSubmit = () => {
+        addComments(); 
+        setNewComment('');
+    }
+    
     return (
         <div>
             <UserContainer>
@@ -63,7 +67,7 @@ const CommentWrite = ({ newComment, setNewComment, addComments, setIsPublic,isPu
                     <span></span>
                     <div className="toggleInput">{isPublic ? "공개" : "비공개"}</div>
                 </label>
-                <button onClick={addComments}>등록</button>
+                <button onClick={handleSubmit} >등록</button>
             </ButtonContainerr>
         </div>
     );

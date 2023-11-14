@@ -26,6 +26,7 @@ function PostView() {
   const { nickname, boardId } = useParams();
   const [posts, setPosts] = useState([]);
   const [boardNickname,setBoardNickname] = useRecoilState(nickNameState) // 게시글 작성자 닉네임
+  const [comments, setComments] = useState([]);
 
   // 수정 삭제 toggle 메뉴
   const toggleMenu = () => {
@@ -59,24 +60,45 @@ function PostView() {
     }
   };
   // 게시글 정보 axios get 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`);
+  //       if (response.data && response.data.body) {
+  //           console.log('Data received from the server:', response.data.body);
+  //           console.log(response.data.body.comments);
+  //           setPosts(response.data.body);
+  //         } else {
+  //           console.error('Invalid response data format');
+  //         }
+  //       } catch (e) {
+  //         console.error(e);
+  //         alert('Error: 데이터를 불러올 수 없습니다');
+  //       }
+  //     };
+  //     fetchData();
+  // }, [boardId,nickname]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`);
         if (response.data && response.data.body) {
-            console.log('Data received from the server:', response.data.body);
-            console.log(response.data.body.comments);
-            setPosts(response.data.body);
-          } else {
-            console.error('Invalid response data format');
+          console.log('Data received from the server:', response.data.body);
+          setPosts(response.data.body);
+          const commentResponse = await axios.get(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}`);
+          if (commentResponse.data) {
+            setComments(commentResponse.data);
           }
-        } catch (e) {
-          console.error(e);
-          alert('Error: 데이터를 불러올 수 없습니다');
+        } else {
+          console.error('Invalid response data format');
         }
-      };
-      fetchData();
-  }, [boardId,nickname]);
+      } catch (e) {
+        console.error(e);
+        alert('Error: 데이터를 불러올 수 없습니다');
+      }
+    };
+    fetchData();
+  }, [boardId, nickname]);
 
   // toISOString() 1일전 날짜 안뜨게 시간 변경
   function convertTime(date) {
@@ -86,19 +108,19 @@ function PostView() {
     return dateOffset.toISOString();
   }
 
-  if (posts) {
-    const { title, createdAt, local, contents, summary, schedules, hashtags, comments } = posts;
-    let createdDate;
-    try {
-      createdDate = new Date(createdAt);
-      if (isNaN(createdDate)) {
-      throw new Error('Invalid date');
-      }
-    } catch (error) {
-      console.error('Error parsing date:', error);
-      createdDate = new Date();
-    }
-    const formattedDate = convertTime(createdDate).split("T")[0];
+    if (posts) {
+        const { title, createdAt, local, contents, summary, schedules, hashtags, nickname } = posts;
+        let createdDate;
+        try {
+            createdDate = new Date(createdAt);
+            if (isNaN(createdDate)) {
+            throw new Error('Invalid date');
+            }
+        } catch (error) {
+            console.error('Error parsing date:', error);
+            createdDate = new Date();
+        }
+        const formattedDate = convertTime(createdDate).split("T")[0];
 
     const localToKorean = {
       Busan: "부산",
@@ -142,6 +164,43 @@ function PostView() {
                     </div>
                   )}
                 </div>
+                <div className='border1' />
+                <div className='schedule'>
+                  {schedules && schedules.length > 0 ? (
+                    <ScheduleList scheduleData={schedules} />
+                  ) : null}
+                </div>
+                <ReactQuill
+                  value={contents}
+                  readOnly={true}
+                  theme={'bubble'}
+                />
+                <div className="summary-box">
+                    <p className="summary">요약</p>
+                    <p className="summary-contents">{summary}</p>
+                </div>
+                <div className='hashtags'>
+                    {Array.isArray(hashtags) ? (
+                        <HashtagList hashtags={hashtags} />
+                    ) : (
+                        <p>null</p>
+                    )}
+                </div>
+                {/* <CommentList
+                  comments={comments}
+                  onEdit={handleEditClick}
+                  onDelete={handleDeleteClick}
+                  newComment={newComment}
+                  setNewComment={setNewComment}
+                /> */}
+                {Array.isArray(comments) ? (
+                        <CommentList 
+                          comments={comments}
+                          setComments={setComments}
+                        />
+                    ) : (
+                        <p>null</p>
+                    )}
               </div>
               <button onClick={() => navigate(`/user/${nickname}`)} className='nickname'>
                 {nickname}
