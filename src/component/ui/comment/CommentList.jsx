@@ -20,11 +20,8 @@ const CommentList = ({comments, setComments}) => {
     const [isLikedStates, setIsLikedStates] = useState([]);
     const [commentNickname,setCommentNickname] = useRecoilState(nickNameState);
     const [comment, setComment] = useState([]);
-    const [isPublic, setIsPublic] = useState(true); // 댓글 공개 비공개 설정   
-    
-    // useEffect(()=>{
-    //     console.log(count);
-    // },[count])
+    const [isPublic, setIsPublic] = useState(true); // 댓글 공개 비공개 설정
+
     // useEffect(() => {
     //     const comments = data.filter((item) => item.boardId == boardId); // boardid가 같은 것만 저장
     //     setComment(comments);
@@ -101,7 +98,7 @@ const CommentList = ({comments, setComments}) => {
             console.log(error);
         }
     };
-    
+
     const handleCommentDeleteClick = (index) => {
         if (commentNickname === reversedComments[index].nickname) {
             if (window.confirm('정말로 삭제하시겠습니까?')) {

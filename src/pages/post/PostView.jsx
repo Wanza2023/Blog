@@ -122,47 +122,58 @@ function PostView() {
         }
         const formattedDate = convertTime(createdDate).split("T")[0];
 
-    const localToKorean = {
-      Busan: "부산",
-      Daegu: "대구",
-      Daejeon: "대전",
-      Gangwon: "강원도",
-      Gwangju: "광주",
-      Gyeonggi: "경기도",
-      Incheon: "인천",
-      Jeju: "제주도",
-      Chungbuk: "충청북도",
-      Gyeongbuk: "경상북도",
-      Jeonbuk: "전라북도",
-      Sejong: "세종",
-      Seoul: "서울",
-      Chungnam: "충청남도",
-      Gyeongnam: "경상남도",
-      Jeonnam: "전라남도",
-      Ulsan: "울산"     
-    };
+        const localToKorean = {
+            Busan: "부산",
+            Daegu: "대구",
+            Daejeon: "대전",
+            Gangwon: "강원도",
+            Gwangju: "광주",
+            Gyeonggi: "경기도",
+            Incheon: "인천",
+            Jeju: "제주도",
+            Chungbuk: "충청북도",
+            Gyeongbuk: "경상북도",
+            Jeonbuk: "전라북도",
+            Sejong: "세종",
+            Seoul: "서울",
+            Chungnam: "충청남도",
+            Gyeongnam: "경상남도",
+            Jeonnam: "전라남도",
+            Ulsan: "울산"     
+        };
 
-  const localKorean = localToKorean[local] || local;
+        const localKorean = localToKorean[local] || local;
 
-      return (
-          <Container>
-            <div className='view-container'>
-              <div className='title'>
-                {title}
-                <div className='button-container'>
-                  <button className='edit' onClick={toggleMenu}>
-                    <AiOutlineMore className='edit' onClick={toggleMenu} />
+        return (
+            <Container>
+              <div className='view-container'>
+                <div className='title'>
+                  {title}
+                  <div className='button-container'>
+                    <button className='edit' onClick={toggleMenu}>
+                      <AiOutlineMore className='edit' onClick={toggleMenu} />
+                    </button>
+                    {showMenu && (
+                      <div className='menu'>
+                        <button onClick={handleEditClick}>
+                          <AiOutlineEdit /> 수정
+                        </button>
+                        <button onClick={handleDeleteClick}>
+                          <AiOutlineDelete /> 삭제
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <button onClick={() => navigate(`/user/${nickname}`)} className='nickname'>
+                  {nickname}
+                </button>
+                <div className='date'>{formattedDate}</div>
+                <div className='location'>
+                  <HiOutlineMapPin />
+                  <button onClick={() => navigate("/post-list/" + local)} className='location-name'>
+                    {localKorean}
                   </button>
-                  {showMenu && (
-                    <div className='menu'>
-                      <button onClick={handleEditClick}>
-                        <AiOutlineEdit /> 수정
-                      </button>
-                      <button onClick={handleDeleteClick}>
-                        <AiOutlineDelete /> 삭제
-                      </button>
-                    </div>
-                  )}
                 </div>
                 <div className='border1' />
                 <div className='schedule'>
@@ -202,54 +213,9 @@ function PostView() {
                         <p>null</p>
                     )}
               </div>
-              <button onClick={() => navigate(`/user/${nickname}`)} className='nickname'>
-                {nickname}
-              </button>
-              <div className='date'>{formattedDate}</div>
-              <div className='location'>
-                <HiOutlineMapPin />
-                <button onClick={() => navigate("/post-list/" + local)} className='location-name'>
-                  {localKorean}
-                </button>
-              </div>
-              <div className='border1' />
-              <div className='schedule'>
-                {schedules && schedules.length > 0 ? (
-                  <ScheduleList scheduleData={schedules} />
-                ) : null}
-              </div>
-              <ReactQuill
-                value={contents}
-                readOnly={true}
-                theme={'bubble'}
-              />
-              <div className="summary-box">
-                  <p className="summary">요약</p>
-                  <p className="summary-contents">{summary}</p>
-              </div>
-              <div className='hashtags'>
-                  {Array.isArray(hashtags) ? (
-                      <HashtagList hashtags={hashtags} />
-                  ) : (
-                      <p>null</p>
-                  )}
-              </div>
-              {/* <CommentList
-                comments={comments}
-                onEdit={handleEditClick}
-                onDelete={handleDeleteClick}
-                newComment={newComment}
-                setNewComment={setNewComment}
-              /> */}
-              {Array.isArray(comments) ? (
-                      <CommentList comments={comments}/>
-                  ) : (
-                      <p>null</p>
-                  )}
-            </div>
-            <Button />
-          </Container>
-      );
+              <Button />
+            </Container>
+        );
     } else {
         return <div>Loading...</div>;
     }

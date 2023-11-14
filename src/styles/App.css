@@ -7,10 +7,10 @@
   src: url('../assets/font/Inter/Inter-VariableFont_slnt\,wght.ttf') format('truetype');
 }
 
-/* @font-face {
+@font-face {
   font-family: 'BMHANNA';
   src: url('../assets/font/BMHANNA_11yrs_ttf.ttf') format('truetype');
-} */
+}
 
 .body {
   padding: 1.1rem 1.2rem;
