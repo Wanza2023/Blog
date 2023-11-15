@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import data from "../../../CommentData.json";
 import { useRecoilState } from 'recoil';
 import { nickNameState } from '../../common/AuthState';
-import '../../../styles/pages/PostView.css'
+import '../../../styles/component/Comment.css'
 
 const Comments = styled.div`
     margin-top: 2vh;
