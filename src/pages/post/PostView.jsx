@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
-import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
+import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete,AiOutlineFlag } from 'react-icons/ai';
 import { HiOutlineMapPin } from 'react-icons/hi2';
 import ScheduleList from '../../component/ui/contents/schedule/ScheduleList';
 import HashtagList from '../../component/ui/contents/hashtag/HashtagList';
@@ -23,11 +23,15 @@ const Container = styled.div`
 function PostView() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);  // 수정 삭제 toggle
-  const { nickname, boardId } = useParams();
+  const { nickname, boardId } = useParams();  // nickname 게시글 작성자 닉네임
   const [posts, setPosts] = useState([]);
-  const [boardNickname,setBoardNickname] = useRecoilState(nickNameState) // 게시글 작성자 닉네임
+  const [userNickname,setUserNickname] = useRecoilState(nickNameState) 
   const [comments, setComments] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
 
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+  }
   // 수정 삭제 toggle 메뉴
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -39,7 +43,7 @@ function PostView() {
   // 게시글 삭제 onClick 
   // 게시글 작성자와 일치한 사용자만 삭제 할 수 있도록 만들 것
   const handleDeleteClick = () => {
-    if(boardNickname !== nickname){
+    if(userNickname !== nickname){
       alert('게시글 작성자만 삭제할 수 있습니다.');
     }
     else{
@@ -59,6 +63,9 @@ function PostView() {
       }
     }
   };
+  const handleReportClick = () => {
+    alert('신고 버튼 클릭');
+  }
   // 게시글 정보 axios get 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -150,7 +157,7 @@ function PostView() {
                 <div className='title'>
                   {title}
                   <div className='button-container'>
-                    <button className='edit' onClick={toggleMenu}>
+                    {/* <button className='edit' onClick={toggleMenu}>
                       <AiOutlineMore className='edit' onClick={toggleMenu} />
                     </button>
                     {showMenu && (
@@ -162,17 +169,58 @@ function PostView() {
                           <AiOutlineDelete /> 삭제
                         </button>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
-                <button onClick={() => navigate(`/user/${nickname}`)} className='nickname'>
-                  {nickname}
-                </button>
-                <div className='date'>{formattedDate}</div>
-                <div className='location'>
-                  <HiOutlineMapPin />
-                  <button onClick={() => navigate("/post-list/" + local)} className='location-name'>
-                    {localKorean}
+                <div className='topcontainer'>
+                  <button onClick={() => navigate(`/user/${nickname}`)} className='nickname'>
+                    {nickname}
+                  </button>
+                  <div className='date'>{formattedDate}</div>
+                  <div className='location'>
+                    <HiOutlineMapPin />
+                    <button onClick={() => navigate("/post-list/" + local)} className='location-name'>
+                      {localKorean}
+                    </button>
+                  </div>
+                  <button className='edit' aria-expanded={isExpanded} onClick={toggleExpanded}>
+                    <AiOutlineMore className='edit'/>
+                    {isExpanded && (
+                      <div className='overflow_menu'>
+                        {userNickname === nickname ? (
+                          <>
+                            <div className='overflow_menu_div'>
+                              <button className='overflow_menu_btn' onClick={handleEditClick}>
+                                <div className='overflow_menu_btn_div'>수정</div>
+                                <div><AiOutlineEdit /></div>
+                              </button>
+                            </div>
+                            <button className='overflow_menu_btn' onClick={handleDeleteClick}>
+                              <div className='overflow_menu_btn_div'>삭제</div>
+                              <div><AiOutlineDelete /></div>
+                            </button>
+                          </>
+                        ) : (
+                          <div className='overflow_menu_div'>
+                            <button className='overflow_menu_btn' onClick={handleReportClick}>
+                              <div className='overflow_menu_btn_div'>신고</div>
+                              <div><AiOutlineFlag /></div>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {/* {isExpanded && (
+                      <div className='overflow_menu'>
+                        <div className='overflow_menu_div'><button className='overflow_menu_btn' onClick={handleEditClick}><div className='overflow_menu_btn_div'>수정</div><div><AiOutlineEdit /></div></button></div>
+                        <button className='overflow_menu_btn' onClick={handleDeleteClick}><div className='overflow_menu_btn_div'>삭제</div><div><AiOutlineDelete /></div></button>
+                      </div>
+                    )} */}
+                    {/* {isExpanded && (
+                      <div className='overflow_menu'>
+                        <div className='overflow_menu_div'><button className='overflow_menu_btn' onClick={handleReportClick}><div className='overflow_menu_btn_div'>신고</div><div><AiOutlineFlag /></div></button></div>
+                      </div>
+                    )} */}
                   </button>
                 </div>
                 <div className='border1' />
