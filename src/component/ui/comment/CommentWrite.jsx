@@ -2,6 +2,7 @@ import React from 'react';
 import { BiUserCircle } from "react-icons/bi";
 import { useAuth } from '../../common/useAuth';
 import styled from 'styled-components';
+import '../../../styles/component/Comment.css'
 
 const UserContainer = styled.div`
     display: flex;

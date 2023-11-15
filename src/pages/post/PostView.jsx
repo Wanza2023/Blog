@@ -222,7 +222,6 @@ function PostView() {
                       </div>
                     )} */}
                   </button>
-                    
                 </div>
                 <div className='border1' />
                 <div className='schedule'>
