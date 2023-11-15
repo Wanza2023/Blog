@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaBookmark, FaChartBar, FaUserEdit } from 'react-icons/fa';
+import BookmarkList from '../../component/ui/personal/BookmarkList';
 import PasswordModal from '../../component/ui/personal/PasswordModal';
 import UserProfileEdit from '../../component/ui/personal/UserProfileEdit';
 import Button from '../../component/common/Button';
@@ -48,7 +49,7 @@ const PersonalEdit = () => {
     const renderContent = () => {
         switch (Menu) { // 상태 변수 값에 따라 나누기
         case 'bookmark':
-            return 
+            return <BookmarkList onSaveChanges={handleSaveChanges} />;
         case 'stats':
             return 
         case 'edit':

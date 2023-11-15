@@ -178,7 +178,7 @@ const CommentList = ({comments, setComments}) => {
                 setIsPublic={setIsPublic}
                 isPublic={isPublic}
             />
-            {comments.length > 0 && <div className='border4'/>}
+            {comments.length > 0 && <div className='border4' />}
             <CommentListItem
                 comment={reversedComments}
                 editingComment={editingComment}
