@@ -166,7 +166,7 @@ const CommentList = ({comments, setComments}) => {
                 setIsPublic={setIsPublic}
                 isPublic={isPublic}
             />
-            {/* <div className='border4' /> 댓글 있을 때만 뜨게 바꾸기 */}
+            {comments.length > 0 && <div className='border4' />}
             <CommentListItem
                 comment={reversedComments}
                 editingComment={editingComment}
