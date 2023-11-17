@@ -1,10 +1,16 @@
-import React, { useState} from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import "../../styles/pages/SignUp.css";
 import { useNavigate } from "react-router-dom";
 
 function SignUp(props){
     const navigate = useNavigate();
+
+    // 입력 누락 확인
+    const emailRef = useRef(null);
+    const pwdRef = useRef(null);
+    const confirmPwdRef = useRef(null);
+    const nameRef = useRef(null);
 
     const [useCheck, setUseCheck] = useState(false);
     const [infoCheck, setInfoCheck] = useState(false);
@@ -173,9 +179,33 @@ function SignUp(props){
     }
     // 회원가입시 정보 모두 입력안할시 Error
     const handleError = () => {
-        //회원가입시 정보 모두 입력 안하면 alert창 띄우기
-        alert("정보를 전부 입력해주세요");
-    }
+        if (email === "") {
+            let message = "이메일을 입력해주세요.";
+            setEmailMessage("이메일을 입력해주세요.");
+            emailRef.current.focus();
+            alert(message);
+            return;
+        } else if (pwd === "") {
+            let message = "비밀번호를 입력해주세요.";
+            setPwdMessage("비밀번호를 입력해주세요.");
+            pwdRef.current.focus();
+            alert(message);
+            return;
+        } else if (confirmPwd === "") {
+            let message = "비밀번호 확인을 입력해주세요.";
+            setConfirmPwdMessage("비밀번호 확인을 입력해주세요.");
+            confirmPwdRef.current.focus();
+            alert(message);
+            return;
+        } else if (name === "") {
+            let message = "닉네임을 입력해주세요.";
+            setNameMessage("닉네임을 입력해주세요.");
+            nameRef.current.focus();
+            alert(message);
+            return;
+        }
+    };
+    
 
     return(
         <div className="background">
@@ -183,24 +213,24 @@ function SignUp(props){
                 <div className="signUp-form">
                     <div className="signUp-field">
                         <label>이메일(아이디) *</label>
-                        <input type="email" name="mail" id="mail" value={email} onChange={onChangeEmail} 
+                        <input type="email" name="mail" id="mail" value={email} onChange={onChangeEmail} ref={emailRef}
                         placeholder="이메일을 입력하세요" />
                         <p className={`${totConfirm[0] ? 'signup-submit-message-isok':'signup-submit-message'}`}>{emailMessage}</p>
                     </div>
                     <div className="signUp-field">
                         <label>비밀번호 *</label>
-                        <input type="password" name="pwd" id="pwd" maxLength={20} value={pwd} onChange={onChangePwd} placeholder="비밀번호를 입력하세요"/>
+                        <input type="password" name="pwd" id="pwd" maxLength={20} value={pwd} onChange={onChangePwd} ref={pwdRef} placeholder="비밀번호를 입력하세요"/>
                         <p className={`${totConfirm[2] ? 'signup-submit-message-isok':'signup-submit-message'}`}>{pwdMessage}</p>
                     </div>
                     <div className="signUp-field">
                         <label>비밀번호 확인 *</label>
-                        <input type="password" name="confPwd" id="confPwd" maxLength={20} value={confirmPwd} onChange={onChangeConfirmPwd} placeholder="비밀번호를 입력하세요"/>
+                        <input type="password" name="confPwd" id="confPwd" maxLength={20} value={confirmPwd} onChange={onChangeConfirmPwd} ref={confirmPwdRef} placeholder="비밀번호를 입력하세요"/>
                         <p className={`${totConfirm[3] ? 'signup-submit-message-isok':'signup-submit-message'}`}>{confirmPwdMessage}</p>
                     </div>
                     <div className="signUp-field">
                         <label>닉네임 *</label>
                         <div className="nameConfirm">
-                            <input type="text" name="name" id="name" value={name} onChange={onChangeName} placeholder="닉네임을 입력하세요"/>
+                            <input type="text" name="name" id="name" value={name} onChange={onChangeName} ref={nameRef} placeholder="닉네임을 입력하세요"/>
                             <button onClick={handleDoubleCheck}>중복확인</button>
                         </div>
                         <p className={`${totConfirm[1] ? 'signup-submit-message-isok':'signup-submit-message'}`}>{nameMessage}</p>

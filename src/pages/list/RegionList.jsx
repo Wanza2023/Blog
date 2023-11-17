@@ -9,7 +9,7 @@ import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
 import Pagination from "react-js-pagination";
 
-function PostList() {
+function RegionList() {
   const { regionName } = useParams(); // useParams로 url에서 파라미터 추출
   const [posts, setPosts] = useState([]); // 게시글 담을 배열 생성
   const [count, setCount] = useState(0); // 아이템 총 개수
@@ -88,4 +88,4 @@ function PostList() {
   )
 }
 
-export default PostList;
+export default RegionList;
