@@ -19,3 +19,8 @@ export const searchResultsState = atom({
     key: 'searchResultsState',
     default: [],
 });
+
+export const tagListState = atom({
+    key: 'tagListResultState',
+    default: [],
+})

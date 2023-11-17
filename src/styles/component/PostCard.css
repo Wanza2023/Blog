@@ -2,6 +2,10 @@
     font-size: 0.8rem;
 }
 
+.hashtagWrapper {
+    display: grid;
+}
+
 .hashtagBox {
     float: left;
     margin-right: 1vw;
