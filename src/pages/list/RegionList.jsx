@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { searchResultsState } from "../../component/common/AuthState";
+import { hashtagListState, searchResultsState } from "../../component/common/AuthState";
 import { useRecoilValue } from 'recoil';
 import PostCard from '../../component/ui/list/PostCard';
 import Button from "../../component/common/Button";
@@ -16,6 +16,8 @@ function RegionList() {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
   const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수 
   const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
+  const searchResults = useRecoilValue(searchResultsState); // Recoil 상태 관리에서 검색 전역 관리
+  const hashtagList = useRecoilValue(hashtagListState);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,17 +45,13 @@ function RegionList() {
             if (response.data && response.data.body && Array.isArray(response.data.body)) {
                 const Data = response.data.body
                 setPosts(Data);
+                console.log("메인에서 지역 누른 데이터 " + Data);
                 setCount(Data.length)
                 const indexOfLastPost = currentPage * postPerPage;
                 const indexOfFirstPost = indexOfLastPost - postPerPage;
                 setCurrentPosts(Data.slice(indexOfFirstPost,indexOfLastPost));
-                // const reversedData = response.data.body.reverse();
-                // setPosts(reversedData);
-                // setCount(reversedData.length);
-                // const indexOfLastPost = currentPage * postPerPage;
-                // const indexOfFirstPost = indexOfLastPost - postPerPage;
-                // setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
-            } else {
+            } 
+            else {
             }
         } catch (e) {
             console.error(e);
@@ -63,22 +61,66 @@ function RegionList() {
     fetchData();
   }, [regionName, currentPage, postPerPage]);
 
-    const searchResults = useRecoilValue(searchResultsState); // Recoil 상태 관리에서 검색 전역 관리
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //         try {
+  //             let newData;
+  //             if (regionName) {
+  //                 const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/local/${regionName}`);
+  //                 newData = response.data.body;
+  //             } else if (tagList.length > 0) {
+  //                 newData = tagList;
+  //             } else if (searchResults.length > 0) {
+  //                 newData = searchResults;
+  //             } else {
+  //                 // Handle the case when none of the conditions are true
+  //                 newData = [];
+  //             }
 
-    useEffect(() => { // 검색 결과가 있을 때 posts와 count 업데이트
-      if (searchResults.length > 0) {
-        setPosts(searchResults);
-        setCount(searchResults.length)
-        const indexOfLastPost = currentPage * postPerPage;
-        const indexOfFirstPost = indexOfLastPost - postPerPage;
-        setCurrentPosts(searchResults.slice(indexOfFirstPost,indexOfLastPost));
-      } else {
-      }
-    }, [regionName, currentPage, postPerPage, searchResults]);
+  //             setPosts(newData);
+  //             setCount(newData.length);
+
+  //             const indexOfLastPost = currentPage * postPerPage;
+  //             const indexOfFirstPost = indexOfLastPost - postPerPage;
+  //             setCurrentPosts(newData.slice(indexOfFirstPost, indexOfLastPost));
+
+  //         } catch (e) {
+  //             console.error(e);
+  //             alert('Error: 데이터를 불러올 수 없습니다');
+  //         }
+  //     };
+
+  //     fetchData();
+  // }, [regionName, currentPage, postPerPage, searchResults, tagList]);
+
+    
+    // useEffect(() => { // 검색 결과가 있을 때 posts와 count 업데이트
+    //   if (searchResults.length > 0) {
+    //     setPosts(searchResults);
+    //     console.log(searchResults);
+    //     setCount(searchResults.length)
+    //     const indexOfLastPost = currentPage * postPerPage;
+    //     const indexOfFirstPost = indexOfLastPost - postPerPage;
+    //     setCurrentPosts(searchResults.slice(indexOfFirstPost,indexOfLastPost));
+    //   } else {
+    //   }
+    // }, [regionName, currentPage, postPerPage, searchResults]);
+
+    // useEffect(() => { // 검색 결과가 있을 때 posts와 count 업데이트
+    //   if (tagList.length > 0) {
+    //     setPosts(tagList);
+    //     console.log("해시태그 검색" + tagList);
+    //     setCount(tagList.length)
+    //     const indexOfLastPost = currentPage * postPerPage;
+    //     const indexOfFirstPost = indexOfLastPost - postPerPage;
+    //     setCurrentPosts(tagList.slice(indexOfFirstPost,indexOfLastPost));
+    //   } else {
+    //   }
+    // }, [regionName, currentPage, postPerPage, tagList]);
 
   return (
     <div className="wrapper">
-      {currentPosts && posts.length > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
+      {currentPosts && (posts.length || hashtagList.length || searchResults.length) > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
       <Paging page={currentPage} count={count} setPage={setPage}/>
