@@ -4,18 +4,18 @@ import axios from "axios";
 import "../../../styles/component/PostCard.css";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { tagListState } from "../../common/AuthState";
+import { hashtagListState } from "../../common/AuthState";
 
 function PostCard(props){
 
     const navigate = useNavigate()
 
-    const [tagList, setTagList] = useRecoilState(tagListState)
+    const [hashtagList, setHashTagList] = useRecoilState(hashtagListState)
 
     const onClickHashtagSearch = async (hashtag) => {
         try{
             const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/tags/${hashtag}`);
-            setTagList(response.data.body.reverse() || []);
+            setHashTagList(response.data.body.reverse() || []);
             navigate(`/board/search/${hashtag}`);
         }
         catch (error) {

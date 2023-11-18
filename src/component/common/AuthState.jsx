@@ -20,7 +20,12 @@ export const searchResultsState = atom({
     default: [],
 });
 
-export const tagListState = atom({
-    key: 'tagListResultState',
+// export const tagListState = atom({
+//     key: 'tagListResultState',
+//     default: [],
+// })
+
+export const hashtagListState = atom({
+    key: 'hashtagListState',
     default: [],
-})
+});

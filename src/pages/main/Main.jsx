@@ -191,7 +191,7 @@ export default function MainPage() {
                 >
                 {region.map((region)=>(
                     <path key={region.id}
-                        onClick={() => navigate("/post-list/" + region.name)}
+                        onClick={() => navigate("/regionList/" + region.name)}
                         className='land'
                         id={region.id}
                         name={region.name}

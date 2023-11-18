@@ -4,7 +4,8 @@ import SignIn from "./pages/sign/SignIn";
 import SignUp from "./pages/sign/SignUp";
 import Main from "./pages/main/Main";
 import PostWrite from "./pages/post/PostWrite";
-import PostList from "./pages/post/PostList";
+import PostList from "./pages/list/PostList";
+import RegionList from "./pages/list/RegionList";
 import PostView from "./pages/post/PostView";
 import PersonalHome from './pages/personal/PersonalHome';
 import Navbar from "./component/common/Navbar";
@@ -23,8 +24,9 @@ function App() {
             <Route index element={<Main />} />
             <Route path="/:land" element={<Main />} />
             <Route path="board/search/:searchTerm" element={<PostList />} />
+            <Route path="board/tags/:hashtag" element={<PostList />} />
             <Route path="write" element={<PostWrite />} />
-            <Route path="post-list/:regionName" element={<PostList />} />
+            <Route path="regionList/:regionName" element={<RegionList />} />
             <Route path="/:nickname/:boardId" element={<PostView />} />
             <Route path="login" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
