@@ -16,7 +16,7 @@ function PostCard(props){
         try{
             const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/tags/${hashtag}`);
             setHashTagList(response.data.body.reverse() || []);
-            navigate(`/board/search/${hashtag}`);
+            navigate(`/board/tags/${hashtag}`);
         }
         catch (error) {
             console.error("Failed to fetch search results:", error);
