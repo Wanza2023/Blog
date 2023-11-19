@@ -59,7 +59,7 @@ function SignUp(props){
     // 닉네임 중복 확인
     const handleDoubleCheck = () => {
         axios
-            .get("http://172.16.210.130:8081/members")
+            .get(`${process.env.REACT_APP_MEMBER_API_KEY}`)
             .then(res=>{
                 const nickNames = res.data.body.map(item => item.nickName);
                 if (nickNames.includes(name)) {

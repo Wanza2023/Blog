@@ -87,7 +87,7 @@ function SignIn(props){
                     </div>
                     <div className="login-etc">
                         <button className="signUpBtn" onClick={()=> {navigate("/signup")}}>회원가입</button>
-                        <button className="pwdSearch">비밀번호 찾기</button>
+                        <button className="pwdSearch" onClick={()=>{navigate("/pwInquiry")}}>비밀번호 찾기</button>
                     </div>
                 </div>
                 <div className="hr-sect">간편 로그인</div>
