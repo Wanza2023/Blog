@@ -15,6 +15,7 @@
     font-size: 0.9rem;
     text-align: center;
     padding: 0.5rem;
+    cursor: pointer;
 }
 
 .cards {
@@ -24,6 +25,7 @@
     text-decoration: none;
     color: black;
     border-bottom: 1px solid gray;
+    cursor: pointer;
 }
 
 .noImg {
