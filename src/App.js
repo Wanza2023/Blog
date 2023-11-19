@@ -12,6 +12,7 @@ import Navbar from "./component/common/Navbar";
 import { RecoilRoot } from "recoil";
 import SelectLocation from "./component/ui/contents/schedule/SelectLocation";
 import PersonalEdit from "./pages/personal/PersonalEdit";
+import PasswordFind from "./pages/sign/PasswordFind";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="user/:nickname" element={<PersonalHome/>} />
             <Route path="selectlocation" element={<SelectLocation/>}/>
             <Route path="personaledit" element={<PersonalEdit />}/>
+            <Route path='pwInquiry'element={<PasswordFind/>}/>
           </Routes>
         </div>
       </BrowserRouter>

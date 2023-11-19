@@ -64,7 +64,7 @@ const Navbar = () => {
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('nickName');
         // sessionStorage.clear();
-        navigate(0,{replace : true});
+        // navigate(0,{replace : true});
     };
     return (
         <nav className="navbar">
