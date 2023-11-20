@@ -3,26 +3,6 @@
     align-items: flex-start;
     justify-content: space-around;
     margin: 15rem auto;
-    max-width: 50vw;
-}
-
-.userProfileEdit .profileImage {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.userIcon {
-    font-size: 500px; 
-}
-
-.imageEdit {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 5px;
-    cursor: pointer;
 }
 
 .profileChange {
@@ -32,11 +12,23 @@
     width: 100%;
 }
 
+.inputContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.label {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
 .profileChange input {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    width: 100%;
 }
 
 .buttonContainer {
@@ -53,7 +45,17 @@
     cursor: pointer;
     height: 4vh;
 }
-  
+
+.borderUnsubscribe{
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+.unsubscribeContainer {
+    display: flex;
+    justify-content: center;
+}
+
 .unsubscribeButton {
     border: 1px solid #f83434;
     background-color: white;

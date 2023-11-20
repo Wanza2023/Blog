@@ -63,7 +63,7 @@ const Navbar = () => {
         setIsLoggedIn(false);
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('nickName');
-        // sessionStorage.clear();
+        sessionStorage.clear();
         // navigate(0,{replace : true});
     };
     return (
@@ -97,7 +97,7 @@ const Navbar = () => {
                                 <li className="optionListItem"><Link to="/">계정관리</Link></li>
                                 <li className="optionListItem" ><Link to={`/user/${nickName}`}>나의 블로그홈</Link></li>
                                 <li className="optionListItem"><Link to="/personaledit">블로그관리</Link></li>
-                                <li className="optionListItem"><button onClick={handleLogout}>로그아웃</button></li>
+                                <li className="optionListItem"><button className="logoutButton" onClick={handleLogout}>로그아웃</button></li>
                             </div>
                             )
                         }

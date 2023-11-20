@@ -179,7 +179,7 @@ function PostView() {
                   <div className='date'>{formattedDate}</div>
                   <div className='location'>
                     <HiOutlineMapPin />
-                    <button onClick={() => navigate("/post-list/" + local)} className='location-name'>
+                    <button onClick={() => navigate("/regionList/" + local)} className='location-name'>
                       {localKorean}
                     </button>
                   </div>

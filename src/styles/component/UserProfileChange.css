@@ -1,0 +1,96 @@
+.userProfileChange {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 15rem auto;
+    max-width: 50vw;
+    gap: 15rem;
+}
+
+.userProfileChange .profileImage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: -10rem;
+}
+
+.userIcon {
+    font-size: 500px; 
+}
+
+.imageEdit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.profileChangeBox {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    width: 100%;
+}
+
+.profileField {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.fieldLabel {
+    width: 30%;
+    margin-right: 10px;
+}
+
+.dataField, .profileChangeBox input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 70%;
+    text-align: center;
+}
+
+.storedNickname {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: -0.5rem;
+}
+
+.storedInfo {
+    text-align: center;
+}
+
+.profileChangeBox input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.submitButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1vh;
+}
+  
+.saveButton {
+    border: none;
+    background-color: #5585FF;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 4vh;
+}
+
+.nicknameButton {
+    border: none;
+    background-color: #5585FF;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}

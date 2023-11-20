@@ -12,14 +12,14 @@ const BookmarkListItem = ({ post }) => {
 
     return (
         <Link to = {`/${post.nickname}/${post.boardId}`}>
-            <div className="bookmark-item">
-                <FaBookmark className="bookmark-icon" />
+            <div className="bookmark-items">
+                <FaBookmark className="bookmark-icons" />
                 {imgSrc !== "default-image-url.jpg" ? (
-                    <img src={imgSrc} alt={post.title} className="img" />
+                    <img src={imgSrc} alt={post.title} className="imgs" />
                 ) : (
-                    <div className="noImg"></div> 
+                    <div className="noImgs"></div> 
                 )}
-                <div className="bookmark-summary">
+                <div className="bookmark-summarys">
                     <h2>{post.title}</h2>
                     {/* <p>{post.summary}</p> */}
                 </div>
