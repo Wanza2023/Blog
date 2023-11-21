@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilState } from 'recoil';
-import { nickNameState } from '../../common/AuthState';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { bookmarkResultState, nickNameState } from '../../common/AuthState';
 import axios from 'axios';
 import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
@@ -24,6 +24,9 @@ const CommentList = ({comments, setComments}) => {
     const [commentNickname,setCommentNickname] = useRecoilState(nickNameState);
     const [comment, setComment] = useState([]);
     const [isPublic, setIsPublic] = useState(true); // 댓글 공개 비공개 설정
+
+    const [bookmarkState, setBookmarkState] = useRecoilState(bookmarkResultState);
+    console.log(bookmarkState);
 
     // useEffect(() => {
     //     const comments = data.filter((item) => item.boardId == boardId); // boardid가 같은 것만 저장
@@ -65,16 +68,11 @@ const CommentList = ({comments, setComments}) => {
     const addComments = async () => {
         try {
             if(isLoggedIn) {
-                const token = sessionStorage.getItem('token');
                 const postResponse = await axios.post(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}`,{
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                body: {
                     nickname : commentNickname,
                     content : newComment,
                     status : isPublic
-                }});
+                });
 
                 if (postResponse.status === 200) {
                     alert('댓글을 성공적으로 등록하였습니다! ^o^');
@@ -155,7 +153,6 @@ const CommentList = ({comments, setComments}) => {
         updatedLikedStates[commentIndex] = !updatedLikedStates[commentIndex];
         setIsLikedStates(updatedLikedStates);
     };
-    const [bookmarkState, setBookmarkState] = useState(false);
 
     const onClickBookmark = () => {
         setBookmarkState(!bookmarkState);
@@ -206,7 +203,8 @@ const CommentList = ({comments, setComments}) => {
                 </div>
                 <div className='comments-bookmarker'>
                     {/* <button className='comments-bookmarker-btn' onClick={handleOnClickBookMarker} ><BiBookmark /></button> */}
-                    {bookmarkState ? <IoBookmark size={30} onClick={onClickBookmark} color="#5076FF" /> : <IoBookmarkOutline size={30} onClick={onClickBookmark} /> }                </div>
+                    {bookmarkState ? <IoBookmark size={30} onClick={onClickBookmark} color="#5076FF" /> : <IoBookmarkOutline size={30} onClick={onClickBookmark} /> }                
+                </div>
             </div>
             <div className='border3' />
             <CommentWrite

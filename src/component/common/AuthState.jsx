@@ -29,3 +29,8 @@ export const hashtagListState = atom({
     key: 'hashtagListState',
     default: [],
 });
+
+export const bookmarkResultState = atom({
+    key: 'bookmarkResultState',
+    default: null,
+});
