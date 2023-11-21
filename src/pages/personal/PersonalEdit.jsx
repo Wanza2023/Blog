@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { FaBookmark, FaChartBar, FaUserEdit } from 'react-icons/fa';
+import { FaBookmark, FaChartBar, FaUserEdit, FaUserCog } from 'react-icons/fa';
 import BookmarkList from '../../component/ui/personal/BookmarkList';
 import PasswordModal from '../../component/ui/personal/PasswordModal';
+import UserProfileChange from '../../component/ui/personal/UserProfileChange';
 import UserProfileEdit from '../../component/ui/personal/UserProfileEdit';
 import Button from '../../component/common/Button';
 import '../../styles/pages/PersonalEdit.css'
@@ -9,28 +10,44 @@ import '../../styles/pages/PersonalEdit.css'
 const PersonalEdit = () => {
     const [Menu, setMenu] = useState('bookmark'); // 상태 변수 menu, 초기값 북마크 설정
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+    const [confirmPassword, setconfirmPassword] = useState(false);
+    const [resetPassword, setResetPassword] = useState(false);
 
     const handleSaveChanges = (updatedProfile) => {
         // API
     };
     
-    const handlePasswordSubmit = (password) => { // 모달에서 넘겨받은 비밀번호 처리
-        setIsPasswordModalOpen(false);
-        setMenu('edit');
-    };
-
     const handleMenuClick = (menuId) => {
-        if (menuId === 'edit') { // 회원 정보 수정 클릭 시 비밀번호 모달
+        if (menuId === 'edit') {
+            // Change to 회원 정보 수정 tab, then show modal
+            setMenu('edit');
             setIsPasswordModalOpen(true);
+            setResetPassword(prev => !prev);
         } else {
             setMenu(menuId);
+            setconfirmPassword(false);
+            if (isPasswordModalOpen) {
+                setIsPasswordModalOpen(false);
+            }
         }
     };
+
+    const handlePasswordSubmit = (password) => { // 모달에서 넘겨받은 비밀번호 처리
+        setIsPasswordModalOpen(false);
+        setconfirmPassword(true);
+    };
+
+    const onRequestCloseModal = () => {
+        setIsPasswordModalOpen(false);
+        setconfirmPassword(false);
+    };
+
 
     const menuItems = {
         bookmark: { Icon: FaBookmark, label: "북마크" },
         stats: { Icon: FaChartBar, label: "방문자 통계" },
-        edit: { Icon: FaUserEdit, label: "회원 정보 수정" },
+        change: { Icon: FaUserEdit, label: "회원 정보 수정" },
+        edit: { Icon: FaUserCog, label: "비밀번호 변경 및 탈퇴" }
     };
 
     const MenuItem = ({ menuId }) => {
@@ -52,8 +69,12 @@ const PersonalEdit = () => {
             return <BookmarkList onSaveChanges={handleSaveChanges} />;
         case 'stats':
             return 
+        case 'change':
+            return <UserProfileChange onSaveChanges={handleSaveChanges} />;
         case 'edit':
-            return <UserProfileEdit onSaveChanges={handleSaveChanges} />;
+            if (confirmPassword) {
+                return <UserProfileEdit onSaveChanges={handleSaveChanges} />;
+            }
         }
     };
 
@@ -61,8 +82,9 @@ const PersonalEdit = () => {
         <>
             <PasswordModal
                 isOpen={isPasswordModalOpen}
-                onRequestClose={() => setIsPasswordModalOpen(false)}
+                onRequestClose={onRequestCloseModal}
                 onPasswordSubmit={handlePasswordSubmit}
+                resetPassword={resetPassword}
             />
             <div className="menuHeader">
                 <span className="menuTitle">{menuItems[Menu].label}</span>

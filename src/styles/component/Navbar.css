@@ -130,6 +130,9 @@
     cursor: pointer;
 }
 
+.logoutButton {
+    cursor: pointer;
+}
 /* .optionListItem button {
     border: none;
     background-color: white;
