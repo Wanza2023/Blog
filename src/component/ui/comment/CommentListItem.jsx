@@ -121,8 +121,10 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
     function convertTime(date) {
         date = new Date(date);
         let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
-        let dateOffset = new Date(date.getTime() - offset);
-        return dateOffset.toISOString();
+        let dateOffset = new Date(date.getTime() - 2*offset);
+        let formattedDate = dateOffset.toISOString().replace("T", " ").replace(/\.\d{3}Z$/, "");
+        // return dateOffset.toISOString();
+        return formattedDate;
     }
 
     return (
@@ -182,7 +184,8 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                             </> :
                             <>{commentItem.content}</>
                         }
-                        <div><br />{convertTime(commentItem.createdAt).split("T")[0]}</div>
+                        {/* <div><br />{convertTime(commentItem.createdAt).replace("T", " ").replace(/\.\d{3}Z$/, "")}</div> */}
+                        <div><br />{convertTime(commentItem.createdAt)}</div>
                     </CommentsList>
                 </Comments>
             ))}

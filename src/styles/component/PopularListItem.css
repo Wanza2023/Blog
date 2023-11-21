@@ -1,6 +1,6 @@
 .popular-post {
     height: 30vh;
-    margin: 0 10px;
+    margin: 1.8rem 10px;
     position: relative;
 }
 
@@ -29,12 +29,13 @@
 }
 
 .post-contents {
-    padding: 0 8px;
     position: absolute;
+    width: 80%;
     bottom: 0;
     left: 0;
     cursor: pointer;
     text-align: center;
+    left:10%;
 }
 
 .popular-post h2 {

@@ -112,7 +112,7 @@ const PersonalHome = () => {
     }, [nickName, currentPage, postPerPage, nickname]);
     
     return (
-        <div>
+        <div className='personal_wrapper'>
             <div className='personal_profile'>
                 <img src={personal_profile_icon} alt="personal_profile_icon"/>
                 <h2>{nickname}</h2>

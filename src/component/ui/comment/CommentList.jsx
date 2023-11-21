@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState } from 'recoil';
 import { nickNameState } from '../../common/AuthState';
@@ -10,7 +10,7 @@ import '../../../styles/component/Comment.css'
 import { IoBookmarkOutline } from "react-icons/io5";
 import { IoBookmark } from "react-icons/io5";
 
-const CommentList = ({comments, setComments}) => {
+const CommentList = ({comments, setComments,bookmark}) => {
     const reversedComments = comments.slice().reverse();
     const navigate = useNavigate();
     // const isLoggedIn = useRecoilValue(isLoggedInState);
@@ -65,16 +65,11 @@ const CommentList = ({comments, setComments}) => {
     const addComments = async () => {
         try {
             if(isLoggedIn) {
-                const token = sessionStorage.getItem('token');
                 const postResponse = await axios.post(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}`,{
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                body: {
                     nickname : commentNickname,
                     content : newComment,
                     status : isPublic
-                }});
+                });
 
                 if (postResponse.status === 200) {
                     alert('댓글을 성공적으로 등록하였습니다! ^o^');
@@ -155,13 +150,11 @@ const CommentList = ({comments, setComments}) => {
         updatedLikedStates[commentIndex] = !updatedLikedStates[commentIndex];
         setIsLikedStates(updatedLikedStates);
     };
-    const [bookmarkState, setBookmarkState] = useState(false);
 
     const onClickBookmark = () => {
-        setBookmarkState(!bookmarkState);
         const token = sessionStorage.getItem('token');
         const memberId = sessionStorage.getItem('memberId'); 
-        if (bookmarkState === false) {
+        if (bookmark === false) {
             axios
                 .post(`${process.env.REACT_APP_BOOKMARK_API_KEY}`, 
                 {
@@ -174,7 +167,7 @@ const CommentList = ({comments, setComments}) => {
                 })
                 .then(
                     res => {
-                        console.log(res);
+                        console.log(res.data);
                     }
                 )
                 .catch(err => {
@@ -189,7 +182,7 @@ const CommentList = ({comments, setComments}) => {
                 })
                 .then(
                     res => {
-                        console.log(res);
+                        console.log(res.data);
                     }
                 )
                 .catch(err => {
@@ -206,7 +199,8 @@ const CommentList = ({comments, setComments}) => {
                 </div>
                 <div className='comments-bookmarker'>
                     {/* <button className='comments-bookmarker-btn' onClick={handleOnClickBookMarker} ><BiBookmark /></button> */}
-                    {bookmarkState ? <IoBookmark size={30} onClick={onClickBookmark} color="#5076FF" /> : <IoBookmarkOutline size={30} onClick={onClickBookmark} /> }                </div>
+                    {bookmark ? <IoBookmark size={30} onClick={onClickBookmark} color="#5076FF" /> : <IoBookmarkOutline size={30} onClick={onClickBookmark} /> }
+                </div>
             </div>
             <div className='border3' />
             <CommentWrite

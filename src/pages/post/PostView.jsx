@@ -112,7 +112,6 @@ function PostView() {
     };
     fetchData();
   }, [boardId, nickname]);
-
   // toISOString() 1일전 날짜 안뜨게 시간 변경
   function convertTime(date) {
     date = new Date(date);
@@ -122,7 +121,7 @@ function PostView() {
   }
 
     if (posts) {
-        const { title, createdAt, local, contents, summary, schedules, hashtags, nickname,bookmark } = posts;
+        const { title, createdAt, local, contents, summary, schedules, hashtags, nickname, bookmark } = posts;
         let createdDate;
         try {
             createdDate = new Date(createdAt);
@@ -262,6 +261,7 @@ function PostView() {
                         <CommentList 
                           comments={comments}
                           setComments={setComments}
+                          bookmark={bookmark}
                         />
                     ) : (
                         <p>null</p>

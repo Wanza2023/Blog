@@ -5,6 +5,8 @@ import { Link,useNavigate,} from "react-router-dom";
 import axios from "axios";
 import '../../styles/component/Navbar.css';
 import travelog_logo from '../../assets/images/travelog_logo.png'
+import travelog_logo_02 from '../../assets/images/travelog_logo_02.png'
+import travelog_logo_03 from '../../assets/images/travelog_logo_03.png'
 import profile_icon from '../../assets/images/profile_icon.png'
 import navigation_icon from '../../assets/images/navigation_icon.png'
 import { useAuth } from "./useAuth";
@@ -69,7 +71,7 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-logo">
-                <Link to="/"><img src={travelog_logo} alt="Travelog Logo" /></Link>
+                <Link to="/"><img className="navbar-logo" src={travelog_logo_02} alt="Travelog Logo" /></Link>
             </div>
             <ul>
                 <li>
