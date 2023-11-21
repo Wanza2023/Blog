@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaBookmark } from 'react-icons/fa';
+import { RxReader } from "react-icons/rx";
 import '../../../styles/component/Bookmark.css';
 
 const BookmarkListItem = ({ post }) => {
@@ -17,7 +18,7 @@ const BookmarkListItem = ({ post }) => {
                 {imgSrc !== "default-image-url.jpg" ? (
                     <img src={imgSrc} alt={post.title} className="imgs" />
                 ) : (
-                    <div className="noImgs"></div> 
+                    <RxReader className="cardimg" color="#BDBDBD" />
                 )}
                 <div className="bookmark-summarys">
                     <h2>{post.title}</h2>

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookmarkListItem from './BookmarkListItem'; // BookmarkListItem 컴포넌트 임포트
-import { useRecoilValue } from 'recoil';
-import { memberIdState } from '../../common/AuthState';
 import '../../../styles/component/Bookmark.css';
 
 const BookmarkList = () => {
     const [posts, setPosts] = useState([]); // 빈 배열로 초기화
-    const memberId = useRecoilValue(memberIdState);
+    const memberId = sessionStorage.getItem('memberId');
     const token = sessionStorage.getItem('token');
 
     useEffect(() => {

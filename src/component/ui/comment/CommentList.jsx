@@ -206,7 +206,7 @@ const CommentList = ({comments, setComments}) => {
                 </div>
                 <div className='comments-bookmarker'>
                     {/* <button className='comments-bookmarker-btn' onClick={handleOnClickBookMarker} ><BiBookmark /></button> */}
-                    {bookmarkState ? <IoBookmark onClick={onClickBookmark} color="#5076FF" /> : <IoBookmarkOutline onClick={onClickBookmark} /> }                </div>
+                    {bookmarkState ? <IoBookmark size={30} onClick={onClickBookmark} color="#5076FF" /> : <IoBookmarkOutline size={30} onClick={onClickBookmark} /> }                </div>
             </div>
             <div className='border3' />
             <CommentWrite
