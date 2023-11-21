@@ -12,24 +12,8 @@
   src: url('../assets/font/BMHANNA_11yrs_ttf.ttf') format('truetype');
 }
 @font-face {
-  font-family: 'Jalnan';
-  src: url('../assets/font/Jalnan.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Cafe24ssurroundair';
-  src: url('../assets/font/Cafe24Ssurroundair.ttf') format('truetype');
-}
-@font-face {
   font-family: 'Cafe24hsquareair';
   src: url('../assets/font/Cafe24Ohsquareair.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Cafe24Simplehae';
-  src: url('../assets/font/Cafe24Simplehae.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Cafe24Ssukssuk';
-  src: url('../assets/font/Cafe24Ssukssuk.ttf') format('truetype');
 }
 
 .body {

@@ -8,6 +8,7 @@ import data from "../../../CommentData.json";
 import { useRecoilState } from 'recoil';
 import { nickNameState } from '../../common/AuthState';
 import '../../../styles/component/Comment.css'
+import { SlLock } from "react-icons/sl";
 
 const Comments = styled.div`
     margin-top: 2vh;
@@ -84,14 +85,15 @@ const CommentsList = styled.div`
     float: left;
     border-bottom: 2px solid #e8e7e7;
     width: 100%;
-    height: 5vh;
+    min-height: 5vh;
     padding-bottom: 1vw;
     margin-bottom: 2vh;
     text-align: left;
     font-size: 0.9rem;
 
     .secretComment {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
     }
 
     > div {
@@ -177,7 +179,7 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                         {
                             commentStatus[index] === false ? 
                             <>
-                                <div className='secretComment'>비밀 댓글입니다.</div>
+                                <div className='secretComment'><SlLock size={20} /> 비밀 댓글입니다.</div>
                                 {(nickname === signInNickName || commentNickName[index] === signInNickName) && <>{commentItem.content}</>}
                             </> :
                             <>{commentItem.content}</>
