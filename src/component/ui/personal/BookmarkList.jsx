@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookmarkListItem from './BookmarkListItem'; // BookmarkListItem 컴포넌트 임포트
+import { useRecoilValue } from 'recoil';
+import { memberIdState } from '../../common/AuthState';
 import '../../../styles/component/Bookmark.css';
 
 const BookmarkList = () => {
     const [posts, setPosts] = useState([]); // 빈 배열로 초기화
+    const memberId = useRecoilValue(memberIdState);
+    const token = sessionStorage.getItem('token');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}`);
+                const response = await axios.get(`${process.env.REACT_APP_BOOKMARK_API_KEY}/${memberId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                console.log(response);
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
                     setPosts(response.data.body);
                     console.log(response.data.body);

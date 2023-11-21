@@ -28,6 +28,7 @@ function PostView() {
   const [userNickname,setUserNickname] = useRecoilState(nickNameState) 
   const [comments, setComments] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const token = sessionStorage.getItem('token');
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
@@ -88,7 +89,11 @@ function PostView() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`);
+        const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+        }
+        });
         if (response.data && response.data.body) {
           console.log('Data received from the server:', response.data.body);
           setPosts(response.data.body);
