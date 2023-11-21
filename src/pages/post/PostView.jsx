@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import '../../styles/pages/PostView.css';
 import Button from '../../component/common/Button';
 import axios from 'axios';
-import { nickNameState } from '../../component/common/AuthState';
+import { nickNameState, bookmarkResultState } from '../../component/common/AuthState';
 import { useRecoilState } from 'recoil';
 
 const Container = styled.div`
@@ -29,6 +29,7 @@ function PostView() {
   const [comments, setComments] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const token = sessionStorage.getItem('token');
+  const [bookmarkState, setBookmarkState] = useRecoilState(bookmarkResultState);
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
@@ -98,6 +99,9 @@ function PostView() {
         if (response.data && response.data.body) {
           console.log('Data received from the server:', response.data.body);
           setPosts(response.data.body);
+          setBookmarkState(response.data.body.bookmark);
+          console.log(response.data.body.bookmark);
+
           const commentResponse = await axios.get(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}`);
           if (commentResponse.data) {
             setComments(commentResponse.data);

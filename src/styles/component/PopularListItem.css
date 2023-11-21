@@ -14,7 +14,7 @@
     right: 0;
     bottom: 0;
     height: 30vh;
-    border-radius: 40px;
+    border-radius: 10px;
 }
 
 .popular-post:hover .post-contents p {
@@ -25,7 +25,7 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
-    border-radius: 40px;
+    border-radius: 10px;
 }
 
 .post-contents {
