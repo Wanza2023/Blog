@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { bookmarkResultState, nickNameState } from '../../common/AuthState';
@@ -10,7 +10,7 @@ import '../../../styles/component/Comment.css'
 import { IoBookmarkOutline } from "react-icons/io5";
 import { IoBookmark } from "react-icons/io5";
 
-const CommentList = ({comments, setComments}) => {
+const CommentList = ({comments, setComments,bookmark}) => {
     const reversedComments = comments.slice().reverse();
     const navigate = useNavigate();
     // const isLoggedIn = useRecoilValue(isLoggedInState);
@@ -155,10 +155,9 @@ const CommentList = ({comments, setComments}) => {
     };
 
     const onClickBookmark = () => {
-        setBookmarkState(!bookmarkState);
         const token = sessionStorage.getItem('token');
         const memberId = sessionStorage.getItem('memberId'); 
-        if (bookmarkState === false) {
+        if (bookmark === false) {
             axios
                 .post(`${process.env.REACT_APP_BOOKMARK_API_KEY}`, 
                 {
@@ -171,7 +170,7 @@ const CommentList = ({comments, setComments}) => {
                 })
                 .then(
                     res => {
-                        console.log(res);
+                        console.log(res.data);
                     }
                 )
                 .catch(err => {
@@ -186,7 +185,7 @@ const CommentList = ({comments, setComments}) => {
                 })
                 .then(
                     res => {
-                        console.log(res);
+                        console.log(res.data);
                     }
                 )
                 .catch(err => {

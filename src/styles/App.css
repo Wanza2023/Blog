@@ -6,7 +6,6 @@
   font-family: 'Inter';
   src: url('../assets/font/Inter/Inter-VariableFont_slnt\,wght.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'BMHANNA';
   src: url('../assets/font/BMHANNA_11yrs_ttf.ttf') format('truetype');
@@ -15,11 +14,19 @@
   font-family: 'Cafe24hsquareair';
   src: url('../assets/font/Cafe24Ohsquareair.ttf') format('truetype');
 }
+@font-face {
+  font-family: 'Cafe24Simplehae';
+  src: url('../assets/font/Cafe24Simplehae.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Cafe24Ssurroundair';
+  src: url('../assets/font/Cafe24Ssurroundair.ttf') format('truetype');
+}
 
 .body {
-  padding: 1.1rem 1.2rem;
+  padding: 1.5rem 0;
 }
 * {
-  font-family: "Cafe24hsquareair";
+  font-family: "Cafe24Ssurroundair";
   font-size: 1rem;
 }

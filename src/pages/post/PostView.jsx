@@ -116,7 +116,6 @@ function PostView() {
     };
     fetchData();
   }, [boardId, nickname]);
-
   // toISOString() 1일전 날짜 안뜨게 시간 변경
   function convertTime(date) {
     date = new Date(date);
@@ -266,6 +265,7 @@ function PostView() {
                         <CommentList 
                           comments={comments}
                           setComments={setComments}
+                          bookmark={bookmark}
                         />
                     ) : (
                         <p>null</p>
