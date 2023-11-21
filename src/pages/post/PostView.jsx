@@ -87,8 +87,13 @@ function PostView() {
   // }, [boardId,nickname]);
   useEffect(() => {
     const fetchData = async () => {
+      const token = sessionStorage.getItem('token');
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`);
+        const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`,{
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      });
         if (response.data && response.data.body) {
           console.log('Data received from the server:', response.data.body);
           setPosts(response.data.body);
@@ -116,7 +121,7 @@ function PostView() {
   }
 
     if (posts) {
-        const { title, createdAt, local, contents, summary, schedules, hashtags, nickname } = posts;
+        const { title, createdAt, local, contents, summary, schedules, hashtags, nickname,bookmark } = posts;
         let createdDate;
         try {
             createdDate = new Date(createdAt);
@@ -179,7 +184,7 @@ function PostView() {
                   <div className='date'>{formattedDate}</div>
                   <div className='location'>
                     <HiOutlineMapPin />
-                    <button onClick={() => navigate("/post-list/" + local)} className='location-name'>
+                    <button onClick={() => navigate("/regionList/" + local)} className='location-name'>
                       {localKorean}
                     </button>
                   </div>

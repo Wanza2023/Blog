@@ -7,14 +7,32 @@
     padding: 20px;
 }
 
-.word {
-    font-size: 1.5rem;
+.search-word {
+    font-size: 1.2rem;
     border: none;
     border-radius: 20px;
     background-color: #5076FF;
     color: white;
     text-align: center;
     margin-bottom: 1rem;
-    width: 5rem;
+    width: max-content;
     padding: 0.7vh;
+}
+
+.hashtag-word {
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 20px;
+    background-color: #5076FF;
+    color: white;
+    text-align: center;
+    margin-bottom: 1rem;
+    width: max-content;
+    padding: 0.7vh;
+}
+
+.resultNone {
+    font-size: 1.2rem;
+    color: gray;
+    margin-top: 1rem;
 }

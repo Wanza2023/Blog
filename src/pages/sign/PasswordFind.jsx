@@ -107,14 +107,14 @@ function PasswordFind() {
                         <label>이메일(아이디) *</label>
                         <input type="email" name="mail" id="mail" value={userEmail} onChange={handleInputuserEmail}
                             placeholder="이메일을 입력하세요" />
-                        <p className={emailMessage ? 'signup-submit-message-isok' : 'signup-submit-message-iserror'}>
+                        <p className={emailMessage ? 'find-signup-submit-message-isok' : 'find-signup-submit-message-iserror'}>
                             {emailMessage}
                         </p>
                     </div>
                     {authState ? (
                         <>
                             <div className="signUp-filed">
-                                <p className="signup-submit-message-isok">인증되었습니다.</p>
+                                <p className="find-signup-submit-message-isok">인증되었습니다.</p>
                             </div>
                         </>
                     )
@@ -126,19 +126,20 @@ function PasswordFind() {
                                 <div className="signUp-field">
                                     <label>비밀번호 *</label>
                                     <input type="password" name="pwd" id="pwd" maxLength={20} value={userPassword} onChange={handleInputuserPassword} />
-                                    <p className={pwdMessage ? 'signup-submit-message-isok' : 'signup-submit-message-iserror'}>
+                                    <p className={pwdMessage ? 'find-signup-submit-message-iserror' : 'find-signup-submit-message-isok'}>
                                         {pwdMessage}
                                     </p>
                                 </div>
                                 <div className="signUp-field">
                                     <label>비밀번호 확인 *</label>
                                     <input type="password" name="confPwd" id="confPwd" maxLength={20} value={userPasswordConfirm} onChange={handleInputuserPasswordConfirm} placeholder="비밀번호를 입력하세요" />
-                                    <p className={confirmPwdMessage ? 'signup-submit-message-isok' : 'signup-submit-message-iserror'}>{confirmPwdMessage}</p>
+                                    <p className={confirmPwdMessage ? 'find-signup-submit-message-iserror' : 'find-signup-submit-message-isok'}>{confirmPwdMessage}</p>
                                 </div>
                                 <button className='submit-button' onClick={handleSubmituserPassword}>비밀번호 변경</button>
                             </>
                         )
                     }
+
                 </div>
             </div>
         </div>

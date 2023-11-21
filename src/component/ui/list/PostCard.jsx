@@ -4,6 +4,7 @@ import axios from "axios";
 import "../../../styles/component/PostCard.css";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
+import { IoMdListBox } from "react-icons/io";
 import { hashtagListState } from "../../common/AuthState";
 
 function PostCard(props){
@@ -62,7 +63,7 @@ function PostCard(props){
                 {imgSrc !== "default-image-url.jpg" ? ( // 사진 없을 때 빈 박스
                     <img src={imgSrc} alt={props.alt} className="cardimg" />
                 ) : (
-                    <div className="noImg"></div>
+                    <IoMdListBox className="cardimg" />
                 )}
             </div>
             <div className="cardContents" >

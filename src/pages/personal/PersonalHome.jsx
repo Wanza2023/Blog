@@ -47,11 +47,14 @@ const PersonalHome = () => {
     };
 
     useEffect(() => {
-        const showMap = sessionStorage.getItem('showMap') == 'true'; // showMap true면 true
-        const showText = sessionStorage.getItem('showText') == 'true'; // showText true면 true
+        const showMap = sessionStorage.getItem('showMap') === 'true'; // showMap true면 true
+        const showText = sessionStorage.getItem('showText') === 'true'; // showText true면 true
         setShowMap(showMap);
         setShowText(showText);
-    }, []);
+        console.log("showmap : "+showMap);
+        console.log("showtext : "+showText);
+    // }, [showMap,showText]);
+    }, [showMap,showText]);
 
     const [nickName,setNickName] = useRecoilState(nickNameState);// 닉네임 전역관리
     const [count, setCount] = useState(0); // 아이템 총 개수
@@ -72,6 +75,7 @@ const PersonalHome = () => {
         const search = new URLSearchParams(location.search); // 현재 페이지 url에서 뒤에 page 번호 부분 객체로 변환
         const page = parseInt(search.get('page')) || 1; // 객체에서 page 가져오기, 없으면 1
         setCurrentPage(page);
+        console.log("page : "+page);
     }, [location]);
 
     const setPage = (page) => {
@@ -82,7 +86,7 @@ const PersonalHome = () => {
     useEffect(() => {
         const fetchData = async () => { // api에 데이터 요청 후 응답 response에 저장
             try {
-                const response = await axios.get(`http://172.16.210.131:8082/board/${nickname}`);
+                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}`);
                 if (response.data && response.data.body && Array.isArray(response.data.body)) {
                     const Data = response.data.body
                     setPosts(Data);

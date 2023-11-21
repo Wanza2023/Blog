@@ -4,6 +4,7 @@ import { searchResultsState, hashtagListState } from "../../component/common/Aut
 import { useRecoilValue } from 'recoil';
 import PostCard from '../../component/ui/list/PostCard';
 import Button from "../../component/common/Button";
+import { IoSearchSharp } from "react-icons/io5";
 import axios from 'axios';
 import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
@@ -39,19 +40,20 @@ function PostList() {
   const [pages, setPages] = useState(1);
   const offset = (pages - 1) * limit;
 
-  useEffect(() => { // 검색 결과가 있을 때 posts와 count 업데이트
-    if (searchResults.length > 0) {
+  useEffect(() => {
+    if (searchResults !== undefined) { // searchResults가 존재하는지 확인
       setPosts(searchResults);
       setCount(searchResults.length)
       const indexOfLastPost = currentPage * postPerPage;
       const indexOfFirstPost = indexOfLastPost - postPerPage;
-      setCurrentPosts(searchResults.slice(indexOfFirstPost,indexOfLastPost));
+      setCurrentPosts(searchResults.slice(indexOfFirstPost, indexOfLastPost));
     } else {
+      // searchResults가 정의되지 않았거나 빈 배열인 경우 처리
     }
   }, [currentPage, postPerPage, searchResults]);
 
   useEffect(() => {
-    if (hashtagLists.length > 0) {
+    if (hashtagLists !== undefined) {
       setPosts(hashtagLists);
       setCount(hashtagLists.length)
       const indexOfLastPost = currentPage * postPerPage;
@@ -63,10 +65,10 @@ function PostList() {
 
   return (
     <div className="wrapper">
-      {searchTerm && <div className="word"># {searchTerm}</div>}
-      {hashtag && <div className="word"># {hashtag}</div>}
+      {searchTerm && <div className="search-word"><IoSearchSharp /> {searchTerm}</div>}
+      {hashtag && <div className="hashtag-word"># {hashtag}</div>}
       {currentPosts && posts.length > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
-        (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
+        (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div className="resultNone">검색결과가 없습니다.</div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
       <Paging page={currentPage} count={count} setPage={setPage}/>
       {/* <Pagination total={posts.length} limit={limit} page={pages} setPage={setPages}/> */}

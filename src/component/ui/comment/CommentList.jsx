@@ -6,8 +6,9 @@ import axios from 'axios';
 import CommentWrite from './CommentWrite';
 import CommentListItem from './CommentListItem';
 import { useAuth } from '../../common/useAuth';
-import { BiBookmark } from "react-icons/bi";
 import '../../../styles/component/Comment.css'
+import { IoBookmarkOutline } from "react-icons/io5";
+import { IoBookmark } from "react-icons/io5";
 
 const CommentList = ({comments, setComments}) => {
     const reversedComments = comments.slice().reverse();
@@ -64,11 +65,16 @@ const CommentList = ({comments, setComments}) => {
     const addComments = async () => {
         try {
             if(isLoggedIn) {
-                const postResponse = await axios.post(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}`, {
+                const token = sessionStorage.getItem('token');
+                const postResponse = await axios.post(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: {
                     nickname : commentNickname,
                     content : newComment,
                     status : isPublic
-                });
+                }});
 
                 if (postResponse.status === 200) {
                     alert('댓글을 성공적으로 등록하였습니다! ^o^');
@@ -127,16 +133,6 @@ const CommentList = ({comments, setComments}) => {
         updatedEditingComment[index] = '';
         setEditingComment(updatedEditingComment);
     };
-    const handleOnClickBookMarker = () =>{
-        // 로그인상태가아니면 login 가고 아니면 바로 북마크
-        // 근데 이미 북마크한 게시물은 어떻게 처리해야되는건지 고민
-        if(isLoggedIn !== true) {
-            navigate('/login');
-        }
-        else {
-            alert('북마크 기능 곧 구현됨');
-        }
-    }
 
     const handleCommentCancelClick = (index) => {
         const updatedEditingComment = [...editingComment];
@@ -159,6 +155,48 @@ const CommentList = ({comments, setComments}) => {
         updatedLikedStates[commentIndex] = !updatedLikedStates[commentIndex];
         setIsLikedStates(updatedLikedStates);
     };
+    const [bookmarkState, setBookmarkState] = useState(false);
+
+    const onClickBookmark = () => {
+        setBookmarkState(!bookmarkState);
+        const token = sessionStorage.getItem('token');
+        const memberId = sessionStorage.getItem('memberId'); 
+        if (bookmarkState === false) {
+            axios
+                .post(`${process.env.REACT_APP_BOOKMARK_API_KEY}`, 
+                {
+                    memberId : memberId,
+                    boardId : boardId
+                },{
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(
+                    res => {
+                        console.log(res);
+                    }
+                )
+                .catch(err => {
+                    console.log(err);
+                })
+        } else {
+            axios
+                .delete(`${process.env.REACT_APP_BOOKMARK_API_KEY}/${memberId}/${boardId}`,{
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(
+                    res => {
+                        console.log(res);
+                    }
+                )
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }
 
     return (
         <div>
@@ -167,8 +205,8 @@ const CommentList = ({comments, setComments}) => {
                     댓글   {comments.length}
                 </div>
                 <div className='comments-bookmarker'>
-                    <button className='comments-bookmarker-btn' onClick={handleOnClickBookMarker} ><BiBookmark /></button>
-                </div>
+                    {/* <button className='comments-bookmarker-btn' onClick={handleOnClickBookMarker} ><BiBookmark /></button> */}
+                    {bookmarkState ? <IoBookmark onClick={onClickBookmark} color="#5076FF" /> : <IoBookmarkOutline onClick={onClickBookmark} /> }                </div>
             </div>
             <div className='border3' />
             <CommentWrite
