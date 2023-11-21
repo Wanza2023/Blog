@@ -88,6 +88,7 @@ function PostView() {
   // }, [boardId,nickname]);
   useEffect(() => {
     const fetchData = async () => {
+      const token = sessionStorage.getItem('token');
       try {
         const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`, {
           headers: {
@@ -121,7 +122,7 @@ function PostView() {
   }
 
     if (posts) {
-        const { title, createdAt, local, contents, summary, schedules, hashtags, nickname } = posts;
+        const { title, createdAt, local, contents, summary, schedules, hashtags, nickname,bookmark } = posts;
         let createdDate;
         try {
             createdDate = new Date(createdAt);

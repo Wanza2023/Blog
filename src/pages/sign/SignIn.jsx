@@ -56,6 +56,7 @@ function SignIn(props){
                         setMemberId(response.data.body.id); // Token일치하는 사용자의 MemberId 전역변수로 저장
                         setNickName(response.data.body.nickName);   // Token일치하는 사용자의 nickname 전역변수로 저장
                         sessionStorage.setItem('nickName', response.data.body.nickName); // 세션스토리지에 닉네임 저장
+                        sessionStorage.setItem('memberId', response.data.body.id); // 세션스토리지에 멤버id 저장
                         sessionStorage.setItem('birth', response.data.body.birth);
                         sessionStorage.setItem('gender', response.data.body.gender);
                     })
