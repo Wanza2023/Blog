@@ -116,6 +116,7 @@ function PostView() {
     };
     fetchData();
   }, [boardId, nickname]);
+
   // toISOString() 1일전 날짜 안뜨게 시간 변경
   function convertTime(date) {
     date = new Date(date);
@@ -200,20 +201,26 @@ function PostView() {
                           <>
                             <div className='overflow_menu_div'>
                               <button className='overflow_menu_btn' onClick={handleEditClick}>
-                                <div className='overflow_menu_btn_div'>수정</div>
-                                <div><AiOutlineEdit /></div>
+                                <div className='edit-set'>
+                                  <div className='overflow_menu_btn_div'>수정</div>
+                                  <div><AiOutlineEdit /></div>
+                                </div>
                               </button>
                             </div>
                             <button className='overflow_menu_btn' onClick={handleDeleteClick}>
-                              <div className='overflow_menu_btn_div'>삭제</div>
-                              <div><AiOutlineDelete /></div>
+                              <div className='edit-set'>
+                                <div className='overflow_menu_btn_div'>삭제</div>
+                                <div><AiOutlineDelete /></div>
+                              </div>
                             </button>
                           </>
                         ) : (
                           <div className='overflow_menu_div'>
                             <button className='overflow_menu_btn' onClick={handleReportClick}>
-                              <div className='overflow_menu_btn_div'>신고</div>
-                              <div><AiOutlineFlag /></div>
+                              <div className='edit-set'>
+                                <div className='overflow_menu_btn_div'>신고</div>
+                                <div><AiOutlineFlag /></div>
+                              </div>
                             </button>
                           </div>
                         )}
@@ -233,20 +240,22 @@ function PostView() {
                   </button>
                 </div>
                 <div className='border1' />
-                <div className='schedule'>
                   {schedules && schedules.length > 0 ? (
-                    <ScheduleList scheduleData={schedules} />
+                    <div className='schedule'>
+                      <ScheduleList scheduleData={schedules} />
+                    </div>
                   ) : null}
-                </div>
                 <ReactQuill
                   value={contents}
                   readOnly={true}
                   theme={'bubble'}
                 />
-                <div className="summary-box">
-                    <p className="summary">요약</p>
-                    <p className="summary-contents">{summary}</p>
-                </div>
+                {summary && summary.length > 0 ? (
+                  <div className="summary-box">
+                      <p className="summary">요약</p>
+                      <p className="summary-contents">{summary}</p>
+                  </div>
+                ) : null}
                 <div className='hashtags'>
                     {Array.isArray(hashtags) ? (
                         <HashtagList hashtags={hashtags} />
@@ -265,7 +274,6 @@ function PostView() {
                         <CommentList 
                           comments={comments}
                           setComments={setComments}
-                          bookmark={bookmark}
                         />
                     ) : (
                         <p>null</p>

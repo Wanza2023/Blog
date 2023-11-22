@@ -4,7 +4,8 @@ import SignIn from "./pages/sign/SignIn";
 import SignUp from "./pages/sign/SignUp";
 import Main from "./pages/main/Main";
 import PostWrite from "./pages/post/PostWrite";
-import PostList from "./pages/list/PostList";
+import SearchList from "./pages/list/SearchList";
+import HashtagList from "./pages/list/HashtagList";
 import RegionList from "./pages/list/RegionList";
 import PostView from "./pages/post/PostView";
 import PersonalHome from './pages/personal/PersonalHome';
@@ -24,8 +25,8 @@ function App() {
           <Routes>
             <Route index element={<Main />} />
             <Route path="/:land" element={<Main />} />
-            <Route path="board/search/:searchTerm" element={<PostList />} />
-            <Route path="board/tags/:hashtag" element={<PostList />} />
+            <Route path="board/search/:searchTerm" element={<SearchList />} />
+            <Route path="board/tags/:hashtag" element={<HashtagList />} />
             <Route path="write" element={<PostWrite />} />
             <Route path="regionList/:regionName" element={<RegionList />} />
             <Route path="/:nickname/:boardId" element={<PostView />} />
