@@ -92,14 +92,13 @@
     /* border-radius: 3px; */
     /* box-shadow: rgba(0, 0, 0, .1) 0 1px 1px 0; */
     background-color: #fff;
-    width: 7rem;
     display: flex;
+    color: gray;
 }
 .overflow_menu_btn_div {
-    margin-right: auto;
+    margin-right: 0.5rem;
     color:#888;
 }
-
 .border1 {
     clear: both;
     border-top: 2px solid black;

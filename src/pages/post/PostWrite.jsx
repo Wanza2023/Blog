@@ -192,6 +192,7 @@ function PostWrite() {
       setScheduleItems(newScheduleItems);
     }
   };
+
   // 일정 - 버튼 클릭시 
   const removeScheduleItem = (index) => {
     const newScheduleItems = [...scheduleItems];
@@ -207,7 +208,8 @@ function PostWrite() {
   // 해시태그 입력
   const submitTagItem = () => {
     let updatedTagList = [...tagList];
-    updatedTagList.push(tagItem);
+    const newTagItem = tagItem.replace(/(\s*)/g, "");
+    updatedTagList.push(newTagItem);
     setTagList(updatedTagList);
     setTagItem("");
   };
