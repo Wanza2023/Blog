@@ -58,25 +58,25 @@ const CommentsEdit = styled.button`
     background: none;
     border: none;
     cursor: pointer;
-    margin-left: -2rem;
+
     > svg {
-        width: 5vw;
-        height: 5vh;
+        width: 4vw;
+        height: 4vh;
         fill: gray;
     }
 `;
 
 const CommentsMenu = styled.div`
     float: right;
-    display: flex;
+
     >button {
-        font-size: 0.9rem;
         cursor: pointer;
         background: none;
-        border: 1px solid #d5d5d5;
-        border-radius: 3px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 3px 3px 3px #DCDCDC;
+        height: 4vh;
         color: gray;
-        margin-left: 0.5rem;
     }
 `;
 
@@ -157,10 +157,10 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                                     <>
                                         {signInNickName === commentNickName[index] ? (
                                         <>
-                                            <button onClick={() => handleCommentEditClick(index)}><div className='edit-set'>수정<AiOutlineEdit /></div></button>
-                                            <button onClick={() => onDelete(index)}><div className='edit-set'>삭제<AiOutlineDelete /></div></button>
+                                            <button onClick={() => handleCommentEditClick(index)}><AiOutlineEdit />수정</button>
+                                            <button onClick={() => onDelete(index)}><AiOutlineDelete />삭제</button>
                                         </>) : (
-                                            <button onClick={() => handleCommentReportClick(index)}><div className='edit-set'>신고<AiOutlineFlag /></div></button>
+                                            <button onClick={() => handleCommentReportClick(index)}><AiOutlineFlag />신고</button>
                                         )}
                                     </>
                                 )}

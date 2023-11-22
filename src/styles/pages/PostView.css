@@ -4,7 +4,7 @@
 }
 .view-container{
     width: 55%;
-    margin-top:1.5rem;
+    margin-top:3rem;
 }
 .button-container {
     height: 7vh;
@@ -16,10 +16,9 @@
     cursor: pointer;
 }
 .edit > svg {
-    width: 4vw;
-    height: 4vh;
+    width: 3vw;
+    height: 3vh;
     fill: gray;
-    margin-top: 2vh;
 }
 .menu {
     float: right;
@@ -44,7 +43,6 @@
 .nickname {
     clear: both;
     float: left;
-    margin-top: 2.4vh;
     font-weight: bold;
     border: none;
     background: none;
@@ -53,7 +51,6 @@
 }
 .date {
     float: left;
-    margin-top: 2.6vh;
     margin-left: 2vh;
     color: gray;
 }
@@ -69,8 +66,7 @@
 .location-name {
     clear: both;
     float: right;
-    margin-top: 0.9vh;
-    margin-left: -0.5vw;
+    margin-top: 0.7vh;
     border: none;
     background: none;
     cursor: pointer;

@@ -17,7 +17,6 @@
 .comments-bookmarker{
     margin-left: auto;
     color: gray;
-    cursor: pointer;
 }
 
 .comments-bookmarker-btn {
@@ -80,7 +79,4 @@
     clear: both;
     border-top: 2px solid rgba(0, 0, 0, 0.09);
     width: 100%;
-}
-.edit-set {
-    display: flex;
 }

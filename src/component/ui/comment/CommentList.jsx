@@ -28,43 +28,6 @@ const CommentList = ({comments, setComments}) => {
     const [bookmarkState, setBookmarkState] = useRecoilState(bookmarkResultState);
     console.log(bookmarkState);
 
-    // useEffect(() => {
-    //     const comments = data.filter((item) => item.boardId == boardId); // boardid가 같은 것만 저장
-    //     setComment(comments);
-    //     setEditingComment(new Array(comments.length).fill(''));
-    //     setIsLikedStates(new Array(comments.length).fill(false));
-    // }, [boardId]);
-
-    //post comment /comments/게시글 작성자 닉네임/boardId
-    // nickname 댓글 작성자 닉네임 content 댓글 내용 status
-    // const addComments = async () => {
-    //     try {
-    //         if(isLoggedIn===true){
-    //             await axios
-    //             .post(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}`,{
-    //                 nickname : commentNickname,
-    //                 content : newComment,
-    //                 status : isPublic
-    //             })
-    //             .then(res =>
-    //                 {
-    //                     alert('댓글을 성공적으로 등록하였습니다! ^o^')
-    //                     console.log(res);
-    //                     navigate(0);
-    //                 }
-    //             )
-    //             .catch(err=>{
-    //                 console.log(err);
-    //             })}
-    //             else{
-    //                 alert('로그인이 필요한 기능입니다!');
-    //                 navigate('/login');
-    //             }
-    //         }
-    //         catch (error) {
-    //         console.log(error);
-    //     }
-    // }
     const addComments = async () => {
         try {
             if(isLoggedIn) {
@@ -153,45 +116,75 @@ const CommentList = ({comments, setComments}) => {
         updatedLikedStates[commentIndex] = !updatedLikedStates[commentIndex];
         setIsLikedStates(updatedLikedStates);
     };
- 
+
+    // const onClickBookmark = () => {
+    //     setBookmarkState(!bookmarkState);
+    //     const token = sessionStorage.getItem('token');
+    //     const memberId = sessionStorage.getItem('memberId'); 
+    //     if (bookmarkState === false) {
+    //         axios
+    //             .post(`${process.env.REACT_APP_BOOKMARK_API_KEY}`, 
+    //             {
+    //                 memberId : memberId,
+    //                 boardId : boardId
+    //             },{
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`
+    //                 }
+    //             })
+    //             .then(
+    //                 res => {
+    //                     console.log(res);
+    //                 }
+    //             )
+    //             .catch(err => {
+    //                 console.log(err);
+    //             })
+    //     } else {
+    //         axios
+    //             .delete(`${process.env.REACT_APP_BOOKMARK_API_KEY}/${memberId}/${boardId}`,{
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`
+    //                 }
+    //             })
+    //             .then(
+    //                 res => {
+    //                     console.log(res);
+    //                 }
+    //             )
+    //             .catch(err => {
+    //                 console.log(err);
+    //             })
+    //     }
+    // }
     const onClickBookmark = () => {
-        setBookmarkState(!bookmarkState);
-        const token = sessionStorage.getItem('token');
-        const memberId = sessionStorage.getItem('memberId'); 
-        if (bookmarkState === false) {
-            axios
-                .post(`${process.env.REACT_APP_BOOKMARK_API_KEY}`, 
-                {
-                    memberId : memberId,
-                    boardId : boardId
-                },{
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                .then(
-                    res => {
-                        console.log(res);
-                    }
-                )
-                .catch(err => {
-                    console.log(err);
-                })
+        if (isLoggedIn) {
+            setBookmarkState(!bookmarkState);
+            const token = sessionStorage.getItem('token');
+            const memberId = sessionStorage.getItem('memberId');
+            const apiUrl = bookmarkState
+                ? `${process.env.REACT_APP_BOOKMARK_API_KEY}/${memberId}/${boardId}`
+                : `${process.env.REACT_APP_BOOKMARK_API_KEY}`;
+    
+            axios[bookmarkState ? 'delete' : 'post'](apiUrl, {
+                memberId: memberId,
+                boardId: boardId
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(
+                res => {
+                    console.log(res);
+                }
+            )
+            .catch(err => {
+                console.log(err);
+            });
         } else {
-            axios
-                .delete(`${process.env.REACT_APP_BOOKMARK_API_KEY}/${memberId}/${boardId}`,{
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                .then(
-                    res => {
-                        console.log(res);
-                    }
-                )
-                .catch(err => {
-                    console.log(err);
-                })
+            alert('로그인이 필요한 기능입니다!');
+            navigate('/login');
         }
     }
 

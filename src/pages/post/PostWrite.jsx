@@ -14,16 +14,17 @@ import "../../styles/pages/PostWrite.css";
 
 const Container = styled.div`
   padding: 2rem 3rem;
+  display: grid;
+  justify-content: center;
 `;
 
 const MyBlock = styled.div`
-  width: 50%;
   margin: 0 auto;
   margin-bottom: 0.2rem;
 `;
 const WholeBox = styled.div`
+  container-type: inline-size;
   display: flex;
-  justify-content: center;
 `;
 
 const Title = styled.div`
@@ -34,13 +35,12 @@ const TagBox = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  width: 600px;
   min-height: 50px;
   margin: 10px;
   padding: 0 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-
+  width: 100%;
   &:focus-within {
     border-color: #5076ff;
   }
@@ -74,8 +74,9 @@ const Button = styled.button`
 
 const TagInput = styled.input`
   display: inline-flex;
+  width: auto
   background: transparent;
-  border: none;
+  border: none; 
   outline: none;
   cursor: text;
 `;
@@ -381,9 +382,11 @@ function PostWrite() {
           ))}
         </div>
       </div>
-      <MyBlock>
-        <PostWriteComponent value={desc} onChange={onEditorChange} />
-      </MyBlock>
+      <div className="body3">
+        <MyBlock>
+          <PostWriteComponent value={desc} onChange={onEditorChange} />
+        </MyBlock>
+      </div>
       <div className="foot">
         {/* <button onClick={fetchSummary}>카카오</button>
         {summary && <div className="summary-content">{summary}</div>} */}
