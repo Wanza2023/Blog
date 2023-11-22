@@ -11,7 +11,7 @@ import '../../styles/pages/PostList.css';
 import Pagination from "react-js-pagination";
 
 function PostList() {
-  const { searchTerm, hashtag } = useParams(); // useParams로 url에서 파라미터 추출
+  const { searchTerm } = useParams(); // useParams로 url에서 파라미터 추출
   const [posts, setPosts] = useState([]); // 게시글 담을 배열 생성
   const [count, setCount] = useState(0); // 아이템 총 개수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
@@ -52,21 +52,9 @@ function PostList() {
     }
   }, [currentPage, postPerPage, searchResults]);
 
-  useEffect(() => {
-    if (hashtagLists !== undefined) {
-      setPosts(hashtagLists);
-      setCount(hashtagLists.length)
-      const indexOfLastPost = currentPage * postPerPage;
-      const indexOfFirstPost = indexOfLastPost - postPerPage;
-      setCurrentPosts(hashtagLists.slice(indexOfFirstPost,indexOfLastPost));
-      } else {
-    }
-  }, [currentPage, postPerPage, hashtagLists]);
-
   return (
     <div className="wrapper">
       {searchTerm && <div className="search-word"><IoSearchSharp /> {searchTerm}</div>}
-      {hashtag && <div className="hashtag-word"># {hashtag}</div>}
       {currentPosts && posts.length > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div className="resultNone">검색결과가 없습니다.</div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
