@@ -157,7 +157,7 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                                     <>
                                         {signInNickName === commentNickName[index] ? (
                                         <>
-                                            <button onClick={() => handleCommentEditClick(index)}><AiOutlineEdit />수정</button>
+                                            <button onClick={() => handleCommentEditClick(index)}><div className='comments-try'><AiOutlineEdit />수정</div></button>
                                             <button onClick={() => onDelete(index)}><AiOutlineDelete />삭제</button>
                                         </>) : (
                                             <button onClick={() => handleCommentReportClick(index)}><AiOutlineFlag />신고</button>

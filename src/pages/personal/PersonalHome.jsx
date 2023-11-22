@@ -47,8 +47,8 @@ const PersonalHome = () => {
     };
 
     useEffect(() => {
-        const showMap = sessionStorage.getItem('showMap') === 'true'; // showMap true면 true
-        const showText = sessionStorage.getItem('showText') === 'true'; // showText true면 true
+        // const showMap = sessionStorage.getItem('showMap') === 'true'; // showMap true면 true
+        // const showText = sessionStorage.getItem('showText') === 'true'; // showText true면 true
         setShowMap(showMap);
         setShowText(showText);
         console.log("showmap : "+showMap);
