@@ -14,6 +14,7 @@ const StyledButton = styled.button`
     border: 0px;
     background-color: black;
     cursor: pointer;
+    margin-right: 10rem;
 `
 
 export default function Button() {
