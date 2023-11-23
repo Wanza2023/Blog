@@ -83,4 +83,5 @@
 }
 .edit-set {
     display: flex;
+    align-items: center;
 }

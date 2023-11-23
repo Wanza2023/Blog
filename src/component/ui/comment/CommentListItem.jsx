@@ -76,7 +76,7 @@ const CommentsMenu = styled.div`
         border: 1px solid #d5d5d5;
         border-radius: 3px;
         color: gray;
-        margin-left: 0.5rem;
+        margin: 1rem 0.2rem;
     }
 `;
 
