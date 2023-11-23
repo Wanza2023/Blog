@@ -1,3 +1,6 @@
+/* .menuWrapper {
+    display: grid;
+}
 .menuContainer {
     display: flex;
     position: relative;
@@ -7,6 +10,7 @@
     margin-left: 15rem;
     width: 70rem;
     margin-top: 1.5rem;
+    border-bottom: #333 2px solid;
 }
 
 .menuTitle {
@@ -43,4 +47,54 @@
 .contentE {
     flex-grow: 1;
     margin-right: 10rem;
+} */
+
+.menuWrapper {
+    display: grid;
+}
+.menuContainer {
+    display: flex;
+    position: relative;
+    padding : 0 1.5rem;
+}
+
+.menuHeader {
+    width: 90%;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: #333 2px solid;
+}
+
+.menuTitle {
+    font-size: 1.5rem;
+}
+
+.menuDivider {
+    
+}
+
+.menuitemE {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background-color 0.3s, border-left 0.3s;
+    margin-top: 5rem;
+    width:fit-content;
+    font-size: 1.5rem;
+}
+  
+.menuitemE:hover,
+.menuitemE.active {
+    border-left: 3px solid #333;
+}
+  
+.menuicon {
+    margin-right: 10px;
+    width: 2rem;
+}
+
+.contentE {
+    flex-grow: 1;
 }

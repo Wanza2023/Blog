@@ -16,7 +16,13 @@
     text-align: center;
     margin-bottom: 1rem;
     width: max-content;
-    padding: 0.7vh;
+    padding: 1vh;
+    display: flex;
+    align-items: center;
+}
+
+.search-word-term {
+    margin-left: 0.3rem;
 }
 
 .hashtag-word {
