@@ -5,11 +5,11 @@ import styled from "styled-components";
 import { isLoggedInState } from "./AuthState";
 
 const StyledButton = styled.button`
-    height: 48px;
-    width: 48px;
+    height: 3rem;
+    width: 3rem;
     position: fixed;
-    bottom: 5vh;
-    right: 5vh;
+    bottom: 7vh;
+    right: 7vh;
     border-radius: 50%;
     border: 0px;
     background-color: black;

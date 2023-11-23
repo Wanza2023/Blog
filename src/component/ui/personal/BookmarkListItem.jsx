@@ -18,7 +18,7 @@ const BookmarkListItem = ({ post }) => {
                 {imgSrc !== "default-image-url.jpg" ? (
                     <img src={imgSrc} alt={post.title} className="imgs" />
                 ) : (
-                    <RxReader className="cardimg" color="#BDBDBD" />
+                    <RxReader className="bookmark-default-img" color="#BDBDBD" />
                 )}
                 <div className="bookmark-summarys">
                     <h2>{post.title}</h2>
