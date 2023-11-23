@@ -19,6 +19,7 @@
 .navbar .navbar-logo {
     height: 4.2rem;
     width: 6.8rem;
+    margin-left: 5rem;
 }
 .navbar ul {
     list-style:none;
@@ -73,6 +74,7 @@
 .navbar-profile {
     display: flex;
     align-items: center;
+    margin-right: 9rem;
 }
 
 .profile-icon {
@@ -121,10 +123,10 @@
     position: absolute;
     background-color: #fff;
     border-radius: 4px;
-    margin-top: 1rem;
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s linear, visibility 1s linear;
+    margin-right: 10rem;
 }
 
 .optionListItem {

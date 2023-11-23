@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { hashtagListState, searchResultsState } from "../../component/common/AuthState";
 import { useRecoilValue } from 'recoil';
+import { HiOutlineMapPin } from 'react-icons/hi2';
 import PostCard from '../../component/ui/list/PostCard';
 import Button from "../../component/common/Button";
 import axios from 'axios';
@@ -61,65 +62,32 @@ function RegionList() {
     fetchData();
   }, [regionName, currentPage, postPerPage]);
 
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //         try {
-  //             let newData;
-  //             if (regionName) {
-  //                 const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/local/${regionName}`);
-  //                 newData = response.data.body;
-  //             } else if (tagList.length > 0) {
-  //                 newData = tagList;
-  //             } else if (searchResults.length > 0) {
-  //                 newData = searchResults;
-  //             } else {
-  //                 // Handle the case when none of the conditions are true
-  //                 newData = [];
-  //             }
+  const localToKorean = {
+    Busan: "부산",
+    Daegu: "대구",
+    Daejeon: "대전",
+    Gangwon: "강원도",
+    Gwangju: "광주",
+    Gyeonggi: "경기도",
+    Incheon: "인천",
+    Jeju: "제주도",
+    Chungbuk: "충청북도",
+    Gyeongbuk: "경상북도",
+    Jeonbuk: "전라북도",
+    Sejong: "세종",
+    Seoul: "서울",
+    Chungnam: "충청남도",
+    Gyeongnam: "경상남도",
+    Jeonnam: "전라남도",
+    Ulsan: "울산"     
+};
 
-  //             setPosts(newData);
-  //             setCount(newData.length);
+const localKorean = localToKorean[regionName] || regionName;
 
-  //             const indexOfLastPost = currentPage * postPerPage;
-  //             const indexOfFirstPost = indexOfLastPost - postPerPage;
-  //             setCurrentPosts(newData.slice(indexOfFirstPost, indexOfLastPost));
-
-  //         } catch (e) {
-  //             console.error(e);
-  //             alert('Error: 데이터를 불러올 수 없습니다');
-  //         }
-  //     };
-
-  //     fetchData();
-  // }, [regionName, currentPage, postPerPage, searchResults, tagList]);
-
-    
-    // useEffect(() => { // 검색 결과가 있을 때 posts와 count 업데이트
-    //   if (searchResults.length > 0) {
-    //     setPosts(searchResults);
-    //     console.log(searchResults);
-    //     setCount(searchResults.length)
-    //     const indexOfLastPost = currentPage * postPerPage;
-    //     const indexOfFirstPost = indexOfLastPost - postPerPage;
-    //     setCurrentPosts(searchResults.slice(indexOfFirstPost,indexOfLastPost));
-    //   } else {
-    //   }
-    // }, [regionName, currentPage, postPerPage, searchResults]);
-
-    // useEffect(() => { // 검색 결과가 있을 때 posts와 count 업데이트
-    //   if (tagList.length > 0) {
-    //     setPosts(tagList);
-    //     console.log("해시태그 검색" + tagList);
-    //     setCount(tagList.length)
-    //     const indexOfLastPost = currentPage * postPerPage;
-    //     const indexOfFirstPost = indexOfLastPost - postPerPage;
-    //     setCurrentPosts(tagList.slice(indexOfFirstPost,indexOfLastPost));
-    //   } else {
-    //   }
-    // }, [regionName, currentPage, postPerPage, tagList]);
 
   return (
     <div className="wrapper">
+      {localKorean && <div className="hashtag-word"><div className="edit-set"><HiOutlineMapPin size={20} />{localKorean}</div></div>}
       {currentPosts && (posts.length || hashtagList.length || searchResults.length) > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}

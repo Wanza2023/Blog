@@ -96,8 +96,8 @@ const Navbar = () => {
                         {/* IsLoggedIn 이 True이면 div를 보이고 아니면 div 안보이기 */}
                         {isLoggedIn && (
                             <div className="optionList">
+                                <li className="optionListItem" ><Link to={`/user/${nickName}`}>내블로그</Link></li>
                                 <li className="optionListItem"><Link to="/">계정관리</Link></li>
-                                <li className="optionListItem" ><Link to={`/user/${nickName}`}>나의 블로그홈</Link></li>
                                 <li className="optionListItem"><Link to="/personaledit">블로그관리</Link></li>
                                 <li className="optionListItem"><button className="logoutButton" onClick={handleLogout}>로그아웃</button></li>
                             </div>
