@@ -86,18 +86,20 @@ const PersonalEdit = () => {
                 onPasswordSubmit={handlePasswordSubmit}
                 resetPassword={resetPassword}
             />
-            <div className="menuHeader">
-                <span className="menuTitle">{menuItems[Menu].label}</span>
-                <hr className="menuDivider" />
-            </div>
-            <div className="menuContainer">
-                <div className="menuE">
-                    {Object.keys(menuItems).map((menuId) => (
-                        <MenuItem key={menuId} menuId={menuId} />
-                    ))}
-                </div>
-                <div className="contentE">
-                    {renderContent()}
+            <div className='menuWrapper'>    
+                
+                <div className="menuContainer">
+                    <div className="menuE">
+                        {Object.keys(menuItems).map((menuId) => (
+                            <MenuItem key={menuId} menuId={menuId} />
+                        ))}
+                    </div>
+                    <div className="contentE">
+                        <div className="menuHeader">
+                            <span className="menuTitle">{menuItems[Menu].label}</span>
+                        </div>
+                        {renderContent()}
+                    </div>
                 </div>
             </div>
             <Button></Button>

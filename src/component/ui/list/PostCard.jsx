@@ -59,7 +59,7 @@ function PostCard(props){
 
     return (
         <div className="cards">
-            <div onClick={()=>navigate(`${props.path}`)}>
+            <div className="cards-img-wrapper" onClick={()=>navigate(`${props.path}`)}>
                 {imgSrc !== "default-image-url.jpg" ? ( // 사진 없을 때 빈 박스
                     <img src={imgSrc} alt={props.alt} className="cardimg" />
                 ) : (
