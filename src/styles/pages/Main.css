@@ -1,9 +1,129 @@
+.all {
+    background-color: #F1F5FE;
+    height: 925px;
+}
 .Main {
     align-items: center;
 }
 
-.container {
-    margin: 56px 0;
+.popularBox {
+}
+
+.popularTitle {
+    margin-left: 18rem;
+}
+
+.popularPostList {
+    margin-top: -1rem;
+}
+
+.popularTitle > text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    appearance: auto;
+}
+
+.postlist-map-container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.post-list-container {
+    flex: 1;
+    overflow: auto; 
+    margin-left: 18rem;
+}
+
+.post-list-container > text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    appearance: auto;
+}
+
+.map-container {
+    flex: 1;
+    margin-left: 30rem;
+}
+
+.map-containers {
+    
+}
+
+.map-container > svg {
+    margin-top: 5rem;
+}
+
+.map-containers {
+    position: absolute;
+    left: 20rem;
+    top: 17rem;
+}
+
+.map-containers > div {
+    float: left;
+}
+
+.mainLogo > img{
+    width: 8rem;
+}
+
+.mainContent > p {
+    font-size: 3rem;
+    font-weight: 600;
+    height: 5rem;
+}
+
+.mainContent > h {
+    font-size: 1.5rem;
+    margin-top: -20rem;
+}
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+    background: #FFF;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.10);
+    border: none;
+    margin-top: 3rem;
+}
+
+.search-icon {
+    color: gray;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.searchInput {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    border: none;
+}
+
+.search-input::placeholder {
+    font-size: 0.9rem;
+    color: #BDBDBD;
+}
+
+.hashtags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.mainHashtagList {
+    background: #FFF;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.10);
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
 }
 
 .land {

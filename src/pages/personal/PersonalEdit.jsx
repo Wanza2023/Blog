@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FaBookmark, FaChartBar, FaUserEdit, FaUserCog } from 'react-icons/fa';
 import BookmarkList from '../../component/ui/personal/BookmarkList';
 import PasswordModal from '../../component/ui/personal/PasswordModal';
@@ -12,6 +13,16 @@ const PersonalEdit = () => {
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
     const [confirmPassword, setconfirmPassword] = useState(false);
     const [resetPassword, setResetPassword] = useState(false);
+
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const tab = query.get('tab');
+
+    useEffect(() => {
+        if (tab) {
+            setMenu(tab);
+        }
+    }, [tab]);
 
     const handleSaveChanges = (updatedProfile) => {
         // API
@@ -87,7 +98,6 @@ const PersonalEdit = () => {
                 resetPassword={resetPassword}
             />
             <div className='menuWrapper'>    
-                
                 <div className="menuContainer">
                     <div className="menuE">
                         {Object.keys(menuItems).map((menuId) => (
