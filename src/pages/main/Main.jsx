@@ -3,12 +3,35 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Button from "../../component/common/Button";
 import PopularList from "../../component/ui/list/PopularList";
+import PostCard from '../../component/ui/list/PostCard';
 import "../../styles/pages/Main.css";
+import airplane from '../../assets/images/airplane.png'
+import { GoSearch } from "react-icons/go";
 
 export default function MainPage() {
     const navigate = useNavigate();
 
+    const [searchTerm, setSearchTerm] = useState('');
+    const [hashtags, setHashtags] = useState(["#제주도", "#겨울여행", "#바다", "#크리스마스", "#속초"]);
+
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
+
+    const [postCardPosts, setPostCardPosts] = useState([]);
+
+
+    const handleSearchEnter = async (event) => {
+        if (event.key === 'Enter' && searchTerm.trim() !== "") {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`);
+                // 검색 결과 처리 로직
+                navigate(`/board/search/${searchTerm}`);
+                setSearchTerm("");
+            } catch (error) {
+                console.error("Failed to fetch search results:", error);
+                alert("검색 결과를 불러올 수 없습니다.");
+            }
+        }
+    };
 
     useEffect(() => { // api에 데이터 요청 후 응답 response에 저장
         const fetchData = async () => {
@@ -133,36 +156,36 @@ export default function MainPage() {
     ]
     
 
-    useEffect(() => { // class 이름이 land인 엘리먼트 할당
-        const landElements = document.querySelectorAll(".land");
+    // useEffect(() => { // class 이름이 land인 엘리먼트 할당
+    //     const landElements = document.querySelectorAll(".land");
 
-        function handleMouseEnter(e) { // 마우스가 엘리먼트 위로 올라갔을 때
-            const name = e.target.getAttribute("data-name");
-            displayRegionName(name); // 해당 지역 이름 표시
-        }
+    //     function handleMouseEnter(e) { // 마우스가 엘리먼트 위로 올라갔을 때
+    //         const name = e.target.getAttribute("data-name");
+    //         displayRegionName(name); // 해당 지역 이름 표시
+    //     }
 
-        function handleMouseLeave() { // 마우스가 벗어났을 때
-            hideRegionName(); // 이름 숨기기
-        }
+    //     function handleMouseLeave() { // 마우스가 벗어났을 때
+    //         hideRegionName(); // 이름 숨기기
+    //     }
 
-        function handleClick() { // 마우스가 클릭했을 때
-            hideRegionName(); // 이름 숨기기
-        }
+    //     function handleClick() { // 마우스가 클릭했을 때
+    //         hideRegionName(); // 이름 숨기기
+    //     }
 
-        landElements.forEach((element) => { // 이벤트 실행
-            element.addEventListener("mouseenter", handleMouseEnter);
-            element.addEventListener("mouseleave", handleMouseLeave);
-            element.addEventListener("click", handleClick);
-        });
+    //     landElements.forEach((element) => { // 이벤트 실행
+    //         element.addEventListener("mouseenter", handleMouseEnter);
+    //         element.addEventListener("mouseleave", handleMouseLeave);
+    //         element.addEventListener("click", handleClick);
+    //     });
 
-        return () => {
-            landElements.forEach((element) => { // 이벤트 제거
-                element.removeEventListener("mouseenter", handleMouseEnter);
-                element.removeEventListener("mouseleave", handleMouseLeave);
-                element.removeEventListener("click", handleClick);
-            });
-        };
-    }, []);
+    //     return () => {
+    //         landElements.forEach((element) => { // 이벤트 제거
+    //             element.removeEventListener("mouseenter", handleMouseEnter);
+    //             element.removeEventListener("mouseleave", handleMouseLeave);
+    //             element.removeEventListener("click", handleClick);
+    //         });
+    //     };
+    // }, []);
 
     function displayRegionName(name) { // 이름 표시
         const regionNameElement = document.createElement("div"); // 생성된 div 엘리먼트에 이름 설정 후 body에 추가
@@ -178,28 +201,79 @@ export default function MainPage() {
         }
     }
 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/바다조아`);
+                if (response.data && response.data.body && Array.isArray(response.data.body)) {
+                    setPostCardPosts(response.data.body);
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Error: 데이터를 불러올 수 없습니다');
+            }
+        };
+        fetchData();
+    }, []); 
+
     return (
         <>
-            <PopularList PopularPosts={posts} onClickItem={() => { navigate("/"+ /*닉네임*/ + "/" /*보드아이디*/) }} />
-            <div className="container">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="80vh"
-                    width="100%"
-                    viewBox="0 0 524 631"
-                    aria-label="Map of South Korea"
-                >
-                {region.map((region)=>(
-                    <path key={region.id}
-                        onClick={() => navigate("/regionList/" + region.name)}
-                        className='land'
-                        id={region.id}
-                        name={region.name}
-                        d={region.d}
-                        data-name={region.koreanname}
-                    />
-                ))}
-                </svg>
+        <div className="all">
+                <div className="map-container">
+                    <div className="map-containers">
+                        <div className="mainLogo"><img src={airplane} alt="Main Logo" /></div>
+                            <div className="mainContent">
+                                <p>
+                                    떠나고 싶은 곳을<br/>
+                                    선택해보세요!
+                                </p>
+                                <h>국내 여행 기록 Travelog</h>
+                                <div className="searchContainer">
+                                    <GoSearch className="search-icon" size={30} />
+                                    <input 
+                                        type="text" 
+                                        className="searchInput"
+                                        placeholder="원하는 여행의 검색어를 입력해주세요." 
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        onKeyDown={handleSearchEnter}
+                                    />
+                                </div>
+                                <div className="hashtags-container">
+                                    {hashtags.map((hashtag, index) => (
+                                        <div key={index} className="mainHashtagList">{hashtag}</div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="80vh"
+                        width="100%"
+                        viewBox="0 0 524 631"
+                        aria-label="Map of South Korea"
+                    >
+                    {region.map((region)=>(
+                        <path key={region.id}
+                            onClick={() => navigate("/regionList/" + region.name)}
+                            className='land'
+                            id={region.id}
+                            name={region.name}
+                            d={region.d}
+                            data-name={region.koreanname}
+                        />
+                    ))}
+                    </svg>
+                </div>
+                </div>
+                <div className="popularBox">
+                <div className="popularTitle">
+                    <text>인기글</text>
+                </div>
+                <div className="popularPostList">
+                    <PopularList PopularPosts={posts} onClickItem={() => { navigate("/"+ /*닉네임*/ + "/" /*보드아이디*/) }} />
+                </div>
             </div>
             <Button></Button>
         </>

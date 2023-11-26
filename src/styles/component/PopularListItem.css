@@ -1,6 +1,7 @@
 .popular-post {
-    height: 30vh;
-    margin: 1.8rem 10px;
+    height: 20vh;
+    width: 20vh;
+    margin: 1.8rem;
     position: relative;
 }
 
@@ -13,7 +14,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 30vh;
+    height: 20vh;
     border-radius: 10px;
 }
 
@@ -48,4 +49,9 @@
     color: white;
     max-height: 0;
     overflow: hidden;
+}
+
+.slick-dots {
+    margin-top: -2.5vh;
+    bottom: auto;
 }
