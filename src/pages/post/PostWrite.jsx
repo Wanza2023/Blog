@@ -13,7 +13,7 @@ import styled from "styled-components";
 import "../../styles/pages/PostWrite.css";
 
 const Container = styled.div`
-  padding: 2rem 3rem;
+  padding: 3rem 20rem;
   display: grid;
   justify-content: center;
 `;
@@ -40,7 +40,7 @@ const TagBox = styled.div`
   padding: 0 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  width: 100%;
+  width: 30vw;
   &:focus-within {
     border-color: #5076ff;
   }
@@ -74,11 +74,53 @@ const Button = styled.button`
 
 const TagInput = styled.input`
   display: inline-flex;
-  width: auto
+  width: auto;
   background: transparent;
   border: none; 
   outline: none;
   cursor: text;
+`;
+
+const ToggleButton = styled.label`
+  width: ${(props) => (props.isPublic ? "4vw" : "5vw")};
+  height: 3.3vh;
+  border: 1px solid #5585FF;
+  border-radius: 20px;
+  background-color: white;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2px;
+
+  .toggle-checkbox {
+    display: none;
+  }
+
+  .toggle-span {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #5585FF;
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    transition: left 0.3s;
+  }
+
+  .toggle-checkbox:checked + .toggle-span {
+    left: calc(100% - 23px);
+  }
+
+  .toggle-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #5585FF;
+    font-weight: bold;
+  }
 `;
 
 function PostWrite() {
@@ -309,15 +351,16 @@ function PostWrite() {
           placeholder="제목을 입력해주세요."
           onChange={onChangeTitle}
         />
-        <label className="toggleBtn">
+        <ToggleButton isPublic={isPublic}>
           <input
             type="checkbox"
+            className="toggle-checkbox"
             checked={isPublic}
             onChange={() => setIsPublic(!isPublic)}
           />
-          <span></span>
-          <div className="toggleInput">{isPublic ? "공개" : "비공개"}</div>
-        </label>
+          <span className="toggle-span"></span>
+          <div className="toggle-text">{isPublic ? "공개" : "비공개"}</div>
+        </ToggleButton>
         <button onClick={!isFormValid ? handleError : boardWrite}>발행</button>
       </div>
       <div className="body2">
