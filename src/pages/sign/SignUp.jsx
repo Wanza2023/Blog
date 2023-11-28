@@ -57,17 +57,16 @@ function SignUp(props){
         }
     }
     // 닉네임 중복 확인
-    const handleDoubleCheck = () => {
+    const handleDoubleCheck = (nickName) => {
         axios
-            .get(`${process.env.REACT_APP_MEMBER_API_KEY}`)
+            .get(`${process.env.REACT_APP_MEMBER_API_KEY}/validate/nickname/${nickName}`)
             .then(res=>{
-                const nickNames = res.data.body.map(item => item.nickName);
-                if (nickNames.includes(name)) {
-                    totConfirm[1] = 0; setTotConfirm(()=>[...totConfirm]);
-                    setNameMessage("이미 사용중인 닉네임입니다.");
-                } else {
+                if(res.data.success){
                     totConfirm[1] = 1; setTotConfirm(()=>[...totConfirm]);
                     setNameMessage("사용가능한 닉네임입니다.");
+                } else {
+                    totConfirm[1] = 0; setTotConfirm(()=>[...totConfirm]);
+                    setNameMessage("이미 사용중인 닉네임입니다.");
                 }
             })
             .catch((err) => {
@@ -231,7 +230,7 @@ function SignUp(props){
                         <label>닉네임 *</label>
                         <div className="nameConfirm">
                             <input type="text" name="name" id="name" value={name} onChange={onChangeName} ref={nameRef} placeholder="닉네임을 입력하세요"/>
-                            <button onClick={handleDoubleCheck}>중복확인</button>
+                            <button onClick={()=>handleDoubleCheck(name)}>중복확인</button>
                         </div>
                         <p className={`${totConfirm[1] ? 'signup-submit-message-isok':'signup-submit-message'}`}>{nameMessage}</p>
                     </div>
