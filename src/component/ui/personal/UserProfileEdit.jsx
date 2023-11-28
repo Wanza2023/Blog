@@ -6,6 +6,7 @@ import { BiUserCircle } from "react-icons/bi";
 import { useRecoilValue } from 'recoil';
 import { memberIdState } from '../../common/AuthState';
 import '../../../styles/component/UserProfileEdit.css';
+import { useAuth } from "../../common/useAuth"
 
 const UserProfileEdit = ({ onSaveChanges }) => {
     const navigate = useNavigate();
@@ -21,6 +22,8 @@ const UserProfileEdit = ({ onSaveChanges }) => {
 
     const [editPassword, setEditPassword] = useState(false); 
 
+    const { isLoggedIn, setIsLoggedIn } = useAuth();
+
     const handleUnsubscribe = () => {
         const confirmUnsubscribe = window.confirm('작성하신 모든 글과 댓글이 삭제됩니다. 탈퇴하시겠습니까?');
         if (confirmUnsubscribe) {
@@ -35,6 +38,8 @@ const UserProfileEdit = ({ onSaveChanges }) => {
                         if (response.data.success) {
                             alert('계정이 성공적으로 삭제되었습니다.');
                             navigate('/login');
+                            setIsLoggedIn(false);
+                            sessionStorage.clear();
                         } else {
                             alert('계정 삭제 실패. 다시 시도해주세요.');
                         }
@@ -64,15 +69,16 @@ const UserProfileEdit = ({ onSaveChanges }) => {
             setPasswordError('비밀번호가 일치하지 않습니다.');
             return;
         }
-
+    
+        const memberId = sessionStorage.getItem('memberId');
         const newPassword = password;
-        const passwordChangeUrl = sessionStorage.getItem('href');
-        console.log(newPassword);
+    
         console.log(memberId);
-
-        if (passwordChangeUrl && memberId && newPassword) {
-            axios.patch(passwordChangeUrl, {
-                memberId: memberId,
+        console.log(password);
+        
+        if (memberId && newPassword) {
+            axios.patch(`${process.env.REACT_APP_MEMBER_API_KEY}/password`, {
+                memberId: parseInt(memberId),
                 password: newPassword
             })
             .then(response => {
@@ -85,7 +91,8 @@ const UserProfileEdit = ({ onSaveChanges }) => {
                 }
             })
             .catch(error => {
-                alert('현재 비밀번호와 똑같은 비밀번호로는 변경할 수 없습니다.');
+                console.error('비밀번호 변경 중 오류 발생:', error);
+                alert('비밀번호 변경 중 오류가 발생했습니다.');
             });
         } else {
             alert('비밀번호 변경 정보가 누락되었습니다.');

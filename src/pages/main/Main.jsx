@@ -188,16 +188,6 @@ export default function MainPage() {
         fetchData();
     }, []); 
 
-    const handleHashtagClick = async (hashtag) => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/tags/${hashtag}`);
-            navigate(`/board/tags/${hashtag}`);
-        } catch (error) {
-          console.error("Failed to fetch hashtag data:", error);
-          alert("해시태그 데이터를 불러올 수 없습니다.");
-        }
-      };
-
     return (
         <>
         <div className="all">
