@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     
 `
 const StyledSlider = styled(Slider)`
-    width: 80%;
+    width: 70%;
 `
 
 export default function PopularList(props) {

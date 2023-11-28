@@ -50,7 +50,7 @@
     height: 8rem;
     padding-bottom: 0.8rem;
     padding-top: 0.8rem;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .cardtitle {

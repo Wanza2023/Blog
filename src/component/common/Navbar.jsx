@@ -99,10 +99,40 @@ const Navbar = () => {
                         <div className="optionListItem"><Link to="/personaledit">블로그관리</Link></div>
                         <div className="optionListItem"><button className="logoutButton" onClick={handleLogout}>로그아웃</button></div>
                     </div>
+<<<<<<< HEAD
                     )
                 }
             </div>
         </div>
+=======
+                </li>
+                <li>
+                    <div className="navbar-search-icon">
+                        <div className="profile-icon" onClick={handleSearchClick}>
+                            <img src={navigation_icon} alt="검색버튼" />
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="navbar-profile">
+                        <div className="profile-icon">
+                            <img src={profile_icon} alt="Profile Icon" onClick={profileIconClick}/>
+                        </div>
+                        {/* IsLoggedIn 이 True이면 div를 보이고 아니면 div 안보이기 */}
+                        {isLoggedIn && (
+                            <div className="optionList">
+                                <li className="optionListItem" ><Link to={`/user/${nickName}`}>내블로그</Link></li>
+                                <li className="optionListItem"><Link to="/personaledit">블로그관리</Link></li>
+                                <li className="optionListItem"><Link to="/personaledit?tab=change">계정관리</Link></li>
+                                <li className="optionListItem"><button className="logoutButton" onClick={handleLogout}>로그아웃</button></li>
+                            </div>
+                            )
+                        }
+                    </div>
+                </li>
+            </ul>
+        </nav>
+>>>>>>> dev
     );
 }
 

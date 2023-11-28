@@ -1,5 +1,6 @@
 import React from 'react';
 import { BiUserCircle } from "react-icons/bi";
+import { CiLock, CiUnlock } from "react-icons/ci";
 import { useAuth } from '../../common/useAuth';
 import styled from 'styled-components';
 import '../../../styles/component/Comment.css'
@@ -32,7 +33,7 @@ const ButtonContainerr = styled.div`
     }
 `;
 
-const CommentWrite = ({ newComment, setNewComment, addComments, setIsPublic,isPublic }) => {
+const CommentWrite = ({ newComment, setNewComment, addComments, setIsPublic, isPublic }) => {
     // const nickname = useRecoilState(nickNameState);
     const { nickname } = useAuth();
 
@@ -40,6 +41,18 @@ const CommentWrite = ({ newComment, setNewComment, addComments, setIsPublic,isPu
         addComments(); 
         setNewComment('');
     }
+
+    const ToggleButton = () => {
+        const handleToggle = () => {
+            setIsPublic(!isPublic);
+        };
+    
+        return (
+            <div onClick={handleToggle} style={{ cursor: 'pointer' }}>
+                {isPublic ? <CiUnlock style={{ color: 'gray' }} size={30} /> : <CiLock style={{ color: 'gray' }} size={30} />}
+            </div>
+        );
+    };
     
     return (
         <div>
@@ -59,16 +72,10 @@ const CommentWrite = ({ newComment, setNewComment, addComments, setIsPublic,isPu
                 </div>
             </CommentInputContainer>
             <ButtonContainerr>
-                <label className="toggleBtn">
-                    <input
-                        type="checkbox"
-                        checked={isPublic}
-                        onChange={() => setIsPublic(!isPublic)}
-                    />
-                    <span></span>
-                    <div className="toggleInput">{isPublic ? "공개" : "비공개"}</div>
-                </label>
-                <button onClick={handleSubmit} >등록</button>
+                <div onClick={() => setIsPublic(!isPublic)} style={{ cursor: 'pointer' }}>
+                    <ToggleButton />
+                </div>
+                <button onClick={handleSubmit}>등록</button>
             </ButtonContainerr>
         </div>
     );
