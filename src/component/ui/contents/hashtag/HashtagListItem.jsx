@@ -1,13 +1,3 @@
-// import React from 'react';
-
-// const HashtagListItem = ({ hashtag, onClick }) => {
-//     return (
-//         <button onClick={onClick}>#{hashtag}</button>
-//     );
-// };
-
-// export default HashtagListItem;
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
