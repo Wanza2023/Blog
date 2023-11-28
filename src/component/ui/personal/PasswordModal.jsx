@@ -70,6 +70,7 @@ const PasswordModal = ({ isOpen, onRequestClose, onPasswordSubmit, resetPassword
             <div className="emailInfo">
                 {userEmail}
             </div>
+            {/* <form onSubmit={handleSubmit}> */}
             <form onSubmit={handleSubmit}>
                 <input
                     type="password"

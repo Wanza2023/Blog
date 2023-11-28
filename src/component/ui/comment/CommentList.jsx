@@ -116,47 +116,7 @@ const CommentList = ({comments, setComments}) => {
         updatedLikedStates[commentIndex] = !updatedLikedStates[commentIndex];
         setIsLikedStates(updatedLikedStates);
     };
-
-    // const onClickBookmark = () => {
-    //     setBookmarkState(!bookmarkState);
-    //     const token = sessionStorage.getItem('token');
-    //     const memberId = sessionStorage.getItem('memberId'); 
-    //     if (bookmarkState === false) {
-    //         axios
-    //             .post(`${process.env.REACT_APP_BOOKMARK_API_KEY}`, 
-    //             {
-    //                 memberId : memberId,
-    //                 boardId : boardId
-    //             },{
-    //                 headers: {
-    //                     Authorization: `Bearer ${token}`
-    //                 }
-    //             })
-    //             .then(
-    //                 res => {
-    //                     console.log(res);
-    //                 }
-    //             )
-    //             .catch(err => {
-    //                 console.log(err);
-    //             })
-    //     } else {
-    //         axios
-    //             .delete(`${process.env.REACT_APP_BOOKMARK_API_KEY}/${memberId}/${boardId}`,{
-    //                 headers: {
-    //                     Authorization: `Bearer ${token}`
-    //                 }
-    //             })
-    //             .then(
-    //                 res => {
-    //                     console.log(res);
-    //                 }
-    //             )
-    //             .catch(err => {
-    //                 console.log(err);
-    //             })
-    //     }
-    // }
+    
     const onClickBookmark = () => {
         if (isLoggedIn) {
             setBookmarkState(!bookmarkState);
