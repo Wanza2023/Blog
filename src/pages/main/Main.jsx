@@ -7,17 +7,21 @@ import PostCard from '../../component/ui/list/PostCard';
 import "../../styles/pages/Main.css";
 import airplane from '../../assets/images/airplane.png'
 import { GoSearch } from "react-icons/go";
+import { IoLocationOutline } from "react-icons/io5";
+import HashtagListItem from "../../component/ui/contents/hashtag/HashtagListItem";
 
 export default function MainPage() {
     const navigate = useNavigate();
 
     const [searchTerm, setSearchTerm] = useState('');
-    const [hashtags, setHashtags] = useState(["#제주도", "#겨울여행", "#바다", "#크리스마스", "#속초"]);
+    const [hashtags, setHashtags] = useState(["제주도", "겨울여행", "바다", "크리스마스", "속초"]);
 
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
 
     const [postCardPosts, setPostCardPosts] = useState([]);
 
+    const [marker, setmarker] = useState({ display: 'none' });
+    const [regionName, setRegionName] = useState('');
 
     const handleSearchEnter = async (event) => {
         if (event.key === 'Enter' && searchTerm.trim() !== "") {
@@ -155,52 +159,19 @@ export default function MainPage() {
         }
     ]
     
+    const handleMouseEnter = (event) => {
+        const region = event.currentTarget.getAttribute('data-name');
+        setRegionName(region);
+        setmarker({
+            display: 'block',
+            left: `${event.pageX}px`,
+            top: `${event.pageY - 40}px`
+        });
+    };
 
-    // useEffect(() => { // class 이름이 land인 엘리먼트 할당
-    //     const landElements = document.querySelectorAll(".land");
-
-    //     function handleMouseEnter(e) { // 마우스가 엘리먼트 위로 올라갔을 때
-    //         const name = e.target.getAttribute("data-name");
-    //         displayRegionName(name); // 해당 지역 이름 표시
-    //     }
-
-    //     function handleMouseLeave() { // 마우스가 벗어났을 때
-    //         hideRegionName(); // 이름 숨기기
-    //     }
-
-    //     function handleClick() { // 마우스가 클릭했을 때
-    //         hideRegionName(); // 이름 숨기기
-    //     }
-
-    //     landElements.forEach((element) => { // 이벤트 실행
-    //         element.addEventListener("mouseenter", handleMouseEnter);
-    //         element.addEventListener("mouseleave", handleMouseLeave);
-    //         element.addEventListener("click", handleClick);
-    //     });
-
-    //     return () => {
-    //         landElements.forEach((element) => { // 이벤트 제거
-    //             element.removeEventListener("mouseenter", handleMouseEnter);
-    //             element.removeEventListener("mouseleave", handleMouseLeave);
-    //             element.removeEventListener("click", handleClick);
-    //         });
-    //     };
-    // }, []);
-
-    function displayRegionName(name) { // 이름 표시
-        const regionNameElement = document.createElement("div"); // 생성된 div 엘리먼트에 이름 설정 후 body에 추가
-        regionNameElement.textContent = name;
-        regionNameElement.className = "region-name";
-        document.body.appendChild(regionNameElement);
-    }
-
-    function hideRegionName() { // 이름이 존재하면 제거
-        const regionNameElement = document.querySelector(".region-name"); 
-        if (regionNameElement) {
-            regionNameElement.remove();
-        }
-    }
-
+    const handleMouseLeave = () => {
+        setmarker({ display: 'none' });
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -216,6 +187,16 @@ export default function MainPage() {
         };
         fetchData();
     }, []); 
+
+    const handleHashtagClick = async (hashtag) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/tags/${hashtag}`);
+            navigate(`/board/tags/${hashtag}`);
+        } catch (error) {
+          console.error("Failed to fetch hashtag data:", error);
+          alert("해시태그 데이터를 불러올 수 없습니다.");
+        }
+      };
 
     return (
         <>
@@ -242,30 +223,36 @@ export default function MainPage() {
                                 </div>
                                 <div className="hashtags-container">
                                     {hashtags.map((hashtag, index) => (
-                                        <div key={index} className="mainHashtagList">{hashtag}</div>
+                                        <HashtagListItem key={index} hashtag={hashtag} />
                                     ))}
                                 </div>
                             </div>
                         </div>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="80vh"
-                        width="100%"
-                        viewBox="0 0 524 631"
-                        aria-label="Map of South Korea"
-                    >
-                    {region.map((region)=>(
-                        <path key={region.id}
-                            onClick={() => navigate("/regionList/" + region.name)}
-                            className='land'
-                            id={region.id}
-                            name={region.name}
-                            d={region.d}
-                            data-name={region.koreanname}
-                        />
-                    ))}
-                    </svg>
-                </div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="80vh"
+                            width="100%"
+                            viewBox="0 0 524 631"
+                            aria-label="Map of South Korea"
+                        >
+                            {region.map((region) => (
+                                <path key={region.id}
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                    onClick={() => navigate("/regionList/" + region.name)}
+                                    className='land'
+                                    id={region.id}
+                                    name={region.name}
+                                    d={region.d}
+                                    data-name={region.koreanname}
+                                />
+                            ))}
+                        </svg>
+                    </div>
+                    <div className="marker" style={marker}>
+                        <IoLocationOutline />
+                        {regionName}
+                    </div>
                 </div>
                 <div className="popularBox">
                 <div className="popularTitle">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate,} from "react-router-dom";
 import axios from "axios";
 import { FaCog } from 'react-icons/fa';
 import { BiUserCircle } from "react-icons/bi";
@@ -7,6 +8,8 @@ import { memberIdState } from '../../common/AuthState';
 import '../../../styles/component/UserProfileEdit.css';
 
 const UserProfileEdit = ({ onSaveChanges }) => {
+    const navigate = useNavigate();
+
     const [passwordError, setPasswordError] = useState('');
 
     const storedNickname = sessionStorage.getItem('nickName');
@@ -18,17 +21,33 @@ const UserProfileEdit = ({ onSaveChanges }) => {
 
     const [editPassword, setEditPassword] = useState(false); 
 
-    const handleUnsubscribe = () => { // 탈퇴 시 확인 알림창
+    const handleUnsubscribe = () => {
         const confirmUnsubscribe = window.confirm('작성하신 모든 글과 댓글이 삭제됩니다. 탈퇴하시겠습니까?');
         if (confirmUnsubscribe) {
             const inputPassword = window.prompt('비밀번호를 입력하세요.');
             if (inputPassword === password) {
-                
+                const token = sessionStorage.getItem('token');
+                axios.delete(`${process.env.REACT_APP_MEMBER_API_KEY}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }})
+                    .then(response => {
+                        if (response.data.success) {
+                            alert('계정이 성공적으로 삭제되었습니다.');
+                            navigate('/login');
+                        } else {
+                            alert('계정 삭제 실패. 다시 시도해주세요.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('계정 삭제 중 오류 발생:', error);
+                        alert('계정 삭제 중 문제가 발생했습니다. 다시 시도해주세요.');
+                    });
             } else {
                 alert('비밀번호가 틀렸습니다.');
             }
         }
-    };
+    };    
 
     const handlePasswordChange = (e) => {  // 비밀번호 확인으로 변경해야됨
         setPassword(e.target.value);

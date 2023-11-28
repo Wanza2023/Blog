@@ -117,13 +117,14 @@
     margin-top: 1rem;
 }
 
-.mainHashtagList {
+.hashtags-container > button {
     background: #FFF;
     border-radius: 5px;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.10);
     padding: 5px 10px;
     font-size: 0.8rem;
     cursor: pointer;
+    border: none;
 }
 
 .land {
@@ -148,4 +149,14 @@
     top: 35vw;
     left: 25vw;
     font-size: 1.5rem;
+}
+
+.marker {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 5px;
+    pointer-events: none;
+    display: none;
 }

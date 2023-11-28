@@ -15,44 +15,29 @@ const PasswordModal = ({ isOpen, onRequestClose, onPasswordSubmit, resetPassword
         }
     }, [resetPassword]);
 
-    const handleSubmit = (e) => { // 비밀번호 넘겨주기
+    const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_MEMBER_API_KEY}/login`, {
-            email: userEmail,
-            password: password,
+        const token = sessionStorage.getItem('token');
+        axios.post(`${process.env.REACT_APP_MEMBER_API_KEY}/validate/passwd`, password,{
+            headers: {
+                'Content-Type': 'text/plain',
+                'Authorization': `Bearer ${token}`
+            },
         })
         .then(response => {
             if (response.data.success) {
                 onPasswordSubmit();
-                axios.post(`${process.env.REACT_APP_MEMBER_API_KEY}/pwInquiry`, userEmail, {
-                    headers: {
-                        'Content-Type': 'text/plain',
-                    },
-                })
-                .then(response => {
-                    console.log('Response:', response);
-                    if (response.data.success) {
-                        sessionStorage.setItem('href',response.data.body.href);
-                        
-                    } else {
-                        alert('비밀번호 변경 요청 실패');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error requesting password change:', error);
-                    alert('비밀번호 변경 요청 중 오류 발생');
-                });
             } else {
-                setErrorMessage('현재 비밀번호가 일치하지 않습니다.');
+                setErrorMessage(response.data.message || '비밀번호 확인에 실패했습니다.');
             }
         })
         .catch(error => {
-            console.error('Error verifying password:', error);
-            setErrorMessage('비밀번호가 일치하지 않습니다.');
+            console.log(token);
+            console.log(password);
+            console.error("Error: ", error.response.data);
+            setErrorMessage('비밀번호 확인 중 오류가 발생했습니다.');
         });
     };
-
-        
 
     const handleRequestClose = () => {
         setPassword(''); 
