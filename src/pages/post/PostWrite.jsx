@@ -324,7 +324,7 @@ function PostWrite() {
       <div className="body1">
         <select value={selectedRegion} onChange={handleRegionChange}>
           <option value="지역 선택" disabled>
-            지역 선택
+            지역
           </option>
           <option value="Seoul">서울</option>
           <option value="Gyeonggi">경기도</option>

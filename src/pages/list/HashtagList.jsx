@@ -9,6 +9,7 @@ import axios from 'axios';
 import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
 import Pagination from "react-js-pagination";
+import { HiOutlineHashtag } from "react-icons/hi";
 
 function PostList() {
   const { hashtag } = useParams(); // useParams로 url에서 파라미터 추출
@@ -52,9 +53,9 @@ function PostList() {
 
   return (
     <div className="wrapper">
-      {hashtag && <div className="hashtag-word"># {hashtag}</div>}
+      {hashtag && <div className="hashtag-word"><HiOutlineHashtag size={20}/><div className="hashtag-word-term">{hashtag}</div></div>}
       {currentPosts && posts.length > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
-        (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div className="resultNone">검색결과가 없습니다.</div>)}
+        (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div className="resultNone">해시태그가 없습니다.</div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
       <Paging page={currentPage} count={count} setPage={setPage}/>
       {/* <Pagination total={posts.length} limit={limit} page={pages} setPage={setPages}/> */}

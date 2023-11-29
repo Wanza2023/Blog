@@ -54,7 +54,7 @@ function PostList() {
 
   return (
     <div className="wrapper">
-      {searchTerm && <div className="search-word"><IoSearchSharp /> <div className="search-word-term">{searchTerm}</div></div>}
+      {searchTerm && <div className="search-word"><IoSearchSharp /><div className="search-word-term">{searchTerm}</div></div>}
       {currentPosts && posts.length > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div className="resultNone">검색결과가 없습니다.</div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}

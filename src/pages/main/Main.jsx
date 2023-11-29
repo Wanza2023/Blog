@@ -7,14 +7,14 @@ import PostCard from '../../component/ui/list/PostCard';
 import "../../styles/pages/Main.css";
 import airplane from '../../assets/images/airplane.png'
 import { GoSearch } from "react-icons/go";
-import { IoLocationOutline } from "react-icons/io5";
+import { GrLocationPin } from "react-icons/gr";
 import HashtagListItem from "../../component/ui/contents/hashtag/HashtagListItem";
 
 export default function MainPage() {
     const navigate = useNavigate();
 
     const [searchTerm, setSearchTerm] = useState('');
-    const [hashtags, setHashtags] = useState(["제주도", "겨울여행", "바다", "크리스마스", "속초"]);
+    const [hashtags, setHashtags] = useState([]);
 
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
 
@@ -41,8 +41,10 @@ export default function MainPage() {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}`);
-                if (response.data && response.data.body && Array.isArray(response.data.body)) {
-                    setPosts(response.data.body);
+                if (response.data && response.data.body.popularList && Array.isArray(response.data.body.popularList)) {
+                    setPosts(response.data.body.popularList);
+                    setHashtags(response.data.body.hashtags);
+                    console.log(hashtags);
                 } else {
                 }
             } catch (e) {
@@ -173,21 +175,6 @@ export default function MainPage() {
         setmarker({ display: 'none' });
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/바다조아`);
-                if (response.data && response.data.body && Array.isArray(response.data.body)) {
-                    setPostCardPosts(response.data.body);
-                }
-            } catch (e) {
-                console.error(e);
-                alert('Error: 데이터를 불러올 수 없습니다');
-            }
-        };
-        fetchData();
-    }, []); 
-
     return (
         <>
         <div className="all">
@@ -201,7 +188,7 @@ export default function MainPage() {
                                 </p>
                                 <h>국내 여행 기록 Travelog</h>
                                 <div className="searchContainer">
-                                    <GoSearch className="search-icon" size={30} />
+                                    <GoSearch className="search-icon" size={25} />
                                     <input 
                                         type="text" 
                                         className="searchInput"
@@ -240,7 +227,7 @@ export default function MainPage() {
                         </svg>
                     </div>
                     <div className="marker" style={marker}>
-                        <IoLocationOutline />
+                        <GrLocationPin size={20} />
                         {regionName}
                     </div>
                 </div>

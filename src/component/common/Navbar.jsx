@@ -95,7 +95,7 @@ const Navbar = () => {
                 {isLoggedIn && (
                     <div className="optionList">
                         <div className="optionListItem" ><Link to={`/user/${nickName}`}>내블로그</Link></div>
-                        <div className="optionListItem"><Link to="/">계정관리</Link></div>
+                        <div className="optionListItem"><Link to="/personaledit?tab=change">계정관리</Link></div>
                         <div className="optionListItem"><Link to="/personaledit">블로그관리</Link></div>
                         <div className="optionListItem"><button className="logoutButton" onClick={handleLogout}>로그아웃</button></div>
                     </div>
