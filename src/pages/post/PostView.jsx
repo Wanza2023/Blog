@@ -99,6 +99,7 @@ function PostView() {
         if (response.data && response.data.body) {
           console.log('Data received from the server:', response.data.body);
           setPosts(response.data.body);
+          console.log(response.data.body);
           setBookmarkState(response.data.body.bookmark);
           console.log(response.data.body.bookmark);
 

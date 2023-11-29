@@ -1,7 +1,13 @@
-.body0{
+.body0 {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-}
+    margin-bottom: 1rem;
+  }
+  
+  .body0 select, .body0 .toggleWrapper {
+    margin-right: 1rem;
+  }
 
 .body1 {
     
@@ -11,33 +17,40 @@
     object-fit: contain;
 }
 .body0 select {
-    border: none;
     text-align: center;
-    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #CFCFCF;
+    height: 2.3rem;
 }
 
 #title {
-    margin: 0.3rem;
-    border-radius: 2px;
-    font-size: 2rem;
+    font-size: 1.8rem;
     text-align: left;
     border: none;
     width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    padding-bottom: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
 }
 
 .body0 button {
     border: none;
-    border-radius: 20px;
+    border-radius: 50px;
     background-color: #5585FF;
     color: white;
-    width: max-content;
     text-align: center;
-    font-weight: bold;
-    padding: 0.5rem;
-    margin-right: 0.8vw;
     cursor: pointer;
+    width: 4rem;
+    height: 2.3rem;
+    display: inline-block;
+    vertical-align: middle;
 }
+
+/* .borderLine {
+    clear: both;
+    border-top: 1px solid #CFCFCF;
+} */
 
 .body2 {
     margin-bottom: 1.5vh;
@@ -144,25 +157,23 @@
 }
 
 .foot button {
-    border: none;
-    border-radius: 5px;
-    background-color: #5585FF;
-    color: white;
     text-align: center;
-    font-weight: bold;
-    padding: 0.5rem;
-    margin-right: 0.8vw;
+    border-radius: 5px;
+    border: 1px solid #CFCFCF;
+    height: 2.3rem;
+    background-color: white;
     cursor: pointer;
+    margin-right: 1rem;
 }
 
 .summary-content {
     margin-top: 1vh;
     text-align: left;
-    border: 1px solid #f1f1f1;
+    border: 1px solid #CFCFCF;
     border-radius: 2px;
     width: 98%;
     padding: 0.5rem;
-    min-height: 10vh;
+    min-height: 6vh;
     height: auto;
 }
 
@@ -178,3 +189,6 @@
     height: 75%;
 }
 
+.deleteButton {
+    width: 3rem;
+}
