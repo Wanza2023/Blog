@@ -92,12 +92,22 @@ const CommentsList = styled.div`
 
     .secretComment {
         font-size: 0.8rem;
-        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        float: left;
     }
 
-    > div {
+    .commentContent {
+        float: left;
+        font-size: 0.9rem;
+        margin-left: 0.2rem;
+    }
+
+    .commentDate {
         font-size: 0.7rem;
         color: gray;
+        position: absolute;
+        margin-top: 1rem;
     }
 `;
 
@@ -180,13 +190,13 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                         {
                             commentStatus[index] === false ? 
                             <>
-                                <div className='secretComment'><CiLock size={25} /> 비밀 댓글입니다.</div>
-                                {(nickname === signInNickName || commentNickName[index] === signInNickName) && <>{commentItem.content}</>}
+                                <div className='secretCommentSet'><div className='secretComment'><CiLock size={18} color='gray' /></div>
+                                {(nickname === signInNickName || commentNickName[index] === signInNickName) && <><div className='commentContent'>{commentItem.content}</div></>}</div>
                             </> :
-                            <>{commentItem.content}</>
+                            <><div className='commentContent'>{commentItem.content}</div></>
                         }
                         {/* <div><br />{convertTime(commentItem.createdAt).replace("T", " ").replace(/\.\d{3}Z$/, "")}</div> */}
-                        <div><br />{convertTime(commentItem.createdAt)}</div>
+                        <div className='commentDate'><br />{convertTime(commentItem.createdAt)}</div>
                     </CommentsList>
                 </Comments>
             ))}

@@ -7,14 +7,14 @@ import PostCard from '../../component/ui/list/PostCard';
 import "../../styles/pages/Main.css";
 import airplane from '../../assets/images/airplane.png'
 import { GoSearch } from "react-icons/go";
-import { IoLocationOutline } from "react-icons/io5";
+import { GrLocationPin } from "react-icons/gr";
 import HashtagListItem from "../../component/ui/contents/hashtag/HashtagListItem";
 
 export default function MainPage() {
     const navigate = useNavigate();
 
     const [searchTerm, setSearchTerm] = useState('');
-    const [hashtags, setHashtags] = useState(["제주도", "겨울여행", "바다", "크리스마스", "속초"]);
+    const [hashtags, setHashtags] = useState([]);
 
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
 
@@ -41,8 +41,10 @@ export default function MainPage() {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}`);
-                if (response.data && response.data.body && Array.isArray(response.data.body.popularList)) {
+                if (response.data && response.data.body.popularList && Array.isArray(response.data.body.popularList)) {
                     setPosts(response.data.body.popularList);
+                    setHashtags(response.data.body.hashtags);
+                    console.log(hashtags);
                 } else {
                 }
             } catch (e) {
@@ -173,27 +175,35 @@ export default function MainPage() {
         setmarker({ display: 'none' });
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/바다조아`);
-                if (response.data && response.data.body && Array.isArray(response.data.body)) {
-                    setPostCardPosts(response.data.body);
-                }
-            } catch (e) {
-                console.error(e);
-                alert('Error: 데이터를 불러올 수 없습니다');
-            }
-        };
-        fetchData();
-    }, []); 
-
     return (
         <>
             <div className="all">
                 <div className="map-container">
                     <div className="map-containers">
-                        <div className="mainLogo">
+                        <div className="mainLogo"><img src={airplane} alt="Main Logo" /></div>
+                            <div className="mainContent">
+                                <p>
+                                    떠나고 싶은 곳을<br/>
+                                    선택해보세요!
+                                </p>
+                                <h>국내 여행 기록 Travelog</h>
+                                <div className="searchContainer">
+                                    <GoSearch className="search-icon" size={25} />
+                                    <input 
+                                        type="text" 
+                                        className="searchInput"
+                                        placeholder="원하는 여행의 검색어를 입력해주세요." 
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        onKeyDown={handleSearchEnter}
+                                    />
+                                </div>
+                                <div className="hashtags-container">
+                                    {hashtags.map((hashtag, index) => (
+                                        <HashtagListItem key={index} hashtag={hashtag} />
+                                    ))}
+                                </div>
+                        {/* <div className="mainLogo">
                             <img src={airplane} alt="Main Logo" />
                         </div>
                         <div className="mainContent">
@@ -216,7 +226,7 @@ export default function MainPage() {
                             <div className="hashtags-container">
                                 {hashtags.map((hashtag, index) => (
                                     <HashtagListItem key={index} hashtag={hashtag} />
-                                ))}
+                                ))} */}
                             </div>
                         </div>
                     </div>
@@ -226,7 +236,26 @@ export default function MainPage() {
                             width="100%"
                             viewBox="0 0 524 631"
                             aria-label="Map of South Korea"
-                    >
+                        >
+                            {region.map((region) => (
+                                <path key={region.id}
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                    onClick={() => navigate("/regionList/" + region.name)}
+                                    className='land'
+                                    id={region.id}
+                                    name={region.name}
+                                    d={region.d}
+                                    data-name={region.koreanname}
+                                />
+                            ))}
+                        </svg>
+                    </div>
+                    <div className="marker" style={marker}>
+                        <GrLocationPin size={20} />
+                        {regionName}
+                    </div>
+                    {/* >
                         {region.map((region) => (
                             <path key={region.id}
                                 onMouseEnter={handleMouseEnter}
@@ -245,7 +274,7 @@ export default function MainPage() {
                     <IoLocationOutline />
                     {regionName}
                 </div>
-            </div>
+            </div> */}
                 <div className="popularBox">
                 <div className="popularTitle">
                     <text>인기글</text>

@@ -3,7 +3,7 @@
     font-weight: bold;
 }
 .view-container{
-    width: 55%;
+    width: 50%;
     margin-top:3rem;
 }
 .button-container {
@@ -184,13 +184,14 @@
 }
 .hashtag button {
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: #5076FF;
     color: white;
     min-width: 3.5vw;
     font-size: 0.9rem;
     padding: 0.7vh;
-    margin-right: 1.5vw;
+    margin-right: 0.5vw;
+    margin-bottom: 0.5vh;
     cursor: pointer;
 }
 

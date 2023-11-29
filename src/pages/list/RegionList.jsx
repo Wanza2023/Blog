@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { hashtagListState, searchResultsState } from "../../component/common/AuthState";
 import { useRecoilValue } from 'recoil';
-import { HiOutlineMapPin } from 'react-icons/hi2';
+import { GrLocationPin } from "react-icons/gr";
 import PostCard from '../../component/ui/list/PostCard';
 import Button from "../../component/common/Button";
 import axios from 'axios';
@@ -51,6 +51,7 @@ function RegionList() {
                 const indexOfLastPost = currentPage * postPerPage;
                 const indexOfFirstPost = indexOfLastPost - postPerPage;
                 setCurrentPosts(Data.slice(indexOfFirstPost,indexOfLastPost));
+                console.log(response.data.body);
             } 
             else {
             }
@@ -87,7 +88,7 @@ const localKorean = localToKorean[regionName] || regionName;
 
   return (
     <div className="wrapper">
-      {localKorean && <div className="hashtag-word"><div className="edit-set"><HiOutlineMapPin size={20} />{localKorean}</div></div>}
+      {localKorean && <div className="region-word"><GrLocationPin className="grIcon" /><div className="search-word-term">{localKorean}</div></div>}
       {currentPosts && (posts.length || hashtagList.length || searchResults.length) > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
