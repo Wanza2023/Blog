@@ -11,6 +11,8 @@ import { ko } from "date-fns/locale";
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from "styled-components";
 import "../../styles/pages/PostWrite.css";
+import { HiOutlineHashtag } from "react-icons/hi";
+import { TiDeleteOutline } from "react-icons/ti";
 
 const Container = styled.div`
   padding: 3rem 20rem;
@@ -38,9 +40,9 @@ const TagBox = styled.div`
   min-height: 50px;
   margin: 10px;
   padding: 0 10px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  width: 30vw;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  width: 100%;
   &:focus-within {
     border-color: #5076ff;
   }
@@ -50,27 +52,14 @@ const TagItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 5px;
-  padding: 5px;
-  background-color: #5076ff;
-  color: white;
-  border-radius: 5px;
-  font-size: 13px;
+  padding: 3px;
+  border-radius: 15px;
+  border: 1px solid #CFCFCF;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
 `;
 
 const Text = styled.span``;
-
-const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15px;
-  height: 15px;
-  margin-left: 5px;
-  border: none;
-  background-color: #5076ff;
-  color: white;
-`;
 
 const TagInput = styled.input`
   display: inline-flex;
@@ -82,45 +71,26 @@ const TagInput = styled.input`
 `;
 
 const ToggleButton = styled.label`
-  width: ${(props) => (props.isPublic ? "4vw" : "5vw")};
-  height: 3.3vh;
+  width: 4rem;
+  height: 2.3rem;
   border: 1px solid #5585FF;
-  border-radius: 20px;
-  background-color: white;
-  position: relative;
+  border-radius: 50px;
+  background-color: ${props => props.isPublic ? 'white' : '#5585FF'};
+  color: ${props => props.isPublic ? '#5585FF' : 'white'};
+  text-align: center;
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
-  margin-right: 2px;
+  margin-right: 0.5rem;
+  line-height: 2.5rem;
+`;
 
-  .toggle-checkbox {
-    display: none;
-  }
-
-  .toggle-span {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #5585FF;
-    position: absolute;
-    top: 50%;
-    left: 3px;
-    transform: translateY(-50%);
-    transition: left 0.3s;
-  }
-
-  .toggle-checkbox:checked + .toggle-span {
-    left: calc(100% - 23px);
-  }
-
-  .toggle-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #5585FF;
-    font-weight: bold;
-  }
+const DeleteButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  margin-left: 0.2rem;
 `;
 
 function PostWrite() {
@@ -256,9 +226,8 @@ function PostWrite() {
     setTagItem("");
   };
   // 해시태그 삭제
-  const deleteTagItem = (e) => {
-    const deletedTag = e.target.parentElement.firstChild.innerText.substr(2);
-    const filteredTagList = tagList.filter((tagItem) => tagItem !== deletedTag);
+  const deleteTagItem = (tagToDelete) => {
+    const filteredTagList = tagList.filter(tag => tag !== tagToDelete);
     setTagList(filteredTagList);
   };
   // 요약 내용 입력 및 변경
@@ -328,7 +297,7 @@ function PostWrite() {
                 지역 선택
               </option> */}
               <option value="지역 선택" disabled>
-                지역
+                지역 선택
               </option>
               <option value="Seoul">서울</option>
               <option value="Gyeonggi">경기도</option>
@@ -350,19 +319,16 @@ function PostWrite() {
             </select>
           </div>
           <div className="toggleWrapper">
-            <ToggleButton isPublic={isPublic}>
-                <input
-                  type="checkbox"
-                  className="toggle-checkbox"
-                  checked={isPublic}
-                  onChange={() => setIsPublic(!isPublic)}
-                />
-                <span className="toggle-span"></span>
-                <div className="toggle-text">{isPublic ? "공개" : "비공개"}</div>
-              </ToggleButton>
+          <ToggleButton
+            isPublic={isPublic}
+            onClick={() => setIsPublic(!isPublic)}
+          >
+            {isPublic ? "공개" : "비공개"}
+          </ToggleButton>
               <button onClick={!isFormValid ? handleError : boardWrite}>발행</button>
           </div>
       </div>
+      {/* <div className='borderLine' /> */}
       <div className="body1">
         <input
           id="title"
@@ -450,11 +416,35 @@ function PostWrite() {
           <PostWriteComponent value={desc} onChange={onEditorChange} />
         </MyBlock>
       </div>
+      <WholeBox>
+        <TagBox>
+          {tagList.map((tagItem, index) => {
+            return (
+              <TagItem key={index}>
+                <Text><HiOutlineHashtag size={15}/>{tagItem}</Text>
+                <DeleteButton onClick={() => deleteTagItem(tagItem)}>
+                  <TiDeleteOutline size={15} />
+                </DeleteButton>
+              </TagItem>
+            );
+          })}
+          <TagInput
+            type="text"
+            placeholder="# 태그 입력"
+            tabIndex={2}
+            onChange={(e) => setTagItem(e.target.value)}
+            value={tagItem}
+            onKeyPress={onKeyPress}
+          />
+        </TagBox>
+      </WholeBox>
       <div className="foot">
         {/* <button onClick={fetchSummary}>카카오</button>
         {summary && <div className="summary-content">{summary}</div>} */}
         <div>
           <button onClick={fetchSummaryN}>AI 요약</button>
+          <button >일정 추가</button>
+          <button >해시태그 추천</button>
         </div>
         {summaryN && (
           <textarea
@@ -463,29 +453,9 @@ function PostWrite() {
             onChange={handleSetSummaryValue}
           ></textarea>
         )}
-        {/* <button>해시태그 추가</button> */}
       </div>
-      <WholeBox>
-        <TagBox>
-          {tagList.map((tagItem, index) => {
-            return (
-              <TagItem key={index}>
-                <Text># {tagItem}</Text>
-                <Button onClick={deleteTagItem}>X</Button>
-              </TagItem>
-            );
-          })}
-          <TagInput
-            type="text"
-            placeholder="#해시태그를 입력하세요."
-            tabIndex={2}
-            onChange={(e) => setTagItem(e.target.value)}
-            value={tagItem}
-            onKeyPress={onKeyPress}
-          />
-        </TagBox>
-      </WholeBox>
     </Container>
   );
 }
 export default PostWrite;
+

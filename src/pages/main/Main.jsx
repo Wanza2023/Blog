@@ -177,7 +177,7 @@ export default function MainPage() {
 
     return (
         <>
-            <div className="all">
+        <div className="all">
                 <div className="map-container">
                     <div className="map-containers">
                         <div className="mainLogo"><img src={airplane} alt="Main Logo" /></div>
@@ -203,34 +203,9 @@ export default function MainPage() {
                                         <HashtagListItem key={index} hashtag={hashtag} />
                                     ))}
                                 </div>
-                        {/* <div className="mainLogo">
-                            <img src={airplane} alt="Main Logo" />
-                        </div>
-                        <div className="mainContent">
-                            <div className='mainContent_title'>
-                                떠나고 싶은 곳을<br/>
-                                선택해보세요!
-                            </div>
-                            <div className='mainContent_content'>국내 여행 기록 Travelog</div>
-                            <div className="searchContainer">
-                                <GoSearch className="search-icon" size={30} />
-                                <input 
-                                    type="text" 
-                                    className="searchInput"
-                                    placeholder="원하는 여행의 검색어를 입력해주세요." 
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    onKeyDown={handleSearchEnter}
-                                />
-                            </div>
-                            <div className="hashtags-container">
-                                {hashtags.map((hashtag, index) => (
-                                    <HashtagListItem key={index} hashtag={hashtag} />
-                                ))} */}
                             </div>
                         </div>
-                    </div>
-                    <svg
+                        <svg
                             xmlns="http://www.w3.org/2000/svg"
                             height="80vh"
                             width="100%"
@@ -255,26 +230,7 @@ export default function MainPage() {
                         <GrLocationPin size={20} />
                         {regionName}
                     </div>
-                    {/* >
-                        {region.map((region) => (
-                            <path key={region.id}
-                                onMouseEnter={handleMouseEnter}
-                                onMouseLeave={handleMouseLeave}
-                                onClick={() => navigate("/regionList/" + region.name)}
-                                className='land'
-                                id={region.id}
-                                name={region.name}
-                                d={region.d}
-                                data-name={region.koreanname}
-                            />
-                        ))}
-                    </svg>
                 </div>
-                <div className="marker" style={marker}>
-                    <IoLocationOutline />
-                    {regionName}
-                </div>
-            </div> */}
                 <div className="popularBox">
                 <div className="popularTitle">
                     <text>인기글</text>
