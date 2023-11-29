@@ -1,12 +1,9 @@
 .all {
     background-color: #F1F5FE;
-    height: 925px;
+    height: 100vh;
 }
 .Main {
     align-items: center;
-}
-
-.popularBox {
 }
 
 .popularTitle {
@@ -45,11 +42,8 @@
 
 .map-container {
     flex: 1;
-    margin-left: 30rem;
-}
-
-.map-containers {
-    
+    display: flex;
+    padding:0 10%;
 }
 
 .map-container > svg {
@@ -57,28 +51,28 @@
 }
 
 .map-containers {
-    position: absolute;
-    left: 20rem;
-    top: 17rem;
+    padding: auto;
+    margin:auto;
+    display: flex;
 }
 
 .map-containers > div {
     float: left;
+    padding: 1rem;
 }
 
 .mainLogo > img{
-    width: 8rem;
+    width: 6rem;
 }
 
-.mainContent > p {
-    font-size: 3rem;
+.mainContent_title {
+    font-size: 2rem;
     font-weight: 600;
-    height: 5rem;
 }
 
-.mainContent > h {
-    font-size: 1.5rem;
-    margin-top: -20rem;
+.mainContent_content {
+    font-size: 1rem;
+    margin-top:0.3rem;
 }
 
 .searchContainer {
@@ -88,7 +82,7 @@
     border-radius: 5px;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.10);
     border: none;
-    margin-top: 3rem;
+    margin-top: 1rem;
 }
 
 .search-icon {
@@ -106,7 +100,7 @@
 }
 
 .search-input::placeholder {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #BDBDBD;
 }
 

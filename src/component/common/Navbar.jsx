@@ -45,6 +45,7 @@ const Navbar = () => {
                 const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`);
                 setSearchResults(response.data.body.reverse() || []);
                 navigate(`/board/search/${searchTerm}`);
+                console.log(response.data.body);
                 setSearchTerm("");
             } catch (error) {
                 console.error("Failed to fetch search results:", error);
@@ -95,7 +96,7 @@ const Navbar = () => {
                 {isLoggedIn && (
                     <div className="optionList">
                         <div className="optionListItem" ><Link to={`/user/${nickName}`}>내블로그</Link></div>
-                        <div className="optionListItem"><Link to="/">계정관리</Link></div>
+                        <div className="optionListItem"><Link to="/personaledit?tab=change">계정관리</Link></div>
                         <div className="optionListItem"><Link to="/personaledit">블로그관리</Link></div>
                         <div className="optionListItem"><button className="logoutButton" onClick={handleLogout}>로그아웃</button></div>
                     </div>
