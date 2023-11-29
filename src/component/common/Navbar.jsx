@@ -45,6 +45,7 @@ const Navbar = () => {
                 const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`);
                 setSearchResults(response.data.body.reverse() || []);
                 navigate(`/board/search/${searchTerm}`);
+                console.log(response.data.body);
                 setSearchTerm("");
             } catch (error) {
                 console.error("Failed to fetch search results:", error);

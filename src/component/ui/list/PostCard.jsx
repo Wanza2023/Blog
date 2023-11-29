@@ -59,18 +59,11 @@ function PostCard(props){
 
     return (
         <div className="cards">
-            <div className="cards-img-wrapper" onClick={()=>navigate(`${props.path}`)}>
-                {imgSrc !== "default-image-url.jpg" ? ( // 사진 없을 때 빈 박스
-                    <img src={imgSrc} alt={props.alt} className="cardimg" />
-                ) : (
-                    <RxReader className="cardimg" color="#BDBDBD" />
-                )}
-            </div>
             <div className="cardContents" >
                 <div onClick={()=>navigate(`${props.path}`)}>
                     <h2 className="cardtitle">[{localKorean}] {props.title}</h2>
-                    <p className="cardInfo">{formattedDate} {props.nickname}</p>
                     <p className="cardcontent">{props.summary}</p>
+                    <p className="cardInfo">{formattedDate} {props.nickname}</p>
                 </div>
                 <div className="hastagWrapper">
                     {props.hashtags.map((tag, index) => ( // map 함수로 해시태그 나열
@@ -80,6 +73,13 @@ function PostCard(props){
                     ))}
                 </div>
             </div>
+            {imgSrc !== "default-image-url.jpg" ?  // 사진 없을 때 빈 박스
+                (
+                    <div className="cards-img-wrapper" onClick={()=>navigate(`${props.path}`)}>
+                        <img src={imgSrc} alt={props.alt} className="cardimg" />
+                    </div>
+                    ): (<></>)
+            }
         </div>
     );
 }

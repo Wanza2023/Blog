@@ -36,6 +36,20 @@ const UserProfileChange = ({ onSaveChanges }) => {
     const handleNicknameChange = (e) => { // 닉네임 변경
         setNickname(e.target.value);
     };
+    const handleDoubleCheck = (nickName) => {
+        axios
+            .get(`${process.env.REACT_APP_MEMBER_API_KEY}/validate/nickname/${nickName}`)
+            .then(res=>{
+                if(res.data.success){
+                    alert("사용가능한 닉네임입니다.");
+                } else {
+                    alert("이미 사용중인 닉네임입니다.");
+                }
+            })
+            .catch((err) => {
+                console.error("Error fetching data:", err);
+            })
+    }
 
     const handleSubmit = () => {
         if (password !== confirmPassword) {
@@ -86,6 +100,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
                         value={nickname} 
                         onChange={handleNicknameChange} 
                     />
+                    <button className="doubleCheck" onClick={() => handleDoubleCheck(nickname)}>중복확인</button>
                 </div>
                 <div className="profileField">
                     <p className="fieldLabel">생년월일</p>

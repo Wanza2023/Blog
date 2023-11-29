@@ -1,28 +1,37 @@
+.body0{
+    display: flex;
+    justify-content: space-between;
+}
+
 .body1 {
     
 }
 
-.body1 > select {
+.toggleWrapper {
+    object-fit: contain;
+}
+.body0 select {
     border: none;
     text-align: center;
     font-weight: bold;
 }
 
 #title {
-    height: 3vh;
-    margin: 10px;
-    width: 30vw;
+    margin: 0.3rem;
     border-radius: 2px;
+    font-size: 2rem;
     text-align: left;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.body1 button {
+.body0 button {
     border: none;
     border-radius: 20px;
     background-color: #5585FF;
     color: white;
-    width: 4vw;
+    width: max-content;
     text-align: center;
     font-weight: bold;
     padding: 0.5rem;
@@ -65,7 +74,6 @@
 }
 
 .body3 {
-    container-type: inline-size;
 }
 
 .index {

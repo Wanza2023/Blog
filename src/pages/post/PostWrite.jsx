@@ -321,29 +321,49 @@ function PostWrite() {
 
   return (
     <Container>
+      <div className="body0">
+        <div>
+          <select value={selectedRegion} onChange={handleRegionChange}>
+              {/* <option value="지역 선택" disabled>
+                지역 선택
+              </option> */}
+              <option value="지역 선택" disabled>
+                지역
+              </option>
+              <option value="Seoul">서울</option>
+              <option value="Gyeonggi">경기도</option>
+              <option value="Incheon">인천</option>
+              <option value="Gangwon">강원도</option>
+              <option value="Chungbuk">충청북도</option>
+              <option value="Chungnam">충청남도</option>
+              <option value="Sejong">세종</option>
+              <option value="Daejeon">대전</option>
+              <option value="Gyeongbuk">경상북도</option>
+              <option value="Gyeongnam">경상남도</option>
+              <option value="Daegu">대구</option>
+              <option value="Ulsan">울산</option>
+              <option value="Busan">부산</option>
+              <option value="Jeonbuk">전라북도</option>
+              <option value="Jeonnam">전라남도</option>
+              <option value="Gwangju">광주</option>
+              <option value="Jeju">제주도</option>
+            </select>
+          </div>
+          <div className="toggleWrapper">
+            <ToggleButton isPublic={isPublic}>
+                <input
+                  type="checkbox"
+                  className="toggle-checkbox"
+                  checked={isPublic}
+                  onChange={() => setIsPublic(!isPublic)}
+                />
+                <span className="toggle-span"></span>
+                <div className="toggle-text">{isPublic ? "공개" : "비공개"}</div>
+              </ToggleButton>
+              <button onClick={!isFormValid ? handleError : boardWrite}>발행</button>
+          </div>
+      </div>
       <div className="body1">
-        <select value={selectedRegion} onChange={handleRegionChange}>
-          <option value="지역 선택" disabled>
-            지역
-          </option>
-          <option value="Seoul">서울</option>
-          <option value="Gyeonggi">경기도</option>
-          <option value="Incheon">인천</option>
-          <option value="Gangwon">강원도</option>
-          <option value="Chungbuk">충청북도</option>
-          <option value="Chungnam">충청남도</option>
-          <option value="Sejong">세종</option>
-          <option value="Daejeon">대전</option>
-          <option value="Gyeongbuk">경상북도</option>
-          <option value="Gyeongnam">경상남도</option>
-          <option value="Daegu">대구</option>
-          <option value="Ulsan">울산</option>
-          <option value="Busan">부산</option>
-          <option value="Jeonbuk">전라북도</option>
-          <option value="Jeonnam">전라남도</option>
-          <option value="Gwangju">광주</option>
-          <option value="Jeju">제주도</option>
-        </select>
         <input
           id="title"
           type="text"
@@ -351,7 +371,7 @@ function PostWrite() {
           placeholder="제목을 입력해주세요."
           onChange={onChangeTitle}
         />
-        <ToggleButton isPublic={isPublic}>
+        {/* <ToggleButton isPublic={isPublic}>
           <input
             type="checkbox"
             className="toggle-checkbox"
@@ -361,9 +381,9 @@ function PostWrite() {
           <span className="toggle-span"></span>
           <div className="toggle-text">{isPublic ? "공개" : "비공개"}</div>
         </ToggleButton>
-        <button onClick={!isFormValid ? handleError : boardWrite}>발행</button>
+        <button onClick={!isFormValid ? handleError : boardWrite}>발행</button> */}
       </div>
-      <div className="body2">
+      {/* <div className="body2">
         <div className="schedulecss">
           {scheduleItems.map((item, index) => (
             <div key={index} className="scheduleList">
@@ -424,7 +444,7 @@ function PostWrite() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
       <div className="body3">
         <MyBlock>
           <PostWriteComponent value={desc} onChange={onEditorChange} />
