@@ -1,12 +1,11 @@
 .bookmark-items {
-    width: 12vw;
+    width: 10vw;
     height: 25vh;
-    margin: 0 10px;
     position: relative;
     float: left;
     overflow: hidden;
     border-radius: 3px;
-    margin: 1rem;
+    margin: 1rem 1rem 0 0;
 }
 
 .bookmark-items:before {

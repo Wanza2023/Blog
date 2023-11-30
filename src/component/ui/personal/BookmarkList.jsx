@@ -29,7 +29,7 @@ const BookmarkList = () => {
         };
         
         fetchData();
-    }, []);
+    }, [ memberId, token]);
 
     const handleItemClick = (item) => {
     };
