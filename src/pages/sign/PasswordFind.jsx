@@ -14,15 +14,20 @@ function PasswordFind() {
     const [emailMessage, setEmailMessage] = useState("");
     const [authState, setAuthState] = useState(false);
     const navigate = useNavigate();
+    const [emailState,setEmailState] = useState(false); // 이메일 인증 여부 [true:인증완료, false:인증안됨
+    const [pwdState,setPwdState] = useState(false); // 비밀번호 변경 여부 [true:변경완료, false:변경안됨
+    const [pwdconfirmState, setPwdconfirmState] = useState(false); // 비밀번호 확인 여부 [true:확인완료, false:확인안됨
 
     // Email input
     const handleInputuserEmail = (e) => {
         setUserEmail(e.target.value);
         const emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;     // email 형식 맞는지 확인 
         if(!emailRegExp.test(e.target.value)){
+            setEmailState(false);
             setEmailMessage("이메일의 형식이 올바르지 않습니다.");
         }else{
             setEmailMessage("인증 버튼을 눌러 인증하여주세요! ");
+            setEmailState(true);
         }
     }
     // Password Input
@@ -31,8 +36,10 @@ function PasswordFind() {
         const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
         if(!pwdRegExp.test(e.target.value)){
             setPwdMessage("숫자, 영문자, 특수문자(!@#$%^*+=-) 조합으로 8자리 이상 20자리 이하 입력해주세요 ");
+            setPwdState(false);
         }else{
             setPwdMessage("안전한 비밀번호입니다");
+            setPwdState(true);
         }
     }
     // Password Confirm Input
@@ -40,8 +47,10 @@ function PasswordFind() {
         setUserPasswordConfirm(e.target.value);
         if(userPassword !== e.target.value){
             setConfirmPwdMessage("비밀번호가 일치하지 않습니다");
+            setPwdconfirmState(false);
         }else{
             setConfirmPwdMessage("확인되었습니다");
+            setPwdconfirmState(true);
         }
     }
     // Email 인증 버튼 클릭시
@@ -107,13 +116,13 @@ function PasswordFind() {
                         <label>이메일(아이디) *</label>
                         <input type="email" name="mail" id="mail" value={userEmail} onChange={handleInputuserEmail}
                             placeholder="이메일을 입력하세요" />
-                        <p className={emailMessage ? 'find-signup-submit-message-isok' : 'find-signup-submit-message-iserror'}>
+                        <p className={emailState ? 'find-signup-submit-message-isok' : 'find-signup-submit-message-iserror'}>
                             {emailMessage}
                         </p>
                     </div>
                     {authState ? (
                         <>
-                            <div className="signUp-filed">
+                            <div className="signUp-field">
                                 <p className="find-signup-submit-message-isok">인증되었습니다.</p>
                             </div>
                         </>
@@ -126,14 +135,16 @@ function PasswordFind() {
                                 <div className="signUp-field">
                                     <label>비밀번호 *</label>
                                     <input type="password" name="pwd" id="pwd" maxLength={20} value={userPassword} onChange={handleInputuserPassword} />
-                                    <p className={pwdMessage ? 'find-signup-submit-message-iserror' : 'find-signup-submit-message-isok'}>
+                                    <p className={pwdState ? 'find-signup-submit-message-isok' : 'find-signup-submit-message-iserror'}>
                                         {pwdMessage}
                                     </p>
                                 </div>
                                 <div className="signUp-field">
                                     <label>비밀번호 확인 *</label>
                                     <input type="password" name="confPwd" id="confPwd" maxLength={20} value={userPasswordConfirm} onChange={handleInputuserPasswordConfirm} placeholder="비밀번호를 입력하세요" />
-                                    <p className={confirmPwdMessage ? 'find-signup-submit-message-iserror' : 'find-signup-submit-message-isok'}>{confirmPwdMessage}</p>
+                                    <p className={pwdconfirmState ? 'find-signup-submit-message-isok' : 'find-signup-submit-message-iserror'}>
+                                        {confirmPwdMessage}
+                                    </p>
                                 </div>
                                 <button className='submit-button' onClick={handleSubmituserPassword}>비밀번호 변경</button>
                             </>

@@ -41,8 +41,8 @@ function SignUp(props){
             setEmailMessage("이메일의 형식이 올바르지 않습니다.");
             totConfirm[0] = 0; setTotConfirm(()=>[...totConfirm]);
         }else{
-            setEmailMessage("사용 가능한 이메일 입니다.");  //중복확인 해야함
-            totConfirm[0] = 1; setTotConfirm(()=>[...totConfirm]);
+            setEmailMessage("중복을 확인해주세요!");  //중복확인 해야함
+            totConfirm[0] = 0; setTotConfirm(()=>[...totConfirm]);
         }
     }
     // 닉네임 name onChange
@@ -57,7 +57,7 @@ function SignUp(props){
         }
     }
     // 닉네임 중복 확인
-    const handleDoubleCheck = (nickName) => {
+    const handleDoubleCheckName = (nickName) => {
         axios
             .get(`${process.env.REACT_APP_MEMBER_API_KEY}/validate/nickname/${nickName}`)
             .then(res=>{
@@ -67,6 +67,24 @@ function SignUp(props){
                 } else {
                     totConfirm[1] = 0; setTotConfirm(()=>[...totConfirm]);
                     setNameMessage("이미 사용중인 닉네임입니다.");
+                }
+            })
+            .catch((err) => {
+                console.error("Error fetching data:", err);
+            })
+    }
+    const handleDoubleCheckEmail = (email) => {
+        axios
+            .get(`${process.env.REACT_APP_MEMBER_API_KEY}/validate/email/${email}`)
+            .then(res=>{
+                if(res.data.body === true){
+                    totConfirm[0] = 1; setTotConfirm(()=>[...totConfirm]);
+                    console.log(res.data);
+                    setEmailMessage("사용가능한 이메일입니다.");
+                } else {
+                    totConfirm[0] = 0; setTotConfirm(()=>[...totConfirm]);
+                    console.log(res.data);
+                    setEmailMessage("이미 사용중인 이메일입니다.");
                 }
             })
             .catch((err) => {
@@ -212,9 +230,13 @@ function SignUp(props){
                 <div className="signUp-form">
                     <div className="signUp-field">
                         <label>이메일(아이디) *</label>
-                        <input type="email" name="mail" id="mail" value={email} onChange={onChangeEmail} ref={emailRef}
-                        placeholder="이메일을 입력하세요" />
+                        <div className="nameConfirm">
+                            <input type="email" name="mail" id="mail" value={email} onChange={onChangeEmail} ref={emailRef}
+                            placeholder="이메일을 입력하세요" />
+                            <button onClick={()=>handleDoubleCheckEmail(email)}>중복확인</button>
+                        </div>
                         <p className={`${totConfirm[0] ? 'signup-submit-message-isok':'signup-submit-message'}`}>{emailMessage}</p>
+                        
                     </div>
                     <div className="signUp-field">
                         <label>비밀번호 *</label>
@@ -230,7 +252,7 @@ function SignUp(props){
                         <label>닉네임 *</label>
                         <div className="nameConfirm">
                             <input type="text" name="name" id="name" value={name} onChange={onChangeName} ref={nameRef} placeholder="닉네임을 입력하세요"/>
-                            <button onClick={()=>handleDoubleCheck(name)}>중복확인</button>
+                            <button onClick={()=>handleDoubleCheckName(name)}>중복확인</button>
                         </div>
                         <p className={`${totConfirm[1] ? 'signup-submit-message-isok':'signup-submit-message'}`}>{nameMessage}</p>
                     </div>
