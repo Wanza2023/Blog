@@ -7,8 +7,6 @@ import '../../styles/component/Navbar.css';
 import travelog_logo from '../../assets/images/travelog_logo.png'
 import travelog_logo_02 from '../../assets/images/travelog_logo_02.png'
 import travelog_logo_03 from '../../assets/images/travelog_logo_03.png'
-import profile_icon from '../../assets/images/profile_icon.png'
-import navigation_icon from '../../assets/images/navigation_icon.png'
 import { IoSearchOutline } from "react-icons/io5";
 import { BiUserCircle } from "react-icons/bi";
 import { useAuth } from "./useAuth";
