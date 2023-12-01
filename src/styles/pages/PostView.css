@@ -96,6 +96,7 @@
     background-color: #fff;
     display: flex;
     color: gray;
+    cursor: pointer;
 }
 .overflow_menu_btn_div {
     margin-right: 0.5rem;

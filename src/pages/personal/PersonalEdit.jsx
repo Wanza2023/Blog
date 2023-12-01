@@ -69,7 +69,7 @@ const PersonalEdit = () => {
                 onClick={() => handleMenuClick(menuId)}
             >
                 <Icon className="menuicon" size={30}/>
-                <span>{label}</span>
+                <span className='menuItemText'>{label}</span>
             </div>
         );
     };

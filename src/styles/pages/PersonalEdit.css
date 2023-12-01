@@ -51,12 +51,12 @@
 
 .menuWrapper {
     display: grid;
-    padding: 0 17rem;
+    padding: 0 10%;
+    width: 80%;
 }
 .menuContainer {
     display: flex;
     position: relative;
-    padding : 0 1.5rem;
 }
 
 .menuHeader {
@@ -70,8 +70,10 @@
     font-size: 1.5rem;
 }
 
-.menuDivider {
-    
+.menuE {
+    margin-top: 5%;
+    padding-right: 5%;
+    width: max-content;
 }
 
 .menuitemE {
@@ -81,19 +83,22 @@
     cursor: pointer;
     border-left: 3px solid transparent;
     transition: background-color 0.3s, border-left 0.3s;
-    margin-top: 5rem;
+    margin-top: 1rem;
     width:fit-content;
     font-size: 1.5rem;
 }
-  
+.menuItemText{
+    font-size:1rem;
+}
+
 .menuitemE:hover,
 .menuitemE.active {
     border-left: 3px solid #333;
 }
-  
+
 .menuicon {
     margin-right: 10px;
-    width: 2rem;
+    width: 1.0rem;
 }
 
 .contentE {
