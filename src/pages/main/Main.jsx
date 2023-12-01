@@ -8,6 +8,7 @@ import "../../styles/pages/Main.css";
 import airplane from '../../assets/images/airplane.png'
 import { GoSearch } from "react-icons/go";
 import { GrLocationPin } from "react-icons/gr";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import HashtagListItem from "../../component/ui/contents/hashtag/HashtagListItem";
 
 export default function MainPage() {
@@ -227,7 +228,8 @@ export default function MainPage() {
                         </svg>
                     </div>
                     <div className="marker" style={marker}>
-                        <GrLocationPin size={20} />
+                        {/* <GrLocationPin size={20} /> */}
+                        <FaMapMarkerAlt />
                         {regionName}
                     </div>
                 </div>

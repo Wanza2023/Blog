@@ -8,6 +8,7 @@ import Button from "../../component/common/Button";
 import axios from 'axios';
 import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
+import { FaMapMarkerAlt } from "react-icons/fa";
 import Pagination from "react-js-pagination";
 
 function RegionList() {
@@ -88,7 +89,7 @@ const localKorean = localToKorean[regionName] || regionName;
 
   return (
     <div className="wrapper">
-      {localKorean && <div className="region-word"><GrLocationPin className="grIcon" /><div className="search-word-term">{localKorean}</div></div>}
+      {localKorean && <div className="region-word"><FaMapMarkerAlt /><div className="search-word-term">{localKorean}</div></div>}
       {currentPosts && (posts.length || hashtagList.length || searchResults.length) > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
