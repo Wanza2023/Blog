@@ -124,6 +124,7 @@ const UserProfileEdit = ({ onSaveChanges }) => {
                 <div className="buttonContainer">
                     <button className="saveButton" onClick={handleSubmit}>변경하기</button>
                 </div>
+                <p className="label">회원 탈퇴</p>
                 <hr className="borderUnsubscribe" />
                 <div className="unsubscribeContainer">
                     <button className="unsubscribeButton" onClick={handleUnsubscribe}>탈퇴하기</button>

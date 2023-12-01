@@ -2,7 +2,6 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-around;
-    margin: 15rem auto;
 }
 
 .profileChange {
@@ -20,7 +19,7 @@
 
 .label {
     font-size: 1.2rem;
-    text-align: center;
+    text-align: left;
 }
 
 .profileChange input {
@@ -48,7 +47,8 @@
 
 .borderUnsubscribe{
     border-top: 1px solid #ddd;
-    margin: 20px 0;
+    margin: 0;
+    margin-bottom: 1rem
 }
 
 .unsubscribeContainer {
