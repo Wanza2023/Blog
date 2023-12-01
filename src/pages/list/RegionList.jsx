@@ -16,10 +16,11 @@ function RegionList() {
   const [posts, setPosts] = useState([]); // 게시글 담을 배열 생성
   const [count, setCount] = useState(0); // 아이템 총 개수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
-  const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수 
+  const [postPerPage, setPostPerPage] = useState(5); // 한 페이지에 보여질 아이템 수 
   const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
   const searchResults = useRecoilValue(searchResultsState); // Recoil 상태 관리에서 검색 전역 관리
   const hashtagList = useRecoilValue(hashtagListState);
+  
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,6 +41,11 @@ function RegionList() {
   const [pages, setPages] = useState(1);
   const offset = (pages - 1) * limit;
   
+  const handlePostPerPageSelectChange = (e) => {
+    const selectedValue = parseInt(e.target.value);
+    setPostPerPage(selectedValue);
+  };
+
   useEffect(() => {
     const fetchData = async () => { // api에 데이터 요청 후 응답 response에 저장
         try {
@@ -89,11 +95,26 @@ const localKorean = localToKorean[regionName] || regionName;
 
   return (
     <div className="wrapper">
-      {localKorean && <div className="region-word"><FaMapMarkerAlt /><div className="search-word-term">{localKorean}</div></div>}
+      <div className="postlist-topwrapper">
+        {localKorean && 
+          <div className="region-word">
+            <FaMapMarkerAlt /><div className="search-word-term">{localKorean}</div>
+          </div>
+          }
+          <div>
+            <button className="postlist-popularbtn">인기순</button>
+            <button className="postlist-newestbtn">최신순</button>
+            <select className="select" onChange={handlePostPerPageSelectChange}>
+              <option value="5">5개</option>
+              <option value="10">10개</option>
+              <option value="20">20개</option>
+            </select>
+          </div>
+      </div>
       {currentPosts && (posts.length || hashtagList.length || searchResults.length) > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
-      <Paging page={currentPage} count={count} setPage={setPage}/>
+      <Paging page={currentPage} count={count} setPage={setPage} postPerPage={postPerPage}/>
       {/* <Pagination total={posts.length} limit={limit} page={pages} setPage={setPages}/> */}
       <Button />
     </div>

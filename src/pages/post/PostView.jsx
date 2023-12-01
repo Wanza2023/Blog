@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete,AiOutlineFlag } from 'react-icons/ai';
-import { HiOutlineMapPin } from 'react-icons/hi2';
+import { GrLocationPin } from "react-icons/gr";
 import ScheduleList from '../../component/ui/contents/schedule/ScheduleList';
 import HashtagList from '../../component/ui/contents/hashtag/HashtagList';
 import CommentList from '../../component/ui/comment/CommentList';
@@ -190,7 +190,8 @@ function PostView() {
                   </button>
                   <div className='date'>{formattedDate}</div>
                   <div className='location'>
-                    <HiOutlineMapPin />
+                    {/* <GrLocationPin /> */}
+                    <FaMapMarkerAlt />
                     <button onClick={() => navigate("/regionList/" + local)} className='location-name'>
                       {localKorean}
                     </button>

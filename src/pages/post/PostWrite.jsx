@@ -13,11 +13,16 @@ import styled from "styled-components";
 import "../../styles/pages/PostWrite.css";
 import { HiOutlineHashtag } from "react-icons/hi";
 import { TiDeleteOutline } from "react-icons/ti";
+import { CiCalendarDate } from "react-icons/ci";
+import { GrLocationPin } from "react-icons/gr";
+import { PiBusLight } from "react-icons/pi";
+import { TiPlusOutline, TiMinusOutline } from "react-icons/ti";
+import { PiArrowFatLineDownThin } from "react-icons/pi";
 
 const Container = styled.div`
-  padding: 3rem 20rem;
   display: grid;
   justify-content: center;
+  background-color: #FAFAFA;
 `;
 
 const MyBlock = styled.div`
@@ -53,7 +58,7 @@ const TagItem = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 3px;
-  border-radius: 15px;
+  border-radius: 12px;
   border: 1px solid #CFCFCF;
   font-size: 0.9rem;
   margin-right: 0.5rem;
@@ -110,6 +115,7 @@ function PostWrite() {
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
   const [summaryN, setSummaryN] = useState("");
+  const [showSchedule, setShowSchedule] = useState(false);
 
   // axios post Write
   const boardWrite = async () => {
@@ -290,169 +296,242 @@ function PostWrite() {
 
   return (
     <Container>
-      <div className="body0">
-        <div>
-          <select value={selectedRegion} onChange={handleRegionChange}>
-              {/* <option value="지역 선택" disabled>
-                지역 선택
-              </option> */}
-              <option value="지역 선택" disabled>
-                지역 선택
-              </option>
-              <option value="Seoul">서울</option>
-              <option value="Gyeonggi">경기도</option>
-              <option value="Incheon">인천</option>
-              <option value="Gangwon">강원도</option>
-              <option value="Chungbuk">충청북도</option>
-              <option value="Chungnam">충청남도</option>
-              <option value="Sejong">세종</option>
-              <option value="Daejeon">대전</option>
-              <option value="Gyeongbuk">경상북도</option>
-              <option value="Gyeongnam">경상남도</option>
-              <option value="Daegu">대구</option>
-              <option value="Ulsan">울산</option>
-              <option value="Busan">부산</option>
-              <option value="Jeonbuk">전라북도</option>
-              <option value="Jeonnam">전라남도</option>
-              <option value="Gwangju">광주</option>
-              <option value="Jeju">제주도</option>
-            </select>
-          </div>
-          <div className="toggleWrapper">
-          <ToggleButton
-            isPublic={isPublic}
-            onClick={() => setIsPublic(!isPublic)}
-          >
-            {isPublic ? "공개" : "비공개"}
-          </ToggleButton>
-              <button onClick={!isFormValid ? handleError : boardWrite}>발행</button>
-          </div>
-      </div>
-      {/* <div className='borderLine' /> */}
-      <div className="body1">
-        <input
-          id="title"
-          type="text"
-          value={title}
-          placeholder="제목을 입력해주세요."
-          onChange={onChangeTitle}
-        />
-        {/* <ToggleButton isPublic={isPublic}>
-          <input
-            type="checkbox"
-            className="toggle-checkbox"
-            checked={isPublic}
-            onChange={() => setIsPublic(!isPublic)}
-          />
-          <span className="toggle-span"></span>
-          <div className="toggle-text">{isPublic ? "공개" : "비공개"}</div>
-        </ToggleButton>
-        <button onClick={!isFormValid ? handleError : boardWrite}>발행</button> */}
-      </div>
-      {/* <div className="body2">
-        <div className="schedulecss">
-          {scheduleItems.map((item, index) => (
-            <div key={index} className="scheduleList">
-              <text className="index">{index + 1}번째 여행지</text>
-              <DatePicker
-                className="dateSelect"
-                locale={ko}
-                selected={item.date}
-                onChange={(date) => handleScheduleChange(index, "date", date)}
-                dateFormat="yyyy-MM-dd"
-                placeholderText="날짜"
-                showTimeSelect={false}
-                showTimeInput={false} 
-              />
-              <button
-                className="selectLocation"
-                onClick={() => setModalIsOpen(true)}
-              >
-                장소
-              </button>
-              <Modal
-                className="modal"
-                isOpen={modalIsOpen}
-                ariaHideApp={false}
-                onRequestClose={() => setModalIsOpen(false)}
-              >
-                <SelectLocation
-                  setModalIsOpen={setModalIsOpen}
-                  setLocationItems={handleSelectLocation}
-                />
-              </Modal>
-              {item.locationName && (
-                <span className="locationName">{item.locationName}</span>
-              )}
-              <select 
-                value={item.transport} 
-                onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)}
-                className="selectTransport">
-                <option value="" disabled>이동수단 선택</option>
-                <option value="고속버스">고속버스</option>
-                <option value="비행기">비행기</option>
-                <option value="기차">기차</option>
-                <option value="대중교통">대중교통</option>
-                <option value="자차">자차</option>
-                <option value="도보">도보</option>
+      <div className="containerBox">
+        <div className="body0">
+          <div>
+            <select value={selectedRegion} onChange={handleRegionChange}>
+                {/* <option value="지역 선택" disabled>
+                  지역 선택
+                </option> */}
+                <option value="지역 선택" disabled>
+                  지역 선택
+                </option>
+                <option value="Seoul">서울</option>
+                <option value="Gyeonggi">경기도</option>
+                <option value="Incheon">인천</option>
+                <option value="Gangwon">강원도</option>
+                <option value="Chungbuk">충청북도</option>
+                <option value="Chungnam">충청남도</option>
+                <option value="Sejong">세종</option>
+                <option value="Daejeon">대전</option>
+                <option value="Gyeongbuk">경상북도</option>
+                <option value="Gyeongnam">경상남도</option>
+                <option value="Daegu">대구</option>
+                <option value="Ulsan">울산</option>
+                <option value="Busan">부산</option>
+                <option value="Jeonbuk">전라북도</option>
+                <option value="Jeonnam">전라남도</option>
+                <option value="Gwangju">광주</option>
+                <option value="Jeju">제주도</option>
               </select>
-              <button className="plus" onClick={addScheduleItem}>
-                +
-              </button>
-              {index > 0 ? (
-                <button
-                  className="minus"
-                  onClick={() => removeScheduleItem(index)}
-                >
-                  -
-                </button>
-              ) : null}
             </div>
-          ))}
+            <div className="toggleWrapper">
+            <ToggleButton
+              isPublic={isPublic}
+              onClick={() => setIsPublic(!isPublic)}
+            >
+              {isPublic ? "공개" : "비공개"}
+            </ToggleButton>
+                <button onClick={!isFormValid ? handleError : boardWrite}>발행</button>
+            </div>
         </div>
-      </div> */}
-      <div className="body3">
-        <MyBlock>
-          <PostWriteComponent value={desc} onChange={onEditorChange} />
-        </MyBlock>
-      </div>
-      <WholeBox>
-        <TagBox>
-          {tagList.map((tagItem, index) => {
-            return (
-              <TagItem key={index}>
-                <Text><HiOutlineHashtag size={15}/>{tagItem}</Text>
-                <DeleteButton onClick={() => deleteTagItem(tagItem)}>
-                  <TiDeleteOutline size={15} />
-                </DeleteButton>
-              </TagItem>
-            );
-          })}
-          <TagInput
+        {/* <div className='borderLine' /> */}
+        <div className="body1">
+          <input
+            id="title"
             type="text"
-            placeholder="# 태그 입력"
-            tabIndex={2}
-            onChange={(e) => setTagItem(e.target.value)}
-            value={tagItem}
-            onKeyPress={onKeyPress}
+            value={title}
+            placeholder="제목을 입력해주세요."
+            onChange={onChangeTitle}
           />
-        </TagBox>
-      </WholeBox>
-      <div className="foot">
-        {/* <button onClick={fetchSummary}>카카오</button>
-        {summary && <div className="summary-content">{summary}</div>} */}
-        <div>
-          <button onClick={fetchSummaryN}>AI 요약</button>
-          <button >일정 추가</button>
-          <button >해시태그 추천</button>
+          {/* <ToggleButton isPublic={isPublic}>
+            <input
+              type="checkbox"
+              className="toggle-checkbox"
+              checked={isPublic}
+              onChange={() => setIsPublic(!isPublic)}
+            />
+            <span className="toggle-span"></span>
+            <div className="toggle-text">{isPublic ? "공개" : "비공개"}</div>
+          </ToggleButton>
+          <button onClick={!isFormValid ? handleError : boardWrite}>발행</button> */}
         </div>
-        {summaryN && (
-          <textarea
-            className="summary-content"
-            value={summaryN}
-            onChange={handleSetSummaryValue}
-          ></textarea>
-        )}
+        {/* <div className="body2">
+          <div className="schedulecss">
+            {scheduleItems.map((item, index) => (
+              <div key={index} className="scheduleList">
+                <text className="index">{index + 1}번째 여행지</text>
+                <DatePicker
+                  className="dateSelect"
+                  locale={ko}
+                  selected={item.date}
+                  onChange={(date) => handleScheduleChange(index, "date", date)}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="날짜"
+                  showTimeSelect={false}
+                  showTimeInput={false} 
+                />
+                <button
+                  className="selectLocation"
+                  onClick={() => setModalIsOpen(true)}
+                >
+                  장소
+                </button>
+                <Modal
+                  className="modal"
+                  isOpen={modalIsOpen}
+                  ariaHideApp={false}
+                  onRequestClose={() => setModalIsOpen(false)}
+                >
+                  <SelectLocation
+                    setModalIsOpen={setModalIsOpen}
+                    setLocationItems={handleSelectLocation}
+                  />
+                </Modal>
+                {item.locationName && (
+                  <span className="locationName">{item.locationName}</span>
+                )}
+                <select 
+                  value={item.transport} 
+                  onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)}
+                  className="selectTransport">
+                  <option value="" disabled>이동수단 선택</option>
+                  <option value="고속버스">고속버스</option>
+                  <option value="비행기">비행기</option>
+                  <option value="기차">기차</option>
+                  <option value="대중교통">대중교통</option>
+                  <option value="자차">자차</option>
+                  <option value="도보">도보</option>
+                </select>
+                <button className="plus" onClick={addScheduleItem}>
+                  +
+                </button>
+                {index > 0 ? (
+                  <button
+                    className="minus"
+                    onClick={() => removeScheduleItem(index)}
+                  >
+                    -
+                  </button>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div> */}
+        <div className="body3">
+          <MyBlock>
+            <PostWriteComponent value={desc} onChange={onEditorChange} />
+          </MyBlock>
+        </div>
+        <div className="foot">
+          {/* <button onClick={fetchSummary}>카카오</button>
+          {summary && <div className="summary-content">{summary}</div>} */}
+          <div>
+            <button className="menuButtonEdit" onClick={() => setShowSchedule(!showSchedule)}>일정 추가</button>
+            <button className="menuButtonEdit" onClick={fetchSummaryN}>AI 요약</button>
+            <button className="menuButtonEdit">해시태그 추천</button>
+          </div>
+          {showSchedule && (
+            <>
+            <div className="aiSummaryTitle">일정 추가</div>
+            <div className="body2">
+              <div className="schedulecss">
+                {scheduleItems.map((item, index) => (
+                  <div key={index} className="scheduleList">
+                    {/* <text className="index">{index + 1}</text> */}
+                    <text className="index"><PiArrowFatLineDownThin size={30} /></text>
+                    <div className="scheduleListItems">
+                      <CiCalendarDate size={30}/>
+                      <DatePicker
+                        className="dateSelect"
+                        locale={ko}
+                        selected={item.date}
+                        onChange={(date) => handleScheduleChange(index, "date", date)}
+                        dateFormat="yyyy-MM-dd"
+                        showTimeSelect={false}
+                        showTimeInput={false} 
+                      />
+                      <button
+                        className="selectLocation"
+                        onClick={() => setModalIsOpen(true)}
+                      >
+                        <GrLocationPin size={20}/>
+                      </button>
+                      <Modal
+                        className="modal"
+                        isOpen={modalIsOpen}
+                        ariaHideApp={false}
+                        onRequestClose={() => setModalIsOpen(false)}
+                      >
+                        <SelectLocation
+                          setModalIsOpen={setModalIsOpen}
+                          setLocationItems={handleSelectLocation}
+                        />
+                      </Modal>
+                      {item.locationName && (
+                        <span className="locationName">{item.locationName}</span>
+                      )}
+                      <PiBusLight size={30}/>
+                      <select 
+                        value={item.transport} 
+                        onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)}
+                        className="selectTransport">
+                        <option value="" disabled>이동수단</option>
+                        <option value="고속버스">고속버스</option>
+                        <option value="비행기">비행기</option>
+                        <option value="기차">기차</option>
+                        <option value="대중교통">대중교통</option>
+                        <option value="자차">자차</option>
+                        <option value="도보">도보</option>
+                      </select>
+                      <button className="plus" onClick={addScheduleItem}>
+                        <TiPlusOutline />
+                      </button>
+                      {index > 0 ? (
+                        <button className="minus" onClick={() => removeScheduleItem(index)}>
+                          <TiMinusOutline />
+                        </button>
+                      ) : null}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            </>
+          )}
+          {summaryN && (
+            <>
+              <div className="aiSummaryTitle">AI 요약</div>
+              <textarea
+                className="summary-content"
+                value={summaryN}
+                onChange={handleSetSummaryValue}
+            ></textarea>
+            </>
+          )}
+        </div>
+        <WholeBox>
+          <TagBox>
+            {tagList.map((tagItem, index) => {
+              return (
+                <TagItem key={index}>
+                  <Text><HiOutlineHashtag size={13}/>{tagItem}</Text>
+                  <DeleteButton onClick={() => deleteTagItem(tagItem)}>
+                    <TiDeleteOutline size={15} />
+                  </DeleteButton>
+                </TagItem>
+              );
+            })}
+            <TagInput
+              type="text"
+              placeholder="# 태그 입력"
+              tabIndex={2}
+              onChange={(e) => setTagItem(e.target.value)}
+              value={tagItem}
+              onKeyPress={onKeyPress}
+            />
+          </TagBox>
+        </WholeBox>
       </div>
     </Container>
   );

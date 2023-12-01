@@ -58,6 +58,8 @@
     clear: both;
     float: right;
     margin-left: auto;
+    display: flex;
+    align-items: center;
 }
 .location > svg {
     width: 3vw;
@@ -66,7 +68,6 @@
 .location-name {
     clear: both;
     float: right;
-    margin-top: 0.7vh;
     border: none;
     background: none;
     cursor: pointer;

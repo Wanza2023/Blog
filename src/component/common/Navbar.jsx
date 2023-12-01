@@ -10,6 +10,7 @@ import travelog_logo_03 from '../../assets/images/travelog_logo_03.png'
 import { IoSearchOutline } from "react-icons/io5";
 import { BiUserCircle } from "react-icons/bi";
 import { useAuth } from "./useAuth";
+import { PiPersonArmsSpreadThin } from "react-icons/pi";
 
 
 const Navbar = () => {
@@ -88,7 +89,7 @@ const Navbar = () => {
             <div class="navbar-profile">
                 <div className="profile-icon">
                     {/* <img src={profile_icon} alt="Profile Icon" onClick={profileIconClick}/> */}
-                    <BiUserCircle size={30} onClick={profileIconClick}/>
+                    <PiPersonArmsSpreadThin size={35} onClick={profileIconClick}/>
                 </div>
                 {/* IsLoggedIn 이 True이면 div를 보이고 아니면 div 안보이기 */}
                 {isLoggedIn && (

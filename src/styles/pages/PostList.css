@@ -3,10 +3,23 @@
 }
 .wrapper {
     margin: 0 auto;
+    display: grid;
     max-width: 65%;
     padding: 2rem 10rem;
 }
-
+.postlist-topwrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.postlist-popularbtn{
+    border: none;
+    background-color: transparent;
+}
+.postlist-newestbtn{
+    border: none;
+    background-color: transparent;
+}
 .search-word {
     font-size: 1.2rem;
     border: none;

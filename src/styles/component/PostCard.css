@@ -59,7 +59,8 @@
 }
 
 .cards {
-    min-width: 18rem;
+    /* min-width: 18rem; */
+    /* width: 100vh; */
     display: flex;
     flex-direction: row;
     text-decoration: none;
