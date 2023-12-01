@@ -1,10 +1,7 @@
 .userProfileChange {
     display: flex;
     align-items: flex-start;
-    justify-content: flex-start;
-    margin: 15rem auto;
-    max-width: 50vw;
-    gap: 15rem;
+    justify-content: space-around;
 }
 
 .userProfileChange .profileImage {

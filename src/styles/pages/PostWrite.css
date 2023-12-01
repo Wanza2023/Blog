@@ -1,13 +1,19 @@
+.containerBox {
+    background-color: white;
+    padding: 2rem 3rem;
+}
+
 .body0 {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1rem;
+    width: 100%
   }
   
-  .body0 select, .body0 .toggleWrapper {
+.body0 select, .body0 .toggleWrapper {
     margin-right: 1rem;
-  }
+}
 
 .body1 {
     
@@ -28,8 +34,8 @@
     text-align: left;
     border: none;
     width: 100%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    padding-bottom: 1rem;
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.3); */
+    /* padding-bottom: 1rem; */
     margin-top: 3rem;
     margin-bottom: 1.5rem;
 }
@@ -57,33 +63,47 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 50vw;
 }
 
 .selectTransport {
-    border: none;
+    border-radius: 5px;
+    border: 1px solid #CFCFCF;
     text-align: center;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    height: 3vh;
 }
 
 .schedulecss {
     text-align: left;
+    width: 99%;
 }
 
 .schedulecss input {
-    text-align: left;
-    border: 1px solid #f1f1f1;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #CFCFCF;
     width: fit-content;
-    margin-right: 2rem;
+    margin-right: 1rem;
     height: 3vh;
+    width: 6vw;
+    margin-left: 0.5rem;
+}
+
+.react-datepicker__input-container {
+    position: relative;
+    width: 100%;
+    align-items: center;
+    display: flex;
 }
 
 .scheduleList {
     margin-bottom: 1vh;
     display: flex;
     align-items: center;
-
+    border-radius: 12px;
+    border: 1px solid #CFCFCF;
+    padding: 0.5rem;
 }
 
 .body3 {
@@ -92,6 +112,15 @@
 .index {
     font-weight: bold;
     margin-right: 1vw;
+    min-width: 1.5vw;
+    margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.scheduleListItems {
+    display: flex;
+    align-items: center;
 }
 
 .dateSelect {
@@ -101,14 +130,15 @@
 
 .selectLocation {
     width: fit-content;
-    height: 3vh;
-    border: none;
     border-radius: 5px;
-    background-color: #5585FF;
-    color: white;
+    border: 1px solid #CFCFCF;
     cursor: pointer;
     margin-right: 1vw;
-    font-weight: bold;
+    font-size: 1rem;
+    background-color: white;
+    height: 3vh;
+    align-items: center;
+    display: flex;
 }
 
 .locationTitle {
@@ -116,7 +146,6 @@
     margin-top: 1vh;
     border: 1px solid #f1f1f1;
     border-radius: 2px;
-    height: 3vh;
     width: 2vw;
     clear: both;
     float: left;
@@ -124,9 +153,17 @@
 
 .locationName {
     margin-right: 1rem;
-    font-size: 0.9rem;
-    display: inline-block;
-    width: 7vw;
+    width: fit-content;
+    padding: 0 0.7rem;
+    border-radius: 5px;
+    border: 1px solid #CFCFCF;
+    height: 3vh;
+    text-align: center;
+    font-size: 1rem;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    display: flex;
 }
 
 .minus {
@@ -134,10 +171,11 @@
     width: 2vw;
     border: none;
     border-radius: 5px;
-    background-color: #5585FF;
-    color: white;
     font-size: 1.1rem;
     margin-left: 3px;
+    background-color: white;
+    align-items: center;
+    display: flex;
 }
 
 .plus {
@@ -145,10 +183,11 @@
     width: 2vw;
     border: none;
     border-radius: 5px;
-    background-color: #5585FF;
-    color: white;
     font-size: 1.1rem;
     margin-left: 3px;
+    background-color: white;
+    align-items: center;
+    display: flex;
 }
 
 .foot {
@@ -156,7 +195,7 @@
     margin-bottom: 0.8rem;
 }
 
-.foot button {
+.menuButtonEdit {
     text-align: center;
     border-radius: 5px;
     border: 1px solid #CFCFCF;
@@ -164,6 +203,7 @@
     background-color: white;
     cursor: pointer;
     margin-right: 1rem;
+    margin-top: 1.5rem;
 }
 
 .summary-content {
@@ -191,4 +231,9 @@
 
 .deleteButton {
     width: 3rem;
+}
+
+.aiSummaryTitle {
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
 }

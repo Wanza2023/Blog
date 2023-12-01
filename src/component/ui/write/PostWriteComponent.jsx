@@ -65,7 +65,7 @@ class PostWriteComponent extends Component {
     render() {
         const { value, onChange } = this.props;
         return (
-            <div style={{ height: "650px", width: "700px" }}>
+            <div style={{ height: "650px", width: "100%" }}>
                 <ReactQuill
                     ref={(el) => { this.quillRef = el }}
                     style={{ height: "600px" }}

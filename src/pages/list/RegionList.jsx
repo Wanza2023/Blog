@@ -19,6 +19,7 @@ function RegionList() {
   const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
   const searchResults = useRecoilValue(searchResultsState); // Recoil 상태 관리에서 검색 전역 관리
   const hashtagList = useRecoilValue(hashtagListState);
+  
 
   const navigate = useNavigate();
   const location = useLocation();
