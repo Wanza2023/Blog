@@ -69,7 +69,7 @@ function PostList() {
           <div>
             <button className="postlist-popularbtn">인기순</button>
             <button className="postlist-newestbtn">최신순</button>
-            <select className="select" onChange={handlePostPerPageSelectChange}>
+            <select className="postlist-postperpage-select" onChange={handlePostPerPageSelectChange}>
               <option value="5">5개</option>
               <option value="10">10개</option>
               <option value="20">20개</option>
@@ -78,9 +78,7 @@ function PostList() {
       </div>
       {currentPosts && posts.length > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div className="resultNone">검색결과가 없습니다.</div>)}
-      {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
       <Paging page={currentPage} count={count} setPage={setPage} postPerPage={postPerPage}/>
-      {/* <Pagination total={posts.length} limit={limit} page={pages} setPage={setPages}/> */}
       <Button />
     </div>
   )
