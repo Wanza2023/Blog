@@ -44,13 +44,13 @@ class PostWriteComponent extends Component {
                 });
                 //앞서 생성한 file을 담아 s3에 업로드하는 객체를 만든다
                 var upload = new AWS.S3.ManagedUpload({
-                  params: {
-                    Bucket: process.env.REACT_APP_AWS_BUCKET, //버킷 이름
-                    Key: `contents-images/${v1()}.${file.type.split("/")[1]}`, 
-                    Body: file,
-                    ContentType: file.type,
-                    ACL: "public-read"
-                  }
+                    params: {
+                        Bucket: process.env.REACT_APP_AWS_BUCKET, //버킷 이름
+                        Key: `contents-images/${v1()}.${file.type.split("/")[1]}`, 
+                        Body: file,
+                        ContentType: file.type,
+                        ACL: "public-read"
+                    }
                 });
                 //이미지 업로드 후
                 //곧바로 업로드 된 이미지 url을 가져오기

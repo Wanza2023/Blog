@@ -7,7 +7,6 @@ import Button from "../../component/common/Button";
 import axios from 'axios';
 import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
-import Pagination from "react-js-pagination";
 
 function PostList() {
   const [posts, setPosts] = useState([]); // 게시글 담을 배열 생성
@@ -33,10 +32,6 @@ function PostList() {
     setCurrentPage(page);
     navigate(`?page=${page}`); // 해당 페이지로 이동
   };
-
-  const [limit, setLimit] = useState(10);
-  const [pages, setPages] = useState(1);
-  const offset = (pages - 1) * limit;
   
   useEffect(() => {
     const fetchData = async () => { // api에 데이터 요청 후 응답 response에 저장
@@ -68,9 +63,7 @@ function PostList() {
       <div className='border-line' />
       {currentPosts && (posts.length || hashtagList.length || searchResults.length) > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
-      {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
       <Paging page={currentPage} count={count} setPage={setPage}/>
-      {/* <Pagination total={posts.length} limit={limit} page={pages} setPage={setPages}/> */}
       <Button />
     </div>
   )

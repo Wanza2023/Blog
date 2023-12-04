@@ -21,7 +21,6 @@ const Navbar = () => {
     const [searchResults, setSearchResults] = useRecoilState(searchResultsState);
     const [searchTerm, setSearchTerm] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
-    const [memberId,setMemberId] = useRecoilState(memberIdState);
     const [nickName,setNickName] = useRecoilState(nickNameState);
 
     const profileIconClick = () => {
@@ -87,7 +86,6 @@ const Navbar = () => {
             </div>
             <div className="navbar-search-icon">
                 <div className="profile-icon" onClick={handleSearchClick}>
-                    {/* <img src={navigation_icon} alt="검색버튼" /> */}
                     <IoSearchOutline size={30} />
                 </div>
             </div>
@@ -97,14 +95,12 @@ const Navbar = () => {
                 ) : (
                     <div className="profile-icon">
                     <BsPersonGear size={35} onClick={profileIconClick}/>
-                    {/* <button onClick={profileIconClick} className="startButton">시작하기</button> */}
                     </div>
                 )}
                 {/* IsLoggedIn 이 True이면 div를 보이고 아니면 div 안보이기 */}
                 {isLoggedIn && (
                     <div className="optionList">
                         <div className="optionListItem" ><Link to={`/user/${nickName}`}>내블로그</Link></div>
-                        {/* <div className="optionListItem"><Link to="/personaledit?tab=change">계정관리</Link></div> */}
                         <div className="optionListItem"><Link to="/personaledit">관리•통계</Link></div>
                         <div className="optionListItem"><button className="logoutButton" onClick={handleLogout}>로그아웃</button></div>
                     </div>

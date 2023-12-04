@@ -6,9 +6,6 @@
     align-items: center;
 }
 
-.popularBox {
-}
-
 .popularTitle {
     margin-left: 18rem;
 }
@@ -170,7 +167,7 @@
     gap: 30px;
     justify-content: center;
 }
-  
+
 .user-card-container {
     flex: 0 0 calc(33.333% - 30px);
     margin-bottom: 2rem;
@@ -193,7 +190,7 @@
     align-items: center;
     flex-direction: column;
 }
-  
+
 .user-icon img {
     width: 50px;
     height: 50px;
@@ -203,7 +200,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-  
+
 .description {
     color: #666;
     position: absolute;
@@ -212,7 +209,7 @@
     transform: translate(-50%, -50%);
     text-align: center;
 }
-  
+
 .visit-button {
     position: absolute;
     bottom: 10px;
@@ -227,7 +224,7 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
-  
+
 @media (max-width: 768px) {
     .user-cards {
         padding: 0 10rem;

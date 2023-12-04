@@ -13,8 +13,6 @@ import { IoBookmark } from "react-icons/io5";
 const CommentList = ({comments, setComments}) => {
     const reversedComments = comments.slice().reverse();
     const navigate = useNavigate();
-    // const isLoggedIn = useRecoilValue(isLoggedInState);
-    // const { isLoggedIn, setIsLoggedIn } = useAuth();
     const { isLoggedIn, nickname } = useAuth();
 
     const { boardId } = useParams();
@@ -163,7 +161,6 @@ const CommentList = ({comments, setComments}) => {
                     댓글   {comments.length}
                 </div>
                 <div className='comments-bookmarker'>
-                    {/* <button className='comments-bookmarker-btn' onClick={handleOnClickBookMarker} ><BiBookmark /></button> */}
                     {bookmarkState ? <IoBookmark size={30} onClick={onClickBookmark} color="#5076FF" /> : <IoBookmarkOutline size={30} onClick={onClickBookmark} /> }                
                 </div>
             </div>
