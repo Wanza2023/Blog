@@ -141,14 +141,25 @@ function PostWrite() {
       });
   };
   // modal 창에서 위치 정보 선택
-  const handleSelectLocation = (selectedLocationData) => {
-    setLocationItems([...locationItems, selectedLocationData]); //모달에서 지도 받아온정보 경도,위도,위치이름 저장
+  // const handleSelectLocation = (selectedLocationData) => {
+  //   setLocationItems([...locationItems, selectedLocationData]); //모달에서 지도 받아온정보 경도,위도,위치이름 저장
 
+  //   const newScheduleItems = [...scheduleItems];
+  //   newScheduleItems[newScheduleItems.length - 1].locationName =
+  //     selectedLocationData.location;  // scheduleItems에 위치 이름 저장
+  //   setScheduleItems(newScheduleItems);
+  // };
+  const handleSelectLocation = (selectedLocationData, index) => {
+    setLocationItems((prevLocationItems) => {
+      const updatedLocationItems = [...prevLocationItems];
+      updatedLocationItems[index] = selectedLocationData;
+      return updatedLocationItems;
+    });
+  
     const newScheduleItems = [...scheduleItems];
-    newScheduleItems[newScheduleItems.length - 1].locationName =
-      selectedLocationData.location;  // scheduleItems에 위치 이름 저장
+    newScheduleItems[index].locationName = selectedLocationData.location;
     setScheduleItems(newScheduleItems);
-  };
+  };  
   // 글쓰기 내용 content onChange
   function onEditorChange(value) {
     const content = value;
@@ -244,29 +255,6 @@ function PostWrite() {
     alert("지역 선택,제목,내용을 모두 입력해주세요");
   };
 
-  // const [summary, setSummary] = useState("");
-
-  // const fetchSummary = async () => {
-  //   // 본문 전송 후 요약글 받기
-  //   try {
-  //     const response = await axios.post(
-  //       `${process.env.REACT_APP_SUMMARY_API_KEY}`,
-  //       { content: desc }
-  //     );
-  //     if (response.data && response.data.content) {
-  //       setSummary(response.data.content);
-  //       console.log(summary);
-  //     } else {
-  //       console.error("Invalid response format");
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to fetch summary:", error);
-  //     if (error.response) {
-  //       console.error("Server Response:", error.response.data);
-  //     }
-  //   }
-  // };
-
   // 클로바 요약
   const fetchSummaryN = async () => {
     try {
@@ -299,9 +287,6 @@ function PostWrite() {
         <div className="body0">
           <div>
             <select value={selectedRegion} onChange={handleRegionChange}>
-                {/* <option value="지역 선택" disabled>
-                  지역 선택
-                </option> */}
                 <option value="지역 선택" disabled>
                   지역 선택
                 </option>
@@ -334,7 +319,6 @@ function PostWrite() {
                 <button onClick={!isFormValid ? handleError : boardWrite}>발행</button>
             </div>
         </div>
-        {/* <div className='borderLine' /> */}
         <div className="body1">
           <input
             id="title"
@@ -343,88 +327,13 @@ function PostWrite() {
             placeholder="제목을 입력해주세요."
             onChange={onChangeTitle}
           />
-          {/* <ToggleButton isPublic={isPublic}>
-            <input
-              type="checkbox"
-              className="toggle-checkbox"
-              checked={isPublic}
-              onChange={() => setIsPublic(!isPublic)}
-            />
-            <span className="toggle-span"></span>
-            <div className="toggle-text">{isPublic ? "공개" : "비공개"}</div>
-          </ToggleButton>
-          <button onClick={!isFormValid ? handleError : boardWrite}>발행</button> */}
         </div>
-        {/* <div className="body2">
-          <div className="schedulecss">
-            {scheduleItems.map((item, index) => (
-              <div key={index} className="scheduleList">
-                <text className="index">{index + 1}번째 여행지</text>
-                <DatePicker
-                  className="dateSelect"
-                  locale={ko}
-                  selected={item.date}
-                  onChange={(date) => handleScheduleChange(index, "date", date)}
-                  dateFormat="yyyy-MM-dd"
-                  placeholderText="날짜"
-                  showTimeSelect={false}
-                  showTimeInput={false} 
-                />
-                <button
-                  className="selectLocation"
-                  onClick={() => setModalIsOpen(true)}
-                >
-                  장소
-                </button>
-                <Modal
-                  className="modal"
-                  isOpen={modalIsOpen}
-                  ariaHideApp={false}
-                  onRequestClose={() => setModalIsOpen(false)}
-                >
-                  <SelectLocation
-                    setModalIsOpen={setModalIsOpen}
-                    setLocationItems={handleSelectLocation}
-                  />
-                </Modal>
-                {item.locationName && (
-                  <span className="locationName">{item.locationName}</span>
-                )}
-                <select 
-                  value={item.transport} 
-                  onChange={(e) => handleScheduleChange(index, 'transport', e.target.value)}
-                  className="selectTransport">
-                  <option value="" disabled>이동수단 선택</option>
-                  <option value="고속버스">고속버스</option>
-                  <option value="비행기">비행기</option>
-                  <option value="기차">기차</option>
-                  <option value="대중교통">대중교통</option>
-                  <option value="자차">자차</option>
-                  <option value="도보">도보</option>
-                </select>
-                <button className="plus" onClick={addScheduleItem}>
-                  +
-                </button>
-                {index > 0 ? (
-                  <button
-                    className="minus"
-                    onClick={() => removeScheduleItem(index)}
-                  >
-                    -
-                  </button>
-                ) : null}
-              </div>
-            ))}
-          </div>
-        </div> */}
         <div className="body3">
           <MyBlock>
             <PostWriteComponent value={desc} onChange={onEditorChange} />
           </MyBlock>
         </div>
         <div className="foot">
-          {/* <button onClick={fetchSummary}>카카오</button>
-          {summary && <div className="summary-content">{summary}</div>} */}
           <div>
             <button className="menuButtonEdit" onClick={() => setShowSchedule(!showSchedule)}>일정 추가</button>
             <button className="menuButtonEdit" onClick={fetchSummaryN}>AI 요약</button>
@@ -451,19 +360,20 @@ function PostWrite() {
                       />
                       <button
                         className="selectLocation"
-                        onClick={() => setModalIsOpen(true)}
+                        onClick={() => setModalIsOpen(index)}
                       >
                         <IoLocationOutline size={20}/>
                       </button>
                       <Modal
                         className="modal"
-                        isOpen={modalIsOpen}
+                        isOpen={modalIsOpen === index}
                         ariaHideApp={false}
                         onRequestClose={() => setModalIsOpen(false)}
                       >
                         <SelectLocation
                           setModalIsOpen={setModalIsOpen}
                           setLocationItems={handleSelectLocation}
+                          id = {index}
                         />
                       </Modal>
                       {item.locationName && (
