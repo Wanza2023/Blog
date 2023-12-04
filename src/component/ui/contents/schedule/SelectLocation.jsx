@@ -10,12 +10,12 @@ const SelectLocation = (props) => {
         props.setModalIsOpen(false);
     }
     // 위치정보 배열에 저장 경도,위도,위치이름
-    const getLocation = (item) => {
+    const getLocation = (item,index) => {
         const locationData = {
             latitude: item.x,
             longitude: item.y,
             location: item.place_name};
-        props.setLocationItems(locationData);
+        props.setLocationItems(locationData,index);
     }
     // 검색창 onChange
     const onChange = (e) => {
@@ -107,7 +107,7 @@ const SelectLocation = (props) => {
                         places.map((item, i) => (
                             <div key={i} style={{ marginTop: '20px' }} >
                                 <div className='list'>
-                                    <button className="titlebtn" onClick={() => {getLocation(item); close();}} >{item.place_name}</button>
+                                    <button className="titlebtn" onClick={() => {getLocation(item,props.id); close();}} >{item.place_name}</button>
                                     {item.road_address_name ? (
                                         <div className='addressname'>
                                             <span>{item.road_address_name}</span>
