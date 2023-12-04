@@ -34,16 +34,11 @@ function PostView() {
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
   }
-  // 수정 삭제 toggle 메뉴
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
   // 게시글 수정 onClick
   const handleEditClick = () => {
     alert('수정 버튼 클릭');
   };
   // 게시글 삭제 onClick 
-  // 게시글 작성자와 일치한 사용자만 삭제 할 수 있도록 만들 것
   const handleDeleteClick = () => {
     if(userNickname !== nickname){
       alert('게시글 작성자만 삭제할 수 있습니다.');
@@ -68,25 +63,7 @@ function PostView() {
   const handleReportClick = () => {
     alert('신고 버튼 클릭');
   }
-  // 게시글 정보 axios get 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/${nickname}/${boardId}`);
-  //       if (response.data && response.data.body) {
-  //           console.log('Data received from the server:', response.data.body);
-  //           console.log(response.data.body.comments);
-  //           setPosts(response.data.body);
-  //         } else {
-  //           console.error('Invalid response data format');
-  //         }
-  //       } catch (e) {
-  //         console.error(e);
-  //         alert('Error: 데이터를 불러올 수 없습니다');
-  //       }
-  //     };
-  //     fetchData();
-  // }, [boardId,nickname]);
+
   useEffect(() => {
     const fetchData = async () => {
       const token = sessionStorage.getItem('token');
@@ -127,7 +104,7 @@ function PostView() {
   }
 
     if (posts) {
-        const { title, createdAt, local, contents, summary, schedules, hashtags, nickname, bookmark } = posts;
+        const { title, createdAt, local, contents, summary, schedules, hashtags, nickname } = posts;
         let createdDate;
         try {
             createdDate = new Date(createdAt);
@@ -168,19 +145,6 @@ function PostView() {
                 <div className='title'>
                   {title}
                   <div className='button-container'>
-                    {/* <button className='edit' onClick={toggleMenu}>
-                      <AiOutlineMore className='edit' onClick={toggleMenu} />
-                    </button>
-                    {showMenu && (
-                      <div className='menu'>
-                        <button onClick={handleEditClick}>
-                          <AiOutlineEdit /> 수정
-                        </button>
-                        <button onClick={handleDeleteClick}>
-                          <AiOutlineDelete /> 삭제
-                        </button>
-                      </div>
-                    )} */}
                   </div>
                 </div>
                 <div className='topcontainer'>
@@ -228,17 +192,6 @@ function PostView() {
                         )}
                       </div>
                     )}
-                    {/* {isExpanded && (
-                      <div className='overflow_menu'>
-                        <div className='overflow_menu_div'><button className='overflow_menu_btn' onClick={handleEditClick}><div className='overflow_menu_btn_div'>수정</div><div><AiOutlineEdit /></div></button></div>
-                        <button className='overflow_menu_btn' onClick={handleDeleteClick}><div className='overflow_menu_btn_div'>삭제</div><div><AiOutlineDelete /></div></button>
-                      </div>
-                    )} */}
-                    {/* {isExpanded && (
-                      <div className='overflow_menu'>
-                        <div className='overflow_menu_div'><button className='overflow_menu_btn' onClick={handleReportClick}><div className='overflow_menu_btn_div'>신고</div><div><AiOutlineFlag /></div></button></div>
-                      </div>
-                    )} */}
                   </button>
                 </div>
                 <div className='border1' />
@@ -265,13 +218,6 @@ function PostView() {
                         <p>null</p>
                     )}
                 </div>
-                {/* <CommentList
-                  comments={comments}
-                  onEdit={handleEditClick}
-                  onDelete={handleDeleteClick}
-                  newComment={newComment}
-                  setNewComment={setNewComment}
-                /> */}
                 {Array.isArray(comments) ? (
                         <CommentList 
                           comments={comments}

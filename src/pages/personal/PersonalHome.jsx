@@ -23,13 +23,6 @@ const PersonalHome = () => {
         setShowText(false);
         sessionStorage.setItem('showMap', 'true');
         sessionStorage.setItem('showText', 'false');
-        // window.sessionStorage.setItem('showMap',true);
-        // window.sessionStorage.setItem('showText',false);
-        // setShowMap(sessionStorage.getItem('showMap'));
-        // setShowText(sessionStorage.getItem('showText'));
-        // console.log("지도 버튼 눌림");
-        // console.log("지도버튼 showmap : "+showMap);
-        // console.log("지도버튼 showtext : "+showText);
     };
     // 글 눌렀을 때 이벤트
     const handleTextButtonClick = () => {
@@ -37,31 +30,19 @@ const PersonalHome = () => {
         setShowText(true);
         sessionStorage.setItem('showText', 'true');
         sessionStorage.setItem('showMap', 'false');
-        // window.sessionStorage.setItem('showText',true);
-        // window.sessionStorage.setItem('showMap',false);
-        // setShowMap(sessionStorage.getItem('showMap'));
-        // setShowText(sessionStorage.getItem('showText'));
-        // console.log("글 버튼 눌림");
-        // console.log("글 버튼 showmap : "+showMap);
-        // console.log("글 버튼 showtext : "+showText);
     };
 
     useEffect(() => {
-        // const showMap = sessionStorage.getItem('showMap') === 'true'; // showMap true면 true
-        // const showText = sessionStorage.getItem('showText') === 'true'; // showText true면 true
         setShowMap(showMap);
         setShowText(showText);
         console.log("showmap : "+showMap);
         console.log("showtext : "+showText);
-    // }, [showMap,showText]);
     }, [showMap,showText]);
 
     const [nickName,setNickName] = useRecoilState(nickNameState);// 닉네임 전역관리
     const [count, setCount] = useState(0); // 아이템 총 개수
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
     const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수 
-    const [indexOfLastPost, setIndexOfLastPost] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
-    const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
     const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
 
     const { nickname } = useParams(); // useParams로 url에서 파라미터 추출
@@ -94,12 +75,6 @@ const PersonalHome = () => {
                     const indexOfLastPost = currentPage * postPerPage;
                     const indexOfFirstPost = indexOfLastPost - postPerPage;
                     setCurrentPosts(Data.slice(indexOfFirstPost,indexOfLastPost));
-                    // const reversedData = response.data.body.reverse();
-                    // setPosts(reversedData);
-                    // setCount(reversedData.length);
-                    // const indexOfLastPost = currentPage * postPerPage;
-                    // const indexOfFirstPost = indexOfLastPost - postPerPage;
-                    // setCurrentPosts(reversedData.slice(indexOfFirstPost, indexOfLastPost));
                 } else {
                 }
             } catch (e) {
@@ -138,15 +113,6 @@ const PersonalHome = () => {
                     <Button />
                 </div>
             }
-            {/* {showMap === true ? 
-                <div className='map_styles'><MapComponent posts={posts} nickName={nickName}/></div> 
-                : 
-                <div className="wrapper">
-                    {currentPosts && posts.length > 0 ? (currentPosts.map((item)=>(<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
-                    <Paging page={currentPage} count={count} setPage={setPage}/>
-                    <Button/>
-                </div> 
-            } */}
         </div>
     );
 };

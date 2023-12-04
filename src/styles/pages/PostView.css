@@ -80,8 +80,6 @@
     margin-top:3rem;
     border: 1px solid #d5d5d5;
     border-radius: 3px;
-    /* box-shadow: rgba(0, 0, 0, .1) 0 1px 1px 0; */
-    /* background-color: #fff; */
     text-align: left;
     margin-top: 2rem;
     margin-left: 1rem;
@@ -92,8 +90,6 @@
 }
 .overflow_menu_btn {
     border: 1px solid #d5d5d5;
-    /* border-radius: 3px; */
-    /* box-shadow: rgba(0, 0, 0, .1) 0 1px 1px 0; */
     background-color: #fff;
     display: flex;
     color: gray;

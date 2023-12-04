@@ -4,7 +4,6 @@ import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete, AiOutlineFlag } from "re
 import { BiUserCircle } from "react-icons/bi";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import styled from 'styled-components';
-import data from "../../../CommentData.json";
 import { useRecoilState } from 'recoil';
 import { nickNameState } from '../../common/AuthState';
 import '../../../styles/component/Comment.css'
@@ -115,7 +114,7 @@ const CommentsList = styled.div`
 const CommentListItem = ({ comment, editingComment, setEditingComment, handleCommentEditClick, handleCommentSaveClick, handleCommentCancelClick, handleCommentChange, handleCommentReportClick, handleCommentLikeClick, isLikedStates, onDelete, isLoggedIn }) => {
     const navigate = useNavigate();
 
-    const [showMenu, setShowMenu] = useState(new Array(data.length).fill(false));
+    const [showMenu, setShowMenu] = useState(new Array(comment.length).fill(false));
 
     const toggleMenu = (commentIndex) => {
         const updatedShowMenu = [...showMenu];
@@ -135,7 +134,6 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
         let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
         let dateOffset = new Date(date.getTime() - 2*offset);
         let formattedDate = dateOffset.toISOString().replace("T", " ").replace(/\.\d{3}Z$/, "");
-        // return dateOffset.toISOString();
         return formattedDate;
     }
 
@@ -177,16 +175,6 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                             </CommentsMenu>
                         )}
                     </ButtonContainer>
-                    {/* {editingComment[index] === '' ? (
-                        <CommentsList>
-                            {commentItem.contents}
-                            <div><br />{commentItem.createdAt.toString().split('T')[0]}</div>
-                        </CommentsList>
-                    ) : (
-                        <Editing>
-                            <input type="text" value={editingComment[index]} onChange={(event) => handleCommentChange(event, index)} />
-                        </Editing>
-                    )} */}
                     <CommentsList>
                         {
                             commentStatus[index] === false ? 
@@ -196,7 +184,6 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                             </> :
                             <><div className='commentContent'>{commentItem.content}</div></>
                         }
-                        {/* <div><br />{convertTime(commentItem.createdAt).replace("T", " ").replace(/\.\d{3}Z$/, "")}</div> */}
                         <div className='commentDate'><br />{convertTime(commentItem.createdAt)}</div>
                     </CommentsList>
                 </Comments>

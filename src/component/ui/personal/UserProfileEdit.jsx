@@ -13,14 +13,8 @@ const UserProfileEdit = ({ onSaveChanges }) => {
 
     const [passwordError, setPasswordError] = useState('');
 
-    const storedNickname = sessionStorage.getItem('nickName');
-
-    const memberId = useRecoilValue(memberIdState);
-
     const [password, setPassword] = useState(''); // 비밀번호 상태 변수
     const [confirmPassword, setConfirmPassword] = useState(''); // 비밀번호 확인 상태 변수
-
-    const [editPassword, setEditPassword] = useState(false); 
 
     const { isLoggedIn, setIsLoggedIn } = useAuth();
 

@@ -8,7 +8,6 @@ import axios from 'axios';
 import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
 import { IoLocationOutline } from "react-icons/io5";
-import Pagination from "react-js-pagination";
 
 function RegionList() {
   const { regionName } = useParams(); // useParams로 url에서 파라미터 추출
@@ -35,10 +34,6 @@ function RegionList() {
     setCurrentPage(page);
     navigate(`?page=${page}`); // 해당 페이지로 이동
   };
-
-  const [limit, setLimit] = useState(10);
-  const [pages, setPages] = useState(1);
-  const offset = (pages - 1) * limit;
   
   const handlePostPerPageSelectChange = (e) => {
     const selectedValue = parseInt(e.target.value);

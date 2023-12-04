@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Button from "../../component/common/Button";
 import PopularList from "../../component/ui/list/PopularList";
-import PostCard from '../../component/ui/list/PostCard';
 import "../../styles/pages/Main.css";
 import airplane from '../../assets/images/airplane.png'
 import { GoSearch } from "react-icons/go";
@@ -18,8 +17,6 @@ export default function MainPage() {
     const [hashtags, setHashtags] = useState([]);
 
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
-
-    const [postCardPosts, setPostCardPosts] = useState([]);
 
     const [marker, setmarker] = useState({ display: 'none' });
     const [regionName, setRegionName] = useState('');
@@ -228,7 +225,6 @@ export default function MainPage() {
                         </svg>
                     </div>
                     <div className="marker" style={marker}>
-                        {/* <GrLocationPin size={20} /> */}
                         <IoLocationOutline />
                         {regionName}
                     </div>

@@ -5,7 +5,6 @@ import { useNavigate,useParams } from "react-router";
 const {kakao} = window; // window에서 kakao 추출
 
 const MapComponent= (props) => {
-    const {nickName, posts} = props; // props에서 nickName과 posts 추출
     const navigate = useNavigate();
     const { nickname } = useParams(); // useParams로 url에서 파라미터 추출ㄴㄴ
     
@@ -43,9 +42,7 @@ const MapComponent= (props) => {
             level: 13 // 확대 레벨
         };
         const map = new kakao.maps.Map(mapContainer, mapOptions); // mapContainer에 지도를 생성하고 map 변수에 할당
-        
-        const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-        
+                
         // schedule에서 필요한 데이터만 저장
         const positions = localArray.map(({schedule,imgSrc,imgSrchover}) => ({
             title: schedule.location, 
@@ -81,18 +78,14 @@ const MapComponent= (props) => {
                 title: positions[i].title,
                 image : markerImage
             });
-            // var marker = new kakao.maps.Marker({
-            //     map: map,
-            //     position: positions[i].latlng,
-            // });
+
             var infowindow = new kakao.maps.InfoWindow({
                 content: positions[i].content // 인포윈도우에 표시할 내용
             });
             
-            if (positions[i].imgSrc != "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png") {
+            if (positions[i].imgSrc !== "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png") {
                 kakao.maps.event.addListener(marker, 'click', ((position) => { // 마커 클릭 이벤트
                     return () => {
-                        // window.location.href = `http://localhost:3000/${nickName}/${position.boardId}`;
                         navigate(`/${nickname}/${position.boardId}`);
                     }
                 })(positions[i]));
@@ -102,7 +95,6 @@ const MapComponent= (props) => {
             else {
                 kakao.maps.event.addListener(marker, 'click', ((position) => { // 마커 클릭 이벤트
                     return () => {
-                        // window.location.href = `http://localhost:3000/${nickName}/${position.boardId}`;
                         navigate(`/${nickname}/${position.boardId}`);
                     }
                 })(positions[i]));
