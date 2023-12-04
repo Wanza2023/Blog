@@ -95,24 +95,26 @@ const localKorean = localToKorean[regionName] || regionName;
   return (
     <div className="wrapper">
       <div className='hashtag-title'>Region</div>
-      {localKorean && <div className="region-word"><IoLocationOutline className="grIcon" /><div className="search-word-term">{localKorean}&nbsp;지역의 글 목록입니다.</div></div>}
-      <div className='border-line' />
+      {localKorean && 
       <div className="postlist-topwrapper">
-        {/* {localKorean && 
-          <div className="region-word">
-            <FaMapMarkerAlt /><div className="search-word-term">{localKorean}</div>
-          </div>
-          } */}
-          <div>
-            <button className="postlist-popularbtn">인기순</button>
-            <button className="postlist-newestbtn">최신순</button>
-            <select className="postlist-postperpage-select" onChange={handlePostPerPageSelectChange}>
-              <option value="5">5개</option>
-              <option value="10">10개</option>
-              <option value="20">20개</option>
-            </select>
-          </div>
-      </div>
+        <div className="region-word">
+          <IoLocationOutline className="grIcon" />
+          <div className="search-word-term">{localKorean}&nbsp;지역의 글 목록입니다.</div>
+        </div>
+        <div className="postlist-topwrapper">
+            <div>
+              <button className="postlist-popularbtn">인기순</button>
+              <button className="postlist-newestbtn">최신순</button>
+              <select className="postlist-postperpage-select" onChange={handlePostPerPageSelectChange}>
+                <option value="5">5개</option>
+                <option value="10">10개</option>
+                <option value="20">20개</option>
+              </select>
+            </div>
+        </div>
+      </div>}
+      <div className='border-line' />
+      
       {currentPosts && (posts.length || hashtagList.length || searchResults.length) > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
       <Paging page={currentPage} count={count} setPage={setPage} postPerPage={postPerPage}/>

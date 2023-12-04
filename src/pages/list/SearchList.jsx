@@ -60,15 +60,13 @@ function SearchList() {
   return (
     <div className="wrapper">
       <div className='hashtag-title'>Search</div>
-      {searchTerm && <div className="search-word"><IoSearchSharp /><div className="search-word-term">{searchTerm}&nbsp;에 대한 검색 결과입니다.</div></div>}
-      <div className='border-line' />
-      {/* {searchTerm && <div className="search-word"><IoSearchSharp /><div className="search-word-term">{searchTerm}</div></div>} */}
+      {searchTerm && 
       <div className="postlist-topwrapper">
-        {/* {searchTerm && 
-          <div className="region-word">
-            <IoSearchSharp /><div className="search-word-term">{searchTerm}</div>
-          </div>
-          } */}
+        <div className="search-word">
+          <IoSearchSharp />
+          <div className="search-word-term">{searchTerm}&nbsp;에 대한 검색 결과입니다.</div>
+        </div>
+        <div className="postlist-topwrapper">
           <div>
             <button className="postlist-popularbtn">인기순</button>
             <button className="postlist-newestbtn">최신순</button>
@@ -78,7 +76,9 @@ function SearchList() {
               <option value="20">20개</option>
             </select>
           </div>
-      </div>
+        </div>
+      </div>}
+      <div className='border-line' />
       {currentPosts && posts.length > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div className="resultNone">검색결과가 없습니다.</div>)}
       <Paging page={currentPage} count={count} setPage={setPage} postPerPage={postPerPage}/>

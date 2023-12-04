@@ -11,7 +11,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
 }
 .postlist-popularbtn{
     border: none;
@@ -44,7 +43,6 @@
 
 .hashtag-title {
     font-weight: bold;
-    margin-bottom: -1rem;
 }
 
 .hashtag-word {
