@@ -3,10 +3,31 @@
 }
 .wrapper {
     margin: 0 auto;
+    display: grid;
     max-width: 65%;
     padding: 2rem 25rem;
 }
+.postlist-topwrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.postlist-popularbtn{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.postlist-newestbtn{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.postlist-postperpage-select{
+    border: none;
+    background-color: transparent;
 
+}
 .search-word {
     font-size: 1.3rem;
     font-weight: lighter;

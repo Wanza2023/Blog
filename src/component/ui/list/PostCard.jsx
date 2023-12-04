@@ -52,10 +52,6 @@ function PostCard(props){
                 setTimeAgo(`${Math.floor(timeElapsed / 3600)}시간 전`);
             } else if (timeElapsed < 604800) {
                 setTimeAgo(`${Math.floor(timeElapsed / 86400)}일 전`);
-            } else if (timeElapsed < 2419200) {
-                setTimeAgo(`${Math.floor(timeElapsed / 604800)}주 전`);
-            } else if (timeElapsed < 29030400) {
-                setTimeAgo(`${Math.floor(timeElapsed / 2419200)}달 전`);
             } else {
                 const date = new Date(timestamp).toISOString().split('T')[0];
                 setTimeAgo(date);

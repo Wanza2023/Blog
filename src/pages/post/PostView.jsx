@@ -12,6 +12,7 @@ import Button from '../../component/common/Button';
 import axios from 'axios';
 import { nickNameState, bookmarkResultState } from '../../component/common/AuthState';
 import { useRecoilState } from 'recoil';
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const Container = styled.div`
   display: flex;
@@ -116,7 +117,7 @@ function PostView() {
       }
     };
     fetchData();
-  }, [boardId, nickname]);
+  }, [boardId, nickname,token,setBookmarkState]);
 
   // toISOString() 1일전 날짜 안뜨게 시간 변경
   function convertTime(date) {
@@ -189,7 +190,8 @@ function PostView() {
                   </button>
                   <div className='date'>{formattedDate}</div>
                   <div className='location'>
-                    <GrLocationPin />
+                    {/* <GrLocationPin /> */}
+                    <FaMapMarkerAlt />
                     <button onClick={() => navigate("/regionList/" + local)} className='location-name'>
                       {localKorean}
                     </button>
