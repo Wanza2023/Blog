@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { AiOutlineMore, AiOutlineEdit, AiOutlineDelete,AiOutlineFlag } from 'react-icons/ai';
-import { GrLocationPin } from "react-icons/gr";
 import ScheduleList from '../../component/ui/contents/schedule/ScheduleList';
 import HashtagList from '../../component/ui/contents/hashtag/HashtagList';
 import CommentList from '../../component/ui/comment/CommentList';
@@ -12,7 +11,7 @@ import Button from '../../component/common/Button';
 import axios from 'axios';
 import { nickNameState, bookmarkResultState } from '../../component/common/AuthState';
 import { useRecoilState } from 'recoil';
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { IoLocationOutline } from "react-icons/io5";
 
 const Container = styled.div`
   display: flex;
@@ -191,7 +190,7 @@ function PostView() {
                   <div className='date'>{formattedDate}</div>
                   <div className='location'>
                     {/* <GrLocationPin /> */}
-                    <FaMapMarkerAlt />
+                    <IoLocationOutline />
                     <button onClick={() => navigate("/regionList/" + local)} className='location-name'>
                       {localKorean}
                     </button>
