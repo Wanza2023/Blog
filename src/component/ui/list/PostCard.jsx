@@ -117,7 +117,7 @@ function PostCard(props){
                         </div>
                     </div>
                     <div className="cardContentWrapper" onClick={()=>navigate(`${props.path}`)}>
-                        <h2 className="cardtitle">[{localKorean}] {props.title}</h2>
+                        <p className="cardtitle">[{localKorean}] {props.title}</p>
                         <p className="cardcontent">{props.summary}</p>
                     </div>
                 </div>

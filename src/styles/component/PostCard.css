@@ -1,5 +1,5 @@
 .cardInfo {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     display: flex;
 }
 .cardProfileImg {
@@ -16,10 +16,10 @@
 
 }
 .cardInfoDate {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
 }
 .cardInfoProfileNickname {
-    font-size : 0.8rem;
+    font-size : 0.9rem;
 }
 
 .cardInfoProfile:hover .cardInfoProfileNickname,
@@ -35,10 +35,10 @@
     align-items:center;
 }
 .cardfooterCommentLen{
-    font-size:0.7rem;
+    font-size:0.8rem;
     font-weight: 400;
     padding: 0 1rem 0 0.3rem;
-    color: gray;
+    color: #848484;
 }
 .hashtagWrapper {
     display: flex;
@@ -48,13 +48,15 @@
     display: flex;
     align-items: center;
     margin-right: 0.5vw;
-    border-radius: 10px;
-    color: gray;
-    padding: 0.5rem;
+    border-radius: 20px;
+    color: #848484;
+    padding: 0.3rem;
     cursor: pointer;
+    border: 0.5px solid #848484;
 }
+
 .hashtagText{
-    font-size:0.65rem;
+    font-size:0.8rem;
 
 }
 
@@ -86,16 +88,18 @@
 }
 
 .cardimg {
-    width: 8rem;
-    height: 8rem;
+    width: 9rem;
+    height: 9rem;
     padding-bottom: 0.8rem;
     padding-top: 0.8rem;
+    margin-left: 3rem;
     object-fit: cover;
 }
 
 .cardtitle {
     line-height: 1.2rem;
     margin-bottom: 0.4rem;
+    font-size: 1.3rem;
 }
 .cardtitle:hover {
     text-decoration: underline;
@@ -109,6 +113,7 @@
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     overflow: hidden;
+    color: #585858;
 }
 .cardcontent:hover {
     text-decoration: underline;

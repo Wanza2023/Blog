@@ -108,7 +108,7 @@
     margin-top: 1rem;
 }
 .schedule {
-    margin-top: 3.5vh;
+    margin: 3.5vh;
     clear: both;
     border-radius: 20px;
     background: #F5F5F5;
@@ -116,8 +116,15 @@
 }
 .schedule-item {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
+}
+.schedule-icon {
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    display: flex;
+    margin-left: 0.5rem;
 }
 .schedule-item-date{
     border-radius: 5px;
@@ -125,7 +132,7 @@
     text-align: center;
     background: #FFFFFF;
     padding: 5px;
-    width: 13vw;
+    min-width: 7vw;
     margin-left: 1rem;
 }
 .schedule-item-location{
@@ -134,8 +141,8 @@
     text-align: center;
     background: #FFFFFF;
     padding: 5px;
-    width: 23vw;
-    margin: 10px 20px;
+    min-width: 10vw;
+    margin: 10px 0.5rem;
 }
 .schedule-item-transportation{
     border-radius: 5px;
@@ -143,8 +150,8 @@
     text-align: center;
     background: #FFFFFF;
     padding: 5px;
-    width: 120px;
-    margin: 10px 20px;
+    min-width: 5vw;
+    margin: 10px 0.5rem;
 }
 .border2 {
     clear: both;

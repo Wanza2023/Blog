@@ -1,6 +1,7 @@
 .containerBox {
     background-color: white;
     padding: 2rem 3rem;
+    width: 800px;
 }
 
 .body0 {
@@ -112,7 +113,7 @@
 .index {
     font-weight: bold;
     margin-right: 1vw;
-    min-width: 1.5vw;
+    min-width: 2.5vw;
     margin-left: 0.5rem;
     display: flex;
     align-items: center;
@@ -222,7 +223,7 @@
 }
 .modal {
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 75%;
     transform: translate(-50%, -50%);
     width: 75%;

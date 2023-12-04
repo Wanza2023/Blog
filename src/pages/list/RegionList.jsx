@@ -89,7 +89,9 @@ const localKorean = localToKorean[regionName] || regionName;
 
   return (
     <div className="wrapper">
-      {localKorean && <div className="region-word"><GrLocationPin className="grIcon" /><div className="search-word-term">{localKorean}</div></div>}
+      <div className='hashtag-title'>Region</div>
+      {localKorean && <div className="region-word"><GrLocationPin className="grIcon" /><div className="search-word-term">{localKorean}&nbsp;지역의 글 목록입니다.</div></div>}
+      <div className='border-line' />
       {currentPosts && (posts.length || hashtagList.length || searchResults.length) > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}

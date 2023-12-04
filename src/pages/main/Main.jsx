@@ -9,6 +9,7 @@ import airplane from '../../assets/images/airplane.png'
 import { GoSearch } from "react-icons/go";
 import { GrLocationPin } from "react-icons/gr";
 import HashtagListItem from "../../component/ui/contents/hashtag/HashtagListItem";
+import personal_profile_icon from '../../assets/images/personal_profile_icon.png';
 
 export default function MainPage() {
     const navigate = useNavigate();
@@ -237,6 +238,51 @@ export default function MainPage() {
                 </div>
                 <div className="popularPostList">
                     <PopularList PopularPosts={posts} onClickItem={() => { navigate("/"+ /*닉네임*/ + "/" /*보드아이디*/) }} />
+                </div>
+                <div class="user-card-container-title">인기 블로그</div>
+                <div class="user-cards">
+                    <div class="user-card-container">
+                        <div class="user-card" onClick={() => { navigate(`/user/바다조아`)}}>
+                            <div class="user-icon"><img src={personal_profile_icon}/></div>
+                            <div class="description">바다조아 님의<br />블로그</div>
+                            <button class="visit-button">방문하기</button>
+                        </div>
+                    </div>
+                    <div class="user-card-container">
+                        <div class="user-card" onClick={() => { navigate(`/user/포비베이글`)}}>
+                            <div class="user-icon"><img src={personal_profile_icon}/></div>
+                            <div class="description">포비베이글 님의 <br />블로그</div>
+                            <button class="visit-button">방문하기</button>
+                        </div>
+                    </div>
+                    <div class="user-card-container">
+                        <div class="user-card" onClick={() => { navigate(`/user/역사사랑단`)}}>
+                            <div class="user-icon"><img src={personal_profile_icon}/></div>
+                            <div class="description">역사사랑단 님의  <br />블로그</div>
+                            <button class="visit-button">방문하기</button>
+                        </div>
+                    </div>
+                    <div class="user-card-container">
+                        <div class="user-card" onClick={() => { navigate(`/user/댓글성공기원`)}}>
+                            <div class="user-icon"><img src={personal_profile_icon}/></div>
+                            <div class="description">댓글성공기원 님의<br /> 블로그</div>
+                            <button class="visit-button">방문하기</button>
+                        </div>
+                    </div>
+                    <div class="user-card-container">
+                        <div class="user-card" onClick={() => { navigate(`/user/여행좋아`)}}>
+                            <div class="user-icon"><img src={personal_profile_icon}/></div>
+                            <div class="description">여행좋아 님의 <br />블로그</div>
+                            <button class="visit-button">방문하기</button>
+                        </div>
+                    </div>
+                    <div class="user-card-container">
+                        <div class="user-card" onClick={() => { navigate(`/user/홍길동`)}}>
+                            <div class="user-icon"><img src={personal_profile_icon}/></div>
+                            <div class="description">홍길동 님의  <br />블로그</div>
+                            <button class="visit-button">방문하기</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <Button></Button>
