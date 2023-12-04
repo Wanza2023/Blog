@@ -10,7 +10,7 @@ import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
 import Pagination from "react-js-pagination";
 
-function PostList() {
+function SearchList() {
   const { searchTerm } = useParams(); // useParams로 url에서 파라미터 추출
   const [posts, setPosts] = useState([]); // 게시글 담을 배열 생성
   const [count, setCount] = useState(0); // 아이템 총 개수
@@ -59,13 +59,16 @@ function PostList() {
 
   return (
     <div className="wrapper">
+      <div className='hashtag-title'>Search</div>
+      {searchTerm && <div className="search-word"><IoSearchSharp /><div className="search-word-term">{searchTerm}&nbsp;에 대한 검색 결과입니다.</div></div>}
+      <div className='border-line' />
       {/* {searchTerm && <div className="search-word"><IoSearchSharp /><div className="search-word-term">{searchTerm}</div></div>} */}
       <div className="postlist-topwrapper">
-        {searchTerm && 
+        {/* {searchTerm && 
           <div className="region-word">
             <IoSearchSharp /><div className="search-word-term">{searchTerm}</div>
           </div>
-          }
+          } */}
           <div>
             <button className="postlist-popularbtn">인기순</button>
             <button className="postlist-newestbtn">최신순</button>
@@ -84,4 +87,4 @@ function PostList() {
   )
 }
 
-export default PostList;
+export default SearchList;

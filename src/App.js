@@ -3,6 +3,8 @@ import "./styles/App.css";
 import SignIn from "./pages/sign/SignIn";
 import SignUp from "./pages/sign/SignUp";
 import Main from "./pages/main/Main";
+import PostList from "./pages/list/PostList";
+import BookmarkList from "./pages/list/BookmarkList";
 import PostWrite from "./pages/post/PostWrite";
 import SearchList from "./pages/list/SearchList";
 import HashtagList from "./pages/list/HashtagList";
@@ -10,6 +12,7 @@ import RegionList from "./pages/list/RegionList";
 import PostView from "./pages/post/PostView";
 import PersonalHome from './pages/personal/PersonalHome';
 import Navbar from "./component/common/Navbar";
+import Footer from "./component/common/Footer";
 import { RecoilRoot } from "recoil";
 import SelectLocation from "./component/ui/contents/schedule/SelectLocation";
 import PersonalEdit from "./pages/personal/PersonalEdit";
@@ -25,6 +28,8 @@ function App() {
           <Routes>
             <Route index element={<Main />} />
             <Route path="/:land" element={<Main />} />
+            <Route path="/postlist" element={<PostList />} />
+            <Route path="/bookmark" element={<BookmarkList />} />
             <Route path="board/search/:searchTerm" element={<SearchList />} />
             <Route path="board/tags/:hashtag" element={<HashtagList />} />
             <Route path="write" element={<PostWrite />} />
@@ -38,6 +43,7 @@ function App() {
             <Route path='pwInquiry'element={<PasswordFind/>}/>
           </Routes>
         </div>
+        <Footer />
       </BrowserRouter>
     </RecoilRoot>
   );

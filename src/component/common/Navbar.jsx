@@ -10,7 +10,8 @@ import travelog_logo_03 from '../../assets/images/travelog_logo_03.png'
 import { IoSearchOutline } from "react-icons/io5";
 import { BiUserCircle } from "react-icons/bi";
 import { useAuth } from "./useAuth";
-import { PiPersonArmsSpreadThin } from "react-icons/pi";
+import { BsPersonGear } from "react-icons/bs";
+import personal_profile_icon from '../../assets/images/personal_profile_icon.png';
 
 
 const Navbar = () => {
@@ -75,6 +76,10 @@ const Navbar = () => {
             <div className="navbar-logo">
                 <Link to="/"><img className="navbar-logo" src={travelog_logo_02} alt="Travelog Logo" /></Link>
             </div>
+            <div className="navMenu">
+                <div className="navMenuList"><Link to="/postlist">전체게시글</Link></div>
+                <div className="navMenuList"><Link to="/bookmark">북마크</Link></div>
+            </div>
             <div className="navbar-search-bar">
                 {isSearchOpen &&
                     <input className="search-input" type="text" placeholder="검색" value={searchTerm} onChange={handleSearchInputChange} onKeyPress={handleOnKeyPress} />
@@ -87,16 +92,20 @@ const Navbar = () => {
                 </div>
             </div>
             <div class="navbar-profile">
-                <div className="profile-icon">
-                    {/* <img src={profile_icon} alt="Profile Icon" onClick={profileIconClick}/> */}
-                    <PiPersonArmsSpreadThin size={35} onClick={profileIconClick}/>
-                </div>
+                {isLoggedIn ? (
+                    <img src={personal_profile_icon} alt="Profile" onClick={profileIconClick} style={{ width: 35, height: 35, cursor: 'pointer' }} />
+                ) : (
+                    <div className="profile-icon">
+                    <BsPersonGear size={35} onClick={profileIconClick}/>
+                    {/* <button onClick={profileIconClick} className="startButton">시작하기</button> */}
+                    </div>
+                )}
                 {/* IsLoggedIn 이 True이면 div를 보이고 아니면 div 안보이기 */}
                 {isLoggedIn && (
                     <div className="optionList">
                         <div className="optionListItem" ><Link to={`/user/${nickName}`}>내블로그</Link></div>
-                        <div className="optionListItem"><Link to="/personaledit?tab=change">계정관리</Link></div>
-                        <div className="optionListItem"><Link to="/personaledit">블로그관리</Link></div>
+                        {/* <div className="optionListItem"><Link to="/personaledit?tab=change">계정관리</Link></div> */}
+                        <div className="optionListItem"><Link to="/personaledit">관리•통계</Link></div>
                         <div className="optionListItem"><button className="logoutButton" onClick={handleLogout}>로그아웃</button></div>
                     </div>
                     )

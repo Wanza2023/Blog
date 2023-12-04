@@ -16,8 +16,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { CiCalendarDate } from "react-icons/ci";
 import { GrLocationPin } from "react-icons/gr";
 import { PiBusLight } from "react-icons/pi";
-import { TiPlusOutline, TiMinusOutline } from "react-icons/ti";
-import { PiArrowFatLineDownThin } from "react-icons/pi";
+import { HiOutlinePlusCircle, HiOutlineMinusCircle } from "react-icons/hi";
 
 const Container = styled.div`
   display: grid;
@@ -438,8 +437,7 @@ function PostWrite() {
               <div className="schedulecss">
                 {scheduleItems.map((item, index) => (
                   <div key={index} className="scheduleList">
-                    {/* <text className="index">{index + 1}</text> */}
-                    <text className="index"><PiArrowFatLineDownThin size={30} /></text>
+                    <text className="index">Day{index + 1}</text>
                     <div className="scheduleListItems">
                       <CiCalendarDate size={30}/>
                       <DatePicker
@@ -485,11 +483,11 @@ function PostWrite() {
                         <option value="도보">도보</option>
                       </select>
                       <button className="plus" onClick={addScheduleItem}>
-                        <TiPlusOutline />
+                        <HiOutlinePlusCircle size={17} />
                       </button>
                       {index > 0 ? (
                         <button className="minus" onClick={() => removeScheduleItem(index)}>
-                          <TiMinusOutline />
+                          <HiOutlineMinusCircle size={17} />
                         </button>
                       ) : null}
                     </div>

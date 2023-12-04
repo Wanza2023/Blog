@@ -95,12 +95,15 @@ const localKorean = localToKorean[regionName] || regionName;
 
   return (
     <div className="wrapper">
+      <div className='hashtag-title'>Region</div>
+      {localKorean && <div className="region-word"><GrLocationPin className="grIcon" /><div className="search-word-term">{localKorean}&nbsp;지역의 글 목록입니다.</div></div>}
+      <div className='border-line' />
       <div className="postlist-topwrapper">
-        {localKorean && 
+        {/* {localKorean && 
           <div className="region-word">
             <FaMapMarkerAlt /><div className="search-word-term">{localKorean}</div>
           </div>
-          }
+          } */}
           <div>
             <button className="postlist-popularbtn">인기순</button>
             <button className="postlist-newestbtn">최신순</button>

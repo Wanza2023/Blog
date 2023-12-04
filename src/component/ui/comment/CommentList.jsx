@@ -26,7 +26,6 @@ const CommentList = ({comments, setComments}) => {
     const [isPublic, setIsPublic] = useState(true); // 댓글 공개 비공개 설정
 
     const [bookmarkState, setBookmarkState] = useRecoilState(bookmarkResultState);
-    console.log(bookmarkState);
 
     const addComments = async () => {
         try {
@@ -122,26 +121,35 @@ const CommentList = ({comments, setComments}) => {
             setBookmarkState(!bookmarkState);
             const token = sessionStorage.getItem('token');
             const memberId = sessionStorage.getItem('memberId');
-            const apiUrl = bookmarkState
-                ? `${process.env.REACT_APP_BOOKMARK_API_KEY}/${memberId}/${boardId}`
-                : `${process.env.REACT_APP_BOOKMARK_API_KEY}`;
     
-            axios[bookmarkState ? 'delete' : 'post'](apiUrl, {
-                memberId: memberId,
-                boardId: boardId
-            }, {
+            const headersConfig = {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
-            .then(
-                res => {
+            };
+    
+            if (bookmarkState) {
+                const deleteApiUrl = `${process.env.REACT_APP_BOOKMARK_API_KEY}/${boardId}`;
+                axios.delete(deleteApiUrl, headersConfig)
+                .then(res => {
                     console.log(res);
-                }
-            )
-            .catch(err => {
-                console.log(err);
-            });
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            } else {
+                const postApiUrl = `${process.env.REACT_APP_BOOKMARK_API_KEY}`;
+                axios.post(postApiUrl, {
+                    memberId: memberId,
+                    boardId: boardId
+                }, headersConfig)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            }
         } else {
             alert('로그인이 필요한 기능입니다!');
             navigate('/login');

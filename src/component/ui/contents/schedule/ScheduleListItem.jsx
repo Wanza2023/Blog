@@ -6,11 +6,11 @@ import { PiBusLight } from "react-icons/pi";
 const ScheduleListItem = ({ day, date, location, transportation }) => {
     return (
         <div className='schedule-item'>
-            <CiCalendarDate size={30}/>
+            <div className='schedule-icon'><CiCalendarDate size={30}/></div>
             <div className='schedule-item-date'>{date}</div>
-            <GrLocationPin size={20}/>
+            <div className='schedule-icon'><GrLocationPin size={20}/></div>
             <div className='schedule-item-location'>{location}</div>
-            <PiBusLight size={30}/>
+            <div className='schedule-icon'><PiBusLight size={30}/></div>
             <div className='schedule-item-transportation'>{transportation}</div>
         </div>
     );

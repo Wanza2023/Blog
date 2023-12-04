@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaBookmark, FaChartBar, FaUserEdit, FaUserCog } from 'react-icons/fa';
-import BookmarkList from '../../component/ui/personal/BookmarkList';
 import PasswordModal from '../../component/ui/personal/PasswordModal';
 import UserProfileChange from '../../component/ui/personal/UserProfileChange';
 import UserProfileEdit from '../../component/ui/personal/UserProfileEdit';
-import Button from '../../component/common/Button';
 import '../../styles/pages/PersonalEdit.css'
 
 const PersonalEdit = () => {
@@ -76,8 +74,6 @@ const PersonalEdit = () => {
 
     const renderContent = () => {
         switch (Menu) { // 상태 변수 값에 따라 나누기
-        case 'bookmark':
-            return <BookmarkList onSaveChanges={handleSaveChanges} />;
         case 'stats':
             return 
         case 'change':
@@ -112,7 +108,6 @@ const PersonalEdit = () => {
                     </div>
                 </div>
             </div>
-            <Button></Button>
         </>
     );
 };

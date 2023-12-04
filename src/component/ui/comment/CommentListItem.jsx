@@ -17,6 +17,7 @@ const Comments = styled.div`
 const CommentsInfo = styled.div`
     clear: both;
     float: left;
+    margin-bottom: 0.5rem;
 
     > svg {
         width: 3vh;
@@ -32,8 +33,9 @@ const CommentsInfo = styled.div`
         clear: both;
         float: right;
         margin-top: 1vh;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-weight: bold;
+        color: #6E6E6E;
     }
 `;
 
@@ -59,8 +61,8 @@ const CommentsEdit = styled.button`
     border: none;
     cursor: pointer;
     > svg {
-        width: 4vw;
-        height: 4vh;
+        width: 3vw;
+        height: 3vh;
         fill: gray;
     }
 `;
@@ -75,7 +77,6 @@ const CommentsMenu = styled.div`
         border: 1px solid #d5d5d5;
         border-radius: 3px;
         color: gray;
-        margin: 1rem 0.2rem;
     }
 `;
 
@@ -107,7 +108,7 @@ const CommentsList = styled.div`
         font-size: 0.7rem;
         color: gray;
         position: absolute;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
     }
 `;
 

@@ -5,7 +5,7 @@
     margin: 0 auto;
     display: grid;
     max-width: 65%;
-    padding: 2rem 10rem;
+    padding: 2rem 25rem;
 }
 .postlist-topwrapper{
     display: flex;
@@ -29,39 +29,36 @@
 
 }
 .search-word {
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 20px;
-    background-color: #5076FF;
-    color: white;
-    text-align: center;
-    margin-bottom: 1rem;
-    width: max-content;
-    padding: 1vh;
+    font-size: 1.3rem;
+    font-weight: lighter;
+    display: inline-block;
     display: flex;
     align-items: center;
+    margin: 1.2rem 0;
 }
 
 .search-word-term {
     margin-left: 0.3rem;
+    font-size: 1.3rem;
+}
+
+.hashtag-title {
+    font-weight: bold;
+    margin-bottom: -1rem;
 }
 
 .hashtag-word {
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 20px;
-    background-color: #5076FF;
-    color: white;
-    text-align: center;
-    margin-bottom: 1rem;
-    width: max-content;
-    padding: 1vh;
+    font-size: 1.3rem;
+    font-weight: lighter;
+    display: inline-block;
     display: flex;
     align-items: center;
+    margin: 1.2rem 0;
 }
 
 .hashtag-word-term {
     margin-left: 0.3rem;
+    font-size: 1.3rem;
 }
 
 .hashtagSet {
@@ -77,22 +74,15 @@
 }
 
 .region-word {
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 20px;
-    background-color: #5076FF;
-    color: white;
-    text-align: center;
-    width: max-content;
-    padding: 1vh;
+    font-size: 1.3rem;
+    font-weight: lighter;
+    display: inline-block;
     display: flex;
     align-items: center;
+    margin: 1.2rem 0;
 }
 
 .region-word-term {
     margin-left: 0.3rem;
-}
-
-.grIcon path {
-    stroke: #FFFFFF;
+    font-size: 1.3rem;
 }

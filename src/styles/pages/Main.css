@@ -19,7 +19,6 @@
 
 .popularTitle > text {
     font-size: 1.5rem;
-    font-weight: bold;
     margin-top: 1rem;
     appearance: auto;
 }
@@ -46,10 +45,6 @@
 .map-container {
     flex: 1;
     margin-left: 30rem;
-}
-
-.map-containers {
-    
 }
 
 .map-container > svg {
@@ -128,9 +123,9 @@
 }
 
 .land {
-    fill: #CCCCCC;
+    fill: white;
     fill-opacity: 1;
-    stroke: white;
+    stroke: #6d8cff;
     stroke-opacity: 1;
     stroke-width: 0.5;
     position: relative;
@@ -157,4 +152,83 @@
     border: 1px solid #ccc;
     padding: 3px 6px;
     border-radius: 5px;
+}
+
+.user-card-container-title {
+    font-size: 1.2rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    appearance: auto;
+    margin-left: 18rem;
+}
+
+.user-cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 0 15rem;
+    gap: 90px;
+    justify-content: center;
+}
+  
+.user-card-container {
+    width: calc(40% - 200px);
+    margin-bottom: 2rem;
+}
+
+.user-card {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+  
+.user-icon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+  
+.description {
+    color: #666;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+  
+.visit-button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: 50%;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+  
+@media (max-width: 768px) {
+    .user-card-container {
+        width: calc(50% - 10px);
+    }
+}
+
+@media (max-width: 480px) {
+    .user-card-container {
+        width: 100%;
+        padding: 0;
+    }
 }
