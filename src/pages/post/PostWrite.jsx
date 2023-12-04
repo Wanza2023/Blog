@@ -14,7 +14,7 @@ import "../../styles/pages/PostWrite.css";
 import { HiOutlineHashtag } from "react-icons/hi";
 import { TiDeleteOutline } from "react-icons/ti";
 import { CiCalendarDate } from "react-icons/ci";
-import { GrLocationPin } from "react-icons/gr";
+import { IoLocationOutline } from "react-icons/io5";
 import { PiBusLight } from "react-icons/pi";
 import { HiOutlinePlusCircle, HiOutlineMinusCircle } from "react-icons/hi";
 
@@ -453,7 +453,7 @@ function PostWrite() {
                         className="selectLocation"
                         onClick={() => setModalIsOpen(true)}
                       >
-                        <GrLocationPin size={20}/>
+                        <IoLocationOutline size={20}/>
                       </button>
                       <Modal
                         className="modal"

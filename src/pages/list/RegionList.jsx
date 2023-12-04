@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { hashtagListState, searchResultsState } from "../../component/common/AuthState";
 import { useRecoilValue } from 'recoil';
-import { GrLocationPin } from "react-icons/gr";
 import PostCard from '../../component/ui/list/PostCard';
 import Button from "../../component/common/Button";
 import axios from 'axios';
 import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { IoLocationOutline } from "react-icons/io5";
 import Pagination from "react-js-pagination";
 
 function RegionList() {
@@ -96,7 +95,7 @@ const localKorean = localToKorean[regionName] || regionName;
   return (
     <div className="wrapper">
       <div className='hashtag-title'>Region</div>
-      {localKorean && <div className="region-word"><GrLocationPin className="grIcon" /><div className="search-word-term">{localKorean}&nbsp;지역의 글 목록입니다.</div></div>}
+      {localKorean && <div className="region-word"><IoLocationOutline className="grIcon" /><div className="search-word-term">{localKorean}&nbsp;지역의 글 목록입니다.</div></div>}
       <div className='border-line' />
       <div className="postlist-topwrapper">
         {/* {localKorean && 
