@@ -166,14 +166,18 @@
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
-    padding: 0 15rem;
-    gap: 90px;
+    padding: 0 20rem;
+    gap: 30px;
     justify-content: center;
 }
   
 .user-card-container {
-    width: calc(40% - 200px);
+    flex: 0 0 calc(33.333% - 30px);
     margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .user-card {
@@ -184,6 +188,10 @@
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
   
 .user-icon img {
@@ -221,14 +229,21 @@
 }
   
 @media (max-width: 768px) {
+    .user-cards {
+        padding: 0 10rem;
+        gap: 20px;
+    }
     .user-card-container {
-        width: calc(50% - 10px);
+        flex: 0 0 calc(50% - 20px);
     }
 }
 
 @media (max-width: 480px) {
+    .user-cards {
+        padding: 0 5rem; 
+        gap: 10px;
+    }
     .user-card-container {
-        width: 100%;
-        padding: 0;
+        flex: 0 0 100%;
     }
 }

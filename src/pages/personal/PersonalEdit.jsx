@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FaBookmark, FaChartBar, FaUserEdit, FaUserCog } from 'react-icons/fa';
+import { FaChartBar, FaUserEdit, FaUserCog } from 'react-icons/fa';
 import PasswordModal from '../../component/ui/personal/PasswordModal';
 import UserProfileChange from '../../component/ui/personal/UserProfileChange';
 import UserProfileEdit from '../../component/ui/personal/UserProfileEdit';
 import '../../styles/pages/PersonalEdit.css'
 
 const PersonalEdit = () => {
-    const [Menu, setMenu] = useState('bookmark'); // 상태 변수 menu, 초기값 북마크 설정
+    const [Menu, setMenu] = useState('stats'); // 상태 변수 menu, 초기값 북마크 설정
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
     const [confirmPassword, setconfirmPassword] = useState(false);
     const [resetPassword, setResetPassword] = useState(false);
@@ -53,7 +53,6 @@ const PersonalEdit = () => {
 
 
     const menuItems = {
-        bookmark: { Icon: FaBookmark, label: "북마크" },
         stats: { Icon: FaChartBar, label: "방문자 통계" },
         change: { Icon: FaUserEdit, label: "회원 정보 수정" },
         edit: { Icon: FaUserCog, label: "비밀번호 변경 및 탈퇴" }
