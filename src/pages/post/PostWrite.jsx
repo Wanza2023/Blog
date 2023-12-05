@@ -262,6 +262,7 @@ function PostWrite() {
       }
     } catch (error) {
       console.error("Failed to fetch summary:", error);
+      alert("본문(content) 필드는 문장 분리기에 의해 분리된 문장이 하나 이상 있어야 하며, 문장 분리기는 한 문장이 5 어절 이상이어야 하고 200 자 이하인 경우에만 문장으로 취급합니다.");
       if (error.response) {
         console.error("Server Response:", error.response.data);
       }
