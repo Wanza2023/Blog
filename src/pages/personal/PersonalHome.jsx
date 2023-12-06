@@ -112,7 +112,7 @@ const PersonalHome = () => {
     }, [nickName, currentPage, postPerPage, nickname]);
     
     const wrapperStyles = {
-        paddingBottom: showText ? '30vh' : '0',
+        paddingBottom: showText ? '40vh' : '0',
         width: 'auto',
         height: '90vh',
     };

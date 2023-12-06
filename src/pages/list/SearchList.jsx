@@ -22,7 +22,6 @@ function SearchList() {
   const location = useLocation();
 
   const searchResults = useRecoilValue(searchResultsState); // Recoil 상태 관리에서 검색 전역 관리
-  const hashtagLists = useRecoilValue(hashtagListState);
 
   useEffect(() => {
     // url에서 페이지 번호

@@ -12,6 +12,7 @@ import Pagination from "react-js-pagination";
 import { HiOutlineHashtag } from "react-icons/hi";
 
 function HashtagList() {
+  const { searchTerm } = useParams(); // useParams로 url에서 파라미터 추출
   const { hashtag } = useParams(); // useParams로 url에서 파라미터 추출
   const [posts, setPosts] = useState([]); // 게시글 담을 배열 생성
   const [count, setCount] = useState(0); // 아이템 총 개수
@@ -22,6 +23,7 @@ function HashtagList() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const searchResults = useRecoilValue(searchResultsState);
   const hashtagLists = useRecoilValue(hashtagListState);
 
   useEffect(() => {
@@ -50,6 +52,18 @@ function HashtagList() {
       } else {
     }
   }, [currentPage, postPerPage, hashtagLists]);
+
+  useEffect(() => {
+    if (searchResults !== undefined) { // searchResults가 존재하는지 확인
+      setPosts(searchResults);
+      setCount(searchResults.length)
+      const indexOfLastPost = currentPage * postPerPage;
+      const indexOfFirstPost = indexOfLastPost - postPerPage;
+      setCurrentPosts(searchResults.slice(indexOfFirstPost, indexOfLastPost));
+    } else {
+      // searchResults가 정의되지 않았거나 빈 배열인 경우 처리
+    }
+  }, [currentPage, postPerPage, searchResults]);
 
   return (
     <div className="wrapper">

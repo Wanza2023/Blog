@@ -32,4 +32,4 @@ jobs:
           --application-name test-codeDeploy
           --deployment-config-name CodeDeployDefault.AllAtOnce 
           --deployment-group-name test-deploy-group
-          --s3-location bucket=kea3-006-s3-test,bundleType=zip
+          --s3-location bucket=kea3-006-s3-test,key=test-build.zip,bundleType=zip
