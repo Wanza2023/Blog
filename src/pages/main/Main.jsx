@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Button from "../../component/common/Button";
 import PopularList from "../../component/ui/list/PopularList";
-import PostCard from '../../component/ui/list/PostCard';
 import "../../styles/pages/Main.css";
 import airplane from '../../assets/images/airplane.png'
 import { GoSearch } from "react-icons/go";
