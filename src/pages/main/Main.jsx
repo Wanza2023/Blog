@@ -239,7 +239,7 @@ export default function MainPage() {
                 <div className="popularPostList">
                     <PopularList PopularPosts={posts} onClickItem={() => { navigate("/"+ /*닉네임*/ + "/" /*보드아이디*/) }} />
                 </div>
-                {/* <div class="user-card-container-title">인기 블로그</div>
+                <div class="user-card-container-title">인기 블로그</div>
                 <div class="user-cards">
                     <div class="user-card-container">
                         <div class="user-card" onClick={() => { navigate(`/user/바다조아`)}}>
@@ -283,7 +283,7 @@ export default function MainPage() {
                             <button class="visit-button">방문하기</button>
                         </div>
                     </div>
-                </div> */}
+                </div>
             </div>
             <Button></Button>
         </>
