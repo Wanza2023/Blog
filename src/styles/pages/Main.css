@@ -228,7 +228,7 @@
     transition: background-color 0.3s;
 }
   
-@media (max-width: 768px) {
+@media (max-width: 1300px) {
     .user-cards {
         padding: 0 10rem;
         gap: 20px;
@@ -238,7 +238,7 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 780px) {
     .user-cards {
         padding: 0 5rem; 
         gap: 10px;
@@ -247,3 +247,4 @@
         flex: 0 0 100%;
     }
 }
+

@@ -104,7 +104,7 @@ function PostWrite() {
   const [title, setTitle] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("지역 선택");
   const [scheduleItems, setScheduleItems] = useState([
-    { date: "", transport: "", locationName: "" },
+    { day: 1, date: "", transport: "", locationName: "" },
   ]);
   const [locationItems, setLocationItems] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false); // 모달창 Open 여부
@@ -115,6 +115,16 @@ function PostWrite() {
   const [tagList, setTagList] = useState([]);
   const [summaryN, setSummaryN] = useState("");
   const [showSchedule, setShowSchedule] = useState(false);
+
+  const handleDayChange = (index, newDay) => {
+    const updatedScheduleItems = scheduleItems.map((item, idx) => {
+      if (idx === index) {
+        return { ...item, day: newDay };
+      }
+      return item;
+    });
+    setScheduleItems(updatedScheduleItems);
+  };
 
   // axios post Write
   const boardWrite = async () => {
@@ -344,9 +354,14 @@ function PostWrite() {
             <div className="aiSummaryTitle">일정 추가</div>
             <div className="body2">
               <div className="schedulecss">
-                {scheduleItems.map((item, index) => (
-                  <div key={index} className="scheduleList">
-                    <text className="index">Day{index + 1}</text>
+              {scheduleItems.map((item, index) => (
+                <div key={index} className="scheduleList">
+                  Day
+                  <input
+                    type="number"
+                    value={item.day}
+                    onChange={(e) => handleDayChange(index, Number(e.target.value))}
+                  />
                     <div className="scheduleListItems">
                       <CiCalendarDate size={30}/>
                       <DatePicker
