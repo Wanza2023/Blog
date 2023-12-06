@@ -9,7 +9,7 @@ yarn install
 yarn build
 
 # 빌드된 파일들을 웹 루트 디렉토리로 이동
-mv build/* /var/www/html/
+mv /home/ubuntu/deploy/build/* /var/www/html/
 
 # PM2와 Nginx 재시작
 npx pm2 reload all
