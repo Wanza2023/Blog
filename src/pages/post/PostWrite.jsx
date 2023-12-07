@@ -33,10 +33,6 @@ const WholeBox = styled.div`
   display: flex;
 `;
 
-const Title = styled.div`
-  padding: 10px;
-`;
-
 const TagBox = styled.div`
   display: flex;
   align-items: center;
@@ -150,15 +146,7 @@ function PostWrite() {
         console.log(err);
       });
   };
-  // modal 창에서 위치 정보 선택
-  // const handleSelectLocation = (selectedLocationData) => {
-  //   setLocationItems([...locationItems, selectedLocationData]); //모달에서 지도 받아온정보 경도,위도,위치이름 저장
 
-  //   const newScheduleItems = [...scheduleItems];
-  //   newScheduleItems[newScheduleItems.length - 1].locationName =
-  //     selectedLocationData.location;  // scheduleItems에 위치 이름 저장
-  //   setScheduleItems(newScheduleItems);
-  // };
   const handleSelectLocation = (selectedLocationData, index) => {
     setLocationItems((prevLocationItems) => {
       const updatedLocationItems = [...prevLocationItems];
@@ -220,7 +208,6 @@ function PostWrite() {
   // 스케쥴 Schedule onChange
   const handleScheduleChange = (index, field, date) => {
     if (field === "date") {
-      const formattedDate = date.toISOString().split('T')[0];
       const newScheduleItems = [...scheduleItems];
       newScheduleItems[index][field] = date;
       setScheduleItems(newScheduleItems);

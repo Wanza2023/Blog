@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { searchResultsState, hashtagListState } from "../../component/common/AuthState";
+import { searchResultsState } from "../../component/common/AuthState";
 import { useRecoilValue } from 'recoil';
 import PostCard from '../../component/ui/list/PostCard';
 import Button from "../../component/common/Button";
 import { IoSearchSharp } from "react-icons/io5";
-import axios from 'axios';
 import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
-import Pagination from "react-js-pagination";
 
 function SearchList() {
   const { searchTerm } = useParams(); // useParams로 url에서 파라미터 추출
@@ -34,10 +32,6 @@ function SearchList() {
     setCurrentPage(page);
     navigate(`?page=${page}`); // 해당 페이지로 이동
   };
-
-  const [limit, setLimit] = useState(10);
-  const [pages, setPages] = useState(1);
-  const offset = (pages - 1) * limit;
 
   const handlePostPerPageSelectChange = (e) => {
     const selectedValue = parseInt(e.target.value);

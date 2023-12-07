@@ -10,14 +10,10 @@
     justify-content: space-between;
     margin-bottom: 1rem;
     width: 100%
-  }
-  
-.body0 select, .body0 .toggleWrapper {
-    margin-right: 1rem;
 }
 
-.body1 {
-    
+.body0 select, .body0 .toggleWrapper {
+    margin-right: 1rem;
 }
 
 .toggleWrapper {
@@ -35,8 +31,6 @@
     text-align: left;
     border: none;
     width: 100%;
-    /* border-bottom: 1px solid rgba(0, 0, 0, 0.3); */
-    /* padding-bottom: 1rem; */
     margin-top: 3rem;
     margin-bottom: 1.5rem;
 }
@@ -53,11 +47,6 @@
     display: inline-block;
     vertical-align: middle;
 }
-
-/* .borderLine {
-    clear: both;
-    border-top: 1px solid #CFCFCF;
-} */
 
 .body2 {
     margin-bottom: 1.5vh;
@@ -105,9 +94,6 @@
     border-radius: 12px;
     border: 1px solid #CFCFCF;
     padding: 0.5rem;
-}
-
-.body3 {
 }
 
 .index {
@@ -218,9 +204,6 @@
     height: auto;
 }
 
-.ReactModal__Overlay {
-    /* background-color: transparent !important; */
-}
 .modal {
     position: absolute;
     top: 50%;

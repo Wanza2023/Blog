@@ -9,8 +9,6 @@ import Button from "../../component/common/Button";
 
 const BookmarkList = () => {
     const [posts, setPosts] = useState([]); // 빈 배열로 초기화
-    const memberId = sessionStorage.getItem('memberId');
-    const token = sessionStorage.getItem('token');
     const [isLoggedIn] = useRecoilState(isLoggedInState);
     const navigate = useNavigate();
 

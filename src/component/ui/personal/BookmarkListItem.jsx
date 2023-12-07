@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaBookmark } from 'react-icons/fa';
 import { RxReader } from "react-icons/rx";
 import '../../../styles/pages/Bookmark.css';
 import personal_profile_icon from '../../../assets/images/personal_profile_icon.png';

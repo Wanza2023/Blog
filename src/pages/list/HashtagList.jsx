@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { searchResultsState, hashtagListState } from "../../component/common/AuthState";
+import { hashtagListState } from "../../component/common/AuthState";
 import { useRecoilValue } from 'recoil';
 import PostCard from '../../component/ui/list/PostCard';
 import Button from "../../component/common/Button";
-import { IoSearchSharp } from "react-icons/io5";
-import axios from 'axios';
 import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
-import Pagination from "react-js-pagination";
 import { HiOutlineHashtag } from "react-icons/hi";
 
 function HashtagList() {
@@ -37,10 +34,6 @@ function HashtagList() {
     setCurrentPage(page);
     navigate(`?page=${page}`); // 해당 페이지로 이동
   };
-
-  const [limit, setLimit] = useState(10);
-  const [pages, setPages] = useState(1);
-  const offset = (pages - 1) * limit;
 
   useEffect(() => {
     if (hashtagLists !== undefined) {
@@ -72,9 +65,7 @@ function HashtagList() {
       <div className='border-line' />
       {currentPosts && posts.length > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div className="resultNone">해시태그가 없습니다.</div>)}
-      {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
       <Paging page={currentPage} count={count} setPage={setPage}/>
-      {/* <Pagination total={posts.length} limit={limit} page={pages} setPage={setPages}/> */}
       <Button />
     </div>
   )

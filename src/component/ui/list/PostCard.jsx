@@ -17,7 +17,6 @@ function PostCard(props){
     const navigate = useNavigate()
 
     const [hashtagList, setHashTagList] = useRecoilState(hashtagListState)
-    const [imgList, setImgList] = useState([]); // 이미지 리스트
 
     const onClickHashtagSearch = async (hashtag) => {
         try{

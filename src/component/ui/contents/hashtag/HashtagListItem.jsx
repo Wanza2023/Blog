@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRecoilState } from "recoil";
@@ -11,7 +11,7 @@ const HashtagListItem = ({ hashtag, onClick }) => {
     const [hashtagList, setHashtagList] = useRecoilState(hashtagListState);
     
     const handleHashtagSubmit = async () => {
-       try {
+        try {
             const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/tags/${hashtag}`);
             setHashtagList(response.data.body.reverse() || []);
             navigate(`/board/tags/${hashtag}`);

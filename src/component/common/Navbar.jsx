@@ -25,7 +25,6 @@ const Navbar = () => {
     const [searchResults, setSearchResults] = useRecoilState(searchResultsState);
     const [searchTerm, setSearchTerm] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
-    const [memberId,setMemberId] = useRecoilState(memberIdState);
     const [nickName,setNickName] = useRecoilState(nickNameState);
     const [searchMode, setSearchMode] = useState(SEARCH_MODES.POST);
     const [showDropdown, setShowDropdown] = useState(false);
@@ -128,7 +127,6 @@ const Navbar = () => {
                 {isLoggedIn && (
                     <div className="optionList">
                         <div className="optionListItem" ><Link to={`/user/${nickName}`}>내블로그</Link></div>
-                        {/* <div className="optionListItem"><Link to="/personaledit?tab=change">계정관리</Link></div> */}
                         <div className="optionListItem"><Link to="/personaledit">관리•통계</Link></div>
                         <div className="optionListItem"><button className="logoutButton" onClick={handleLogout}>로그아웃</button></div>
                     </div>

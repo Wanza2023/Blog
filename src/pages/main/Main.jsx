@@ -18,8 +18,6 @@ export default function MainPage() {
 
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
 
-    const [postCardPosts, setPostCardPosts] = useState([]);
-
     const [marker, setmarker] = useState({ display: 'none' });
     const [regionName, setRegionName] = useState('');
 
@@ -227,7 +225,6 @@ export default function MainPage() {
                         </svg>
                     </div>
                     <div className="marker" style={marker}>
-                        {/* <GrLocationPin size={20} /> */}
                         <IoLocationOutline />
                         {regionName}
                     </div>
