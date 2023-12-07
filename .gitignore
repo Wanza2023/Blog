@@ -22,6 +22,9 @@
 .env.development
 .env.test
 
+# nginx 설정
+nginx.conf
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
