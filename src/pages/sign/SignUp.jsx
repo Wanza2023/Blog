@@ -185,6 +185,7 @@ function SignUp(props){
             .then((res)=> {
                 if(res.data.success){
                     alert("회원가입에 성공했습니다!")
+                    sessionStorage.setItem('previousPage', 'signup');
                     navigate("/login",{replace : true});    // login으로 navigate 이후 뒤로가기 불가
                 } else {
                     alert("회원가입에 실패했습니다!")

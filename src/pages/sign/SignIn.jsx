@@ -64,7 +64,12 @@ function SignIn(props){
                         console.error("Error fetching data:", err);
                     })
                     .finally(() => {
-                        navigate((-1)); // 작업 완료 되면 로그인창 전에 화면으로 이동
+                        const previousPage = sessionStorage.getItem('previousPage');
+                        if (previousPage === 'signup') {
+                            navigate('/main');
+                        } else {
+                            navigate((-1)); // 작업 완료 되면 로그인창 전에 화면으로 이동
+                        }
                     });
             })
             .catch(error => {
