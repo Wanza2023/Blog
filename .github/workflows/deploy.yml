@@ -15,8 +15,6 @@ jobs:
         run: npm install --frozen-lockfile
       - name: Build
         run: CI='false' npm run build
-      - name: zip create
-        run: zip -qq -r ./test-build.zip .
         shell: bash
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -25,11 +23,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Upload to S3
-        run: | 
-          aws s3 cp --region us-east-1 ./test-build.zip s3://kea3-006-s3-test/test-build.zip
+        run: aws s3 sync build/ s3://kea3-006-s3-test/build/ --acl public-read
+      - name: 빌드한 파일 S3에 업로드
+        run: aws s3 sync build/ s3://kea3-006-s3-test --acl public-read
       - name: Deplo
         run: aws deploy create-deployment
           --application-name test-codeDeploy
           --deployment-config-name CodeDeployDefault.AllAtOnce 
           --deployment-group-name test-deploy-group
-          --s3-location bucket=kea3-006-s3-test,key=test-build.zip,bundleType=zip
+          --s3-location bucket=kea3-006-s3-test,key=test-build.zip,bundleType=file
