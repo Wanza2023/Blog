@@ -79,6 +79,7 @@ const Navbar = () => {
         sessionStorage.removeItem('nickName');
         sessionStorage.clear();
         // navigate(0,{replace : true});
+        alert("로그아웃 되었습니다!")
     };
     return (
         <div className="navbar">
