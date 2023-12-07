@@ -164,12 +164,12 @@
     flex-wrap: wrap;
     margin: 0 auto;
     padding: 0 20rem;
-    gap: 30px;
+    gap: 50px;
     justify-content: center;
 }
 
 .user-card-container {
-    flex: 0 0 calc(33.333% - 30px);
+    flex: 0 0 calc(33.333% - 80px);
     margin-bottom: 2rem;
     display: flex;
     justify-content: center;
@@ -192,11 +192,11 @@
 }
 
 .user-icon img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     position: absolute;
-    top: 15%;
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -224,8 +224,8 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
-@media (max-width: 768px) {
+  
+@media (max-width: 1380px) {
     .user-cards {
         padding: 0 10rem;
         gap: 20px;
@@ -235,7 +235,7 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 780px) {
     .user-cards {
         padding: 0 5rem; 
         gap: 10px;
@@ -244,3 +244,4 @@
         flex: 0 0 100%;
     }
 }
+

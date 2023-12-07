@@ -13,6 +13,10 @@ import { useAuth } from "./useAuth";
 import { BsPersonGear } from "react-icons/bs";
 import personal_profile_icon from '../../assets/images/personal_profile_icon.png';
 
+const SEARCH_MODES = {
+    POST: 'search',
+    HASHTAG: 'tags'
+};
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -22,6 +26,8 @@ const Navbar = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false); //검색버튼 토글
     const [nickName,setNickName] = useRecoilState(nickNameState);
+    const [searchMode, setSearchMode] = useState(SEARCH_MODES.POST);
+    const [showDropdown, setShowDropdown] = useState(false);
 
     const profileIconClick = () => {
         if(isLoggedIn==false) {
@@ -30,8 +36,8 @@ const Navbar = () => {
     }
     // 검색 버튼 클릭했을 때 토글
     const handleSearchClick = () => {
-        setIsSearchOpen(!isSearchOpen);
-    }
+        handleSearchSubmit();
+      };
     // 검색창 입력 value 
     const handleSearchInputChange = (e) => {
         setSearchTerm(e.target.value);
@@ -39,18 +45,21 @@ const Navbar = () => {
     // 검색어 검색시 이벤트
     const handleSearchSubmit = async () => {
         if (searchTerm.trim() !== "") {
-            // 검색어가 비어있지 않은 경우에만 URL로 이동
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`);
+                let response;
+                if (searchMode === SEARCH_MODES.POST) {
+                    response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`);
+                } else {
+                    response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/tags/${searchTerm}`);
+                }
                 setSearchResults(response.data.body.reverse() || []);
-                navigate(`/board/search/${searchTerm}`);
+                navigate(`/board/${searchMode.toLowerCase()}/${searchTerm}`);
                 console.log(response.data.body);
                 setSearchTerm("");
             } catch (error) {
                 console.error("Failed to fetch search results:", error);
             }
         } else {
-            // 검색어가 비어있으면 예외 처리 또는 경고 메시지를 표시할 수 있습니다.
             alert("검색어를 입력하세요.");
         }
     };
@@ -69,6 +78,7 @@ const Navbar = () => {
         sessionStorage.removeItem('nickName');
         sessionStorage.clear();
         // navigate(0,{replace : true});
+        alert("로그아웃 되었습니다!")
     };
     return (
         <div className="navbar">
@@ -80,21 +90,37 @@ const Navbar = () => {
                 <div className="navMenuList"><Link to="/bookmark">북마크</Link></div>
             </div>
             <div className="navbar-search-bar">
-                {isSearchOpen &&
-                    <input className="search-input" type="text" placeholder="검색" value={searchTerm} onChange={handleSearchInputChange} onKeyPress={handleOnKeyPress} />
-                }
-            </div>
-            <div className="navbar-search-icon">
-                <div className="profile-icon" onClick={handleSearchClick}>
-                    <IoSearchOutline size={30} />
+                <div className="search">
+                    <div className="area-dropdown" data-set="search">
+                        <select 
+                            value={searchMode} 
+                            onChange={(e) => setSearchMode(e.target.value)} 
+                            className="selected-option"
+                            >
+                            <option value={SEARCH_MODES.POST}>글</option>
+                            <option value={SEARCH_MODES.HASHTAG}>해시태그</option>
+                        </select>
+                        <input 
+                            className="search-input" 
+                            type="text" 
+                            placeholder="검색" 
+                            value={searchTerm} 
+                            onChange={handleSearchInputChange} 
+                            onKeyPress={handleOnKeyPress} 
+                        />
+                        <div className="navbar-search-button" onClick={handleSearchClick}>
+                            <IoSearchOutline size={20} />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="navbar-profile">
                 {isLoggedIn ? (
-                    <img src={personal_profile_icon} alt="Profile" onClick={profileIconClick} style={{ width: 35, height: 35, cursor: 'pointer' }} />
+                    <img src={personal_profile_icon} alt="Profile" onClick={profileIconClick} style={{ width: 30, height: 30, cursor: 'pointer'}} />
                 ) : (
                     <div className="profile-icon">
-                    <BsPersonGear size={35} onClick={profileIconClick}/>
+                    {/* <BsPersonGear size={40} color='gray' onClick={profileIconClick}/> */}
+                    <button onClick={profileIconClick} className="startButton">시작하기</button>
                     </div>
                 )}
                 {/* IsLoggedIn 이 True이면 div를 보이고 아니면 div 안보이기 */}

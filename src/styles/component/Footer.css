@@ -2,8 +2,8 @@
     background: #FAFAFA;
     text-align: center;
     position: sticky;
-    top: 100%;
-    margin-top: 2rem;
+    /* bottom: 0; */
+    z-index: -1;
 }
 
 .footer-content {
@@ -11,7 +11,7 @@
     justify-content: space-around;
     align-items: flex-start;
     padding: 1rem;
-    height: 18vh;
+    min-height: 18vh;
 }
 
 .footer-section {
@@ -36,7 +36,7 @@
 
 .footer-bottom {
     padding: 1rem 2rem;
-    border-top: 1px solid #444;
+    border-top: 1px solid #A4A4A4;;
 }
 
 .footer ul {

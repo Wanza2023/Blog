@@ -54,8 +54,8 @@ function SignIn(props){
                     .then(response => {
                         console.log(response.data.body);
                         setMemberId(response.data.body.id); // Token일치하는 사용자의 MemberId 전역변수로 저장
-                        setNickName(response.data.body.nickName);   // Token일치하는 사용자의 nickname 전역변수로 저장
-                        sessionStorage.setItem('nickName', response.data.body.nickName); // 세션스토리지에 닉네임 저장
+                        setNickName(response.data.body.nickname);   // Token일치하는 사용자의 nickname 전역변수로 저장
+                        sessionStorage.setItem('nickName', response.data.body.nickname); // 세션스토리지에 닉네임 저장
                         sessionStorage.setItem('memberId', response.data.body.id); // 세션스토리지에 멤버id 저장
                         sessionStorage.setItem('birth', response.data.body.birth);
                         sessionStorage.setItem('gender', response.data.body.gender);
@@ -64,7 +64,12 @@ function SignIn(props){
                         console.error("Error fetching data:", err);
                     })
                     .finally(() => {
-                        navigate((-1)); // 작업 완료 되면 로그인창 전에 화면으로 이동
+                        const previousPage = sessionStorage.getItem('previousPage');
+                        if (previousPage === 'signup') {
+                            navigate('/main');
+                        } else {
+                            navigate((-1)); // 작업 완료 되면 로그인창 전에 화면으로 이동
+                        }
                     });
             })
             .catch(error => {
