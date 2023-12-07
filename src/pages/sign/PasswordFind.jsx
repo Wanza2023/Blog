@@ -128,7 +128,9 @@ function PasswordFind() {
                         </>
                     )
                         :
-                        <button className='submit-button' onClick={handleSubmituserEmail}>인증</button>}
+                        <div className='submit-button'>
+                            <button onClick={handleSubmituserEmail}>인증</button>
+                        </div>}
                     {authState &&
                         (
                             <>
@@ -146,7 +148,9 @@ function PasswordFind() {
                                         {confirmPwdMessage}
                                     </p>
                                 </div>
-                                <button className='submit-button' onClick={handleSubmituserPassword}>비밀번호 변경</button>
+                                <div className="submit-button">
+                                    <button onClick={handleSubmituserPassword}>비밀번호 변경</button>
+                                </div>
                             </>
                         )
                     }
