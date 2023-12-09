@@ -19,8 +19,10 @@ jobs:
       - name: Prepare files for upload
         run: |
           mkdir upload-build
-          cp -r /var/www/html/build/index.html upload-build/
-          cp -r /var/www/html/build/static upload-build/
+          cp -r build/* upload-build/
+
+      - name: Create zip
+        run: zip -qq -r ./build.zip ./upload-build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
