@@ -3,10 +3,10 @@
 cd /home/ubuntu/deploy
 
 # 종속성 설치
-npm install
+sudo npm install
 
 # 리액트 애플리케이션 빌드
-npm run build
+sudo npm run build
 
 # 빌드된 파일들을 웹 루트 디렉토리로 이동
 sudo mv build/* /var/www/html/
