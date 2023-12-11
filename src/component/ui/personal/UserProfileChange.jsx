@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import axios from "axios";
 import { FaCog } from 'react-icons/fa';
 import { BiUserCircle } from "react-icons/bi";
 import { useRecoilValue } from 'recoil';
 import { memberIdState } from '../../common/AuthState';
+import AWS from 'aws-sdk';
+import { v1 as uuidv1 } from 'uuid';
 import '../../../styles/component/UserProfileChange.css';
 
 const UserProfileChange = ({ onSaveChanges }) => {
@@ -19,6 +21,35 @@ const UserProfileChange = ({ onSaveChanges }) => {
     const [password, setPassword] = useState(''); // 비밀번호 상태 변수
     const [confirmPassword, setConfirmPassword] = useState(''); // 비밀번호 확인 상태 변수
     const [passwordChangeUrl, setPasswordChangeUrl] = useState('');
+
+    const onFileChange = useCallback(async (e) => {
+        const file = e.target.files[0];
+        
+        if (file) {
+            const s3 = new AWS.S3({
+                region: process.env.REACT_APP_AWS_DEFAULT_REGION,
+                accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
+            });
+    
+            const params = {
+                Bucket: process.env.REACT_APP_AWS_BUCKET, // 버킷 이름
+                Key: `profile/${uuidv1()}.${file.type.split("/")[1]}`, 
+                Body: file,
+                ContentType: file.type,
+                ACL: "public-read"
+            };
+    
+            try {
+                const uploadResult = await s3.upload(params).promise();
+                console.log('Image uploaded to S3 successfully', uploadResult);
+                // 업로드된 이미지의 URL을 상태에 저장
+                setProfileImage(uploadResult.Location);
+            } catch (error) {
+                console.error('Error uploading image to S3:', error);
+            }
+        }
+    }, []);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -84,12 +115,16 @@ const UserProfileChange = ({ onSaveChanges }) => {
 
     return (
         <div className="userProfileChange">
-            <div className="profileImage">
-                <BiUserCircle size={200} className="userIcon" />
+             <div className="profileImage">
+                {profileImage ? (
+                    <img src={profileImage} alt="Profile" className="userImage" />
+                ) : (
+                    <BiUserCircle size={200} className="userIcon" />
+                )}
                 <label htmlFor="image-upload" className="imageEdit">
                     <FaCog size={30} />
                 </label>
-                <input id="image-upload" type="file" onChange={handleImageChange} style={{ display: 'none' }} />
+                <input id="image-upload" type="file" onChange={onFileChange} style={{ display: 'none' }} />
             </div>
             <div className="profileChangeBox">
                 <div className="profileField">

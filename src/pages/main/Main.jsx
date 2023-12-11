@@ -182,7 +182,7 @@ export default function MainPage() {
                             <div className="mainContent">
                                 <p>
                                     떠나고 싶은 곳을<br/>
-                                    선택해보세요! 제발 ㅠㅠ
+                                    선택해보세요!!
                                 </p>
                                 <h>국내 여행 기록 Travelog</h>
                                 <div className="searchContainer">

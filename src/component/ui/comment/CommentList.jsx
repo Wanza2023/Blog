@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { bookmarkResultState, nickNameState } from '../../common/AuthState';
 import axios from 'axios';
 import CommentWrite from './CommentWrite';
