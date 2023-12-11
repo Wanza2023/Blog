@@ -1,5 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useCallback } from "react";
 import axios from "axios";
+import AWS from "aws-sdk";
+import {v1} from 'uuid';
+
 import "../../styles/pages/SignUp.css";
 import { useNavigate } from "react-router-dom";
 
@@ -31,7 +34,9 @@ function SignUp(props){
     const [pwdMessage, setPwdMessage] = useState("");
     const [confirmPwdMessage, setConfirmPwdMessage] = useState("");
     const [birthMessage, setBirthMessage] = useState("");
-    
+
+    const [profileImgURL, setProfileImgURL] = useState("");
+
     // email onChange
     const onChangeEmail = (e) => {
         const curEmail = e.target.value;
@@ -141,6 +146,36 @@ function SignUp(props){
             totConfirm[5] = 0; setTotConfirm(()=>[...totConfirm]);
         }
     };
+
+    const onProfileImgChange = useCallback(async (e) => {
+        const file = e.target.files[0];
+        
+        if (file) {
+            const s3 = new AWS.S3({
+                region: process.env.REACT_APP_AWS_DEFAULT_REGION,
+                accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
+            });
+    
+            const params = {
+                Bucket: process.env.REACT_APP_AWS_BUCKET, //버킷 이름
+                Key: `profile/${v1()}.${file.type.split("/")[1]}`, 
+                Body: file,
+                ContentType: file.type,
+                ACL: "public-read"
+            };
+    
+            try {
+                const imgURL = await s3.upload(params).promise().then((res) => res.Location);
+                console.log('Image uploaded to S3 successfully');
+                console.log(imgURL);
+                setProfileImgURL(imgURL);
+            } catch (error) {
+                console.error('Error uploading image to S3:', error);
+            }
+        }
+    }, []);
+
     // 이용약관 동의
     const useCheckEvent = () => {
         setUseCheck(()=> !useCheck);
@@ -181,6 +216,7 @@ function SignUp(props){
                 gender: gender,
                 nickName: name,
                 password: pwd,
+                pfp : profileImgURL
             })
             .then((res)=> {
                 if(res.data.success){
@@ -267,6 +303,13 @@ function SignUp(props){
                         <div className="gender">
                             <button className={`gender-btn ${gender === 'W' ? 'selected' : ''}`} name="woman" onClick={()=>onClickGender("W")}>여성</button>
                             <button className={`gender-btn ${gender === 'M' ? 'selected' : ''}`} name="man" onClick={()=>onClickGender("M")}>남성</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label>프로필 이미지</label>
+                        <img src={profileImgURL} alt="profile" />
+                        <div>
+                            <input type="file" accept="image/*" onChange={onProfileImgChange}></input>
                         </div>
                     </div>
                     <br/>
