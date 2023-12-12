@@ -41,10 +41,11 @@ function SignIn(props){
                 setIsLoggedIn(true);    // 로그인 상태 전역관리 Login true
                 const token = res.data.body.token;
                 const email = res.data.body.email;
-
+                console.log(res.data);
                 // setCookie('token',token,{path:'/'},{expires:1}); // 쿠키에 토큰 저장
                 sessionStorage.setItem('token', token); // 세션스토리지에 토큰 저장
                 sessionStorage.setItem('email', email);
+                sessionStorage.setItem('pfp',res.data.body.pfp);
                 axios
                     .get(`${process.env.REACT_APP_MEMBER_API_KEY}/authorize`, {
                         headers: {

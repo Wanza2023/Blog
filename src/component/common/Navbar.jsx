@@ -28,6 +28,7 @@ const Navbar = () => {
     const [nickName,setNickName] = useRecoilState(nickNameState);
     const [searchMode, setSearchMode] = useState(SEARCH_MODES.POST);
     const [showDropdown, setShowDropdown] = useState(false);
+    const profileImg = sessionStorage.getItem('pfp');
 
     const profileIconClick = () => {
         if(isLoggedIn==false) {
@@ -37,7 +38,7 @@ const Navbar = () => {
     // 검색 버튼 클릭했을 때 토글
     const handleSearchClick = () => {
         handleSearchSubmit();
-      };
+    };
     // 검색창 입력 value 
     const handleSearchInputChange = (e) => {
         setSearchTerm(e.target.value);
@@ -76,6 +77,7 @@ const Navbar = () => {
         setIsLoggedIn(false);
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('nickName');
+        sessionStorage.removeItem('pfp');
         sessionStorage.clear();
         // navigate(0,{replace : true});
         alert("로그아웃 되었습니다!")
@@ -116,7 +118,7 @@ const Navbar = () => {
             </div>
             <div class="navbar-profile">
                 {isLoggedIn ? (
-                    <img src={personal_profile_icon} alt="Profile" onClick={profileIconClick} style={{ width: 30, height: 30, cursor: 'pointer'}} />
+                    <img src={profileImg} alt="Profile" onClick={profileIconClick} style={{ width: 30, height: 30, cursor: 'pointer'}} />
                 ) : (
                     <div className="profile-icon">
                     {/* <BsPersonGear size={40} color='gray' onClick={profileIconClick}/> */}
