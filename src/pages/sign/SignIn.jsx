@@ -67,7 +67,7 @@ function SignIn(props){
                     .finally(() => {
                         const previousPage = sessionStorage.getItem('previousPage');
                         if (previousPage === 'signup') {
-                            navigate('/main');
+                            navigate('/main'); // 이전 페이지가 회원가입이면 메인으로 이동
                         } else {
                             navigate((-1)); // 작업 완료 되면 로그인창 전에 화면으로 이동
                         }
