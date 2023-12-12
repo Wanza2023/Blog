@@ -23,7 +23,7 @@
 .env.test
 
 # nginx 설정
-nginx.conf
+# nginx.conf
 
 *.pem
 
