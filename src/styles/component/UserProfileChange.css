@@ -15,6 +15,11 @@
     margin-right: -10rem;
 }
 
+.userImage {
+    width: 15rem;
+    height: 15rem;
+}
+
 .userIcon {
     font-size: 500px; 
 }
