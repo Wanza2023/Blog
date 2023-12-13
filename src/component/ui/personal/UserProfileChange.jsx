@@ -92,7 +92,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
                 nickName: nickname,
                 gender : storedGender,
                 birth: storedBirth,
-                pfp: profileImg
+                pfp: storedProfileImage
             },{
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -140,8 +140,8 @@ const UserProfileChange = ({ onSaveChanges }) => {
     return (
         <div className="userProfileChange">
             <div className="profileImage">
-                {profileImg ? (
-                    <img src={profileImg} alt="Profile" className="userImage" />
+                {profileImage ? (
+                    <img src={profileImage} alt="Profile" className="userImage" />
                 ) : (
                     <BiUserCircle size={200} className="userIcon" />
                 )}
