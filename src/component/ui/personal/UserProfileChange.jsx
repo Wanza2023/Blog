@@ -10,15 +10,13 @@ import '../../../styles/component/UserProfileChange.css';
 
 const UserProfileChange = ({ onSaveChanges }) => {
     const [passwordError, setPasswordError] = useState('');
-
     const storedNickname = sessionStorage.getItem('nickName');
     const storedBirth = sessionStorage.getItem('birth');
     const storedGender = sessionStorage.getItem('gender');
     const Gender = storedGender === 'W' ? '여성' : storedGender === 'M' ? '남성' : '';
     const memberId = useRecoilValue(memberIdState);
     const [nickname, setNickname] = useState(storedNickname); // 닉네임 상태 변수
-    const [profileImage, setProfileImage] = useState(null); // 프로필 이미지 상태 변수
-    const profileImg = sessionStorage.getItem('pfp');
+    const [profileImg,setProfileImg] = useState((sessionStorage.getItem('pfp')));
     const [password, setPassword] = useState(''); // 비밀번호 상태 변수
     const [confirmPassword, setConfirmPassword] = useState(''); // 비밀번호 확인 상태 변수
     const [passwordChangeUrl, setPasswordChangeUrl] = useState('');
@@ -42,10 +40,10 @@ const UserProfileChange = ({ onSaveChanges }) => {
             };
     
             try {
-                const uploadResult = await s3.upload(params).promise();
+                const uploadResult = await s3.upload(params).promise().then();
                 console.log('Image uploaded to S3 successfully', uploadResult);
                 // 업로드된 이미지의 URL을 상태에 저장
-                setProfileImage(uploadResult.Location);
+                setProfileImg(uploadResult.Location);
             } catch (error) {
                 console.error('Error uploading image to S3:', error);
             }
@@ -58,12 +56,6 @@ const UserProfileChange = ({ onSaveChanges }) => {
     };
 
     const birth = formatDate(storedBirth);
-
-    const handleImageChange = (e) => { // 이미지 변경
-        if (e.target.files && e.target.files[0]) {
-            setProfileImage(URL.createObjectURL(e.target.files[0]));
-        }
-    };
 
     const handleNicknameChange = (e) => { // 닉네임 변경
         setNickname(e.target.value);
@@ -105,36 +97,36 @@ const UserProfileChange = ({ onSaveChanges }) => {
             })
     }
 
-    const handleSubmit = () => {
-        if (password !== confirmPassword) {
-            setPasswordError('비밀번호가 일치하지 않습니다.');
-            return;
-        }
+    // const handleSubmit = () => {
+    //     if (password !== confirmPassword) {
+    //         setPasswordError('비밀번호가 일치하지 않습니다.');
+    //         return;
+    //     }
 
-        const newPassword = password;
+    //     const newPassword = password;
 
-        if (passwordChangeUrl && memberId && newPassword) {
-            axios.patch(passwordChangeUrl, {
-                memberId: memberId,
-                password: newPassword
-            })
-            .then(response => {
-                if (response.data.success) {
-                    alert('비밀번호가 성공적으로 변경되었습니다.');
-                    setPassword('');
-                    setConfirmPassword('');
-                } else {
-                    alert('비밀번호 변경 실패');
-                }
-            })
-            .catch(error => {
-                alert('현재 비밀번호와 똑같은 비밀번호로는 변경할 수 없습니다.');
-            });
-        } else {
-            alert('비밀번호 변경 정보가 누락되었습니다.');
-        }
-        onSaveChanges({ nickname, profileImage, password });
-    };
+    //     if (passwordChangeUrl && memberId && newPassword) {
+    //         axios.patch(passwordChangeUrl, {
+    //             memberId: memberId,
+    //             password: newPassword
+    //         })
+    //         .then(response => {
+    //             if (response.data.success) {
+    //                 alert('비밀번호가 성공적으로 변경되었습니다.');
+    //                 setPassword('');
+    //                 setConfirmPassword('');
+    //             } else {
+    //                 alert('비밀번호 변경 실패');
+    //             }
+    //         })
+    //         .catch(error => {
+    //             alert('현재 비밀번호와 똑같은 비밀번호로는 변경할 수 없습니다.');
+    //         });
+    //     } else {
+    //         alert('비밀번호 변경 정보가 누락되었습니다.');
+    //     }
+    //     onSaveChanges({ nickname, profileImage, password });
+    // };
 
     return (
         <div className="userProfileChange">
