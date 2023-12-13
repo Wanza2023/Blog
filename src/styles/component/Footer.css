@@ -1,7 +1,7 @@
 .footer {
-    background: #FAFAFA;
+    border-top: 1px solid #D8D8D8;
     text-align: center;
-    position: sticky;
+    /* position: sticky; */
     /* bottom: 0; */
     /* z-index: -1; */
 }
@@ -23,10 +23,9 @@
     margin-bottom: 1rem;
 }
 
-.footer-section .text-input {
-    width: 90%;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
+.footer-section p {
+    color: gray;
+    font-size: 0.9rem;
 }
 
 .footer-section .btn {
@@ -36,7 +35,7 @@
 
 .footer-bottom {
     padding: 1rem 2rem;
-    border-top: 1px solid #A4A4A4;;
+    border-top: 1px solid #D8D8D8;
 }
 
 .footer ul {
@@ -45,7 +44,7 @@
 
 .footer ul li {
     margin-bottom: 0.5rem;
-    color: black;
+    color: gray;
     text-decoration: none;
 }
 
@@ -54,12 +53,14 @@
 .footer ul li a:hover,
 .footer ul li a:active,
 .footer ul li a:focus {
-    color: black;
+    color: gray;
     text-decoration: none;
 }
 
 .footer ul a {
     text-decoration: none;
+    color: gray;
+    font-size: 0.9rem;
 }
 
 .footer a:hover {
@@ -77,9 +78,13 @@
 .footer-contact a:hover,
 .footer-contact a:active,
 .footer-contact a:focus {
-    color: black;
+    color: gray;
     text-decoration: none;
 }
 .footer-contact svg {
-    color: black;
+    color: gray;
+}
+
+.footer-bottom {
+    color: gray;
 }

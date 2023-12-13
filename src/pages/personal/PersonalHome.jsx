@@ -47,6 +47,7 @@ const PersonalHome = () => {
 
     const { nickname } = useParams(); // useParams로 url에서 파라미터 추출
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
+    const profileImg = sessionStorage.getItem('pfp');
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -87,7 +88,7 @@ const PersonalHome = () => {
     }, [nickName, currentPage, postPerPage, nickname]);
     
     const wrapperStyles = {
-        paddingBottom: showText ? '40vh' : '0',
+        paddingBottom: showText ? '30vh' : '0',
         width: 'auto',
         height: '90vh',
     };
@@ -95,8 +96,12 @@ const PersonalHome = () => {
     
     return (
         <div className='personal_wrapper' style={wrapperStyles}>
-            <div className='personal_profile'>
-                <img src={personal_profile_icon} alt="personal_profile_icon"/>
+             <div className='personal_profile'>
+                {profileImg ? (
+                    <img src={profileImg} alt="Profile" />
+                ) : (
+                    <img src={personal_profile_icon} alt="personal_profile_icon" />
+                )}
                 <h2>{nickname}</h2>
                 <p>님의 여행기록</p>
             </div>

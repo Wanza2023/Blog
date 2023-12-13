@@ -10,17 +10,18 @@ import '../../../styles/component/UserProfileChange.css';
 
 const UserProfileChange = ({ onSaveChanges }) => {
     const [passwordError, setPasswordError] = useState('');
-
     const storedNickname = sessionStorage.getItem('nickName');
     const storedBirth = sessionStorage.getItem('birth');
     const storedGender = sessionStorage.getItem('gender');
     const Gender = storedGender === 'W' ? '여성' : storedGender === 'M' ? '남성' : '';
     const memberId = useRecoilValue(memberIdState);
     const [nickname, setNickname] = useState(storedNickname); // 닉네임 상태 변수
-    const [profileImage, setProfileImage] = useState(null); // 프로필 이미지 상태 변수
+
     const [password, setPassword] = useState(''); // 비밀번호 상태 변수
     const [confirmPassword, setConfirmPassword] = useState(''); // 비밀번호 확인 상태 변수
     const [passwordChangeUrl, setPasswordChangeUrl] = useState('');
+    const storedProfileImage = sessionStorage.getItem('pfp');
+    const [profileImage, setProfileImage] = useState(storedProfileImage || null); // 프로필 이미지 상태 변수
 
     const onFileChange = useCallback(async (e) => {
         const file = e.target.files[0];
@@ -45,6 +46,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
                 console.log('Image uploaded to S3 successfully', uploadResult);
                 // 업로드된 이미지의 URL을 상태에 저장
                 setProfileImage(uploadResult.Location);
+                sessionStorage.setItem('pfp', uploadResult.Location);
             } catch (error) {
                 console.error('Error uploading image to S3:', error);
             }
@@ -60,7 +62,8 @@ const UserProfileChange = ({ onSaveChanges }) => {
 
     const handleImageChange = (e) => { // 이미지 변경
         if (e.target.files && e.target.files[0]) {
-            setProfileImage(URL.createObjectURL(e.target.files[0]));
+            const newProfileImage = URL.createObjectURL(e.target.files[0]);
+            setProfileImage(newProfileImage);
         }
     };
 
@@ -124,7 +127,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
                 <label htmlFor="image-upload" className="imageEdit">
                     <FaCog size={30} />
                 </label>
-                <input id="image-upload" type="file" onChange={onFileChange} style={{ display: 'none' }} />
+                <input id="image-upload" type="file" onChange={handleImageChange} style={{ display: 'none' }} />
             </div>
             <div className="profileChangeBox">
                 <div className="profileField">

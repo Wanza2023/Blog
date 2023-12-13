@@ -38,6 +38,7 @@
     margin-right: 1rem;
     max-width: 6rem;
     object-fit: contain;
+    border-radius: 50%;
 }
 
 .personal_profile h2 {
