@@ -16,7 +16,6 @@ const UserProfileChange = ({ onSaveChanges }) => {
     const Gender = storedGender === 'W' ? '여성' : storedGender === 'M' ? '남성' : '';
     const memberId = useRecoilValue(memberIdState);
     const [nickname, setNickname] = useState(storedNickname); // 닉네임 상태 변수
-
     const [password, setPassword] = useState(''); // 비밀번호 상태 변수
     const [confirmPassword, setConfirmPassword] = useState(''); // 비밀번호 확인 상태 변수
     const [passwordChangeUrl, setPasswordChangeUrl] = useState('');
@@ -85,6 +84,28 @@ const UserProfileChange = ({ onSaveChanges }) => {
             })
     }
 
+    const handlePatchData = () => {
+        const token = sessionStorage.getItem('token');
+        axios
+            .patch(`${process.env.REACT_APP_MEMBER_API_KEY}/info`, {
+                // 닉네임,생일,성별,프로필사진
+                nickName: nickname,
+                gender : storedGender,
+                birth: storedBirth,
+                pfp: profileImg
+            },{
+                headers: {
+                    Authorization: `Bearer ${token}`
+            }
+            })
+            .then(res=>{
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.error("Error fetching data:", err);
+            })
+    }
+
     const handleSubmit = () => {
         if (password !== confirmPassword) {
             setPasswordError('비밀번호가 일치하지 않습니다.');
@@ -118,9 +139,9 @@ const UserProfileChange = ({ onSaveChanges }) => {
 
     return (
         <div className="userProfileChange">
-             <div className="profileImage">
-                {profileImage ? (
-                    <img src={profileImage} alt="Profile" className="userImage" />
+            <div className="profileImage">
+                {profileImg ? (
+                    <img src={profileImg} alt="Profile" className="userImage" />
                 ) : (
                     <BiUserCircle size={200} className="userIcon" />
                 )}
@@ -131,7 +152,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
             </div>
             <div className="profileChangeBox">
                 <div className="profileField">
-                    <p className="fieldLabel">이름</p>
+                    <p className="fieldLabel">닉네임</p>
                     <input 
                         type="text" 
                         placeholder="닉네임 변경" 
@@ -149,7 +170,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
                     <div className="dataField">{Gender}</div>
                 </div>
                 <div className="submitButtonContainer">
-                    <button className="saveButton" onClick={handleSubmit}>저장하기</button>
+                    <button className="saveButton" onClick={handlePatchData}>저장하기</button>
                 </div>
             </div>
         </div>
