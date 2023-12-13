@@ -279,6 +279,33 @@ function PostWrite() {
     }
   };
 
+  //해시태그 생성
+  const fetchHashtag = async () => {
+    try {
+      const requestBody = {
+        content: desc ? desc : null,
+      };
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_HASHTAG_API_KEY}/createTags`,
+        requestBody
+      );
+
+      if (response.data && "hashtag" in response.data) {
+        console.log(response.data.body)
+        setTagList(response.data.hashtag);
+      } else {
+        console.error("Invalid response format");
+      }
+    } catch (error) {
+      console.error("Failed to fetch hashtag:", error);
+      if (error.response) {
+        console.error("Server Response:", error.response.data);
+      }
+    }
+  };
+
+
   return (
     <Container>
       <div className="containerBox">
@@ -335,7 +362,7 @@ function PostWrite() {
           <div>
             <button className="menuButtonEdit" onClick={() => setShowSchedule(!showSchedule)}>일정 추가</button>
             <button className="menuButtonEdit" onClick={fetchSummaryN}>AI 요약</button>
-            <button className="menuButtonEdit">해시태그 추천</button>
+            <button className="menuButtonEdit" onClick={fetchHashtag}>해시태그 추천</button>
           </div>
           {showSchedule && (
             <>

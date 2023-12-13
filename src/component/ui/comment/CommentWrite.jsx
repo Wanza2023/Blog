@@ -36,6 +36,7 @@ const ButtonContainerr = styled.div`
 const CommentWrite = ({ newComment, setNewComment, addComments, setIsPublic, isPublic }) => {
     // const nickname = useRecoilState(nickNameState);
     const { nickname } = useAuth();
+    const profileImg = sessionStorage.getItem('pfp');
 
     const handleSubmit = () => {
         addComments(); 
@@ -58,7 +59,7 @@ const CommentWrite = ({ newComment, setNewComment, addComments, setIsPublic, isP
         <div>
             <UserContainer>
                 <div className='info'>
-                    <BiUserCircle />
+                    {profileImg ? <img src={profileImg} alt="Profile" style={{ width: '30px', height: '30px', borderRadius: '50%' }} /> : <BiUserCircle />}
                     <p className='comments-nickname'>{nickname}</p>
                 </div>
             </UserContainer>
