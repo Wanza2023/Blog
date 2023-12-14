@@ -305,7 +305,7 @@ function SignUp(props){
                             <button className={`gender-btn ${gender === 'M' ? 'selected' : ''}`} name="man" onClick={()=>onClickGender("M")}>남성</button>
                         </div>
                     </div>
-                    <div>
+                    <div className="pfp-field">
                         <label>프로필 이미지</label>
                         <img src={profileImgURL} alt="profile" />
                         <div>
