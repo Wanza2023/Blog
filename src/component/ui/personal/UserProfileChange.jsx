@@ -16,10 +16,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
     const Gender = storedGender === 'W' ? '여성' : storedGender === 'M' ? '남성' : '';
     const memberId = useRecoilValue(memberIdState);
     const [nickname, setNickname] = useState(storedNickname); // 닉네임 상태 변수
-<<<<<<< HEAD
     const [profileImg,setProfileImg] = useState((sessionStorage.getItem('pfp')));
-=======
->>>>>>> dev
     const [password, setPassword] = useState(''); // 비밀번호 상태 변수
     const [confirmPassword, setConfirmPassword] = useState(''); // 비밀번호 확인 상태 변수
     const [passwordChangeUrl, setPasswordChangeUrl] = useState('');
@@ -48,12 +45,8 @@ const UserProfileChange = ({ onSaveChanges }) => {
                 const uploadResult = await s3.upload(params).promise().then();
                 console.log('Image uploaded to S3 successfully', uploadResult);
                 // 업로드된 이미지의 URL을 상태에 저장
-<<<<<<< HEAD
                 setProfileImg(uploadResult.Location);
-=======
-                setProfileImage(uploadResult.Location);
                 sessionStorage.setItem('pfp', uploadResult.Location);
->>>>>>> dev
             } catch (error) {
                 console.error('Error uploading image to S3:', error);
             }
