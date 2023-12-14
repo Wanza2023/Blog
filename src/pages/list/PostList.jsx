@@ -83,7 +83,7 @@ function PostList() {
       <div className='border-line' />
       {currentPosts && (posts.length || hashtagList.length || searchResults.length) > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div></div>)}
-      <Paging page={currentPage} count={count} setPage={setPage}/>
+      <Paging page={currentPage} count={count} setPage={setPage} postPerPage={postPerPage}/>
       <Button />
     </div>
   )
