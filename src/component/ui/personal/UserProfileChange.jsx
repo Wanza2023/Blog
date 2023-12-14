@@ -1,4 +1,5 @@
-import React, { useState, useCallback,useEffect } from 'react';
+import React, { useState, useCallback, } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaCog } from 'react-icons/fa';
 import { BiUserCircle } from "react-icons/bi";
@@ -9,6 +10,8 @@ import {v1} from 'uuid';
 import '../../../styles/component/UserProfileChange.css';
 
 const UserProfileChange = ({ onSaveChanges }) => {
+    const navigate = useNavigate();
+
     const [passwordError, setPasswordError] = useState('');
     const storedNickname = sessionStorage.getItem('nickName');
     const storedBirth = sessionStorage.getItem('birth');
@@ -99,7 +102,10 @@ const UserProfileChange = ({ onSaveChanges }) => {
             }
             })
             .then(res=>{
+                sessionStorage.setItem('pfp', profileImage);
+                alert('프로필 정보가 변경되었습니다!');
                 console.log(res.data);
+                navigate('/');
             })
             .catch((err) => {
                 console.error("Error fetching data:", err);
