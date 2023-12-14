@@ -192,7 +192,7 @@
     border-radius: 10px;
     background-color: #5076FF;
     color: white;
-    min-width: 3.5vw;
+    width: fit-content;
     font-size: 0.9rem;
     padding: 0.7vh;
     margin-right: 0.5vw;

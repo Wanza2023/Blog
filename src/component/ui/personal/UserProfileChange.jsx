@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaCog } from 'react-icons/fa';
 import { BiUserCircle } from "react-icons/bi";
@@ -9,6 +10,8 @@ import { v1 as uuidv1 } from 'uuid';
 import '../../../styles/component/UserProfileChange.css';
 
 const UserProfileChange = ({ onSaveChanges }) => {
+    const navigate = useNavigate();
+
     const [passwordError, setPasswordError] = useState('');
     const storedNickname = sessionStorage.getItem('nickName');
     const storedBirth = sessionStorage.getItem('birth');
@@ -45,7 +48,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
                 const uploadResult = await s3.upload(params).promise().then();
                 console.log('Image uploaded to S3 successfully', uploadResult);
                 // 업로드된 이미지의 URL을 상태에 저장
-                setProfileImg(uploadResult.Location);
+                setProfileImage(uploadResult.Location);
                 sessionStorage.setItem('pfp', uploadResult.Location);
             } catch (error) {
                 console.error('Error uploading image to S3:', error);
@@ -93,14 +96,17 @@ const UserProfileChange = ({ onSaveChanges }) => {
                 nickName: nickname,
                 gender : storedGender,
                 birth: storedBirth,
-                pfp: storedProfileImage
+                pfp: profileImage
             },{
                 headers: {
                     Authorization: `Bearer ${token}`
             }
             })
             .then(res=>{
+                sessionStorage.setItem('pfp', profileImage);
+                alert('프로필 정보가 변경되었습니다!');
                 console.log(res.data);
+                navigate('/');
             })
             .catch((err) => {
                 console.error("Error fetching data:", err);
