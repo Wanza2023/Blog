@@ -4,13 +4,13 @@ import axios from "axios";
 import "../../../styles/component/PostCard.css";
 import { useState,useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { RxReader } from "react-icons/rx";
 import { hashtagListState } from "../../common/AuthState";
 import personal_profile_icon from '../../../assets/images/personal_profile_icon.png';
 import { FaRegCommentDots } from "react-icons/fa6";
 import { HiOutlineHashtag } from "react-icons/hi";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { IoBookmark } from "react-icons/io5";
+import { BiUserCircle } from "react-icons/bi";
 
 
 function PostCard(props){
@@ -108,7 +108,8 @@ function PostCard(props){
                     <div className="cardInfo">
                         <div onClick={()=>navigate(`/user/${props.nickname}`)}>
                             {props.pfp === null ? 
-                                <img src={personal_profile_icon} className="cardProfileImg" alt="personal_profile_icon"/> :
+                                <BiUserCircle className="cardProfileImg"/>
+                                :
                                 <img src={props.pfp} className="cardProfileImg" alt="personal_profile_icon"/>
                             }
                         </div>
