@@ -31,7 +31,7 @@ const Navbar = () => {
     const profileImg = sessionStorage.getItem('pfp');
 
     const profileIconClick = () => {
-        if(isLoggedIn==false) {
+        if(isLoggedIn===false) {
             navigate('/login');
         }
     }
@@ -118,7 +118,21 @@ const Navbar = () => {
             </div>
             <div class="navbar-profile">
                 {isLoggedIn ? (
-                    <img src={profileImg} alt="Profile" onClick={profileIconClick} style={{ width: 30, height: 30, cursor: 'pointer'}} />
+                    // <img src={profileImg} alt="Profile" onClick={profileIconClick} style={{ width: 30, height: 30, cursor: 'pointer'}} />
+                    profileImg !== null ? ( // profileImg가 존재하는 경우
+                        <img
+                            src={profileImg}
+                            alt="프로필"
+                            onClick={profileIconClick}
+                            style={{ width: 30, height: 30, cursor: 'pointer' }}
+                        />
+                    ) : ( // profileImg가 null 또는 undefined인 경우
+                        <BiUserCircle 
+                            alt="프로필"
+                            onClick={profileIconClick}
+                            style={{ width: 30, height: 30, cursor: 'pointer' }}
+                        />
+                    )
                 ) : (
                     <div className="profile-icon">
                     {/* <BsPersonGear size={40} color='gray' onClick={profileIconClick}/> */}

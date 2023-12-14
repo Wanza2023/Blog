@@ -95,7 +95,7 @@ function HashtagList() {
       {currentPosts && posts.length > 0 ? (currentPosts.map((item)=> // currentPosts가 있고, posts도 하나라도 있으면
         (<PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />))):(<div className="resultNone">해시태그가 없습니다.</div>)}
       {/* {posts.map((item) => <PostCard key={item.id} path={`/${item.nickname}/${item.boardId}`} {...item} />)} */}
-      <Paging page={currentPage} count={count} setPage={setPage}/>
+      <Paging page={currentPage} count={count} setPage={setPage} postPerPage={postPerPage}/>
       {/* <Pagination total={posts.length} limit={limit} page={pages} setPage={setPages}/> */}
       <Button />
     </div>
