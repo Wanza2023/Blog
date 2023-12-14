@@ -262,7 +262,7 @@ function SignUp(props){
     
 
     return(
-        <div className="background">
+        <div className="background-signup">
             <div className="signUp">
                 <div className="signUp-form">
                     <div className="signUp-field">
