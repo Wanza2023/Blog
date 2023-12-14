@@ -111,6 +111,7 @@ function PostWrite() {
   const [tagList, setTagList] = useState([]);
   const [summaryN, setSummaryN] = useState("");
   const [showSchedule, setShowSchedule] = useState(false);
+  const memberId = sessionStorage.getItem('memberId');
 
   const handleDayChange = (index, newDay) => {
     const updatedScheduleItems = scheduleItems.map((item, idx) => {
@@ -125,6 +126,7 @@ function PostWrite() {
   // axios post Write
   const boardWrite = async () => {
     const board = {
+      memberId: memberId,
       nickname: nickName,
       local: selectedRegion,
       title: title,
