@@ -5,6 +5,7 @@ import PasswordModal from '../../component/ui/personal/PasswordModal';
 import UserProfileChange from '../../component/ui/personal/UserProfileChange';
 import UserProfileEdit from '../../component/ui/personal/UserProfileEdit';
 import '../../styles/pages/PersonalEdit.css'
+import PersonalStatistic from '../../component/ui/personal/PersonalStatistic';
 
 const PersonalEdit = () => {
     const [Menu, setMenu] = useState('stats'); // 상태 변수 menu, 초기값 북마크 설정
@@ -74,7 +75,7 @@ const PersonalEdit = () => {
     const renderContent = () => {
         switch (Menu) { // 상태 변수 값에 따라 나누기
         case 'stats':
-            return 
+            return  <PersonalStatistic onSaveChanges={handleSaveChanges} />;
         case 'change':
             return <UserProfileChange onSaveChanges={handleSaveChanges} />;
         case 'edit':
