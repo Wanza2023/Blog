@@ -106,7 +106,12 @@ function PostCard(props){
             <div className="cardContents" >
                 <div>
                     <div className="cardInfo">
-                        <div onClick={()=>navigate(`/user/${props.nickname}`)}><img src={personal_profile_icon} className="cardProfileImg" alt="personal_profile_icon"/></div>
+                        <div onClick={()=>navigate(`/user/${props.nickname}`)}>
+                            {props.pfp === null ? 
+                                <img src={personal_profile_icon} className="cardProfileImg" alt="personal_profile_icon"/> :
+                                <img src={props.pfp} className="cardProfileImg" alt="personal_profile_icon"/>
+                            }
+                        </div>
                         <div className="cardInfoProfile" onClick={()=>navigate(`/user/${props.nickname}`)}>
                             <div className="cardInfoProfileNickname">{props.nickname}</div>
                             <div className="cardInfoDate">{formattedDate}</div>
