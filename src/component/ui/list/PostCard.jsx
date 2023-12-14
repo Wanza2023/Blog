@@ -9,7 +9,8 @@ import { hashtagListState } from "../../common/AuthState";
 import personal_profile_icon from '../../../assets/images/personal_profile_icon.png';
 import { FaRegCommentDots } from "react-icons/fa6";
 import { HiOutlineHashtag } from "react-icons/hi";
-
+import { IoBookmarkOutline } from "react-icons/io5";
+import { IoBookmark } from "react-icons/io5";
 
 
 function PostCard(props){
@@ -117,6 +118,9 @@ function PostCard(props){
                     </div>
                 </div>
                 <div className="cardfooter">
+                    <div className='bookmark-num'>
+                        {props.bookmarkStatus ? <IoBookmark size={23} color="#5076FF" /> : <IoBookmarkOutline size={23} color="gray" /> }                
+                    </div>
                     <FaRegCommentDots color="gray"/> 
                     <div className="cardfooterCommentLen">{props.commentSize}</div>
                     <div className="hashtagWrapper">
