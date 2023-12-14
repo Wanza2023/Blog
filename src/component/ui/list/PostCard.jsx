@@ -34,7 +34,7 @@ function PostCard(props){
     function convertTime(date) {
         date = new Date(date);
         let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
-        let dateOffset = new Date(date.getTime()); // UTC 타임존 해결을 위해 offset 적용
+        let dateOffset = new Date(date.getTime()-offset); // UTC 타임존 해결을 위해 offset 적용
         return dateOffset
     }
     // 시간 변환 몇분전 몇시간전 이런형태로 변환
