@@ -1,11 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback,useEffect } from 'react';
 import axios from "axios";
 import { FaCog } from 'react-icons/fa';
 import { BiUserCircle } from "react-icons/bi";
 import { useRecoilValue } from 'recoil';
 import { memberIdState } from '../../common/AuthState';
 import AWS from 'aws-sdk';
-import { v1 as uuidv1 } from 'uuid';
+import {v1} from 'uuid';
 import '../../../styles/component/UserProfileChange.css';
 
 const UserProfileChange = ({ onSaveChanges }) => {
@@ -23,7 +23,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
     const storedProfileImage = sessionStorage.getItem('pfp');
     const [profileImage, setProfileImage] = useState(storedProfileImage || null); // 프로필 이미지 상태 변수
 
-    const onFileChange = useCallback(async (e) => {
+    const onProfileImgChange = useCallback(async (e) => {
         const file = e.target.files[0];
         
         if (file) {
@@ -35,17 +35,16 @@ const UserProfileChange = ({ onSaveChanges }) => {
     
             const params = {
                 Bucket: process.env.REACT_APP_AWS_BUCKET, // 버킷 이름
-                Key: `profile/${uuidv1()}.${file.type.split("/")[1]}`, 
+                Key: `profile/${v1()}.${file.type.split("/")[1]}`, 
                 Body: file,
                 ContentType: file.type,
                 ACL: "public-read"
             };
-    
             try {
-                const uploadResult = await s3.upload(params).promise().then();
+                const uploadResult = await s3.upload(params).promise().then((res)=>res.Location);
                 console.log('Image uploaded to S3 successfully', uploadResult);
                 // 업로드된 이미지의 URL을 상태에 저장
-                setProfileImg(uploadResult.Location);
+                setProfileImage(uploadResult);
                 sessionStorage.setItem('pfp', uploadResult.Location);
             } catch (error) {
                 console.error('Error uploading image to S3:', error);
@@ -93,7 +92,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
                 nickName: nickname,
                 gender : storedGender,
                 birth: storedBirth,
-                pfp: storedProfileImage
+                pfp: profileImage
             },{
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -149,7 +148,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
                 <label htmlFor="image-upload" className="imageEdit">
                     <FaCog size={30} />
                 </label>
-                <input id="image-upload" type="file" onChange={handleImageChange} style={{ display: 'none' }} />
+                <input id="image-upload" type="file" accept='image/*' onChange={onProfileImgChange} style={{ display: 'none' }} />
             </div>
             <div className="profileChangeBox">
                 <div className="profileField">
