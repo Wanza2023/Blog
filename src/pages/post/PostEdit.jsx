@@ -182,7 +182,7 @@ function PostEdit() {
 
     useEffect(() => {
         getBoard();
-        console.log(scheduleItems);
+        console.log(totConfirm);
     }, []);
     const handleSelectLocation = (selectedLocationData, index) => {
         setLocationItems((prevLocationItems) => {
