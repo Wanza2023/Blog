@@ -24,10 +24,17 @@ export default function MainPage() {
     const [marker, setmarker] = useState({ display: 'none' });
     const [regionName, setRegionName] = useState('');
 
+    const token = sessionStorage.getItem('token');
+    
     const handleSearchEnter = async (event) => {
         if (event.key === 'Enter' && searchTerm.trim() !== "") {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`);
+                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
                 // 검색 결과 처리 로직
                 navigate(`/board/search/${searchTerm}`);
                 setSearchTerm("");

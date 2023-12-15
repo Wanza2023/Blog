@@ -22,13 +22,24 @@ const CommentList = ({comments, setComments}) => {
     const [commentNickname,setCommentNickname] = useRecoilState(nickNameState);
     const [comment, setComment] = useState([]);
     const [isPublic, setIsPublic] = useState(true); // 댓글 공개 비공개 설정
-
+    const [commentStatuses, setCommentStatuses] = useState([comments.map(c => c.status)]);
     const [bookmarkState, setBookmarkState] = useRecoilState(bookmarkResultState);
+    const token = sessionStorage.getItem('token');
+    const memberId = sessionStorage.getItem('memberId');
+
+    const handleVisibilityToggle = (index) => {
+        const newStatus = !commentStatuses[index];
+        console.log(index);
+        setCommentStatuses(prev => prev.map((status, idx) => idx === index ? newStatus : status));
+        
+        console.log(commentStatuses);
+    };
 
     const addComments = async () => {
         try {
             if(isLoggedIn) {
-                const postResponse = await axios.post(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}`,{
+                const postResponse = await axios.post(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}`,{
+                    memberId: memberId,
                     nickname : commentNickname,
                     content : newComment,
                     status : isPublic
@@ -57,9 +68,9 @@ const CommentList = ({comments, setComments}) => {
         const ids = comments.reverse().map(item=>item.id);
         const commentsId = ids[index];
         try {
-            await axios.delete(`${process.env.REACT_APP_COMMENT_API_KEY}/${nickname}/${boardId}/${commentsId}`);
+            await axios.delete(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}/${commentsId}`);
             alert('댓글을 삭제하였습니다.');
-            navigate(0);
+
         } catch (error) {
             console.log(error);
         }
@@ -75,21 +86,41 @@ const CommentList = ({comments, setComments}) => {
             alert('댓글 작성자만 삭제할 수 있습니다.');
         }
     };
-    // 댓글 수정 onClick
-    const handleCommentEditClick = (index) => {
-        const updatedEditingComment = [...editingComment];
-        updatedEditingComment[index] = comment[index].contents;
-        setEditingComment(updatedEditingComment);
-    };    
-    // 댓글 저장 onClick
-    const handleCommentSaveClick = (index) => {
-        const updatedComment = [...comment];
-        updatedComment[index].contents = editingComment[index];
-        setComment(updatedComment);
 
-        const updatedEditingComment = [...editingComment];
-        updatedEditingComment[index] = '';
-        setEditingComment(updatedEditingComment);
+    // 댓글 수정
+    const handleCommentEdit = (index) => {
+        const updatedEditingComments = [...editingComment];
+        updatedEditingComments[index] = reversedComments[index].content;
+        setEditingComment(updatedEditingComments);
+    };
+    
+    
+    // 댓글 수정 후 저장
+    const handleCommentSave = async (index) => {
+        const commentToEdit = reversedComments[index];
+        try {
+            await axios.put(
+                `${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}/${commentToEdit.id}`, {
+                    memberId: memberId,
+                    nickname: commentToEdit.nickname,
+                    content: editingComment[index],
+                    status : isPublic
+                }
+            );
+            alert('댓글이 수정되었습니다.');
+
+            const getResponse = await axios.get(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}`);
+            if (getResponse.data) {
+                setComments(getResponse.data);
+            }
+    
+            const updatedEditingComments = [...editingComment];
+            updatedEditingComments[index] = '';
+            setEditingComment(updatedEditingComments);
+        } catch (error) {
+            console.error('댓글 수정에 실패했습니다:', error);
+            alert('댓글 수정에 실패했습니다.');
+        }
     };
 
     const handleCommentCancelClick = (index) => {
@@ -117,9 +148,6 @@ const CommentList = ({comments, setComments}) => {
     const onClickBookmark = () => {
         if (isLoggedIn) {
             setBookmarkState(!bookmarkState);
-            const token = sessionStorage.getItem('token');
-            const memberId = sessionStorage.getItem('memberId');
-    
             const headersConfig = {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -177,15 +205,19 @@ const CommentList = ({comments, setComments}) => {
                 comment={reversedComments}
                 editingComment={editingComment}
                 setEditingComment={setEditingComment}
-                handleCommentEditClick={handleCommentEditClick}
-                handleCommentSaveClick={handleCommentSaveClick}
+                handleCommentEdit={handleCommentEdit}
+                handleCommentSave={handleCommentSave}
                 handleCommentCancelClick={handleCommentCancelClick}
+                commentStatuses={commentStatuses}
+                handleVisibilityToggle={handleVisibilityToggle}
                 handleCommentChange={handleCommentChange}
                 handleCommentReportClick={handleCommentReportClick}
                 handleCommentLikeClick={handleCommentLikeClick}
                 isLikedStates={isLikedStates}
                 onDelete={handleCommentDeleteClick}
                 isLoggedIn={isLoggedIn}
+                setIsPublic={setIsPublic}
+                isPublic={isPublic}
             />
         </div>
     );
