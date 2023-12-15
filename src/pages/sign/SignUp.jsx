@@ -5,6 +5,7 @@ import {v1} from 'uuid';
 
 import "../../styles/pages/SignUp.css";
 import { useNavigate } from "react-router-dom";
+import imgDefault from "../../assets/images/noImg_view.png"
 
 function SignUp(props){
     const navigate = useNavigate();
@@ -63,6 +64,11 @@ function SignUp(props){
     }
     // 닉네임 중복 확인
     const handleDoubleCheckName = (nickName) => {
+        if(nickName.length < 2 || nickName.length > 10 || nickName.includes(" ")){
+            setNameMessage("2글자 이상 10글자 이하로 공백 없이 입력해주세요");
+            totConfirm[1] = 0; setTotConfirm(()=>[...totConfirm]);
+            return;
+        }
         axios
             .get(`${process.env.REACT_APP_MEMBER_API_KEY}/validate/nickname/${nickName}`)
             .then(res=>{
@@ -251,9 +257,9 @@ function SignUp(props){
             confirmPwdRef.current.focus();
             alert(message);
             return;
-        } else if (name === "") {
-            let message = "닉네임을 입력해주세요.";
-            setNameMessage("닉네임을 입력해주세요.");
+        } else if (name === "" || name.length < 2 || name.length > 10) {
+            let message = "닉네임을 2글자 이상 10글자 이하로 공백없이 입력해주세요.";
+            setNameMessage("2글자 이상 10글자 이하로 공백없이 입력해주세요.");
             nameRef.current.focus();
             alert(message);
             return;
@@ -307,7 +313,8 @@ function SignUp(props){
                     </div>
                     <div className="pfp-field">
                         <label>프로필 이미지</label>
-                        <img src={profileImgURL} alt="profile" />
+                        {/* <img src={profileImgURL} alt="프로필 이미지를 넣어주세요" /> */}
+                        {profileImgURL === null ? (<img src={imgDefault} alt="프로필이미지"/>) : <img src={profileImgURL} alt="프로필이미지" />}
                         <div>
                             <input type="file" accept="image/*" onChange={onProfileImgChange}></input>
                         </div>
