@@ -83,6 +83,7 @@ function PostView() {
           const commentResponse = await axios.get(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}`);
           if (commentResponse.data) {
             setComments(commentResponse.data);
+            console.log(commentResponse.data);
           }
         } else {
           console.error('Invalid response data format');

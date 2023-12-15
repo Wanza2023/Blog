@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { nickNameState } from '../../common/AuthState';
 import '../../../styles/component/Comment.css'
-import { CiLock } from "react-icons/ci";
+import { CiLock, CiUnlock } from "react-icons/ci";
 
 const Comments = styled.div`
     margin-top: 2vh;
@@ -84,11 +84,34 @@ const CommentsList = styled.div`
     float: left;
     border-bottom: 2px solid #e8e7e7;
     width: 100%;
-    min-height: 5vh;
+    min-height: ${props => props.isEditing ? '17vh' : '5vh'};
     padding-bottom: 1vw;
     margin-bottom: 2vh;
     text-align: left;
     font-size: 0.9rem;
+
+    .comment-edit-input {
+        border: 2px solid #e8e7e7;
+        border-radius: 10px;
+        background: white;
+        width: 95%;
+        padding: 10px;
+        margin-top: 1vh;
+        font-size: 0.9rem;
+    }
+
+    > div > button {
+        float: right;
+        border: none;
+        border-radius: 20px;
+        background: #5076FF;
+        color: white;
+        cursor: pointer;
+        width: 3vw;
+        height: 3.3vh;
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+    }
 
     .secretComment {
         font-size: 0.8rem;
@@ -111,7 +134,7 @@ const CommentsList = styled.div`
     }
 `;
 
-const CommentListItem = ({ comment, editingComment, setEditingComment, handleCommentEditClick, handleCommentSaveClick, handleCommentCancelClick, handleCommentChange, handleCommentReportClick, handleCommentLikeClick, isLikedStates, onDelete, isLoggedIn }) => {
+const CommentListItem = ({ comment, editingComment, setEditingComment, handleCommentEdit, handleCommentSave, handleCommentCancelClick, handleVisibilityToggle, handleCommentChange, handleCommentReportClick, handleCommentLikeClick, isLikedStates, onDelete, isLoggedIn, setIsPublic, isPublic}) => {
     const navigate = useNavigate();
 
     const [showMenu, setShowMenu] = useState(new Array(comment.length).fill(false));
@@ -129,12 +152,15 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
 
     const commentStatus = comment.map((commentItem) => commentItem.status); // 댓글 공개여부
 
-    function convertTime(date) {
-        date = new Date(date);
-        let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
-        let dateOffset = new Date(date.getTime() - 2*offset);
-        let formattedDate = dateOffset.toISOString().replace("T", " ").replace(/\.\d{3}Z$/, "");
-        return formattedDate;
+    const handleToggle = () => {
+        setIsPublic(!isPublic);
+    };
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const offset = date.getTimezoneOffset() * 60000;
+        const dateOffset = new Date(date.getTime() - 2 * offset);
+        return dateOffset.toISOString().replace("T", " ").replace(/\.\d{3}Z$/, "");
     }
 
     return (
@@ -156,18 +182,19 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                         </CommentsEdit>
                         {showMenu[index] && (
                             <CommentsMenu>
-                                {editingComment[index] === '' ? (
-                                    <>
-                                        <button onClick={() => handleCommentSaveClick(index)}>저장</button>
-                                        <button onClick={() => handleCommentCancelClick(index)}>취소</button>
-                                    </>
+                                {editingComment[index] ? (
+                                     <></>
                                 ) : (
                                     <>
                                         {signInNickName === commentNickName[index] ? (
-                                        <>
-                                            <button onClick={() => handleCommentEditClick(index)}><div className='edit-set'>수정<AiOutlineEdit /></div></button>
-                                            <button onClick={() => onDelete(index)}><div className='edit-set'>삭제<AiOutlineDelete /></div></button>
-                                        </>) : (
+                                            <>
+                                                <button onClick={() => handleCommentEdit(index)}>
+                                                    <div className='edit-set'>수정<AiOutlineEdit />
+                                                    </div>
+                                                </button>
+                                                <button onClick={() => onDelete(index)}><div className='edit-set'>삭제<AiOutlineDelete /></div></button>
+                                            </>
+                                        ) : (
                                             <button onClick={() => handleCommentReportClick(index)}><div className='edit-set'>신고<AiOutlineFlag /></div></button>
                                         )}
                                     </>
@@ -179,12 +206,47 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                         {
                             commentStatus[index] === false ? 
                             <>
-                                <div className='secretCommentSet'><div className='secretComment'><CiLock size={18} color='gray' /></div>
-                                {(nickname === signInNickName || commentNickName[index] === signInNickName) && <><div className='commentContent'>{commentItem.content}</div></>}</div>
+                                {editingComment[index] ? (
+                                    <div>
+                                        <textarea 
+                                            value={editingComment[index]}
+                                            onChange={(e) => handleCommentChange(e, index)}
+                                            className="comment-edit-input"
+                                        />
+                                        
+                                        <div onClick={handleToggle} style={{ cursor: 'pointer' }}>
+                                            {isPublic ? <CiUnlock style={{ color: 'gray' }} size={30} /> : <CiLock style={{ color: 'gray' }} size={30} />}
+                                        </div>
+                                        <button onClick={() => handleCommentSave(index)}>저장</button>
+                                        <button onClick={() => handleCommentCancelClick(index)}>취소</button>
+                                    </div>
+                                ) : (
+                                    <div className='secretCommentSet'><div className='secretComment'><CiLock size={18} color='gray' /></div>
+                                    {(nickname === signInNickName || commentNickName[index] === signInNickName) && <><div className='commentContent'>{commentItem.content}</div></>}</div>
+                                )}
                             </> :
-                            <><div className='commentContent'>{commentItem.content}</div></>
+                                <>
+                                    {editingComment[index] ? (
+                                        <div>
+                                            <textarea 
+                                                value={editingComment[index]}
+                                                onChange={(e) => handleCommentChange(e, index)}
+                                                className="comment-edit-input"
+                                            />
+                                            
+                                            <div onClick={handleToggle} style={{ cursor: 'pointer' }}>
+                                                {isPublic ? <CiUnlock style={{ color: 'gray' }} size={30} /> : <CiLock style={{ color: 'gray' }} size={30} />}
+                                            </div>
+                                            <button onClick={() => handleCommentSave(index)}>저장</button>
+                                            <button onClick={() => handleCommentCancelClick(index)}>취소</button>
+                                        </div>
+                                    ) : (<div className='commentContent'>{commentItem.content}</div>)}
+                                </>
                         }
-                        <div className='commentDate'><br />{convertTime(commentItem.createdAt)}</div>
+                        <div className='commentDate'>
+                            <br />
+                            {formatDate(commentItem.createdAt) === formatDate(commentItem.updatedAt) ? formatDate(commentItem.createdAt) : formatDate(commentItem.updatedAt)}
+                        </div>
                     </CommentsList>
                 </Comments>
             ))}

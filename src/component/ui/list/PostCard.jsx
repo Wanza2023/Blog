@@ -19,9 +19,16 @@ function PostCard(props){
 
     const [hashtagList, setHashTagList] = useRecoilState(hashtagListState)
 
+    const token = sessionStorage.getItem('token');
+    
     const onClickHashtagSearch = async (hashtag) => {
         try{
-            const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/tags/${hashtag}`);
+            const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/tags/${hashtag}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             setHashTagList(response.data.body.reverse() || []);
             navigate(`/board/tags/${hashtag}`);
         }
