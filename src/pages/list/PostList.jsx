@@ -9,6 +9,7 @@ import Paging from "../../component/ui/list/Paging";
 import '../../styles/pages/PostList.css';
 
 function PostList() {
+  const [originalPosts, setOriginalPosts] = useState([]);
   const [posts, setPosts] = useState([]); // 게시글 담을 배열 생성
   const [count, setCount] = useState(0); // 아이템 총 개수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
@@ -37,13 +38,35 @@ function PostList() {
     const selectedValue = parseInt(e.target.value);
     setPostPerPage(selectedValue);
   };
+
+  const handlePopularSort = () => {
+    const sortedByViews = [...posts].sort((a, b) => b.views - a.views);
+    setPosts(sortedByViews);
+    console.log(posts);
+    const indexOfFirstPost = (currentPage - 1) * postPerPage;
+    setCurrentPosts(sortedByViews.slice(indexOfFirstPost, indexOfFirstPost + postPerPage));
+  };
+
+  const handleNewestSort = () => {
+    setPosts(originalPosts);
+    const indexOfFirstPost = (currentPage - 1) * postPerPage;
+    setCurrentPosts(originalPosts.slice(indexOfFirstPost, indexOfFirstPost + postPerPage));
+    console.log(posts);
+  };
+
+  const token = sessionStorage.getItem('token');
   
   useEffect(() => {
     const fetchData = async () => { // api에 데이터 요청 후 응답 response에 저장
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/boards`);
+            const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/boards`, {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              }
+          })
             if (response.data && response.data.body && Array.isArray(response.data.body)) {
-                const Data = response.data.body
+                const Data = response.data.body;
+                setOriginalPosts(Data);
                 setPosts(Data);
                 setCount(Data.length)
                 const indexOfLastPost = currentPage * postPerPage;
@@ -70,8 +93,8 @@ function PostList() {
         </div>
         <div className="postlist-topwrapper">
           <div>
-            <button className="postlist-popularbtn">인기순</button>
-            <button className="postlist-newestbtn">최신순</button>
+            <button className="postlist-popularbtn" onClick={handlePopularSort}>인기순</button>
+            <button className="postlist-newestbtn" onClick={handleNewestSort}>최신순</button>
             <select className="postlist-postperpage-select" onChange={handlePostPerPageSelectChange}>
               <option value="5">5개</option>
               <option value="10">10개</option>
