@@ -36,7 +36,7 @@ function PostView() {
   }
   // 게시글 수정 onClick
   const handleEditClick = () => {
-    alert('수정 버튼 클릭');
+    navigate(`/edit/${nickname}/${boardId}`);
   };
   // 게시글 삭제 onClick 
   const handleDeleteClick = () => {
@@ -100,7 +100,7 @@ function PostView() {
   function convertTime(date) {
     date = new Date(date);
     let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
-    let dateOffset = new Date(date.getTime() - offset); // UTC 타임존 해결을 위해 offset 적용
+    let dateOffset = new Date(date.getTime() - 2*offset); // UTC 타임존 해결을 위해 offset 적용
     return dateOffset.toISOString();
   }
 

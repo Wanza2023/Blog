@@ -190,6 +190,15 @@
     align-items: center;
     flex-direction: column;
 }
+.user-icon-default {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .user-icon img {
     width: 60px;

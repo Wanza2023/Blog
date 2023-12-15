@@ -14,6 +14,7 @@ export default function MainPage() {
 
     const userNames = ['바다조아', '포비베이글', '역사사랑단', '댓글성공기원', '여행좋아', '홍길동'];
 
+    const [popularBlog, setPopularBlog] = useState([]);
     const navigate = useNavigate();
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -44,6 +45,22 @@ export default function MainPage() {
             }
         }
     };
+    useEffect(()=>{
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_MEMBER_API_KEY}/popular`);
+                if (response.data && response.data.body && Array.isArray(response.data.body)) {
+                    setPopularBlog(response.data.body);
+                    console.log(response.data.body);
+                } else {
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Error: 데이터를 불러올 수 없습니다');
+            }
+        };
+        fetchData();
+    },[])
 
     useEffect(() => { // api에 데이터 요청 후 응답 response에 저장
         const fetchData = async () => {
@@ -247,7 +264,7 @@ export default function MainPage() {
                     <PopularList PopularPosts={posts} onClickItem={() => { navigate("/"+ /*닉네임*/ + "/" /*보드아이디*/) }} />
                 </div>
                 <div class="user-card-container-title">인기 블로그</div>
-                <PopularBlog users={userNames} />
+                <PopularBlog popularBlog={popularBlog} />
             </div>
             <Button></Button>
         </>
