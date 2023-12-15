@@ -36,9 +36,9 @@
 
 .personal_profile img {
     margin-right: 1rem;
-    max-width: 6rem;
-    object-fit: contain;
     border-radius: 50%;
+    width: 100px;
+    height: 100px;
 }
 
 .personal_profile h2 {

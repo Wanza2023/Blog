@@ -94,7 +94,7 @@ function PostView() {
       }
     };
     fetchData();
-  }, [boardId, nickname,token,setBookmarkState]);
+  }, [boardId, nickname, token, setBookmarkState]);
 
   // toISOString() 1일전 날짜 안뜨게 시간 변경
   function convertTime(date) {

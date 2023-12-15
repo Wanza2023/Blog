@@ -10,6 +10,7 @@ import BookmarkList from "./pages/list/BookmarkList";
 import PostWrite from "./pages/post/PostWrite";
 import SearchList from "./pages/list/SearchList";
 import HashtagList from "./pages/list/HashtagList";
+import HashtagSearchList from "./pages/list/HashtagSearchList";
 import RegionList from "./pages/list/RegionList";
 import PostView from "./pages/post/PostView";
 import PersonalHome from './pages/personal/PersonalHome';
@@ -47,6 +48,7 @@ function App() {
               <Route path="/bookmark" element={<BookmarkList />} />
               <Route path="board/search/:searchTerm" element={<SearchList />} />
               <Route path="board/tags/:hashtag" element={<HashtagList />} />
+              <Route path="board/searchTags/:searchTerm" element={<HashtagSearchList />} />
               <Route path="write" element={<PostWrite />} />
               <Route path="regionList/:regionName" element={<RegionList />} />
               <Route path="/:nickname/:boardId" element={<PostView />} />

@@ -71,6 +71,11 @@ const CommentList = ({comments, setComments}) => {
             await axios.delete(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}/${commentsId}`);
             alert('댓글을 삭제하였습니다.');
 
+            const getResponse = await axios.get(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}`);
+                if (getResponse.data) {
+                    setComments(getResponse.data);
+                }
+
         } catch (error) {
             console.log(error);
         }

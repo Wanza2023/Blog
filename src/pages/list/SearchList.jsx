@@ -11,6 +11,7 @@ import '../../styles/pages/PostList.css';
 function SearchList() {
   const { searchTerm } = useParams(); // useParams로 url에서 파라미터 추출
   const [posts, setPosts] = useState([]); // 게시글 담을 배열 생성
+  const [originalPosts, setOriginalPosts] = useState([]);
   const [count, setCount] = useState(0); // 아이템 총 개수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
   const [postPerPage, setPostPerPage] = useState(5); // 한 페이지에 보여질 아이템 수 
@@ -20,6 +21,21 @@ function SearchList() {
   const location = useLocation();
 
   const searchResults = useRecoilValue(searchResultsState); // Recoil 상태 관리에서 검색 전역 관리
+
+  const handlePopularSort = () => {
+    const sortedByViews = [...posts].sort((a, b) => b.views - a.views);
+    setPosts(sortedByViews);
+    console.log(posts);
+    const indexOfFirstPost = (currentPage - 1) * postPerPage;
+    setCurrentPosts(sortedByViews.slice(indexOfFirstPost, indexOfFirstPost + postPerPage));
+  };
+
+  const handleNewestSort = () => {
+    setPosts(originalPosts);
+    const indexOfFirstPost = (currentPage - 1) * postPerPage;
+    setCurrentPosts(originalPosts.slice(indexOfFirstPost, indexOfFirstPost + postPerPage));
+    console.log(posts);
+  };
 
   useEffect(() => {
     // url에서 페이지 번호
@@ -41,6 +57,7 @@ function SearchList() {
   useEffect(() => {
     if (searchResults !== undefined) { // searchResults가 존재하는지 확인
       setPosts(searchResults);
+      setOriginalPosts(searchResults);
       setCount(searchResults.length)
       const indexOfLastPost = currentPage * postPerPage;
       const indexOfFirstPost = indexOfLastPost - postPerPage;
@@ -61,8 +78,8 @@ function SearchList() {
         </div>
         <div className="postlist-topwrapper">
           <div>
-            <button className="postlist-popularbtn">인기순</button>
-            <button className="postlist-newestbtn">최신순</button>
+            <button className="postlist-popularbtn" onClick={handlePopularSort}>인기순</button>
+            <button className="postlist-newestbtn" onClick={handleNewestSort}>최신순</button>
             <select className="postlist-postperpage-select" onChange={handlePostPerPageSelectChange}>
               <option value="5">5개</option>
               <option value="10">10개</option>
