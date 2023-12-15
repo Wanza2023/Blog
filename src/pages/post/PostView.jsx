@@ -36,19 +36,7 @@ function PostView() {
   }
   // 게시글 수정 onClick
   const handleEditClick = () => {
-    axios
-      .put(`${process.env.REACT_APP_BOARD_API_KEY}/write/${boardId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then(function(res){
-        // navigate(`/board/write/${boardId}`);
-        console.log(res.data);
-      })
-      .catch(function(err){
-        console.log("error: ", err);
-      })
+    navigate(`/edit/${nickname}/${boardId}`);
   };
   // 게시글 삭제 onClick 
   const handleDeleteClick = () => {

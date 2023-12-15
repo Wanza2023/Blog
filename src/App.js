@@ -19,6 +19,7 @@ import { RecoilRoot } from "recoil";
 import SelectLocation from "./component/ui/contents/schedule/SelectLocation";
 import PersonalEdit from "./pages/personal/PersonalEdit";
 import PasswordFind from "./pages/sign/PasswordFind";
+import PostEdit from "./pages/post/PostEdit";
 
 function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -49,6 +50,7 @@ function App() {
               <Route path="write" element={<PostWrite />} />
               <Route path="regionList/:regionName" element={<RegionList />} />
               <Route path="/:nickname/:boardId" element={<PostView />} />
+              <Route path="edit/:nickname/:boardId" element={<PostEdit />} />
               <Route path="login" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
               <Route path="user/:nickname" element={<PersonalHome/>} />
