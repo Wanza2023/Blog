@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { RxReader } from "react-icons/rx";
+import { BiUserCircle } from "react-icons/bi";
 import '../../../styles/pages/Bookmark.css';
 import personal_profile_icon from '../../../assets/images/personal_profile_icon.png';
 
@@ -25,7 +26,13 @@ const BookmarkListItem = ({ post }) => {
             <div className="bookmark-content">
                 <p className="bookmark-title">{post.title}</p>
                 <div className="bookmark-hover-content">
-                    <img src={personal_profile_icon} alt="personal_profile_icon" className="bookmark-profile-img"/>
+                    {post.pfp !== "null" ? (
+                        <img src={post.pfp} alt="personal_profile_icon" className="bookmark-profile-img"/>
+                    ): (
+                        <BiUserCircle 
+                            style={{ width: 30, height: 30 }}
+                        />
+                    )}
                     <p className="bookmark-nickname">{post.nickname}</p>
                     {summarySentences.map((sentence, index) => (
                         <p key={index} className="bookmark-summary">{sentence.trim()}.</p> // 각 문장을 별도의 줄로 표시
