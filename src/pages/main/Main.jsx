@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { searchResultsState } from "../../component/common/AuthState";
 import axios from 'axios';
 import Button from "../../component/common/Button";
 import PopularList from "../../component/ui/list/PopularList";
@@ -18,6 +20,7 @@ export default function MainPage() {
     const navigate = useNavigate();
 
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useRecoilState(searchResultsState);
     const [hashtags, setHashtags] = useState([]);
 
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
@@ -30,14 +33,10 @@ export default function MainPage() {
     const handleSearchEnter = async (event) => {
         if (event.key === 'Enter' && searchTerm.trim() !== "") {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`, 
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                // 검색 결과 처리 로직
+                const response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`);
+                setSearchResults(response.data.body.reverse() || []);
                 navigate(`/board/search/${searchTerm}`);
+                console.log(response.data.body);
                 setSearchTerm("");
             } catch (error) {
                 console.error("Failed to fetch search results:", error);

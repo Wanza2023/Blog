@@ -59,7 +59,11 @@ const CommentWrite = ({ newComment, setNewComment, addComments, setIsPublic, isP
         <div>
             <UserContainer>
                 <div className='info'>
-                    {profileImg ? <img src={profileImg} alt="Profile" style={{ width: '30px', height: '30px', borderRadius: '50%' }} /> : <BiUserCircle />}
+                    {profileImg ? (
+                        <img src={profileImg} alt="Profile" style={{ width: '30px', height: '30px', borderRadius: '50%' }} />
+                    ) : (
+                        <BiUserCircle />
+                    )}
                     <p className='comments-nickname'>{nickname}</p>
                 </div>
             </UserContainer>

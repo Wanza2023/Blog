@@ -47,7 +47,7 @@ const PersonalHome = () => {
 
     const { nickname } = useParams(); // useParams로 url에서 파라미터 추출
     const [posts, setPosts] = useState([]); // 게시물 담을 배열 생성
-    const profileImg = sessionStorage.getItem('pfp');
+    const [profileImg, setProfileImg] = useState();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -76,13 +76,15 @@ const PersonalHome = () => {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                if (response.data && response.data.body && Array.isArray(response.data.body)) {
-                    const Data = response.data.body
+                if (response.data && response.data.body.board && Array.isArray(response.data.body.board)) {
+                    const Data = response.data.body.board;
+                    console.log(Data);
                     setPosts(Data);
                     setCount(Data.length)
                     const indexOfLastPost = currentPage * postPerPage;
                     const indexOfFirstPost = indexOfLastPost - postPerPage;
                     setCurrentPosts(Data.slice(indexOfFirstPost,indexOfLastPost));
+                    setProfileImg(response.data.body.profile.pfp);
                 } else {
                 }
             } catch (e) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { isLoggedInState ,nickNameState,memberIdState, searchResultsState } from "./AuthState";
+import { isLoggedInState , nickNameState, memberIdState, searchResultsState } from "./AuthState";
 import { Link,useNavigate,} from "react-router-dom";
 import axios from "axios";
 import '../../styles/component/Navbar.css';
@@ -50,13 +50,17 @@ const Navbar = () => {
                 let response;
                 if (searchMode === SEARCH_MODES.POST) {
                     response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/search/${searchTerm}`);
+                    setSearchResults(response.data.body.reverse() || []);
+                    navigate(`/board/search/${searchTerm}`);
+                    console.log(response.data.body);
+                    setSearchTerm("");
                 } else {
                     response = await axios.get(`${process.env.REACT_APP_BOARD_API_KEY}/tags/${searchTerm}`);
+                    setSearchResults(response.data.body.reverse() || []);
+                    navigate(`/board/searchTags/${searchTerm}`);
+                    console.log(response.data.body);
+                    setSearchTerm("");
                 }
-                setSearchResults(response.data.body.reverse() || []);
-                navigate(`/board/${searchMode.toLowerCase()}/${searchTerm}`);
-                console.log(response.data.body);
-                setSearchTerm("");
             } catch (error) {
                 console.error("Failed to fetch search results:", error);
             }

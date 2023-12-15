@@ -168,7 +168,11 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
             {comment.map((commentItem, index) => (
                 <Comments key={index}>
                     <CommentsInfo>
-                        <BiUserCircle onClick={() => { navigate(`/user/${commentItem.nickname}`)}} />
+                        {commentItem.pfp ? (
+                            <img src={commentItem.pfp} alt="Profile" style={{ width: '30px', height: '30px', borderRadius: '50%' }} onClick={() => { navigate(`/user/${commentItem.nickname}`)}} />
+                        ) : (
+                            <BiUserCircle onClick={() => { navigate(`/user/${commentItem.nickname}`)}} />
+                        )}
                         <button onClick={() => { navigate(`/user/${commentItem.nickname}`)}}>{commentItem.nickname}</button>
                     </CommentsInfo>
                     <ButtonContainer>

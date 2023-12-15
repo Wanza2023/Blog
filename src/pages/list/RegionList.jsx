@@ -11,6 +11,7 @@ import { IoLocationOutline } from "react-icons/io5";
 
 function RegionList() {
   const { regionName } = useParams(); // useParams로 url에서 파라미터 추출
+  const [originalPosts, setOriginalPosts] = useState([]);
   const [posts, setPosts] = useState([]); // 게시글 담을 배열 생성
   const [count, setCount] = useState(0); // 아이템 총 개수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
@@ -22,6 +23,21 @@ function RegionList() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handlePopularSort = () => {
+    const sortedByViews = [...posts].sort((a, b) => b.views - a.views);
+    setPosts(sortedByViews);
+    console.log(posts);
+    const indexOfFirstPost = (currentPage - 1) * postPerPage;
+    setCurrentPosts(sortedByViews.slice(indexOfFirstPost, indexOfFirstPost + postPerPage));
+  };
+
+  const handleNewestSort = () => {
+    setPosts(originalPosts);
+    const indexOfFirstPost = (currentPage - 1) * postPerPage;
+    setCurrentPosts(originalPosts.slice(indexOfFirstPost, indexOfFirstPost + postPerPage));
+    console.log(posts);
+  };
 
   useEffect(() => {
     // url에서 페이지 번호
@@ -54,6 +70,7 @@ function RegionList() {
             if (response.data && response.data.body && Array.isArray(response.data.body)) {
                 const Data = response.data.body
                 setPosts(Data);
+                setOriginalPosts(Data);
                 console.log("메인에서 지역 누른 데이터 " + Data);
                 setCount(Data.length)
                 const indexOfLastPost = currentPage * postPerPage;
@@ -105,8 +122,8 @@ const localKorean = localToKorean[regionName] || regionName;
         </div>
         <div className="postlist-topwrapper">
             <div>
-              <button className="postlist-popularbtn">인기순</button>
-              <button className="postlist-newestbtn">최신순</button>
+              <button className="postlist-popularbtn" onClick={handlePopularSort}>인기순</button>
+              <button className="postlist-newestbtn" onClick={handleNewestSort}>최신순</button>
               <select className="postlist-postperpage-select" onChange={handlePostPerPageSelectChange}>
                 <option value="5">5개</option>
                 <option value="10">10개</option>

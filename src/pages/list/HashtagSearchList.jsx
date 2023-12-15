@@ -11,7 +11,8 @@ import '../../styles/pages/PostList.css';
 import Pagination from "react-js-pagination";
 import { HiOutlineHashtag } from "react-icons/hi";
 
-function HashtagList() {
+function HashtagSearchList() {
+  const [originalPosts, setOriginalPosts] = useState([]);
   const { searchTerm } = useParams(); // useParams로 url에서 파라미터 추출
   const { hashtag } = useParams(); // useParams로 url에서 파라미터 추출
   const [posts, setPosts] = useState([]); // 게시글 담을 배열 생성
@@ -19,7 +20,6 @@ function HashtagList() {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지. default 값으로 1
   const [postPerPage, setPostPerPage] = useState(5); // 한 페이지에 보여질 아이템 수 
   const [currentPosts, setCurrentPosts] = useState(0); // 현재 페이지에서 보여지는 아이템들
-  const [originalPosts, setOriginalPosts] = useState([]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,16 +48,17 @@ function HashtagList() {
   const offset = (pages - 1) * limit;
 
   useEffect(() => {
-    if (hashtagLists !== undefined) {
-      setOriginalPosts(hashtagLists);
-      setPosts(hashtagLists);
-      setCount(hashtagLists.length)
+    if (searchResults !== undefined) { // searchResults가 존재하는지 확인
+      setPosts(searchResults);
+      setOriginalPosts(searchResults);
+      setCount(searchResults.length)
       const indexOfLastPost = currentPage * postPerPage;
       const indexOfFirstPost = indexOfLastPost - postPerPage;
-      setCurrentPosts(hashtagLists.slice(indexOfFirstPost,indexOfLastPost));
-      } else {
+      setCurrentPosts(searchResults.slice(indexOfFirstPost, indexOfLastPost));
+    } else {
+      // searchResults가 정의되지 않았거나 빈 배열인 경우 처리
     }
-  }, [currentPage, postPerPage, hashtagLists]);
+  }, [currentPage, postPerPage, searchResults]);
 
   const handlePopularSort = () => {
     const sortedByViews = [...posts].sort((a, b) => b.views - a.views);
@@ -107,4 +108,4 @@ function HashtagList() {
   )
 }
 
-export default HashtagList;
+export default HashtagSearchList;
