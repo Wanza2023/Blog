@@ -98,7 +98,7 @@ const UserProfileChange = ({ onSaveChanges }) => {
     return (
         <div className="userProfileChange">
             <div className="profileImage">
-                {profileImage ? (
+                {profileImage !== "null" ? (
                     <img src={profileImage} alt="Profile" className="userImage" />
                 ) : (
                     <BiUserCircle size={200} className="userIcon" />

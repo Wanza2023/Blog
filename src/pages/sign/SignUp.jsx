@@ -35,7 +35,7 @@ function SignUp(props){
     const [confirmPwdMessage, setConfirmPwdMessage] = useState("");
     const [birthMessage, setBirthMessage] = useState("");
 
-    const [profileImgURL, setProfileImgURL] = useState("");
+    const [profileImgURL, setProfileImgURL] = useState(null);
 
     // email onChange
     const onChangeEmail = (e) => {
