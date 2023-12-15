@@ -122,8 +122,7 @@ const Navbar = () => {
             </div>
             <div class="navbar-profile">
                 {isLoggedIn ? (
-                    // <img src={profileImg} alt="Profile" onClick={profileIconClick} style={{ width: 30, height: 30, cursor: 'pointer'}} />
-                    profileImg !== null ? ( // profileImg가 존재하는 경우
+                    profileImg !== "null" ? ( // profileImg가 존재하는 경우
                         <img
                             src={profileImg}
                             alt="프로필"
