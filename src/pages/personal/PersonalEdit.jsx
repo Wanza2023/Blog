@@ -54,7 +54,7 @@ const PersonalEdit = () => {
 
 
     const menuItems = {
-        stats: { Icon: FaChartBar, label: "방문자 통계" },
+        stats: { Icon: FaChartBar, label: "블로그 통계" },
         change: { Icon: FaUserEdit, label: "회원 정보 수정" },
         edit: { Icon: FaUserCog, label: "비밀번호 변경 및 탈퇴" }
     };
