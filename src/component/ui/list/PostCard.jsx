@@ -4,13 +4,13 @@ import axios from "axios";
 import "../../../styles/component/PostCard.css";
 import { useState,useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { RxReader } from "react-icons/rx";
 import { hashtagListState } from "../../common/AuthState";
 import personal_profile_icon from '../../../assets/images/personal_profile_icon.png';
 import { FaRegCommentDots } from "react-icons/fa6";
 import { HiOutlineHashtag } from "react-icons/hi";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { IoBookmark } from "react-icons/io5";
+import { BiUserCircle } from "react-icons/bi";
 
 
 function PostCard(props){
@@ -34,7 +34,7 @@ function PostCard(props){
     function convertTime(date) {
         date = new Date(date);
         let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
-        let dateOffset = new Date(date.getTime() - offset); // UTC 타임존 해결을 위해 offset 적용
+        let dateOffset = new Date(date.getTime()-offset); // UTC 타임존 해결을 위해 offset 적용
         return dateOffset
     }
     // 시간 변환 몇분전 몇시간전 이런형태로 변환
@@ -108,7 +108,8 @@ function PostCard(props){
                     <div className="cardInfo">
                         <div onClick={()=>navigate(`/user/${props.nickname}`)}>
                             {props.pfp === null ? 
-                                <img src={personal_profile_icon} className="cardProfileImg" alt="personal_profile_icon"/> :
+                                <BiUserCircle className="cardProfileImg"/>
+                                :
                                 <img src={props.pfp} className="cardProfileImg" alt="personal_profile_icon"/>
                             }
                         </div>
