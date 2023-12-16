@@ -84,7 +84,7 @@ const CommentsList = styled.div`
     float: left;
     border-bottom: 2px solid #e8e7e7;
     width: 100%;
-    min-height: ${props => props.isEditing ? '17vh' : '5vh'};
+    min-height: ${props => props.isEditing ? '19vh' : '5vh'};
     padding-bottom: 1vw;
     margin-bottom: 2vh;
     text-align: left;
@@ -100,17 +100,24 @@ const CommentsList = styled.div`
         font-size: 0.9rem;
     }
 
-    > div > button {
+    .edit-button-set {
+        display: flex;
         float: right;
-        border: none;
-        border-radius: 20px;
-        background: #5076FF;
-        color: white;
-        cursor: pointer;
-        width: 3vw;
-        height: 3.3vh;
-        font-size: 0.8rem;
-        margin-left: 0.5rem;
+        margin-right: 1rem;
+        margin-top: 0.5rem;
+        
+        button {
+            float: right;
+            border: none;
+            border-radius: 20px;
+            background: #5076FF;
+            color: white;
+            cursor: pointer;
+            width: 3vw;
+            height: 3.3vh;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
     }
 
     .secretComment {
@@ -129,12 +136,11 @@ const CommentsList = styled.div`
     .commentDate {
         font-size: 0.7rem;
         color: gray;
-        position: absolute;
         margin-top: 1.5rem;
     }
 `;
 
-const CommentListItem = ({ comment, editingComment, setEditingComment, handleCommentEdit, handleCommentSave, handleCommentCancelClick, handleVisibilityToggle, handleCommentChange, handleCommentReportClick, handleCommentLikeClick, isLikedStates, onDelete, isLoggedIn, setIsPublic, isPublic}) => {
+const CommentListItem = ({ comment, editingComment, handleCommentEdit, handleCommentSave, handleCommentCancelClick, handleCommentChange, handleCommentReportClick, handleCommentLikeClick, isLikedStates, onDelete, setIsPublic, isPublic}) => {
     const navigate = useNavigate();
 
     const [showMenu, setShowMenu] = useState(new Array(comment.length).fill(false));
@@ -217,35 +223,37 @@ const CommentListItem = ({ comment, editingComment, setEditingComment, handleCom
                                             onChange={(e) => handleCommentChange(e, index)}
                                             className="comment-edit-input"
                                         />
-                                        
-                                        <div onClick={handleToggle} style={{ cursor: 'pointer' }}>
-                                            {isPublic ? <CiUnlock style={{ color: 'gray' }} size={30} /> : <CiLock style={{ color: 'gray' }} size={30} />}
+                                        <div className='edit-button-set'>
+                                            <div onClick={handleToggle} style={{ cursor: 'pointer' }}>
+                                                {!isPublic ? <CiUnlock style={{ color: 'gray' }} size={30} /> : <CiLock style={{ color: 'gray' }} size={30} />}
+                                            </div>
+                                            <button onClick={() => handleCommentSave(index)}>저장</button>
+                                            <button onClick={() => handleCommentCancelClick(index)}>취소</button>
                                         </div>
-                                        <button onClick={() => handleCommentSave(index)}>저장</button>
-                                        <button onClick={() => handleCommentCancelClick(index)}>취소</button>
                                     </div>
                                 ) : (
                                     <div className='secretCommentSet'><div className='secretComment'><CiLock size={18} color='gray' /></div>
                                     {(nickname === signInNickName || commentNickName[index] === signInNickName) && <><div className='commentContent'>{commentItem.content}</div></>}</div>
                                 )}
                             </> :
-                                <>
-                                    {editingComment[index] ? (
-                                        <div>
-                                            <textarea 
-                                                value={editingComment[index]}
-                                                onChange={(e) => handleCommentChange(e, index)}
-                                                className="comment-edit-input"
-                                            />
-                                            
+                            <>
+                                {editingComment[index] ? (
+                                    <div>
+                                        <textarea 
+                                            value={editingComment[index]}
+                                            onChange={(e) => handleCommentChange(e, index)}
+                                            className="comment-edit-input"
+                                        />
+                                        <div className='edit-button-set'>
                                             <div onClick={handleToggle} style={{ cursor: 'pointer' }}>
                                                 {isPublic ? <CiUnlock style={{ color: 'gray' }} size={30} /> : <CiLock style={{ color: 'gray' }} size={30} />}
                                             </div>
                                             <button onClick={() => handleCommentSave(index)}>저장</button>
                                             <button onClick={() => handleCommentCancelClick(index)}>취소</button>
                                         </div>
-                                    ) : (<div className='commentContent'>{commentItem.content}</div>)}
-                                </>
+                                    </div>
+                                ) : (<div className='commentContent'>{commentItem.content}</div>)}
+                            </>
                         }
                         <div className='commentDate'>
                             <br />
