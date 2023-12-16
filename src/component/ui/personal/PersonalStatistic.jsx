@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,LineChart,Line } from 'recharts';
 import axios from 'axios';
+import "../../../styles/component/PersonalStatistic.css";
 
 function PersonalStatistic() {
 
@@ -30,7 +31,8 @@ function PersonalStatistic() {
 
     return (
         <>
-            <div>
+            <div className='statistic-view-container'>
+                <div className='statistic-title'>내가 쓴 게시글 조회수 순위</div>
                 {/* ResponsiveContainer은 차트를 반응형으로 만듭니다 */}
                 <ResponsiveContainer width="100%" height={500}>
                     {/* BarChart는 바 차트의 컨테이너 역할을 합니다 */}
@@ -52,7 +54,8 @@ function PersonalStatistic() {
                     </BarChart>
                 </ResponsiveContainer>
             </div>
-            <div>
+            <div className='statistic-log-container'>
+                <div className='statistic-title'>나의 블로그 월별 기록</div>
                 <ResponsiveContainer width="100%" height={500}>
                     <LineChart data={posts} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                         <XAxis dataKey="date" />
