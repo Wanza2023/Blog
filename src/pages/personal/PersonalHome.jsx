@@ -96,15 +96,8 @@ const PersonalHome = () => {
         fetchData();
     }, [nickName, currentPage, postPerPage, nickname]);
     
-    const wrapperStyles = {
-        paddingBottom: showText ? '30vh' : '0',
-        width: 'auto',
-        height: '90vh',
-    };
-
-    
     return (
-        <div className='personal_wrapper' style={wrapperStyles}>
+        <div className='personal_wrapper'>
              <div className='personal_profile'>
                 {profileImg ? (
                     <img src={profileImg} alt="Profile" />

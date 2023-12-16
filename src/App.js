@@ -26,11 +26,22 @@ function App() {
   const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowIntro(false);
-    }, 5000);
+    const lastVisitTime = sessionStorage.getItem("lastVisitTime");
+    const currentTime = new Date().getTime();
 
-    return () => clearTimeout(timer);
+    if (lastVisitTime && currentTime - lastVisitTime < 1800000) { // 30분 이내에 다시 방문한 경우, 인트로를 표시하지 않음
+      setShowIntro(false);
+    } else {
+      setShowIntro(true);
+      sessionStorage.setItem("lastVisitTime", currentTime);
+
+      // 5초 후에 인트로를 숨김
+      const timer = setTimeout(() => {
+        setShowIntro(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
   }, []);
 
 

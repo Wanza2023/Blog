@@ -20,20 +20,11 @@ const CommentList = ({comments, setComments}) => {
     const [editingComment, setEditingComment] = useState([]);
     const [isLikedStates, setIsLikedStates] = useState([]);
     const [commentNickname,setCommentNickname] = useRecoilState(nickNameState);
-    const [comment, setComment] = useState([]);
     const [isPublic, setIsPublic] = useState(true); // 댓글 공개 비공개 설정
     const [commentStatuses, setCommentStatuses] = useState([comments.map(c => c.status)]);
     const [bookmarkState, setBookmarkState] = useRecoilState(bookmarkResultState);
     const token = sessionStorage.getItem('token');
     const memberId = sessionStorage.getItem('memberId');
-
-    const handleVisibilityToggle = (index) => {
-        const newStatus = !commentStatuses[index];
-        console.log(index);
-        setCommentStatuses(prev => prev.map((status, idx) => idx === index ? newStatus : status));
-        
-        console.log(commentStatuses);
-    };
 
     const addComments = async () => {
         try {
@@ -70,11 +61,6 @@ const CommentList = ({comments, setComments}) => {
         try {
             await axios.delete(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}/${commentsId}`);
             alert('댓글을 삭제하였습니다.');
-
-            const getResponse = await axios.get(`${process.env.REACT_APP_COMMENT_API_KEY}/${boardId}`);
-                if (getResponse.data) {
-                    setComments(getResponse.data);
-                }
 
         } catch (error) {
             console.log(error);
@@ -209,12 +195,9 @@ const CommentList = ({comments, setComments}) => {
             <CommentListItem
                 comment={reversedComments}
                 editingComment={editingComment}
-                setEditingComment={setEditingComment}
                 handleCommentEdit={handleCommentEdit}
                 handleCommentSave={handleCommentSave}
                 handleCommentCancelClick={handleCommentCancelClick}
-                commentStatuses={commentStatuses}
-                handleVisibilityToggle={handleVisibilityToggle}
                 handleCommentChange={handleCommentChange}
                 handleCommentReportClick={handleCommentReportClick}
                 handleCommentLikeClick={handleCommentLikeClick}
